@@ -1,0 +1,14 @@
+SortSize 0.1.0 — logiciel libre, GPL-3.0-only
+
+Vous pouvez modifier et redistribuer ce logiciel selon la GNU GPL version 3 uniquement. AUCUNE GARANTIE, notamment de qualité marchande ou d'adéquation à un usage particulier, dans les limites autorisées par la loi ; voir les articles 15 et 16.
+
+Le bouton « Lire la GPLv3 intégrale » affiche une copie complète de la licence, disponible hors ligne. Le fichier LICENSE de l'archive contient le même texte.
+
+Les mentions de droits des composants tiers sont conservées dans THIRD_PARTY_NOTICES.txt et licences/ à côté de l'exécutable. Extraits des mentions d'origine de Slint et de ses icônes Fluent :
+Copyright © SixtyFPS GmbH <info@slint.dev>
+Copyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>
+Slint 1.18.1 : voie GPL-3.0-only. Icônes Fluent : MIT.
+
+AUTHORS.txt recense les contributeurs du code SortSize d'après Git ; cette liste ne désigne pas de titulaire exclusif des droits. Aucun titulaire ni millésime de copyright SortSize n'est déduit de ces noms.
+
+Le source correspondant est l'archive SortSize-v0.1.0-source de votre plateforme, fournie avec les binaires ; son nom exact et son SHA-256 figurent dans BUILDINFO.json. Lors d'une redistribution, donner aux destinataires un accès effectif au source correspondant selon la GPLv3 ; un dépôt privé inaccessible ne suffit pas.

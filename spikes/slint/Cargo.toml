@@ -1,0 +1,54 @@
+[package]
+name = "sortsize-slint-spike"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.99"
+publish = false
+default-run = "sortsize-slint-spike"
+
+[workspace]
+resolver = "3"
+
+[lib]
+crate-type = ["rlib", "cdylib"]
+
+[[bin]]
+name = "sortsize-slint-spike"
+path = "src/main.rs"
+
+[dependencies]
+sortsize-core = { path = "../../crates/sortsize-core" }
+slint = { version = "=1.18.1", default-features = false, features = ["std", "compat-1-18", "renderer-software"] }
+
+[dev-dependencies]
+tempfile = "3.20"
+
+[target.'cfg(not(target_os = "android"))'.dependencies]
+slint = { version = "=1.18.1", default-features = false, features = ["backend-winit-x11", "raw-window-handle-06"] }
+i-slint-backend-winit = { version = "=1.18.1", optional = true, default-features = false, features = ["x11", "renderer-software"] }
+
+# Dialogue desktop uniquement ; pas de GTK, runtime async ou intégration Android.
+[target.'cfg(any(target_os = "linux", target_os = "windows"))'.dependencies]
+rfd = { version = "=0.17.2", default-features = false, features = ["xdg-portal"] }
+
+[target.'cfg(target_os = "android")'.dependencies]
+slint = { version = "=1.18.1", default-features = false, features = ["backend-android-activity-06"] }
+
+[package.metadata.android]
+package = "org.sortsize.spike"
+apk_name = "sortsize-spike"
+build_targets = ["aarch64-linux-android"]
+
+[package.metadata.android.sdk]
+min_sdk_version = 23
+target_sdk_version = 35
+
+# Banc de mesure explicite ; aucun diagnostic dans l'application habituelle.
+[features]
+benchmarks = ["dep:i-slint-backend-winit"]
+allocation-profiling = ["benchmarks"]
+
+[[bin]]
+name = "sortsize-measure"
+path = "src/bin/measure.rs"
+required-features = ["benchmarks"]

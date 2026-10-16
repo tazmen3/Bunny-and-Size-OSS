@@ -1,0 +1,7 @@
+/target/
+**/target/
+*.apk
+*.aab
+/.tools/
+__pycache__/
+*.pyc

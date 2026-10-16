@@ -1,0 +1,42 @@
+{
+  "version": "0.1.0",
+  "release_kind": "prerelease",
+  "public_repository": "https://github.com/tazmen3/SortSize-OSS",
+  "origin_product_commit": "fbf46e3d94451b821cfb31fb6228aaea60258045",
+  "product_tree_sha256": "78bd3758d0ed6f05d764a8be3985ef9684dbc1bf814ce0d7e6f3921ab8ba8f7e",
+  "public_history": "Independent single initial commit; private Git history is not imported.",
+  "tag_target": "v0.1.0 points to the new public snapshot commit, not to the origin product commit.",
+  "self_reference": "The public commit SHA is recorded in the release notes after commit creation, not in this commit itself.",
+  "archives": [
+    {
+      "name": "SortSize-v0.1.0-windows-x86_64.zip",
+      "sha256": "56faf4477b2d5589a712bdd3d7f1ee438dfa046fafdcc301c40cbd2a565cc943",
+      "bytes": 9215029,
+      "public_url": "https://github.com/tazmen3/SortSize-OSS/releases/download/v0.1.0/SortSize-v0.1.0-windows-x86_64.zip"
+    },
+    {
+      "name": "SortSize-v0.1.0-source-windows-x86_64.zip",
+      "sha256": "4b3b8d133ece3f095ef7556010c6aaf344d718ca8609c52f599f9d087ba9fcfe",
+      "bytes": 55736383,
+      "public_url": "https://github.com/tazmen3/SortSize-OSS/releases/download/v0.1.0/SortSize-v0.1.0-source-windows-x86_64.zip"
+    },
+    {
+      "name": "SortSize-v0.1.0-linux-x86_64.tar.gz",
+      "sha256": "b2d92ee73cf72f9d9175d5356c188603d330bff3ea2793c6feb17a8409cb7ca4",
+      "bytes": 10574889,
+      "public_url": "https://github.com/tazmen3/SortSize-OSS/releases/download/v0.1.0/SortSize-v0.1.0-linux-x86_64.tar.gz"
+    },
+    {
+      "name": "SortSize-v0.1.0-source-linux-x86_64.tar.gz",
+      "sha256": "1018e7727db94c47a11f13efa3c2ce826cab432e0a3d6295fcfb4393b29dd5d6",
+      "bytes": 56114503,
+      "public_url": "https://github.com/tazmen3/SortSize-OSS/releases/download/v0.1.0/SortSize-v0.1.0-source-linux-x86_64.tar.gz"
+    }
+  ],
+  "archive_validation": {
+    "checks_passed": 28,
+    "files_verified": 5444
+  },
+  "licence": "GPL-3.0-only",
+  "owner_authorization": "Owner confirmed the necessary publication rights, accepted previously identified identities/workstation paths and authorized an experimental public prerelease."
+}
