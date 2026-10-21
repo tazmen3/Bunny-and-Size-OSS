@@ -1,5 +1,7 @@
 # Provenance
 
+**Historical v0.1 documentation.** For the prepared 0.2.0-rc.1, see [current release materials](releases/v0.2.0-rc.1/RELEASE_NOTES.md) and [corresponding-source downloads](releases/v0.2.0-rc.1/DOWNLOADS.md). The buildable product snapshot on this branch is v0.2; the old statements below retain their historical scope.
+
 Le commit produit d’origine est **`fbf46e3d94451b821cfb31fb6228aaea60258045`**. L’identité de son arbre produit est **`78bd3758d0ed6f05d764a8be3985ef9684dbc1bf814ce0d7e6f3921ab8ba8f7e`**. `SOURCE_FILES.json` décrit les 36 fichiers exportés sans modification d’octets ; `PROVENANCE.json` fixe les quatre archives et leurs empreintes. Le contrôle croisé préalable a réussi **28 vérifications sur 5 444 fichiers**. Les archives sont publiées sans reconstruction ni régénération.
 
 Le présent dépôt a un seul commit initial indépendant, sans parent privé. Le tag public `v0.1.0` pointe vers ce nouveau commit public, **pas vers le commit produit privé**. Son SHA est indiqué dans les notes de Release après création pour éviter une autoréférence circulaire. Les BUILDINFO des archives conservent le commit d’origine et le lien SHA-256 de chaque binaire vers son bundle source.

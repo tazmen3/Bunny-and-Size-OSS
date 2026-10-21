@@ -62,3 +62,9 @@ pub(super) fn json() -> String {
         "null".into()
     }
 }
+
+/// Allocation-free snapshot for isolated diagnostic probes, never production.
+#[cfg(feature = "allocation-profiling")]
+pub(super) fn live_requested_bytes() -> usize {
+    enabled::LIVE.load(std::sync::atomic::Ordering::Relaxed)
+}

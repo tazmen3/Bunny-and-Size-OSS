@@ -3620,20 +3620,35 @@ dependencies = [
 
 [[package]]
 name = "sortsize-core"
-version = "0.1.0"
+version = "0.2.0-rc.1"
 dependencies = [
  "globset",
+ "libc",
  "serde",
+ "serde_json",
+ "tempfile",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "sortsize-owner-resolution"
+version = "0.2.0-rc.1"
+dependencies = [
+ "libc",
+ "sortsize-core",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
 name = "sortsize-slint-spike"
-version = "0.1.0"
+version = "0.2.0-rc.1"
 dependencies = [
  "i-slint-backend-winit",
+ "raw-window-handle",
  "rfd",
  "slint",
  "sortsize-core",
+ "sortsize-owner-resolution",
  "tempfile",
 ]
 

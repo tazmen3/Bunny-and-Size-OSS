@@ -1,6 +1,6 @@
 //! Directory-level parallel acquisition. Only the calling thread aggregates.
 //! Never hold the scheduler lock during filesystem calls or user callbacks.
-use crate::local::{LocalSource, Observation, PendingDirectory, open_directory};
+use crate::local::{CollectFields, LocalSource, Observation, PendingDirectory, open_directory};
 use crate::{CancellationToken, ScanFailure, ScanIssue, ScanOptions, TraversalStats};
 use std::collections::VecDeque;
 use std::path::{Path, PathBuf};
@@ -98,6 +98,7 @@ impl Shared {
             if let Observation::Directory {
                 depth_limited: false,
                 resource_limited,
+                ..
             } = observation
             {
                 *resource_limited = !self.defer(&mut state, path, depth);
@@ -150,9 +151,9 @@ impl Shared {
                     // list owns and closes ReadDir before this decrement.
                     self.lock().open -= 1;
                 }
-                Err(observation) => {
+                Err(issue) => {
                     self.publish(
-                        vec![(directory.path.into_path_buf(), observation)],
+                        vec![(directory.path.into_path_buf(), Observation::Error(issue))],
                         directory.depth,
                     );
                 }
@@ -223,8 +224,9 @@ impl Pool {
         root: &Path,
         options: &ScanOptions,
         cancellation: &CancellationToken,
+        fields: CollectFields,
     ) -> Result<Self, ScanFailure> {
-        let source = LocalSource::new(root, options)?;
+        let source = LocalSource::new(root, options, fields)?;
         if source.root().as_os_str().as_encoded_bytes().len()
             > options.concurrency.max_buffered_path_bytes
         {

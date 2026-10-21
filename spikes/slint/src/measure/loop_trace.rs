@@ -77,6 +77,7 @@ pub(super) struct Trace {
     wake_max_ms: f64,
     dispatch_max_ms: f64,
     redraw_max_ms: f64,
+    redraw_samples: Vec<f64>,
     spans: Vec<SlowSpan>,
     omitted: usize,
 }
@@ -91,6 +92,7 @@ impl Default for Trace {
             wake_max_ms: 0.0,
             dispatch_max_ms: 0.0,
             redraw_max_ms: 0.0,
+            redraw_samples: Vec::new(),
             spans: Vec::new(),
             omitted: 0,
         }
@@ -118,6 +120,9 @@ impl Trace {
             let ms = span.started.elapsed().as_secs_f64() * 1000.0;
             if span.kind == "redraw" {
                 self.redraw_max_ms = self.redraw_max_ms.max(ms);
+                if self.redraw_samples.len() < 4096 {
+                    self.redraw_samples.push(ms);
+                }
             }
             self.record(
                 span.kind,
@@ -130,12 +135,20 @@ impl Trace {
         }
     }
     pub(super) fn json(&self) -> String {
+        let mut redraw_samples = self.redraw_samples.clone();
+        redraw_samples.sort_by(f64::total_cmp);
+        let redraw_p95 = redraw_samples
+            .get(redraw_samples.len().saturating_sub(1) * 95 / 100)
+            .copied()
+            .unwrap_or(0.0);
         let spans: Vec<_> = self.spans.iter().map(|s| format!(
             "{{\"at_ms\":{:.3},\"wall_ms\":{:.3},\"cpu_ms\":{},\"phase\":\"{}\",\"kind\":\"{}\"}}",
             s.at_ms, s.wall_ms, s.cpu_ms.map_or("null".into(), |v| format!("{v:.3}")),
             s.phase, s.kind)).collect();
         format!(
-            "{{\"wake_lateness_max_ms\":{:.3},\"dispatch_max_ms\":{:.3},\"redraw_max_ms\":{:.3},\"cpu_probe_max_ms\":{:.3},\"slow_spans\":[{}],\"spans_omitted\":{}}}",
+            "{{\"redraw_samples\":{},\"redraw_p95_ms\":{:.3},\"wake_lateness_max_ms\":{:.3},\"dispatch_max_ms\":{:.3},\"redraw_max_ms\":{:.3},\"cpu_probe_max_ms\":{:.3},\"slow_spans\":[{}],\"spans_omitted\":{}}}",
+            redraw_samples.len(),
+            redraw_p95,
             self.wake_max_ms,
             self.dispatch_max_ms,
             self.redraw_max_ms,

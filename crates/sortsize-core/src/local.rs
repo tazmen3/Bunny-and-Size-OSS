@@ -1,20 +1,37 @@
 //! Streaming native acquisition: one listing and a bounded stack of directories.
 //! No buffered file siblings or temporary on-disk inventory.
+#[cfg(not(windows))]
+use crate::EntryOwner;
 use crate::{
-    CancellationToken, ScanFailure, ScanIssue, ScanOptions, TraversalLimits, TraversalStats,
+    CancellationToken, EntryAllocation, EntryDates, ScanFailure, ScanIssue, ScanOptions,
+    TraversalLimits, TraversalStats,
 };
 use globset::{Glob, GlobSet, GlobSetBuilder};
 use std::fs::{FileType, ReadDir};
 use std::path::{Path, PathBuf};
 
+#[derive(Debug, Clone, Default)]
+pub(crate) struct CollectFields {
+    pub dates: bool,
+    pub allocation: bool,
+    pub owner: bool,
+    // Private export spool: prune by native identity, never a lossy glob.
+    pub private_exclusion: Option<std::sync::Arc<Path>>,
+}
+
 pub(crate) enum Observation {
     File {
         bytes: u64,
         hardlinked: Option<bool>,
+        dates: Option<EntryDates>,
+        owner: Option<crate::owner::ObservedOwner>,
+        allocation: Option<EntryAllocation>,
     },
     Directory {
         depth_limited: bool,
         resource_limited: bool,
+        dates: Option<EntryDates>,
+        owner: Option<crate::owner::ObservedOwner>,
     },
     Symlink,
     Special,
@@ -32,6 +49,7 @@ pub(crate) struct LocalSource {
     exclusions: GlobSet,
     effective_exclusions: Vec<String>,
     max_depth: Option<usize>,
+    fields: CollectFields,
 }
 
 pub(crate) struct LocalWalker {
@@ -46,7 +64,11 @@ pub(crate) struct LocalWalker {
 }
 
 impl LocalSource {
-    pub(crate) fn new(root: &Path, options: &ScanOptions) -> Result<Self, ScanFailure> {
+    pub(crate) fn new(
+        root: &Path,
+        options: &ScanOptions,
+        fields: CollectFields,
+    ) -> Result<Self, ScanFailure> {
         if options.max_open_directories == 0
             || options.traversal_limits.max_pending_directories == 0
             || options.traversal_limits.max_pending_path_bytes == 0
@@ -83,6 +105,7 @@ impl LocalSource {
             exclusions,
             effective_exclusions,
             max_depth: options.max_depth,
+            fields,
         })
     }
     pub(crate) fn root(&self) -> &Path {
@@ -101,6 +124,9 @@ impl LocalSource {
         }
     }
     fn excluded(&self, path: &Path, directory: bool) -> bool {
+        if self.fields.private_exclusion.as_deref() == Some(path) {
+            return true;
+        }
         let relative = path.strip_prefix(&self.root).unwrap_or(path);
         if self.exclusions.is_match(relative) {
             return true;
@@ -128,9 +154,24 @@ impl LocalSource {
             Observation::Symlink
         } else if kind.is_dir() {
             let depth_limited = self.max_depth == Some(depth);
+            #[cfg(windows)]
+            let (metadata, owner) = if self.fields.owner {
+                let (metadata, _, owner) =
+                    crate::allocation::platform::collect_node(path, metadata, false, true);
+                (metadata, owner.map(crate::owner::observed))
+            } else {
+                (metadata, None)
+            };
+            #[cfg(not(windows))]
+            let owner = self
+                .fields
+                .owner
+                .then(|| crate::owner::observed(EntryOwner::collect(&metadata)));
             Observation::Directory {
                 depth_limited,
                 resource_limited: false,
+                dates: self.fields.dates.then(|| EntryDates::collect(&metadata)),
+                owner,
             }
         } else if kind.is_file() {
             #[cfg(unix)]
@@ -140,9 +181,43 @@ impl LocalSource {
             };
             #[cfg(not(unix))]
             let hardlinked = None;
+            #[cfg(windows)]
+            let (metadata, allocation, owner) = if self.fields.owner {
+                let (metadata, allocation, owner) = crate::allocation::platform::collect_node(
+                    path,
+                    metadata,
+                    self.fields.allocation,
+                    true,
+                );
+                (
+                    metadata,
+                    self.fields.allocation.then_some(allocation),
+                    owner.map(crate::owner::observed),
+                )
+            } else if self.fields.allocation {
+                let (metadata, allocation) = crate::allocation::collect_file(path, metadata);
+                (metadata, Some(allocation), None)
+            } else {
+                (metadata, None, None)
+            };
+            #[cfg(not(windows))]
+            let (metadata, allocation) = if self.fields.allocation {
+                let (metadata, allocation) = crate::allocation::collect_file(path, metadata);
+                (metadata, Some(allocation))
+            } else {
+                (metadata, None)
+            };
+            #[cfg(not(windows))]
+            let owner = self
+                .fields
+                .owner
+                .then(|| crate::owner::observed(EntryOwner::collect(&metadata)));
             Observation::File {
                 bytes: metadata.len(),
                 hardlinked,
+                dates: self.fields.dates.then(|| EntryDates::collect(&metadata)),
+                owner,
+                allocation,
             }
         } else {
             Observation::Special
@@ -154,9 +229,10 @@ impl LocalWalker {
         root: &Path,
         options: &ScanOptions,
         cancellation: &CancellationToken,
+        fields: CollectFields,
     ) -> Result<Self, ScanFailure> {
         Ok(Self {
-            source: LocalSource::new(root, options)?,
+            source: LocalSource::new(root, options, fields)?,
             root_pending: true,
             pending: Vec::new(),
             pending_bytes: 0,
@@ -199,6 +275,7 @@ impl LocalWalker {
         if let Observation::Directory {
             depth_limited: false,
             resource_limited,
+            ..
         } = &mut observation
         {
             *resource_limited = !self.defer(path, depth);
@@ -207,24 +284,26 @@ impl LocalWalker {
     }
 }
 
-pub(crate) fn open_directory(path: &Path) -> Result<ReadDir, Observation> {
+pub(crate) fn open_directory(path: &Path) -> Result<ReadDir, ScanIssue> {
     match std::fs::symlink_metadata(path) {
         Ok(metadata) if metadata.is_dir() && !metadata.file_type().is_symlink() => {
-            std::fs::read_dir(path)
-                .map_err(|error| Observation::Error(ScanIssue::io(path, "list", &error)))
+            std::fs::read_dir(path).map_err(|error| ScanIssue::io(path, "list", &error))
         }
-        Ok(_) => Err(changed(path)),
-        Err(error) => Err(Observation::Error(ScanIssue::io(path, "list", &error))),
+        Ok(_) => Err(changed_issue(path)),
+        Err(error) => Err(ScanIssue::io(path, "list", &error)),
     }
 }
 
 fn changed(path: &Path) -> Observation {
-    Observation::Error(ScanIssue {
+    Observation::Error(changed_issue(path))
+}
+fn changed_issue(path: &Path) -> ScanIssue {
+    ScanIssue {
         path: path.into(),
         operation: "metadata",
         kind: "ChangedDuringScan".into(),
         message: "Le type de l'entrée a changé pendant l'analyse".into(),
-    })
+    }
 }
 fn platform_exclusions(root: &Path, user_exclusions: &[String]) -> Vec<String> {
     #[cfg(target_os = "linux")]
@@ -252,6 +331,7 @@ impl Iterator for LocalWalker {
                 if let Observation::Directory {
                     depth_limited: false,
                     resource_limited,
+                    ..
                 } = &mut observation
                 {
                     *resource_limited = !self.defer(&path, 0);
@@ -292,18 +372,64 @@ impl Iterator for LocalWalker {
                     self.current = Some((directory, listing));
                     self.stats.peak_open_directories = 1;
                 }
-                Err(observation) => return Some((directory.path.into_path_buf(), observation)),
+                Err(issue) => {
+                    return Some((directory.path.into_path_buf(), Observation::Error(issue)));
+                }
             }
         }
         None
     }
 }
-#[cfg(all(test, target_os = "linux"))]
+#[cfg(test)]
 mod tests {
     use super::*;
+    use crate::EntryOwner;
+    #[test]
+    fn metadata_transport_sizes_are_measured_per_platform() {
+        eprintln!(
+            "Observation={} EntryAllocation={} EntryDates={} Event={} EntryOwner={} NativeOwnerId={} OptionalOwner={}",
+            std::mem::size_of::<Observation>(),
+            std::mem::size_of::<EntryAllocation>(),
+            std::mem::size_of::<EntryDates>(),
+            std::mem::size_of::<(PathBuf, Observation)>(),
+            std::mem::size_of::<EntryOwner>(),
+            std::mem::size_of::<crate::NativeOwnerId>(),
+            std::mem::size_of::<Option<EntryOwner>>()
+        );
+        assert!(!std::mem::needs_drop::<EntryAllocation>());
+    }
+
+    #[test]
+    fn deleted_before_observation_is_an_error_without_owner() {
+        let temp = tempfile::TempDir::new().unwrap();
+        let path = temp.path().join("gone");
+        std::fs::write(&path, []).unwrap();
+        let expected = std::fs::symlink_metadata(&path).unwrap().file_type();
+        std::fs::remove_file(&path).unwrap();
+        let source = LocalSource::new(
+            temp.path(),
+            &ScanOptions::default(),
+            CollectFields {
+                owner: true,
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        assert!(matches!(
+            source.observe(&path, 1, expected),
+            Observation::Error(_)
+        ));
+    }
+
+    #[cfg(target_os = "linux")]
     #[test]
     fn global_linux_scan_prunes_pseudo_filesystems_before_descent() {
-        let source = LocalSource::new(Path::new("/"), &ScanOptions::default()).unwrap();
+        let source = LocalSource::new(
+            Path::new("/"),
+            &ScanOptions::default(),
+            CollectFields::default(),
+        )
+        .unwrap();
         for path in ["/proc", "/sys", "/dev"] {
             assert!(source.excluded(Path::new(path), true));
         }

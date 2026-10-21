@@ -9,10 +9,26 @@ description = "Moteur d'analyse en lecture seule de SortSize"
 [dependencies]
 serde.workspace = true
 globset.workspace = true
+serde_json.workspace = true
+tempfile.workspace = true
+
+[features]
+# Validation only: no counters or atomics in ordinary acquisition.
+owner-profiling = ["owner-heap-profile"]
+owner-heap-profile = []
+
+[target.'cfg(target_os = "linux")'.dependencies]
+libc = "0.2"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_Storage_FileSystem", "Win32_Security_Authorization", "Win32_System_LibraryLoader"] }
 
 [dev-dependencies]
 tempfile.workspace = true
 serde_json.workspace = true
+
+[target.'cfg(windows)'.dev-dependencies]
+windows-sys = { version = "0.61.2", features = ["Win32_System_Threading"] }
 
 # Opt-in comparison fixture; not linked by the CLI or GUI.
 [[example]]

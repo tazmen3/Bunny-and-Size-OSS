@@ -1,0 +1,75 @@
+{
+  "version": "0.2.0-rc.1",
+  "destination": "tazmen3/SortSize-OSS",
+  "source_commit": "448e92e572c0e986f7706d2373531e033196ed1d",
+  "files": [
+    {
+      "file": "DOWNLOADS.md",
+      "bytes": 1189,
+      "sha256": "d71a455c64f896d6f07df20cc3a9ca50226daaaee0a7ab440fff3e78d918e4a4"
+    },
+    {
+      "file": "KNOWN_ISSUES.md",
+      "bytes": 2441,
+      "sha256": "7725aa9171d14027e5c3cf5894a1cf0860635814351611d5df4a87c2ce8a8d20"
+    },
+    {
+      "file": "LICENSE",
+      "bytes": 34670,
+      "sha256": "b6a8bf63ae2c95b0aa256ee774680d7bd18f21f457da75466f7610b3b16acc4e"
+    },
+    {
+      "file": "PRESENTATION_FR.md",
+      "bytes": 762,
+      "sha256": "91dd9f22757964e469530fd31728040758fc99731204c68bf8df9620b276b53a"
+    },
+    {
+      "file": "PROVENANCE.json",
+      "bytes": 4473,
+      "sha256": "99b196d7fe5637388b2be054dd520ef287ab71d3f8f907cc317ae47ace9ccbf2"
+    },
+    {
+      "file": "RELEASE_CLARIFICATIONS.md",
+      "bytes": 3612,
+      "sha256": "cd1308280dafe82ef73bbac72288400233aae968795d00e6931b9d52ae468181"
+    },
+    {
+      "file": "RELEASE_NOTES.md",
+      "bytes": 9860,
+      "sha256": "2df5871ad00265d2d0898e1b52fd1974440815c1334fb413a3c638ef432b4094"
+    },
+    {
+      "file": "SHA256SUMS",
+      "bytes": 440,
+      "sha256": "693059d02eab13fc37981a5a7d1fe2bb2f2b874ece214c5a7c920a295cd1b18b"
+    },
+    {
+      "file": "SortSize-v0.2.0-rc.1-linux-x86_64.tar.gz",
+      "bytes": 11302811,
+      "sha256": "9dd39b09a62123827409674b5c4d7fed78d28c28503a3f7f8f810e27bc449c7a"
+    },
+    {
+      "file": "SortSize-v0.2.0-rc.1-source-linux-x86_64.tar.gz",
+      "bytes": 56317775,
+      "sha256": "eb629dfbf0688de4721986677461d1633a29b9eed2a368004dab2150fecfa535"
+    },
+    {
+      "file": "SortSize-v0.2.0-rc.1-source-windows-x86_64.zip",
+      "bytes": 55993078,
+      "sha256": "e67bb867959bdfa63078224c1625509c027c51b36f839d85acb5fe5e03d70f8c"
+    },
+    {
+      "file": "SortSize-v0.2.0-rc.1-windows-x86_64.zip",
+      "bytes": 9933668,
+      "sha256": "125f2157cf6bf5ef52e1157ebd5472cf504b66bf14bde70b3e2665765ca047bf"
+    },
+    {
+      "file": "USER_GUIDE.md",
+      "bytes": 3572,
+      "sha256": "fe527121046f228428dbdfa21ac86dcdd57d2f0112397363e021c685c6439726"
+    }
+  ],
+  "release_created": false,
+  "tag_created": false,
+  "private_history_included": false
+}

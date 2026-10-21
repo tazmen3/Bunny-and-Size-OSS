@@ -1,4 +1,4 @@
-use crate::local::{LocalWalker, Observation};
+use crate::local::{CollectFields, LocalWalker, Observation};
 use crate::{CancellationToken, Coverage, Progress, ScanOptions, ScanReport};
 use std::fmt;
 use std::path::{Path, PathBuf};
@@ -14,6 +14,7 @@ pub enum ScanFailure {
     InvalidOptions(String),
     SizeOverflow,
     WorkerIo(std::io::Error),
+    ObserverIo(std::io::Error),
     WorkerPanic,
     ObservationPathLimit {
         required: usize,
@@ -34,6 +35,7 @@ impl fmt::Display for ScanFailure {
             ),
             Self::InvalidOptions(message) => write!(f, "Options invalides : {message}"),
             Self::WorkerIo(error) => write!(f, "Impossible de démarrer un travailleur : {error}"),
+            Self::ObserverIo(error) => write!(f, "Échec du flux d'observations : {error}"),
             Self::WorkerPanic => write!(f, "Un travailleur d'acquisition s'est interrompu"),
             Self::ObservationPathLimit { required, limit } => write!(
                 f,
@@ -50,7 +52,9 @@ impl fmt::Display for ScanFailure {
 impl std::error::Error for ScanFailure {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match self {
-            Self::RootIo { error, .. } | Self::WorkerIo(error) => Some(error),
+            Self::RootIo { error, .. } | Self::WorkerIo(error) | Self::ObserverIo(error) => {
+                Some(error)
+            }
             _ => None,
         }
     }
@@ -64,7 +68,14 @@ pub fn scan(
     cancellation: &CancellationToken,
     progress: impl FnMut(&Progress),
 ) -> Result<ScanReport, ScanFailure> {
-    scan_observed(root, options, cancellation, progress, |_, _| {})
+    scan_observed(
+        root,
+        options,
+        cancellation,
+        progress,
+        CollectFields::default(),
+        |_, _| {},
+    )
 }
 
 pub(crate) fn scan_observed(
@@ -72,7 +83,29 @@ pub(crate) fn scan_observed(
     options: &ScanOptions,
     cancellation: &CancellationToken,
     progress: impl FnMut(&Progress),
+    fields: CollectFields,
     mut observe: impl FnMut(&Path, &Observation),
+) -> Result<ScanReport, ScanFailure> {
+    scan_observed_fallible(
+        root,
+        options,
+        cancellation,
+        progress,
+        fields,
+        |path, item| {
+            observe(path, item);
+            Ok(())
+        },
+    )
+}
+
+pub(crate) fn scan_observed_fallible(
+    root: &Path,
+    options: &ScanOptions,
+    cancellation: &CancellationToken,
+    progress: impl FnMut(&Progress),
+    fields: CollectFields,
+    observe: impl FnMut(&Path, &Observation) -> Result<(), ScanFailure>,
 ) -> Result<ScanReport, ScanFailure> {
     let started_at = SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -80,9 +113,14 @@ pub(crate) fn scan_observed(
         .as_millis();
     let started = Instant::now();
     let mut walker = if options.concurrency.workers == 1 {
-        Walker::Sequential(Box::new(LocalWalker::new(root, options, cancellation)?))
+        Walker::Sequential(Box::new(LocalWalker::new(
+            root,
+            options,
+            cancellation,
+            fields,
+        )?))
     } else {
-        Walker::Concurrent(crate::pool::Pool::new(root, options, cancellation)?)
+        Walker::Concurrent(crate::pool::Pool::new(root, options, cancellation, fields)?)
     };
     let (root, exclusions) = match &walker {
         Walker::Sequential(w) => (w.root().to_owned(), w.effective_exclusions().to_vec()),
@@ -97,11 +135,9 @@ pub(crate) fn scan_observed(
         &options,
         cancellation,
         progress,
-        walker
-            .by_ref()
-            .inspect(|(path, observation)| observe(path, observation)),
-        started_at,
-        started,
+        walker.by_ref(),
+        observe,
+        (started_at, started),
     )?;
     report.traversal_stats = match &mut walker {
         Walker::Sequential(w) => w.stats,
@@ -131,9 +167,10 @@ fn aggregate(
     cancellation: &CancellationToken,
     mut progress: impl FnMut(&Progress),
     mut observations: impl Iterator<Item = (PathBuf, Observation)>,
-    started_at: u128,
-    started: Instant,
+    mut observe: impl FnMut(&Path, &Observation) -> Result<(), ScanFailure>,
+    timing: (u128, Instant),
 ) -> Result<ScanReport, ScanFailure> {
+    let (started_at, started) = timing;
     let mut report = ScanReport {
         schema_version: 2,
         provider: "local",
@@ -172,8 +209,11 @@ fn aggregate(
         let Some((path, observation)) = observations.next() else {
             break;
         };
+        observe(&path, &observation)?;
         match observation {
-            Observation::File { bytes, hardlinked } => {
+            Observation::File {
+                bytes, hardlinked, ..
+            } => {
                 report.files += 1;
                 report.logical_bytes = report
                     .logical_bytes
@@ -188,6 +228,7 @@ fn aggregate(
             Observation::Directory {
                 depth_limited,
                 resource_limited,
+                ..
             } => {
                 report.directories += 1;
                 if resource_limited {
@@ -260,8 +301,8 @@ mod tests {
             &CancellationToken::default(),
             |_| {},
             items,
-            0,
-            Instant::now(),
+            |_, _| Ok(()),
+            (0, Instant::now()),
         )
         .unwrap();
         assert_eq!(report.coverage, Coverage::Partial);
@@ -280,6 +321,9 @@ mod tests {
                 Observation::File {
                     bytes,
                     hardlinked: None,
+                    dates: None,
+                    owner: None,
+                    allocation: None,
                 },
             )
         });
@@ -290,8 +334,8 @@ mod tests {
                 &CancellationToken::default(),
                 |_| {},
                 items,
-                0,
-                Instant::now()
+                |_, _| Ok(()),
+                (0, Instant::now())
             ),
             Err(ScanFailure::SizeOverflow)
         ));

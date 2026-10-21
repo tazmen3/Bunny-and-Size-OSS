@@ -42,3 +42,14 @@ les insets de la fenêtre restent à traiter (#21).
 ## Licence et validation
 
 Le paquet Slint téléchargé déclare `GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0`. La licence du projet et les obligations de distribution doivent être formalisées avant publication d'un binaire GUI. Voir [ADR-0001](../../docs/ADR/0001-premier-scanner.md) et [validation](../../docs/VALIDATION.md) pour les résultats effectivement obtenus.
+
+## Treemap V0.2 — Issue #9
+
+La Treemap Squarified des tailles logiques observées s’affiche au-dessus du
+tableau : zoom dossier, retour parent, inspection fichier et clavier synchronisés
+sans nouveau scan. Limite de 256 surfaces avec groupes Autres et omissions
+explicites ; zéros/inconnus sans aire inventée.
+[Utilisation et limites](../../docs/GUI.md#v02--treemap-interactive-9-view-002--view-008),
+[preuves Ubuntu](../../docs/validation/issue-9-treemap/README.md),
+[recette Windows non exécutée](../../docs/validation/issue-9-windows/README.md).
+Slint reste épinglé à 1.18.1, sans dépendance supplémentaire.

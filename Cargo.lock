@@ -387,7 +387,7 @@ dependencies = [
 
 [[package]]
 name = "sortsize-cli"
-version = "0.1.0"
+version = "0.2.0-rc.1"
 dependencies = [
  "clap",
  "ctrlc",
@@ -398,12 +398,25 @@ dependencies = [
 
 [[package]]
 name = "sortsize-core"
-version = "0.1.0"
+version = "0.2.0-rc.1"
 dependencies = [
  "globset",
+ "libc",
  "serde",
  "serde_json",
  "tempfile",
+ "windows-sys",
+]
+
+[[package]]
+name = "sortsize-owner-resolution"
+version = "0.2.0-rc.1"
+dependencies = [
+ "libc",
+ "serde_json",
+ "sortsize-core",
+ "tempfile",
+ "windows-sys",
 ]
 
 [[package]]

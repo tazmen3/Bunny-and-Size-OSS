@@ -195,3 +195,360 @@ fn concurrent_cli_exports_effective_limits_and_rejects_invalid_workers() {
     assert_eq!(invalid.status.code(), Some(1));
     assert!(invalid.stdout.is_empty());
 }
+
+#[test]
+fn json_v2_preserves_the_entire_legacy_shape_and_zero_vs_null_values() {
+    let fixture = TempDir::new().unwrap();
+    fs::write(fixture.path().join("empty"), []).unwrap();
+    let output = binary()
+        .arg("scan")
+        .arg(fixture.path())
+        .args(["--format", "json"])
+        .output()
+        .unwrap();
+    assert!(output.status.success());
+    let mut actual: serde_json::Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert!(actual["started_at_unix_ms"].is_u64());
+    assert!(actual["duration_ms"].is_u64());
+    actual["started_at_unix_ms"] = 0.into();
+    actual["duration_ms"] = 0.into();
+    let root = fs::canonicalize(fixture.path()).unwrap();
+    assert_eq!(
+        actual,
+        serde_json::json!({
+            "schema_version":2, "provider":"local", "root":{"display":root.to_str().unwrap()},
+            "started_at_unix_ms":0, "duration_ms":0, "coverage":"complete",
+            "files":1, "directories":1, "logical_bytes":0, "logical_size_basis":"per_file_path",
+            "allocated_bytes":null, "potentially_reclaimable_bytes":null,
+            "symlinks_skipped":0, "special_entries_skipped":0, "excluded_entries":0,
+            "depth_limited_directories":0, "resource_limited_directories":0,
+            "traversal_limits":{"max_pending_directories":65536,"max_pending_path_bytes":8388608},
+            "traversal_stats":{
+                "peak_pending_directories":1, "peak_pending_path_bytes":root.as_os_str().as_encoded_bytes().len(),
+                "peak_open_directories":1, "worker_threads":1,
+                "peak_buffered_observations":0, "peak_buffered_path_bytes":0
+            },
+            "concurrency":{"workers":1,"max_buffered_observations":1024,"max_buffered_path_bytes":1048576},
+            "hardlinked_file_paths":if cfg!(unix) {Some(0u64)} else {None},
+            "errors_count":0, "errors_omitted":0, "errors":[],
+            "follow_symlinks":false, "exclusions":[], "max_depth":null,
+            "mount_policy":"cross_accessible_mounts"
+        })
+    );
+}
+
+#[test]
+fn every_machine_format_preserves_exit_and_output_contracts() {
+    for format in ["json", "csv", "tsv"] {
+        let fixture = TempDir::new().unwrap();
+        fs::write(fixture.path().join("empty"), []).unwrap();
+        fs::create_dir(fixture.path().join("child")).unwrap();
+        let complete = binary()
+            .arg("scan")
+            .arg(fixture.path())
+            .args(["--format", format])
+            .output()
+            .unwrap();
+        assert_eq!(complete.status.code(), Some(0));
+        assert!(complete.stderr.is_empty());
+        assert!(!complete.stdout.is_empty());
+        let partial = binary()
+            .arg("scan")
+            .arg(fixture.path())
+            .args(["--format", format, "--max-depth", "0"])
+            .output()
+            .unwrap();
+        assert_eq!(partial.status.code(), Some(2));
+        assert!(String::from_utf8_lossy(&partial.stdout).contains("partial"));
+        let missing = binary()
+            .arg("scan")
+            .arg(fixture.path().join("missing"))
+            .args(["--format", format])
+            .output()
+            .unwrap();
+        assert_eq!(missing.status.code(), Some(1));
+        assert!(missing.stdout.is_empty());
+        assert!(!missing.stderr.is_empty());
+        let target = fixture.path().join(format!("report.{format}"));
+        let written = binary()
+            .arg("scan")
+            .arg(fixture.path())
+            .args(["--format", format, "--output"])
+            .arg(&target)
+            .output()
+            .unwrap();
+        assert!(written.status.success());
+        assert!(written.stdout.is_empty());
+        let original = fs::read(&target).unwrap();
+        let refused = binary()
+            .arg("scan")
+            .arg(fixture.path())
+            .args(["--format", format, "--output"])
+            .arg(&target)
+            .output()
+            .unwrap();
+        assert_eq!(refused.status.code(), Some(1));
+        assert!(refused.stdout.is_empty());
+        assert_eq!(fs::read(&target).unwrap(), original);
+    }
+}
+
+#[test]
+fn progress_is_configurable_and_quiet_keeps_fatal_diagnostics() {
+    let fixture = TempDir::new().unwrap();
+    for format in ["json", "csv", "tsv"] {
+        for args in [
+            vec!["--progress", "never"],
+            vec!["--progress", "always", "--quiet"],
+        ] {
+            let output = binary()
+                .arg("scan")
+                .arg(fixture.path())
+                .args(["--format", format])
+                .args(args)
+                .output()
+                .unwrap();
+            assert!(output.status.success());
+            assert!(output.stderr.is_empty());
+        }
+        let output = binary()
+            .arg("scan")
+            .arg(fixture.path())
+            .args(["--format", format, "--progress", "always"])
+            .output()
+            .unwrap();
+        assert!(output.status.success());
+        assert!(String::from_utf8_lossy(&output.stderr).contains("Analyse démarrée"));
+        assert!(!String::from_utf8_lossy(&output.stdout).contains("Analyse démarrée"));
+        let output = binary()
+            .arg("scan")
+            .arg(fixture.path().join("missing"))
+            .args(["--format", format, "--quiet"])
+            .output()
+            .unwrap();
+        assert_eq!(output.status.code(), Some(1));
+        assert!(!output.stderr.is_empty());
+        assert!(output.stdout.is_empty());
+    }
+}
+
+#[cfg(unix)]
+#[test]
+fn symlink_destinations_including_dangling_links_are_never_replaced() {
+    use std::os::unix::fs::symlink;
+    let fixture = TempDir::new().unwrap();
+    let target = fixture.path().join("target");
+    fs::write(&target, b"preserved").unwrap();
+    for format in ["json", "csv", "tsv"] {
+        for destination in [&target, &fixture.path().join("missing")] {
+            let link = fixture.path().join(format!("link-{format}"));
+            symlink(destination, &link).unwrap();
+            let output = binary()
+                .arg("scan")
+                .arg(fixture.path())
+                .args(["--format", format, "--output"])
+                .arg(&link)
+                .output()
+                .unwrap();
+            assert_eq!(output.status.code(), Some(1));
+            assert!(output.stdout.is_empty());
+            assert_eq!(fs::read_link(&link).unwrap(), *destination);
+            assert_eq!(fs::read(&target).unwrap(), b"preserved");
+            assert!(!fixture.path().join("missing").exists());
+            fs::remove_file(link).unwrap();
+        }
+    }
+}
+
+#[cfg(any(unix, windows))]
+#[test]
+fn native_non_unicode_roots_and_files_work_in_every_machine_format() {
+    #[cfg(unix)]
+    let (name, encoding) = {
+        use std::os::unix::ffi::OsStringExt;
+        (
+            std::ffi::OsString::from_vec(b"non-utf8-\xff".to_vec()),
+            "unix_bytes",
+        )
+    };
+    #[cfg(windows)]
+    let (name, encoding) = {
+        use std::os::windows::ffi::OsStringExt;
+        (
+            std::ffi::OsString::from_wide(&[110, 111, 110, 45, 0xd800]),
+            "windows_utf16",
+        )
+    };
+    let fixture = TempDir::new().unwrap();
+    let root = fixture.path().join(&name);
+    fs::create_dir(&root).unwrap();
+    fs::write(root.join(name), b"abc").unwrap();
+    for format in ["json", "csv", "tsv"] {
+        let output = binary()
+            .arg("scan")
+            .arg(&root)
+            .args(["--format", format])
+            .output()
+            .unwrap();
+        assert!(
+            output.status.success(),
+            "{}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+        assert!(String::from_utf8(output.stdout).unwrap().contains(encoding));
+    }
+}
+
+#[test]
+fn entries_is_explicit_and_preserves_summary_default() {
+    let fixture = TempDir::new().unwrap();
+    fs::write(fixture.path().join("f"), b"abc").unwrap();
+    for format in ["csv", "tsv"] {
+        let default = binary()
+            .arg("scan")
+            .arg(fixture.path())
+            .args(["--format", format])
+            .output()
+            .unwrap();
+        let summary = String::from_utf8(default.stdout).unwrap();
+        assert!(summary.contains("summary"));
+        assert!(!summary.contains("record_type"));
+        let detailed = binary()
+            .arg("scan")
+            .arg(fixture.path())
+            .args(["--format", format, "--scope", "entries"])
+            .output()
+            .unwrap();
+        assert!(
+            detailed.status.success(),
+            "{}",
+            String::from_utf8_lossy(&detailed.stderr)
+        );
+        let data = String::from_utf8(detailed.stdout).unwrap();
+        assert!(data.contains("record_type"));
+        assert!(data.contains("entry"));
+        assert!(data.contains(if format == "csv" { ",end," } else { "\tend\t" }));
+    }
+    for format in ["text", "json"] {
+        let invalid = binary()
+            .arg("scan")
+            .arg(fixture.path())
+            .args(["--format", format, "--scope", "entries"])
+            .output()
+            .unwrap();
+        assert_eq!(invalid.status.code(), Some(1));
+        assert!(invalid.stdout.is_empty());
+    }
+    let invalid = binary()
+        .arg("scan")
+        .arg(fixture.path())
+        .args(["--sort-memory-bytes", "1"])
+        .output()
+        .unwrap();
+    assert_eq!(invalid.status.code(), Some(1));
+}
+
+#[test]
+fn entries_publish_after_scan_and_partial_has_a_final_marker() {
+    let fixture = TempDir::new().unwrap();
+    fs::write(fixture.path().join("input"), b"abc").unwrap();
+    let destination = fixture.path().join("inventory.tsv");
+    let output = binary()
+        .arg("scan")
+        .arg(fixture.path())
+        .args(["--format", "tsv", "--scope", "entries", "--output"])
+        .arg(&destination)
+        .output()
+        .unwrap();
+    assert!(output.status.success());
+    assert!(output.stdout.is_empty());
+    let data = fs::read(&destination).unwrap();
+    let text = String::from_utf8(data.clone()).unwrap();
+    assert!(!text.contains("\tinventory.tsv\t"));
+    assert!(text.contains("\tend\t"));
+    let existing = binary()
+        .arg("scan")
+        .arg(fixture.path())
+        .args(["--format", "tsv", "--scope", "entries", "--output"])
+        .arg(&destination)
+        .output()
+        .unwrap();
+    assert_eq!(existing.status.code(), Some(1));
+    assert_eq!(fs::read(&destination).unwrap(), data);
+    let partial = binary()
+        .arg("scan")
+        .arg(fixture.path())
+        .args(["--format", "csv", "--scope", "entries", "--max-depth", "0"])
+        .output()
+        .unwrap();
+    assert_eq!(partial.status.code(), Some(2));
+    let data = String::from_utf8(partial.stdout).unwrap();
+    assert!(data.contains("lower_bound"));
+    assert!(data.contains(",end,"));
+    assert!(data.contains(",partial,"));
+    let missing = binary()
+        .arg("scan")
+        .arg(fixture.path().join("missing"))
+        .args(["--scope", "entries", "--format", "csv", "--output"])
+        .arg(fixture.path().join("missing.csv"))
+        .output()
+        .unwrap();
+    assert_eq!(missing.status.code(), Some(1));
+    assert!(!fixture.path().join("missing.csv").exists());
+}
+
+#[cfg(unix)]
+#[test]
+fn entries_refuse_dangling_symlinks_and_missing_output_parents() {
+    use std::os::unix::fs::symlink;
+    let fixture = TempDir::new().unwrap();
+    let link = fixture.path().join("link");
+    symlink("absent", &link).unwrap();
+    let output = binary()
+        .arg("scan")
+        .arg(fixture.path())
+        .args(["--format", "csv", "--scope", "entries", "--output"])
+        .arg(&link)
+        .output()
+        .unwrap();
+    assert_eq!(output.status.code(), Some(1));
+    assert_eq!(
+        fs::read_link(&link).unwrap(),
+        std::path::Path::new("absent")
+    );
+    let output = binary()
+        .arg("scan")
+        .arg(fixture.path())
+        .args(["--format", "csv", "--scope", "entries", "--output"])
+        .arg(fixture.path().join("absent/out.csv"))
+        .output()
+        .unwrap();
+    assert_eq!(output.status.code(), Some(1));
+    assert!(!fixture.path().join("absent").exists());
+    assert_eq!(fs::read_dir(fixture.path()).unwrap().count(), 1);
+}
+
+#[cfg(windows)]
+#[test]
+fn entries_native_windows_utf16_sid_and_private_spool_work_together() {
+    use std::os::windows::ffi::OsStringExt;
+    let fixture = TempDir::new().unwrap();
+    let name = std::ffi::OsString::from_wide(&[0xd800]);
+    fs::write(fixture.path().join(name), b"xyz").unwrap();
+    let output = binary()
+        .arg("scan")
+        .arg(fixture.path())
+        .args(["--format", "tsv", "--scope", "entries", "--workers", "8"])
+        .output()
+        .unwrap();
+    assert!(
+        output.status.success(),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let data = String::from_utf8(output.stdout).unwrap();
+    assert!(data.contains("windows_utf16"));
+    assert!(data.contains("[55296]"));
+    assert!(data.contains("windows_sid_hex"));
+    assert!(data.contains("\tend\t"));
+}

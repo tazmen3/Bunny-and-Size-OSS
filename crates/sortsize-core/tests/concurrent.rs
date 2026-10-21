@@ -66,7 +66,12 @@ fn every_worker_count_matches_native_inventory_and_publishes_parents_first() {
                 values
                     .insert(
                         entry.path.clone(),
-                        (entry.kind, entry.logical_bytes, entry.incomplete)
+                        (
+                            entry.kind,
+                            entry.logical_bytes,
+                            entry.incomplete,
+                            entry.counts
+                        )
                     )
                     .is_none()
             );
