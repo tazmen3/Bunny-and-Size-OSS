@@ -8,6 +8,8 @@ Read-only local storage analysis with a Rust CLI and Slint GUI. Release candidat
 **0.2.0-rc.1** is available for Ubuntu 24.04 x86_64 and Windows 11 x64.
 This is an evaluation prerelease; see the [release page](https://github.com/tazmen3/SortSize-OSS/releases/tag/v0.2.0-rc.1).
 
+**Appel à testeurs / Testers wanted:** nous recherchons des volontaires sur Windows 11 et Ubuntu 24.04 pour une vérification de 15–20 minutes sur des machines réelles. We welcome Windows 11 / Ubuntu 24.04 users to test this RC on real hardware. [Join the public testing campaign / Participer (issue #1)](https://github.com/tazmen3/SortSize-OSS/issues/1) · [Step-by-step test guide / Guide de test](docs/releases/v0.2.0-rc.1/TESTING.md). Please redact private paths and other sensitive information from feedback.
+
 - [Release notes / Présentation française](docs/releases/v0.2.0-rc.1/RELEASE_NOTES.md)
 - [User instructions](docs/releases/v0.2.0-rc.1/USER_GUIDE.md)
 - [Downloads and matching sources](docs/releases/v0.2.0-rc.1/DOWNLOADS.md)
