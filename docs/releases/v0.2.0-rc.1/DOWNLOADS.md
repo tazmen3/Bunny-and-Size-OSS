@@ -1,6 +1,6 @@
-# Prepared downloads — SortSize 0.2.0-rc.1
+# Downloads — SortSize 0.2.0-rc.1
 
-These URLs are reserved for the future public prerelease; no release or tag exists from this preparation. Both corresponding-source bundles must be available with the binaries.
+Downloads for the public prerelease [v0.2.0-rc.1](https://github.com/tazmen3/SortSize-OSS/releases/tag/v0.2.0-rc.1). Both corresponding-source bundles are provided with the binaries. GitHub automatic source archives do not replace these dependency-complete bundles.
 
 | File | SHA-256 |
 |---|---|

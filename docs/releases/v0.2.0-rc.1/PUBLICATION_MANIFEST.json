@@ -5,8 +5,8 @@
   "files": [
     {
       "file": "DOWNLOADS.md",
-      "bytes": 1189,
-      "sha256": "d71a455c64f896d6f07df20cc3a9ca50226daaaee0a7ab440fff3e78d918e4a4"
+      "bytes": 1269,
+      "sha256": "a1e05b45538e1a1ea8570df0d7058d3766343b6b82e0629bbcd18902167e5ab8"
     },
     {
       "file": "KNOWN_ISSUES.md",
@@ -20,23 +20,23 @@
     },
     {
       "file": "PRESENTATION_FR.md",
-      "bytes": 762,
-      "sha256": "91dd9f22757964e469530fd31728040758fc99731204c68bf8df9620b276b53a"
+      "bytes": 844,
+      "sha256": "4d45f7438dabed1325dafacfc6b6e852d53404eac4dcb25cea72155ba36875dc"
     },
     {
       "file": "PROVENANCE.json",
-      "bytes": 4473,
-      "sha256": "99b196d7fe5637388b2be054dd520ef287ab71d3f8f907cc317ae47ace9ccbf2"
+      "bytes": 4818,
+      "sha256": "fe9faf5261e054b7fb1a761e7f449c156df0db83c70c11744d99329b4bf20118"
     },
     {
       "file": "RELEASE_CLARIFICATIONS.md",
-      "bytes": 3612,
-      "sha256": "cd1308280dafe82ef73bbac72288400233aae968795d00e6931b9d52ae468181"
+      "bytes": 3790,
+      "sha256": "6b67635f105f4317344ccd876f030bb8af0aead4afdf6d0ef2555a8ad8e5eea9"
     },
     {
       "file": "RELEASE_NOTES.md",
-      "bytes": 9860,
-      "sha256": "2df5871ad00265d2d0898e1b52fd1974440815c1334fb413a3c638ef432b4094"
+      "bytes": 10019,
+      "sha256": "ff72d7156a22b42539c6fbb9f019429c115724e2a807c099fed78620cc54128b"
     },
     {
       "file": "SHA256SUMS",
@@ -69,7 +69,9 @@
       "sha256": "fe527121046f228428dbdfa21ac86dcdd57d2f0112397363e021c685c6439726"
     }
   ],
-  "release_created": false,
-  "tag_created": false,
-  "private_history_included": false
+  "private_history_included": false,
+  "release_url": "https://github.com/tazmen3/SortSize-OSS/releases/tag/v0.2.0-rc.1",
+  "tag": "v0.2.0-rc.1",
+  "prerelease": true,
+  "editorial_revision": "2026-10-22; external documents only; four archives and SHA256SUMS unchanged."
 }

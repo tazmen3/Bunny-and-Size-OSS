@@ -4,7 +4,7 @@ SortSize propose une analyse locale du stockage en lecture seule, avec une inter
 
 SortSize is an open-source storage analyzer written in Rust. This release candidate provides a desktop GUI and a command-line tool for Ubuntu 24.04 x86_64 and Windows 11 x64. Scanning is read-only. The application has no default telemetry or account requirement. The current GUI is in French; a complete English interface is not included.
 
-This is a prerelease for evaluation, not a stable release. These publication materials are prepared locally; the download URLs become available only after the prerelease is explicitly published in SortSize-OSS.
+This is a public prerelease for evaluation, not a stable release. Download the four verified archives from [SortSize-OSS](https://github.com/tazmen3/SortSize-OSS/releases/tag/v0.2.0-rc.1). Packaging-time statements inside the immutable archives describe their historical state on 21 October 2026; this release and its external documents provide the publication context.
 
 ## Included in v0.2
 

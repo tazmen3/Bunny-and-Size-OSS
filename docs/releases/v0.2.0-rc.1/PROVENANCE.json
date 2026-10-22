@@ -125,6 +125,11 @@
       }
     }
   ],
-  "release_created": false,
-  "tag_created": false
+  "publication": {
+    "tag": "v0.2.0-rc.1",
+    "release_url": "https://github.com/tazmen3/SortSize-OSS/releases/tag/v0.2.0-rc.1",
+    "prerelease": true,
+    "live_status_authority": "GitHub release page; immutable archive metadata retains its historical packaging-time state (2026-10-21).",
+    "public_history": "Independent SortSize-OSS history; no private commits or parents imported."
+  }
 }

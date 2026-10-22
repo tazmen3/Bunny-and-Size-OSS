@@ -1,16 +1,16 @@
 # SortSize
 
 Analyse locale du stockage en lecture seule, avec interface graphique Slint et
-CLI Rust. La candidate **0.2.0-rc.1** est préparée pour Ubuntu 24.04 x86_64 et
-Windows 11 x64 ; elle n'est pas publiée par cette préparation.
+CLI Rust. La prerelease **0.2.0-rc.1** est disponible pour Ubuntu 24.04 x86_64 et
+Windows 11 x64 : [téléchargements publics](https://github.com/tazmen3/SortSize-OSS/releases/tag/v0.2.0-rc.1).
 
 Read-only local storage analysis with a Rust CLI and Slint GUI. Release candidate
-**0.2.0-rc.1** is prepared for Ubuntu 24.04 x86_64 and Windows 11 x64.
-This branch prepares publication; it does not create a tag or release.
+**0.2.0-rc.1** is available for Ubuntu 24.04 x86_64 and Windows 11 x64.
+This is an evaluation prerelease; see the [release page](https://github.com/tazmen3/SortSize-OSS/releases/tag/v0.2.0-rc.1).
 
 - [Release notes / Présentation française](docs/releases/v0.2.0-rc.1/RELEASE_NOTES.md)
 - [User instructions](docs/releases/v0.2.0-rc.1/USER_GUIDE.md)
-- [Prepared downloads and matching sources](docs/releases/v0.2.0-rc.1/DOWNLOADS.md)
+- [Downloads and matching sources](docs/releases/v0.2.0-rc.1/DOWNLOADS.md)
 - [Known limitations](docs/releases/v0.2.0-rc.1/KNOWN_ISSUES.md)
 - [Qualification clarifications](docs/releases/v0.2.0-rc.1/RELEASE_CLARIFICATIONS.md)
 - [Archive checksums](docs/releases/v0.2.0-rc.1/SHA256SUMS)
@@ -37,10 +37,14 @@ served with the binaries; GitHub's automatic source downloads do not replace the
 
 This public repository has its own history. The v0.2 product snapshot matches
 frozen source 448e92e572c0e986f7706d2373531e033196ed1d, but that private-origin
-commit and its ancestors are not imported. The future public tag will point to
+commit and its ancestors are not imported. The public tag identifies
 a commit in this public history. Public source containers remove personal paths
 from four historical documentation files, with original/public hashes recorded.
 Executable bytes, build inputs, Cargo sources and license texts are unchanged.
 
 The previous v0.1 release remains historical; its documentation is not the current
 v0.2 qualification. No private validation corpus or development workflow is added.
+
+Root PROVENANCE.json, SOURCE_FILES.json and SHA256SUMS describe v0.2.0-rc.1.
+RELEASE_NOTES.fr-en.md and docs/notices/ retain their historical v0.1 scope;
+current notices and full third-party license texts accompany each release archive.

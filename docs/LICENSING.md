@@ -1,6 +1,6 @@
 # Licences / Licensing
 
-**Historical v0.1 documentation.** For the prepared 0.2.0-rc.1, see [current release materials](releases/v0.2.0-rc.1/RELEASE_NOTES.md) and [corresponding-source downloads](releases/v0.2.0-rc.1/DOWNLOADS.md). The buildable product snapshot on this branch is v0.2; the old statements below retain their historical scope.
+**Historical v0.1 documentation.** For 0.2.0-rc.1, see [current release materials](releases/v0.2.0-rc.1/RELEASE_NOTES.md) and [corresponding-source downloads](releases/v0.2.0-rc.1/DOWNLOADS.md). The buildable product snapshot on this branch is v0.2; the old statements below retain their historical scope.
 
 SortSize est diffusé sous **GPL-3.0-only**, sans garantie dans les limites de la loi ; lire [LICENSE](../LICENSE). Le propriétaire a confirmé disposer des droits nécessaires à cette diffusion. [AUTHORS.txt](../AUTHORS.txt) conserve la liste originale de contributeurs Git, sans en déduire un titulaire exclusif ou inventer une ligne de copyright.
 

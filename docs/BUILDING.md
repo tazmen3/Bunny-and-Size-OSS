@@ -1,6 +1,6 @@
 # Compilation / Building
 
-**Historical v0.1 documentation.** For the prepared 0.2.0-rc.1, see [current release materials](releases/v0.2.0-rc.1/RELEASE_NOTES.md) and [corresponding-source downloads](releases/v0.2.0-rc.1/DOWNLOADS.md). The buildable product snapshot on this branch is v0.2; the old statements below retain their historical scope.
+**Historical v0.1 documentation.** For 0.2.0-rc.1, see [current release materials](releases/v0.2.0-rc.1/RELEASE_NOTES.md) and [corresponding-source downloads](releases/v0.2.0-rc.1/DOWNLOADS.md). The buildable product snapshot on this branch is v0.2; the old statements below retain their historical scope.
 
 Les binaires validés n’ont pas été reconstruits pour cette publication. Les commandes ci-dessous sont destinées aux personnes souhaitant compiler ou modifier les sources. The validated binaries were not rebuilt for publication; these commands are for building or modifying the source.
 

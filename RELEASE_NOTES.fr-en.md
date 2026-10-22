@@ -1,5 +1,7 @@
 # SortSize V0.1.0 — Préversion / Prerelease
 
+**Historical v0.1 release notes.** See [v0.2.0-rc.1 release notes](docs/releases/v0.2.0-rc.1/RELEASE_NOTES.md) for the current candidate.
+
 Première livraison expérimentale du scanner local SortSize : moteur partagé Rust, interface graphique Slint et outil en ligne de commande. Les analyses sont en lecture seule, sans suppression, compte ou télémétrie. Les tailles affichées sont les tailles logiques ; elles n’estiment pas l’espace physiquement récupérable.
 
 Version issue du commit de développement **`fbf46e3d94451b821cfb31fb6228aaea60258045`**. Les quatre archives ont passé le contrôle croisé : 28 vérifications, 5 444 fichiers contrôlés. Le programme reste expérimental ; les limites ci-dessous font partie de cette livraison.
