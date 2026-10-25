@@ -1,12 +1,20 @@
-# SortSize
+# Bunny and Size
+
+**SortSize devient Bunny and Size pour la v0.3, actuellement en développement.**
+La dernière prerelease publiée reste SortSize 0.2.0-rc.1 ; ses fichiers, tags et
+notes historiques sont conservés. Aucune release v0.3 n’est disponible.
+
+**SortSize is becoming Bunny and Size for v0.3, currently in development.**
+The latest published prerelease remains SortSize 0.2.0-rc.1. Historical binaries,
+tags and release notes are preserved; no v0.3 release is available.
 
 Analyse locale du stockage en lecture seule, avec interface graphique Slint et
 CLI Rust. La prerelease **0.2.0-rc.1** est disponible pour Ubuntu 24.04 x86_64 et
-Windows 11 x64 : [téléchargements publics](https://github.com/tazmen3/SortSize-OSS/releases/tag/v0.2.0-rc.1).
+Windows 11 x64 : [téléchargements publics](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.2.0-rc.1).
 
 Read-only local storage analysis with a Rust CLI and Slint GUI. Release candidate
 **0.2.0-rc.1** is available for Ubuntu 24.04 x86_64 and Windows 11 x64.
-This is an evaluation prerelease; see the [release page](https://github.com/tazmen3/SortSize-OSS/releases/tag/v0.2.0-rc.1).
+This is an evaluation prerelease; see the [release page](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.2.0-rc.1).
 
 - [Release notes / Présentation française](docs/releases/v0.2.0-rc.1/RELEASE_NOTES.md)
 - [User instructions](docs/releases/v0.2.0-rc.1/USER_GUIDE.md)
