@@ -21,6 +21,14 @@ Ubuntu 24.04 x86_64 : extraire toute l'archive Linux et lancer `./bunny-and-size
 
 Ubuntu 24.04 x86_64: fully extract the Linux archive and run `./bunny-and-size` (X11/XWayland; see the guide for prerequisites). Windows 11 x64: fully extract the ZIP and run `bunny-and-size.exe`; official Microsoft Visual C++ Redistributable x64 v14 required. No MSI/DEB installer or Rust runtime requirement.
 
+## Code signing policy / Politique de signature du code
+
+**26 octobre 2026 :** candidature SignPath Foundation **en préparation**, non approuvée ; **signature Windows non active**. Les trois exécutables Windows publics de la v0.3.0-rc.1 sont **non signés** et peuvent afficher `Unknown publisher` / SmartScreen. Aucune ancienne archive n'est modifiée.
+
+**26 October 2026:** SignPath Foundation application **being prepared**, not approved; **Windows signing is not active**. The current v0.3.0-rc.1 Windows executables remain **unsigned**. No existing release artifact is changed.
+
+[**Code signing policy — conditions, rôles, confidentialité et vérification / status, roles, privacy and verification**](CODE_SIGNING.md)
+
 **D1 Windows reste non corrigé :** après certains changements de langue, le pied peut garder temporairement l'ancienne langue ; un redimensionnement manuel a rétabli l'affichage dans les cas observés. Données cohérentes dans ces scénarios, investigation en cours. Binaires non signés, avertissement SmartScreen possible. Accessibilité humaine exhaustive, multi-écran, Wayland natif et Android non qualifiés ; CI GitHub Actions volontairement désactivée.
 
 **Windows D1 remains unfixed:** after some language changes the footer may temporarily retain the old language; manual resizing restored it in observed cases. Data remained consistent in those scenarios; investigation continues. Unsigned binaries may trigger SmartScreen. Exhaustive human accessibility, multiple monitors, native Wayland and Android are unqualified; GitHub Actions CI is intentionally disabled.

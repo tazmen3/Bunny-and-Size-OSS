@@ -19,6 +19,10 @@ Ubuntu 24.04 x86_64 : extraire intégralement l'archive Linux et lancer `./bunny
 
 Télécharger le paquet binaire et **son archive source correspondante**. Les quatre archives originales sont inchangées et proviennent du gel produit `addf68704f26ef02559dd56b2e9b75b168fd0752`. Leurs empreintes sont dans [SHA256SUMS](SHA256SUMS), leur provenance dans [PROVENANCE.json](PROVENANCE.json). Les archives source comprennent les dépendances Cargo et les recettes hors ligne ; les téléchargements source automatiques GitHub ne les remplacent pas. Les anciennes mentions « candidate interne » embarquées sont expliquées dans [les clarifications](RELEASE_CLARIFICATIONS.md).
 
+### Code signing policy — information ajoutée le 26 octobre 2026
+
+Une [politique de signature du code](../../../CODE_SIGNING.md) est publiée sur la page d'accueil du projet. **La candidature SignPath Foundation est en préparation et n'est pas approuvée ; les exécutables Windows de cette RC sont et restent non signés.** Ce complément documentaire ne modifie aucun des fichiers de release.
+
 ### Limitations connues
 
 **D1 — non corrigé :** Sous Windows, après certains changements de langue, le pied de fenêtre peut conserver temporairement la langue précédente. Les données restent cohérentes dans les scénarios observés. Un redimensionnement manuel a permis de rétablir l'affichage. Le problème reste en cours d'investigation.
@@ -53,6 +57,10 @@ Also delivered, with some features predating V0.3: tree/table views, Treemap, To
 Ubuntu 24.04 x86_64: fully extract the Linux archive and run `./bunny-and-size`. Windows 11 x64: fully extract the Windows ZIP and run `bunny-and-size.exe`. No MSI/DEB installer. Windows requires the official **Microsoft Visual C++ Redistributable x64 v14**; Linux requirements appear in [the guide](USER_GUIDE.md). Running the binaries does not require Rust.
 
 Download the binary package and **its matching corresponding-source archive**. All four original archives are unchanged and originate from frozen product source `addf68704f26ef02559dd56b2e9b75b168fd0752`. See [SHA256SUMS](SHA256SUMS) and [PROVENANCE.json](PROVENANCE.json). The source bundles include Cargo dependencies and offline build recipes; GitHub's automatic source downloads do not replace these bundles. Historical “internal candidate” wording inside the archives is explained by [the clarifications](RELEASE_CLARIFICATIONS.md).
+
+### Code signing policy — documentation update, 26 October 2026
+
+The project's homepage now links to its [code signing policy](../../../CODE_SIGNING.md). **A SignPath Foundation application is being prepared, not approved; the Windows executables in this release remain unsigned.** This documentation update does not change any release asset.
 
 ### Known limitations
 
