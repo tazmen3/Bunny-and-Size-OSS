@@ -1,0 +1,718 @@
+import { Button, CheckBox, ComboBox, LineEdit, ListView, ScrollView, Spinner, TextEdit } from "std-widgets.slint";
+
+export component LegalWindow inherits Window {
+    icon: @image-url("../../../assets/branding/icons/bunny-and-size-256.png");
+    out property <string> localized-title: @tr("ui" => "Bunny and Size — About / Licenses");
+    title: root.localized-title;
+    preferred-width: 800px; preferred-height: 560px;
+    min-width: 580px; min-height: 400px;
+    in property <string> product-version;
+    out property <length> notice-viewport-height: notice-area.height;
+    in property <string> notices;
+    in property <string> license-text;
+    in-out property <bool> full-license: false;
+    VerticalLayout {
+        padding: 16px; spacing: 12px;
+        HorizontalLayout {
+            spacing: 16px;
+            Image { source: @image-url("../../../assets/branding/icons/bunny-and-size-256.png"); width: 96px; height: 96px; image-fit: contain; }
+            VerticalLayout {
+                Text { text: @tr("ui" => "Bunny and Size {} — About / Licenses", root.product-version); font-size: 22px; wrap: word-wrap; }
+                Text { text: "TazmenWorld"; font-size: 18px; font-weight: 700; color: #153550; }
+                Text { text: @tr("ui" => "Created, published and maintained by Louis Lejuez (@tazmen3)"); wrap: word-wrap; }
+                Text { text: @tr("ui" => "Contributors: Louis Lejuez / tazmen3; assisted by Codex"); wrap: word-wrap; }
+            }
+        }
+        Text { text: "https://github.com/tazmen3/Bunny-and-Size-OSS"; wrap: word-wrap; }
+        Text { text: @tr("ui" => "Code: GPL-3.0-only. Artwork: CC BY-SA 4.0 — Louis Lejuez / TazmenWorld."); wrap: word-wrap; }
+        HorizontalLayout {
+            Button { text: @tr("ui" => "Notices and rights"); clicked => { root.full-license = false; } }
+            Button { text: @tr("ui" => "Read the full GPLv3"); clicked => { root.full-license = true; } }
+        }
+        notice-area := TextEdit {
+            text: root.full-license ? root.license-text : root.notices;
+            read-only: true;
+            accessible-label: root.full-license ? @tr("ui" => "Full GPLv3 text") : @tr("ui" => "Notices, rights and warranty disclaimer");
+        }
+    }
+}
+
+export struct ColumnSetting { label: string, shown: bool, pixels: float, }
+export struct VolumeRow {
+    name: string, summary: string, state: string,
+    fraction: float, has-usage: bool, selectable: bool, usage-level: int, usage: string, usage-percent: float,
+}
+export struct TreeRow {
+    node-id: int, depth: int, name: string, size: string,
+    expandable: bool, expanded: bool, selected: bool,
+}
+export struct DetailRow {
+    node-id: int, name: string, path: string, size: string, note: string,
+    directory: bool, proportion: string, fraction: float,
+    files: string, directories: string, modified: string, accessed: string, allocated: string, owner: string,
+}
+export struct TopRow { rank: int, name: string, size: string, path: string, }
+export struct MapTile {
+    node-id: int, name: string, size: string, directory: bool,
+    color-index: int, x: float, y: float, w: float, h: float,
+}
+component TreemapTile inherits Rectangle {
+    in property <MapTile> tile;
+    in property <bool> inspected;
+    in property <bool> focused;
+    callback activate();
+    clip: true;
+    background: tile.color-index == 0 ? #23658a : tile.color-index == 1 ? #386b47 :
+        tile.color-index == 2 ? #704e89 : tile.color-index == 3 ? #8a4b35 :
+        tile.color-index == 4 ? #356b72 : tile.color-index == 5 ? #805d20 :
+        tile.color-index == 6 ? #4f5c70 : #6e532b;
+    border-width: focused || inspected ? 3px : 1px;
+    border-color: focused ? #ffdd75 : inspected ? #ffffff : #ffffff80;
+    accessible-role: button;
+    accessible-label: (tile.directory ? @tr("ui" => "Open folder {}, {}", tile.name, tile.size) : tile.node-id >= 0 ? @tr("ui" => "Inspect file {}, {}", tile.name, tile.size) : @tr("ui" => "Group {}, {}", tile.name, tile.size));
+    accessible-action-default => { root.activate(); }
+    TouchArea { mouse-cursor: pointer; clicked => { root.activate(); } }
+    if root.width > 70px && root.height > 24px: Text {
+        x: 7px; y: 4px; width: max(0px, parent.width - 14px); height: 20px;
+        text: (root.tile.directory ? "▸ " : "") + root.tile.name;
+        color: white; font-size: 12px; font-weight: 600; overflow: elide;
+    }
+    if root.width > 70px && root.height > 48px: Text {
+        x: 7px; y: 26px; width: max(0px, parent.width - 14px); height: 18px;
+        text: root.tile.size; color: white; font-size: 11px; overflow: elide;
+    }
+}
+// A native, keyboard-focusable button with an elided display label. Full
+// names remain available through accessibility and the read-only path.
+component NameButton inherits Rectangle {
+    in property <string> label;
+    in property <string> action-label;
+    callback clicked();
+    min-width: 20px;
+    Button {
+        width: 100%; height: 100%;
+        text: ""; accessible-label: root.action-label;
+        clicked => { root.clicked(); }
+    }
+    Text {
+        x: 8px; width: parent.width - 16px; height: 100%;
+        text: root.label; color: #153550; font-size: 12px;
+        overflow: elide; vertical-alignment: center;
+    }
+}
+export component SortSizeWindow inherits Window {
+    icon: @image-url("../../../assets/branding/icons/bunny-and-size-256.png");
+    in property <string> product-version;
+    title: @tr("ui" => "Bunny and Size {} — storage analysis", root.product-version);
+    preferred-width: 1200px; preferred-height: 760px;
+    min-width: 960px; min-height: 600px;
+    background: #edf2f7;
+    private property <bool> compact-view: false;
+    changed height => { root.compact-view = root.height < 680px; }
+    in-out property <bool> preferences-open: false;
+    in property <[string]> column-labels: [@tr("ui" => "Name (always visible)"), @tr("ui" => "Logical size"), @tr("ui" => "Allocated size"), @tr("ui" => "Owner"), @tr("ui" => "Folder share"), @tr("ui" => "Recursive files"), @tr("ui" => "Recursive folders"), @tr("ui" => "Type / status"), @tr("ui" => "Last modified"), @tr("ui" => "Last accessed"), @tr("ui" => "Full path")];
+    in property <[ColumnSetting]> column-settings;
+    in property <float> table-pixels: 1946;
+    in property <length> table-width: root.table-pixels * 1px;
+    changed table-pixels => { root.detail-scroll-x = clamp(root.detail-scroll-x, min(0px, detail-columns.visible-width - max(detail-columns.visible-width, root.table-width)), 0px); }
+    in property <bool> decimal-units: false;
+    in property <int> preference-state: 0;
+    in property <string> preference-status: ["", @tr("ui" => "Saving…"), @tr("ui" => "Preferences saved."), @tr("ui" => "Could not save; preferences kept for this session."), @tr("ui" => "Invalid preferences or unsupported version; using defaults."), @tr("ui" => "Could not read preferences; using defaults."), @tr("ui" => "Saving unavailable for this session."), @tr("ui" => "User directory unavailable; session preferences.")][root.preference-state];
+    in property <int> language-choice: 0;
+    in property <string> detected-language;
+    in property <int> effective-language: 0;
+    in property <bool> language-fallback: false;
+    in property <int> unavailable-language: 0;
+    in property <bool> language-failed: false;
+    callback set-language(int);
+    callback set-column(int, bool);
+    callback set-units(bool);
+    callback reset-display();
+    in-out property <string> scan-path;
+    in-out property <int> worker-choice: 0;
+    in-out property <bool> collect-allocation: false;
+    in-out property <bool> collect-owner: false;
+    in-out property <bool> resolve-owner: false;
+    private property <bool> owner-options: false;
+    changed collect-owner => { if !root.collect-owner { root.resolve-owner = false; } }
+    in property <bool> owner-sort-available: false;
+    in property <bool> owner-sort-preparing: false;
+    in property <string> owner-status: "";
+    callback owner-resolution-changed();
+    callback sort-owner();
+    in property <bool> storage-enabled: false;
+    in property <bool> storage-loading: false;
+    in property <[VolumeRow]> volumes;
+    in property <string> storage-status;
+    in property <int> selected-volume: -1;
+    in property <int> scanned-volume: -1;
+    in property <string> scan-source;
+    in property <int> sidebar-ratio: 550;
+    private property <length> scrollbar-gutter: 18px;
+    callback resize-sidebar(int);
+    out property <float> sidebar-split-x: sidebar-divider.absolute-position.x / 1px;
+    out property <float> sidebar-split-y: sidebar-divider.absolute-position.y / 1px;
+    in-out property <length> sidebar-folder-scroll <=> folders-list.content-y;
+    in-out property <length> sidebar-source-scroll <=> sources-list.content-y;
+    out property <float> sidebar-tree-height: folders-pane.height / 1px;
+    out property <float> sidebar-source-height: sources-pane.height / 1px;
+    callback refresh-volumes(bool);
+    callback select-volume(int);
+    in property <bool> busy: false;
+    in property <bool> can-load-details: false;
+    callback load-folder-details();
+    in property <bool> cancelling: false;
+    in property <bool> choosing-folder: false;
+    in property <bool> folder-picker-enabled: false;
+    in property <bool> scan-enabled: true;
+    in property <string> status: @tr("ui" => "Choose a folder to scan.");
+    in property <string> summary: @tr("ui" => "No inventory");
+    in property <string> errors: "";
+    in property <string> inventory-warning: "";
+    in property <string> view-warning: "";
+    in property <string> current-path: "";
+    in property <string> entry-path: "";
+    in property <string> selection-summary: "";
+    in property <string> empty-message: @tr("ui" => "Start a scan to explore a folder.");
+    in property <bool> has-parent: false;
+    in property <bool> has-previous-page: false;
+    in property <bool> has-next-page: false;
+    in property <bool> has-previous-detail-page: false;
+    in property <bool> has-next-detail-page: false;
+    in property <string> tree-page: "";
+    in property <string> detail-page: "";
+    in property <int> sort-order: 0;
+    in property <bool> allocation-sort-available: false;
+    callback sort-allocated();
+    callback sort-dates(bool);
+    in property <string> modified-heading: @tr("ui" => "Last modified") + (root.sort-order == 8 ? " ↓" : root.sort-order == 9 ? " ↑" : "");
+    in property <string> accessed-heading: @tr("ui" => "Last accessed (UTC)") + (root.sort-order == 10 ? " ↓" : root.sort-order == 11 ? " ↑" : "");
+    in-out property <bool> top-visible: false;
+    in property <[TopRow]> top-rows;
+    in property <string> top-note: @tr("ui" => "Start a scan to display the Top 100.");
+    in property <string> top-path;
+    in property <int> top-selected: -1;
+    in property <bool> top-retained: false;
+    in-out property <length> top-scroll-y <=> top-view.content-y;
+    callback select-top(int); callback reveal-top();
+    in property <[TreeRow]> rows;
+    in property <[DetailRow]> details;
+    in-out property <length> detail-scroll-y <=> details-view.content-y;
+    in-out property <length> detail-scroll-x <=> detail-columns.content-x;
+    in property <[MapTile]> tiles;
+    in property <string> treemap-note: @tr("ui" => "Start a scan to display the Treemap.");
+    in property <int> inspected-node: -1;
+    in-out property <int> map-cursor: 0;
+    in-out property <float> map-width: map-area.width / 1px;
+    in-out property <float> map-height: map-area.height / 1px;
+    changed map-width => { root.resize-treemap(root.map-width, root.map-height); }
+    changed map-height => { root.resize-treemap(root.map-width, root.map-height); }
+    callback resize-treemap(float, float);
+    callback activate-tile(int);
+    callback show-legal();
+    callback browse-folder(); callback path-edited();
+    callback start-scan(); callback cancel-scan(); callback toggle-node(int);
+    callback select-node(int); callback inspect-entry(int);
+    callback go-parent(); callback sort-details(bool); callback change-page(bool, bool);
+
+    VerticalLayout {
+        padding: root.compact-view ? 10px : 14px; spacing: root.compact-view ? 6px : 8px;
+        HorizontalLayout {
+            height: 36px; spacing: 12px;
+            Text { text: "Bunny and Size"; color: #153550; font-size: 24px; font-weight: 700; vertical-alignment: center; }
+            Text { text: @tr("ui" => "Storage analysis"); color: #4c6175; font-size: 13px; horizontal-stretch: 1; vertical-alignment: center; }
+            Text { text: @tr("ui" => "READ ONLY"); color: #226747; font-size: 11px; vertical-alignment: center; }
+            Button { text: @tr("ui" => "Columns and display"); accessible-label: @tr("ui" => "Configure columns and units"); clicked => { root.preferences-open = !root.preferences-open; } }
+            Button { text: @tr("ui" => "About / Licenses"); clicked => { root.show-legal(); } }
+        }
+        HorizontalLayout {
+            spacing: 8px;
+            LineEdit {
+                text <=> root.scan-path; placeholder-text: @tr("ui" => "Path of the folder to scan");
+                accessible-label: @tr("ui" => "Folder to scan");
+                enabled: !root.busy && !root.choosing-folder && root.scan-enabled;
+                edited => { root.path-edited(); }
+                accepted => { root.start-scan(); }
+            }
+            Button {
+                text: @tr("ui" => "Browse…"); accessible-label: @tr("ui" => "Choose a folder to scan");
+                enabled: root.folder-picker-enabled && root.scan-enabled && !root.busy && !root.choosing-folder;
+                clicked => { root.browse-folder(); }
+            }
+            ComboBox {
+                model: [@tr("ui" => "1 folder at a time"), @tr("ui" => "2 folders in parallel"), @tr("ui" => "4 folders in parallel"), @tr("ui" => "8 folders in parallel")];
+                current-index <=> root.worker-choice;
+                accessible-label: @tr("ui" => "Folders scanned concurrently");
+                enabled: !root.busy && !root.choosing-folder && root.scan-enabled;
+            }
+            Button { text: @tr("ui" => "Scan"); enabled: !root.busy && !root.choosing-folder && root.scan-enabled; clicked => { root.start-scan(); } }
+            Button { text: root.cancelling ? @tr("ui" => "Cancelling…") : @tr("ui" => "Cancel"); accessible-label: @tr("ui" => "Cancel the scan or owner resolution"); enabled: (root.busy || root.resolve-owner) && !root.cancelling; clicked => { root.cancel-scan(); } }
+        }
+        HorizontalLayout {
+            spacing: 8px;
+            Button { text: root.top-visible ? @tr("ui" => "Tree / Treemap") : @tr("ui" => "Top 100"); accessible-label: @tr("ui" => "Switch between Top 100 and browsing"); clicked => { root.top-visible = !root.top-visible; if root.top-visible { top-focus.focus(); } } }
+            Button { text: @tr("ui" => "Treemap"); accessible-label: @tr("ui" => "Focus the Treemap"); enabled: root.tiles.length > 0; clicked => { root.top-visible = false; map-focus.focus(); } }
+            Button { text: @tr("ui" => "↑ Parent"); accessible-label: @tr("ui" => "Go to the parent folder"); enabled: root.has-parent; clicked => { root.go-parent(); } }
+            if root.can-load-details: Button { text: @tr("ui" => "Load folder contents"); enabled: !root.busy; clicked => { root.load-folder-details(); } }
+            CheckBox {
+                text: @tr("ui" => "Collect allocated sizes");
+                checked <=> root.collect-allocation;
+                accessible-label: @tr("ui" => "Collect allocated sizes during the next scan");
+                enabled: !root.busy && !root.choosing-folder && root.scan-enabled;
+            }
+            Button { text: @tr("ui" => "Owners") + (root.collect-owner ? " ✓" : "");
+                accessible-label: @tr("ui" => "Show or hide owner collection and resolution options");
+                clicked => { root.owner-options = !root.owner-options; }
+            }
+            LineEdit { text: root.current-path; read-only: true; placeholder-text: @tr("ui" => "Current folder"); accessible-label: @tr("ui" => "Path of the current folder"); }
+        }
+        if root.owner-options: HorizontalLayout {
+            spacing: 8px;
+            CheckBox {
+                text: @tr("ui" => "Collect owners"); checked <=> root.collect-owner;
+                toggled => { if !root.collect-owner { root.resolve-owner = false; root.owner-resolution-changed(); } }
+                accessible-label: @tr("ui" => "Collect native owners during the next scan");
+                enabled: !root.busy && !root.choosing-folder && root.scan-enabled;
+            }
+            CheckBox {
+                text: @tr("ui" => "Resolve names (NSS / AD: network possible)"); checked <=> root.resolve-owner;
+                toggled => { root.owner-resolution-changed(); }
+                accessible-label: @tr("ui" => "Explicitly allow name resolution; NSS or Active Directory may access the network");
+                enabled: root.collect-owner && !root.busy && root.scan-enabled;
+            }
+            Button { text: @tr("ui" => "Stop resolution"); enabled: root.resolve-owner;
+                clicked => { root.resolve-owner = false; root.owner-resolution-changed(); }
+            }
+        }
+        Rectangle {
+            HorizontalLayout {
+                width: 100%; height: 100%; visible: !root.top-visible;
+                spacing: 10px;
+                // Layout stretch avoids a window-size/minimum-size binding loop.
+                Rectangle {
+                    horizontal-stretch: 3; min-width: 260px;
+                    background: #ffffff; border-color: #cbd7e2; border-width: 1px; border-radius: 5px;
+                    VerticalLayout {
+                        padding: 8px; spacing: 6px;
+                        sidebar-panels := Rectangle {
+                            min-height: 242px; preferred-height: 300px; max-height: 100000px; vertical-stretch: 1;
+                                folders-pane := Rectangle {
+                                    x: 0px; y: 0px;
+                                    width: parent.width;
+                                    height: root.storage-enabled ? clamp((sidebar-panels.height - 12px) * root.sidebar-ratio / 1000, 80px, max(80px, sidebar-panels.height - 162px)) : sidebar-panels.height;
+                                    VerticalLayout {
+                                        x: 0px; y: 0px; width: 100%; height: 100%;
+                        HorizontalLayout {
+                            height: 30px; padding-right: root.scrollbar-gutter + 4px;
+                            Text { text: @tr("ui" => "FOLDERS"); color: #4c6175; font-size: 11px; font-weight: 600; horizontal-stretch: 1; vertical-alignment: center; }
+                            Text { text: @tr("ui" => "LOGICAL SIZE"); color: #4c6175; font-size: 10px; vertical-alignment: center; }
+                        }
+                        folders-list := ListView {
+                            min-height: 0px; preferred-height: 0px; vertical-stretch: 1;
+                            horizontal-scrollbar-policy: always-off;
+                            for row in root.rows: Rectangle {
+                                width: max(0px, folders-list.visible-width - root.scrollbar-gutter);
+                                height: 34px;
+                                background: row.selected ? #dcecf7 : #ffffff;
+                                border-radius: 3px;
+                                HorizontalLayout {
+                                    padding-left: 3px + min(row.depth * 12px, max(0px, self.width - 200px)); padding-right: 4px; spacing: 4px;
+                                    if row.expandable: Button {
+                                        width: 25px; text: row.expanded ? "−" : "+";
+                                        accessible-label: (row.expanded ? @tr("ui" => "Collapse {}", row.name) : @tr("ui" => "Expand {}", row.name));
+                                        clicked => { root.toggle-node(row.node-id); }
+                                    }
+                                    if !row.expandable: Text { width: 25px; text: "·"; color: #91a0af; horizontal-alignment: center; vertical-alignment: center; }
+                                    NameButton {
+                                        label: row.name; horizontal-stretch: 1;
+                                        action-label: @tr("ui" => "Browse {}", row.name);
+                                        clicked => { root.select-node(row.node-id); }
+                                    }
+                                    Text { text: row.size; color: #153550; min-width: 104px; horizontal-stretch: 0; font-size: 11px; horizontal-alignment: right; vertical-alignment: center; }
+                                }
+                            }
+                        }
+                        if root.has-previous-page || root.has-next-page: HorizontalLayout {
+                            spacing: 4px;
+                            Button { text: "←"; accessible-label: @tr("ui" => "Previous page of folders"); enabled: root.has-previous-page; clicked => { root.change-page(false, false); } }
+                            Text { text: root.tree-page; color: #4c6175; font-size: 11px; horizontal-alignment: center; vertical-alignment: center; }
+                            Button { text: "→"; accessible-label: @tr("ui" => "Next page of folders"); enabled: root.has-next-page; clicked => { root.change-page(false, true); } }
+                        }
+                                    }
+                                }
+                                sidebar-divider := Rectangle {
+                                    width: parent.width; y: folders-pane.height;
+                                    height: root.storage-enabled ? 12px : 0px;
+                                    visible: root.storage-enabled;
+                                    background: divider-focus.has-focus || divider-touch.has-hover ? #dcecf7 : #ffffff;
+                                    accessible-role: slider;
+                                    accessible-label: @tr("ui" => "Resize folders and storage sources. Arrows adjust; Enter resets.");
+                                    accessible-orientation: vertical;
+                                    accessible-value: root.sidebar-ratio;
+                                    accessible-value-minimum: 100;
+                                    accessible-value-maximum: 900;
+                                    accessible-value-step: 25;
+                                    accessible-action-set-value(v) => { if v.is-float() { root.resize-sidebar(round(v.to-float())); } }
+                                    accessible-action-increment => { root.resize-sidebar(root.sidebar-ratio + 25); }
+                                    accessible-action-decrement => { root.resize-sidebar(root.sidebar-ratio - 25); }
+                                    forward-focus: divider-focus;
+                                    Rectangle { x: parent.width * 0.35; y: 5px; width: 30%; height: 2px; background: #708ba2; }
+                                    divider-focus := FocusScope {
+                                        key-pressed(event) => {
+                                            if event.text == Key.UpArrow { root.resize-sidebar(root.sidebar-ratio - 25); return accept; }
+                                            if event.text == Key.DownArrow { root.resize-sidebar(root.sidebar-ratio + 25); return accept; }
+                                            if event.text == Key.Home { root.resize-sidebar(100); return accept; }
+                                            if event.text == Key.End { root.resize-sidebar(900); return accept; }
+                                            if event.text == Key.Return { root.resize-sidebar(550); return accept; }
+                                            return reject;
+                                        }
+                                    }
+                                    divider-touch := TouchArea {
+                                        mouse-cursor: ns-resize;
+                                        property <length> start-height;
+                                        property <length> start-y;
+                                        pointer-event(event) => {
+                                            if event.button == PointerEventButton.left && event.kind == PointerEventKind.down {
+                                                self.start-height = folders-pane.height;
+                                                self.start-y = sidebar-divider.y + self.mouse-y;
+                                                divider-focus.focus();
+                                            }
+                                        }
+                                        moved => {
+                                            if self.pressed {
+                                                root.resize-sidebar(round(1000 * (self.start-height + sidebar-divider.y + self.mouse-y - self.start-y) / max(1px, sidebar-panels.height - 12px)));
+                                            }
+                                        }
+                                    }
+                                }
+                        sources-pane := VerticalLayout {
+                            width: sidebar-panels.width;
+                            y: folders-pane.height + sidebar-divider.height;
+                            height: sidebar-panels.height - self.y;
+                            visible: root.storage-enabled;
+                            min-height: root.storage-enabled ? 150px : 0px;
+                            vertical-stretch: 1;
+                            spacing: 3px;
+                            HorizontalLayout {
+                                Text { text: @tr("ui" => "STORAGE SOURCES"); font-size: 10px; color: #4c6175; font-weight: 600; vertical-alignment: center; horizontal-stretch: 1; }
+                                Button { text: @tr("ui" => "Refresh"); enabled: !root.storage-loading; clicked => { root.refresh-volumes(false); } }
+                            }
+                            Text { text: root.storage-status; font-size: 10px; color: #4c6175; overflow: elide; }
+                            sources-list := ListView {
+                                horizontal-scrollbar-policy: always-off;
+                                min-height: 40px;
+                                vertical-stretch: 1;
+                                for volume[index] in root.volumes: Rectangle {
+                                    width: max(0px, sources-list.visible-width - root.scrollbar-gutter);
+                                    height: 128px; background: root.selected-volume == index ? #dcecf7 : #f4f7fa;
+                                    border-width: root.scanned-volume == index ? 2px : 0px; border-color: #397dab;
+                                    VerticalLayout {
+                                        padding: 3px; spacing: 2px;
+                                        Rectangle { height: 25px;
+                                            Button { width: 100%; height: 100%; text: "";
+                                                enabled: !root.choosing-folder && root.scan-enabled;
+                                                accessible-label: @tr("ui" => "Scan local source: {}", volume.name);
+                                                clicked => { root.select-volume(index); }
+                                            }
+                                            Text { x: 5px; width: parent.width - 10px; height: 100%; text: volume.name; font-size: 11px; color: #153550; overflow: elide; vertical-alignment: center; }
+                                        }
+                                        Text { text: volume.summary; color: #153550; font-size: 10px; wrap: word-wrap; }
+                                        Text { text: volume.usage; color: #153550; font-size: 11px; }
+                                        Rectangle {
+                                            height: 6px; background: #d4dfe9;
+                                            accessible-role: progress-indicator; accessible-label: volume.usage;
+                                            accessible-value: volume.has-usage ? volume.usage-percent : "";
+                                            accessible-value-minimum: 0; accessible-value-maximum: 100;
+                                            Rectangle {
+                                                x: 0px; y: 0px; height: 100%; width: parent.width * clamp(volume.fraction, 0, 1);
+                                                background: volume.usage-level == 3 ? #c13d42 : volume.usage-level == 2 ? #b76a00 : volume.usage-level == 1 ? #247b4b : #d4dfe9;
+                                            }
+                                        }
+                                        Text { text: volume.state; color: #4c6175; font-size: 10px; overflow: elide; }
+                                    }
+                                }
+                            }
+                            Button { text: @tr("ui" => "Query network / unknown type"); enabled: !root.storage-loading;
+                                accessible-label: @tr("ui" => "Query capacities of network or unknown sources; network access possible");
+                                clicked => { root.refresh-volumes(true); }
+                            }
+                        }
+                        }
+                        if !root.compact-view: Text { text: @tr("ui" => "LOCAL SOURCE"); color: #4c6175; font-size: 10px; font-weight: 600; }
+                        if root.owner-status != "": Text { text: root.owner-status; color: #4c6175; font-size: 11px; wrap: word-wrap; }
+                        Text { text: (root.compact-view ? @tr("ui" => "Logical per path · links not followed\nAllocated: repeated hardlinks") : @tr("ui" => "Logical sizes per path\nAllocated: per path, repeated hardlinks\nLinks not followed")) + (root.sort-order == 4 || root.sort-order == 5 ? @tr("ui" => "\nAllocated sort: ≥ = known bound\nProvisional ranking") : ""); color: #4c6175; font-size: root.compact-view ? 10px : 12px; wrap: word-wrap; }
+                    }
+                }
+                Rectangle {
+                    horizontal-stretch: 7; min-width: 560px;
+                    background: #ffffff; border-color: #cbd7e2; border-width: 1px; border-radius: 5px;
+                    VerticalLayout {
+                        padding: 8px; spacing: root.compact-view ? 4px : 6px;
+                        Text { text: @tr("ui" => "FOLDER CONTENTS · ") + @tr("ui" => "Sort: ") + [@tr("ui" => "Size ↓"), @tr("ui" => "Size ↑"), @tr("ui" => "Name ↑"), @tr("ui" => "Name ↓"), @tr("ui" => "Allocated ↓"), @tr("ui" => "Allocated ↑"), @tr("ui" => "Owner ↑"), @tr("ui" => "Owner ↓"), @tr("ui" => "Modified newest"), @tr("ui" => "Modified oldest"), @tr("ui" => "Accessed newest"), @tr("ui" => "Accessed oldest")][root.sort-order]; color: #4c6175; font-size: 11px; font-weight: 600; }
+                        Text { text: root.selection-summary == "" ? @tr("ui" => "No folder selected") : root.selection-summary; color: #153550; font-size: 13px; wrap: word-wrap; }
+                        HorizontalLayout {
+                            height: 24px;
+                            Text { text: @tr("ui" => "TREEMAP · LOGICAL SIZE"); color: #4c6175; font-size: 11px; font-weight: 600; horizontal-stretch: 1; }
+                            Text { text: @tr("ui" => "Arrows · Enter · Backspace"); color: #4c6175; font-size: 10px; }
+                        }
+                        map-area := Rectangle {
+                            min-height: 80px; preferred-height: root.compact-view ? 100px : 190px; max-height: root.compact-view ? 100px : 230px;
+                            vertical-stretch: 0; background: #edf2f7; clip: true;
+                            accessible-role: groupbox; accessible-label: @tr("ui" => "Treemap of observed logical sizes");
+                            map-focus := FocusScope {
+                                width: 100%; height: 100%;
+                                accessible-role: groupbox;
+                                accessible-label: root.tiles.length > 0 ? root.tiles[root.map-cursor].name + ", " + root.tiles[root.map-cursor].size : @tr("ui" => "No measured area");
+                                key-pressed(event) => {
+                                    if event.text == Key.RightArrow || event.text == Key.DownArrow {
+                                        root.map-cursor = mod(root.map-cursor + 1, max(1, root.tiles.length));
+                                        return accept;
+                                    }
+                                    if event.text == Key.LeftArrow || event.text == Key.UpArrow {
+                                        root.map-cursor = mod(root.map-cursor + max(1, root.tiles.length) - 1, max(1, root.tiles.length));
+                                        return accept;
+                                    }
+                                    if event.text == Key.Return || event.text == Key.Space {
+                                        root.activate-tile(root.map-cursor); return accept;
+                                    }
+                                    if event.text == Key.Backspace { root.go-parent(); return accept; }
+                                    return reject;
+                                }
+                                for tile[index] in root.tiles: TreemapTile {
+                                    x: parent.width * tile.x; y: parent.height * tile.y;
+                                    width: parent.width * tile.w; height: parent.height * tile.h;
+                                    tile: tile; inspected: tile.node-id >= 0 && tile.node-id == root.inspected-node;
+                                    focused: map-focus.has-focus && root.map-cursor == index;
+                                    activate => { root.map-cursor = index; map-focus.focus(); root.activate-tile(index); }
+                                }
+                                if root.tiles.length == 0: Text {
+                                    text: @tr("ui" => "No measured area"); color: #4c6175; horizontal-alignment: center; vertical-alignment: center;
+                                }
+                            }
+                        }
+                        if map-focus.has-focus && root.tiles.length > 0: Text {
+                            text: root.tiles[root.map-cursor].name + " · " + root.tiles[root.map-cursor].size;
+                            color: #153550; font-size: 12px; overflow: elide;
+                        }
+                        Text { text: root.treemap-note; color: #4c6175; font-size: 11px; wrap: word-wrap; }
+                        // One horizontal viewport owns both header and rows. The inner
+                        // ListView retains vertical virtualization and 34px reveal offsets.
+                        detail-columns := ScrollView {
+                            min-width: 0px;
+                            content-width: max(self.visible-width, root.table-width + root.scrollbar-gutter);
+                            content-height: self.visible-height;
+                            vertical-scrollbar-policy: always-off;
+                            Rectangle {
+                                width: detail-columns.content-width;
+                                height: max(0px, detail-columns.visible-height - root.scrollbar-gutter);
+                                VerticalLayout {
+                                    spacing: 6px;
+                                    Rectangle {
+                                        height: 34px;
+                                        HorizontalLayout {
+                                            x: 0px; height: 34px; width: root.table-width; padding-left: 2px; padding-right: 0px; spacing: 6px;
+                                            Button { text: @tr("ui" => "Name") + (root.sort-order == 2 ? " ↑" : root.sort-order == 3 ? " ↓" : ""); width: root.column-settings[0].pixels * 1px; clicked => { root.sort-details(true); } }
+                                            if root.column-settings[1].shown: Button { text: @tr("ui" => "Size") + (root.sort-order == 0 ? " ↓" : root.sort-order == 1 ? " ↑" : ""); width: root.column-settings[1].pixels * 1px; clicked => { root.sort-details(false); } }
+                                            if root.column-settings[2].shown: Button {
+                                                text: @tr("ui" => "Allocated / Per path") + (root.sort-order == 4 ? " ↓" : root.sort-order == 5 ? " ↑" : "");
+                                                width: root.column-settings[2].pixels * 1px; enabled: root.allocation-sort-available;
+                                                clicked => { root.sort-allocated(); }
+                                            }
+                                            if root.column-settings[3].shown: Button {
+                                                text: @tr("ui" => "Owner") + (root.sort-order == 6 ? " ↑" : root.sort-order == 7 ? " ↓" : "");
+                                                width: root.column-settings[3].pixels * 1px; enabled: root.owner-sort-available && !root.owner-sort-preparing;
+                                                accessible-label: @tr("ui" => "Sort owners; apply names available at this time");
+                                                clicked => { root.sort-owner(); }
+                                            }
+                                            if root.column-settings[4].shown: Text { text: @tr("ui" => "Folder share"); color: #4c6175; width: root.column-settings[4].pixels * 1px; font-size: 11px; horizontal-alignment: center; vertical-alignment: center; }
+                                            if root.column-settings[5].shown: Text { text: @tr("ui" => "Recursive\nfiles"); color: #4c6175; width: root.column-settings[5].pixels * 1px; font-size: 11px; horizontal-alignment: right; vertical-alignment: center; }
+                                            if root.column-settings[6].shown: Text { text: @tr("ui" => "Recursive\nfolders"); color: #4c6175; width: root.column-settings[6].pixels * 1px; font-size: 11px; horizontal-alignment: right; vertical-alignment: center; }
+                                            if root.column-settings[7].shown: Text { text: @tr("ui" => "Type / status"); color: #4c6175; width: root.column-settings[7].pixels * 1px; font-size: 11px; vertical-alignment: center; }
+                                            if root.column-settings[8].shown: Button {
+                                                text: root.modified-heading; width: root.column-settings[8].pixels * 1px;
+                                                accessible-label: root.modified-heading + @tr("ui" => "; sort newest to oldest, then reverse");
+                                                clicked => { root.sort-dates(false); }
+                                            }
+                                            if root.column-settings[9].shown: Button {
+                                                text: root.accessed-heading; width: root.column-settings[9].pixels * 1px;
+                                                accessible-label: root.accessed-heading + @tr("ui" => "; according to system policy; sort newest to oldest, then reverse");
+                                                clicked => { root.sort-dates(true); }
+                                            }
+                                            if root.column-settings[10].shown: Text { text: @tr("ui" => "Full path"); color: #4c6175; width: root.column-settings[10].pixels * 1px; font-size: 11px; vertical-alignment: center; }
+                                        }
+                                    }
+                                    details-view := ListView {
+                                        horizontal-scrollbar-policy: always-off;
+                                        for entry[index] in root.details: Rectangle {
+                                            height: 34px; background: entry.node-id == root.inspected-node ? #dcecf7 : mod(index, 2) == 0 ? #f4f7fa : #ffffff; border-radius: 3px;
+                                            HorizontalLayout {
+                                                x: 0px; width: root.table-width; padding-left: 2px; padding-right: 0px; spacing: 6px;
+                                                NameButton {
+                                                    label: entry.name; width: root.column-settings[0].pixels * 1px;
+                                                    action-label: (entry.directory ? @tr("ui" => "Open {}", entry.name) : @tr("ui" => "Show path of {}", entry.name));
+                                                    clicked => { if entry.directory { root.select-node(entry.node-id); } else { root.inspect-entry(entry.node-id); } }
+                                                }
+                                                if root.column-settings[1].shown: Text { text: entry.size; color: #153550; width: root.column-settings[1].pixels * 1px; font-size: 12px; horizontal-alignment: right; vertical-alignment: center; }
+                                                if root.column-settings[2].shown: Text { text: entry.allocated; color: #153550; width: root.column-settings[2].pixels * 1px; font-size: 11px; horizontal-alignment: right; vertical-alignment: center; }
+                                                if root.column-settings[3].shown: NameButton {
+                                                    label: entry.owner; width: root.column-settings[3].pixels * 1px;
+                                                    action-label: @tr("ui" => "Owner of {}: {}", entry.name, entry.owner);
+                                                    clicked => { root.inspect-entry(entry.node-id); }
+                                                }
+                                                if root.column-settings[4].shown: Rectangle {
+                                                    width: root.column-settings[4].pixels * 1px; height: 22px; background: #e8edf3; border-radius: 3px;
+                                                    Rectangle { x: 0px; y: 0px; width: parent.width * entry.fraction; height: parent.height; background: #afd5eb; border-radius: 3px; }
+                                                    Text { text: entry.proportion; color: #153550; font-size: 11px; horizontal-alignment: center; vertical-alignment: center; }
+                                                }
+                                                if root.column-settings[5].shown: Text { text: entry.files; color: #153550; width: root.column-settings[5].pixels * 1px; font-size: 11px; horizontal-alignment: right; vertical-alignment: center; }
+                                                if root.column-settings[6].shown: Text { text: entry.directories; color: #153550; width: root.column-settings[6].pixels * 1px; font-size: 11px; horizontal-alignment: right; vertical-alignment: center; }
+                                                if root.column-settings[7].shown: Text { text: entry.note; color: #4c6175; width: root.column-settings[7].pixels * 1px; font-size: 11px; vertical-alignment: center; overflow: elide; }
+                                                if root.column-settings[8].shown: Text { text: entry.modified; color: #153550; width: root.column-settings[8].pixels * 1px; font-size: 11px; vertical-alignment: center; }
+                                                if root.column-settings[9].shown: Text { text: entry.accessed; color: #153550; width: root.column-settings[9].pixels * 1px; font-size: 11px; vertical-alignment: center; }
+                                                if root.column-settings[10].shown: NameButton {
+                                                    label: entry.path; width: root.column-settings[10].pixels * 1px;
+                                                    action-label: @tr("ui" => "Show full path: {}", entry.path);
+                                                    clicked => { root.inspect-entry(entry.node-id); }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if root.details.length == 0: Text { text: root.empty-message; color: #4c6175; wrap: word-wrap; }
+                        if root.has-previous-detail-page || root.has-next-detail-page: HorizontalLayout {
+                            spacing: 8px;
+                            Button { text: @tr("ui" => "Previous"); enabled: root.has-previous-detail-page; clicked => { root.change-page(true, false); } }
+                            Text { text: root.detail-page; color: #4c6175; font-size: 11px; horizontal-alignment: center; vertical-alignment: center; }
+                            Button { text: @tr("ui" => "Next"); enabled: root.has-next-detail-page; clicked => { root.change-page(true, true); } }
+                        }
+                        LineEdit { text: root.entry-path; placeholder-text: @tr("ui" => "Select a path to read it in full"); read-only: true; accessible-label: @tr("ui" => "Full entry path"); }
+                    }
+                }
+            }
+            Rectangle {
+                width: 100%; height: 100%; visible: root.top-visible;
+                background: white; border-width: 1px; border-color: #cbd7e2; border-radius: 5px;
+                VerticalLayout {
+                    padding: 8px; spacing: 6px;
+                    Text { text: @tr("ui" => "TOP 100 · LARGEST FILES"); color: #153550; font-size: 15px; font-weight: 600; }
+                    Text { text: root.top-note; color: #4c6175; font-size: 12px; wrap: word-wrap; }
+                    HorizontalLayout {
+                        Text { text: @tr("ui" => "Rank"); width: 42px; color: #4c6175; }
+                        Text { text: @tr("ui" => "Name"); width: 200px; color: #4c6175; }
+                        Text { text: @tr("ui" => "Logical size"); width: 110px; color: #4c6175; }
+                        Text { text: @tr("ui" => "Full path"); horizontal-stretch: 1; color: #4c6175; }
+                    }
+                    top-focus := FocusScope {
+                        accessible-role: groupbox;
+                        accessible-label: root.top-selected >= 0 ? @tr("ui" => "Top 100, rank {}, {}", root.top-rows[root.top-selected].rank, root.top-rows[root.top-selected].name) : @tr("ui" => "Top 100, no file selected");
+                        key-pressed(event) => {
+                            if root.top-rows.length > 0 {
+                                if event.text == Key.DownArrow || event.text == Key.UpArrow || event.text == Key.Home || event.text == Key.End {
+                                    root.select-top(event.text == Key.Home ? 0 : event.text == Key.End ? root.top-rows.length - 1 : clamp(root.top-selected + (event.text == Key.UpArrow ? -1 : 1), 0, root.top-rows.length - 1));
+                                    root.top-scroll-y = min(0px, max(top-view.visible-height - top-view.content-height, -max(0, root.top-selected - 2) * 34px));
+                                    return accept;
+                                }
+                                if event.text == Key.Return { root.reveal-top(); if !root.top-visible { map-focus.focus(); } return accept; }
+                            }
+                            return reject;
+                        }
+                        top-view := ListView {
+                            width: 100%; height: 100%;
+                            // Fixed-height rows: avoid a virtualized content-height
+                            // estimate leaving the final row clipped on Windows.
+                            content-height: root.top-rows.length * 34px;
+                            for item[index] in root.top-rows: Rectangle {
+                                width: max(0px, top-view.visible-width - root.scrollbar-gutter);
+                                height: 34px;
+                                background: root.top-selected == index ? #dcecf7 : mod(index, 2) == 0 ? #f4f7fa : white;
+                                border-width: top-focus.has-focus && root.top-selected == index ? 1px : 0px;
+                                border-color: #23658a;
+                                accessible-role: button; accessible-label: item.rank + ", " + item.name + ", " + item.size + ", " + item.path;
+                                accessible-action-default => { root.select-top(index); }
+                                HorizontalLayout {
+                                    spacing: 8px; padding-left: 4px; padding-right: 4px;
+                                    Text { text: item.rank; width: 38px; color: #153550; vertical-alignment: center; }
+                                    Text { text: item.name; width: 192px; color: #153550; vertical-alignment: center; overflow: elide; }
+                                    Text { text: item.size; width: 102px; color: #153550; vertical-alignment: center; }
+                                    Text { text: item.path; horizontal-stretch: 1; color: #153550; vertical-alignment: center; overflow: elide; }
+                                }
+                                TouchArea { clicked => { root.select-top(index); top-focus.focus(); } }
+                            }
+                        }
+                    }
+                    if root.top-rows.length == 0: Text { text: @tr("ui" => "No file observed in this scope."); color: #4c6175; }
+                    Text { text: @tr("ui" => "↑ ↓ · Home / End: select · Enter: reveal in table"); color: #4c6175; font-size: 11px; }
+                    LineEdit { text: root.top-path; read-only: true; accessible-label: @tr("ui" => "Full native path of the ranked file, non-Unicode units escaped"); }
+                    HorizontalLayout {
+                        Button { text: @tr("ui" => "Reveal in table"); enabled: root.top-retained; clicked => { root.reveal-top(); if !root.top-visible { map-focus.focus(); } } }
+                        Text { text: root.top-selected < 0 ? @tr("ui" => "Select a file.") : root.top-retained ? @tr("ui" => "File retained in the inventory.") : @tr("ui" => "Path absent from retained inventory; no node to reveal."); color: #4c6175; font-size: 12px; wrap: word-wrap; }
+                    }
+                }
+            }
+        }
+        if root.inventory-warning != "" || root.view-warning != "": Text {
+            text: root.inventory-warning + (root.inventory-warning != "" && root.view-warning != "" ? "\n" : "") + root.view-warning;
+            color: #845112; font-size: 12px; wrap: word-wrap;
+        }
+        if root.errors != "": ScrollView { height: 70px; Text { text: root.errors; color: #845112; font-size: 12px; wrap: word-wrap; } }
+        HorizontalLayout {
+            spacing: 8px;
+            Spinner { visible: root.busy; width: 20px; height: 20px; }
+            Text { text: root.status + (root.scan-source == "" ? "" : " · " + root.scan-source); color: #153550; font-size: 12px; font-weight: 600; wrap: word-wrap; vertical-alignment: center; }
+        }
+        Text { text: root.summary; color: #4c6175; font-size: 12px; wrap: word-wrap; }
+    }
+    if root.preferences-open: Rectangle {
+        x: max(16px, (root.width - self.width) / 2); y: 70px;
+        width: min(620px, root.width - 32px); height: min(570px, root.height - 90px);
+        background: #ffffff; border-width: 2px; border-color: #397dab; border-radius: 6px;
+        VerticalLayout {
+            padding: 12px; spacing: 8px;
+            Text { text: @tr("ui" => "Columns and display"); font-size: 18px; color: #153550; }
+            Text { text: @tr("ui" => "The name stays visible. The active sort is preserved."); font-size: 12px; color: #4c6175; }
+            HorizontalLayout {
+                Text { text: @tr("ui" => "Language"); vertical-alignment: center; }
+                ComboBox {
+                    model: [@tr("ui" => "Automatic (system)"), @tr("ui" => "English"), @tr("ui" => "Français"), @tr("ui" => "Deutsch"), @tr("ui" => "Español"), @tr("ui" => "Português (Portugal)")];
+                    current-index: root.language-choice;
+                    accessible-label: @tr("ui" => "Interface language");
+                    selected(value) => { root.set-language(self.current-index); }
+                }
+            }
+            Text {
+                text: @tr("ui" => "Detected system locale: {}", root.detected-language) + "\n" +
+                    @tr("ui" => "Active language: {}", [@tr("ui" => "English"), @tr("ui" => "Français"), @tr("ui" => "Deutsch"), @tr("ui" => "Español"), @tr("ui" => "Português (Portugal)")][root.effective-language]);
+                font-size: 11px; color: #4c6175; wrap: word-wrap;
+            }
+            if root.language-fallback || root.language-failed: Text {
+                text: root.language-failed ? @tr("ui" => "Could not activate the language; previous language retained.") :
+                    @tr("ui" => "Requested catalog ({}) unavailable; using English. Saved preference retained.", [@tr("ui" => "English"), @tr("ui" => "Français"), @tr("ui" => "Deutsch"), @tr("ui" => "Español"), @tr("ui" => "Português (Portugal)")][root.unavailable-language]);
+                font-size: 11px; color: #845112; wrap: word-wrap;
+            }
+            ListView {
+                for column[index] in root.column-settings: CheckBox {
+                    height: 26px; text: column.label; checked: column.shown;
+                    enabled: index != 0; accessible-label: column.label;
+                    toggled => { root.set-column(index, self.checked); }
+                }
+            }
+            HorizontalLayout {
+                Text { text: @tr("ui" => "Units"); vertical-alignment: center; }
+                ComboBox {
+                    model: [@tr("ui" => "Binary (KiB, MiB, GiB)"), @tr("ui" => "Decimal (kB, MB, GB)")];
+                    current-index: root.decimal-units ? 1 : 0;
+                    accessible-label: @tr("ui" => "Units for displayed sizes");
+                    selected(value) => { root.set-units(self.current-index == 1); }
+                }
+            }
+            Text { text: root.preference-status; font-size: 11px; color: #845112; wrap: word-wrap; }
+            HorizontalLayout {
+                Button { text: @tr("ui" => "Reset display"); clicked => { root.reset-display(); } }
+                Button { text: @tr("ui" => "Close"); clicked => { root.preferences-open = false; } }
+            }
+        }
+    }
+
+}

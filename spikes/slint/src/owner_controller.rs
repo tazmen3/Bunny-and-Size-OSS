@@ -7,11 +7,13 @@ pub(crate) type PageKey = (u64, Option<usize>, usize, usize, bool, bool);
 
 impl Controller {
     pub(crate) fn cancel_owner_sort(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         self.owner_sort_serial = self.owner_sort_serial.wrapping_add(1);
         self.owner_sort_pending = None;
         window.set_owner_sort_preparing(false);
     }
     pub(crate) fn request_owners(&mut self, window: &SortSizeWindow, sort: Option<(u64, usize)>) {
+        let _presentation = self.presentation.enter();
         if sort.is_some() {
             self.owner_sort_pending = sort;
         }
@@ -43,9 +45,8 @@ impl Controller {
             match owner_view::Task::system() {
                 Ok(task) => self.owner_task = Some(task),
                 Err(_) => {
-                    window.set_owner_status(
-                        "Résolution indisponible ; identifiants natifs conservés.".into(),
-                    );
+                    self.owner_status = crate::presentation::OwnerStatus::Unavailable;
+                    window.set_owner_status(self.owner_status.render().into());
                     return;
                 }
             }
@@ -69,16 +70,15 @@ impl Controller {
                 sort,
             });
         }
-        window.set_owner_status(
-            if enabled {
-                "Résolution des noms de la page…"
-            } else {
-                ""
-            }
-            .into(),
-        );
+        self.owner_status = if enabled {
+            crate::presentation::OwnerStatus::Resolving
+        } else {
+            crate::presentation::OwnerStatus::Idle
+        };
+        window.set_owner_status(self.owner_status.render().into());
     }
     pub(crate) fn apply_owner_names(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         if self.owner_names.is_empty() {
             return;
         }
@@ -112,6 +112,7 @@ impl Controller {
         }
     }
     pub(crate) fn resolution_changed(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         self.generation = self.generation.wrapping_add(1);
         self.owner_sort_serial = self.owner_sort_serial.wrapping_add(1);
         self.owner_sort_pending = None;
@@ -130,6 +131,7 @@ impl Controller {
         }
     }
     pub(crate) fn sort_owners(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         let Some(tree) = &mut self.tree else {
             return;
         };
@@ -147,6 +149,7 @@ impl Controller {
         }
     }
     fn show_owner_sort(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         let inspected = window.get_inspected_node();
         if inspected >= 0 {
             self.inspect(window, inspected as usize);
@@ -155,6 +158,7 @@ impl Controller {
         }
     }
     pub(crate) fn poll_owners(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         if self.owner_task.is_none() {
             return;
         }
@@ -171,18 +175,11 @@ impl Controller {
             self.owner_names = update.names;
             self.owner_stats = update.stats;
             self.apply_owner_names(window);
-            let status = if update.waiting_for_previous {
-                "Résolution suspendue : attente du fournisseur précédent ou service indisponible."
-                    .to_owned()
-            } else if update.pending > 0 {
-                format!(
-                    "Résolution des noms : {} identités restantes sur cette page.",
-                    update.pending
-                )
-            } else {
-                "Noms de la page actualisés ; identifiants natifs conservés en secours.".into()
+            self.owner_status = crate::presentation::OwnerStatus::Page {
+                pending: update.pending,
+                waiting: update.waiting_for_previous,
             };
-            window.set_owner_status(status.into());
+            window.set_owner_status(self.owner_status.render().into());
         }
         if let Some(update) = updates.sort
             && update.generation == self.generation

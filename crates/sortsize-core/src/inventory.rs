@@ -327,6 +327,92 @@ pub fn scan_inventory_with_allocation_totals(
     })
 }
 
+/// Borrowed inventory during a scan. Paths and optional tables are never copied
+/// for a notification. Directory values in `entries` are local accumulators;
+/// use `aggregate_into` for recursive lower bounds. All directories are provisional.
+#[derive(Clone, Copy)]
+pub struct InventoryPreview<'a> {
+    pub entries: &'a [InventoryEntry],
+    pub dates: &'a [EntryDates],
+    pub owners: &'a [EntryOwner],
+    pub entries_omitted: u64,
+    pub direct_children_seen: u64,
+}
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub struct PreviewAggregate {
+    pub logical_bytes: Option<u64>,
+    pub counts: Option<DirectoryCounts>,
+}
+
+impl InventoryPreview<'_> {
+    /// Reuses caller-owned scratch space, at most one fixed-size record per
+    /// retained entry. Does not mutate or consolidate the live inventory twice.
+    pub fn aggregate_into(&self, output: &mut Vec<PreviewAggregate>) {
+        output.clear();
+        output.extend(self.entries.iter().map(|entry| PreviewAggregate {
+            logical_bytes: entry.logical_bytes,
+            counts: entry.counts,
+        }));
+        for index in (0..self.entries.len()).rev() {
+            if self.entries[index].kind != InventoryKind::Directory {
+                continue;
+            }
+            if let Some(parent) = self.entries[index].parent {
+                let child = output[index];
+                let ancestor = &mut output[parent];
+                if let (Some(total), Some(bytes)) =
+                    (&mut ancestor.logical_bytes, child.logical_bytes)
+                {
+                    *total = total.saturating_add(bytes);
+                }
+                if let (Some(total), Some(counts)) = (&mut ancestor.counts, child.counts) {
+                    total.recursive_files += counts.recursive_files;
+                    total.recursive_directories += counts.recursive_directories;
+                }
+            }
+        }
+    }
+}
+
+/// Additive options for the progressive inventory API. Aggregation remains
+/// optional and follows the same single traversal and hardlink policy.
+#[derive(Debug, Clone, Copy, Default)]
+pub struct ProgressiveInventoryOptions {
+    /// Number of direct children skipped before retention. Valid only for a
+    /// one-level listing or direct_children_only retention; root/totals stay present.
+    pub child_offset: u64,
+    /// Retain only the root and a window of its direct children, while still
+    /// traversing descendants for exact recursive aggregates within this scope.
+    pub direct_children_only: bool,
+    pub limits: InventoryLimits,
+    pub selection: OwnerSelection,
+    pub aggregation: Option<AllocationAggregationOptions>,
+}
+
+pub struct ProgressiveInventory {
+    pub collected: InventoryWithOwners,
+    pub aggregates: Option<(AllocationTotals, Vec<Metadata<u64>>)>,
+}
+
+/// The callback runs synchronously on the caller's scan thread after an
+/// observation. Consumers choose their cadence and must not retain borrowed data.
+/// Final coverage is exclusively that of the returned report.
+pub fn scan_inventory_progressive(
+    root: &Path,
+    options: &ScanOptions,
+    cancellation: &CancellationToken,
+    collection: ProgressiveInventoryOptions,
+    progress: impl FnMut(&Progress, InventoryPreview<'_>),
+) -> Result<ProgressiveInventory, ScanFailure> {
+    let (collected, aggregates) =
+        collect_progressive(root, options, cancellation, collection, progress)?;
+    Ok(ProgressiveInventory {
+        collected,
+        aggregates,
+    })
+}
+
 type CollectedInventory = (
     InventoryWithOwners,
     Option<(AllocationTotals, Vec<Metadata<u64>>)>,
@@ -340,21 +426,71 @@ fn scan_inventory_collect(
     aggregation: Option<AllocationAggregationOptions>,
     progress: impl FnMut(&Progress),
 ) -> Result<CollectedInventory, ScanFailure> {
+    let mut progress = progress;
+    collect_progressive(
+        root,
+        options,
+        cancellation,
+        ProgressiveInventoryOptions {
+            limits,
+            selection,
+            aggregation,
+            child_offset: 0,
+            direct_children_only: false,
+        },
+        |p, _| progress(p),
+    )
+}
+
+fn collect_progressive(
+    root: &Path,
+    options: &ScanOptions,
+    cancellation: &CancellationToken,
+    collection: ProgressiveInventoryOptions,
+    mut progress: impl FnMut(&Progress, InventoryPreview<'_>),
+) -> Result<CollectedInventory, ScanFailure> {
+    let ProgressiveInventoryOptions {
+        limits,
+        selection,
+        aggregation,
+        child_offset,
+        direct_children_only,
+    } = collection;
+    if child_offset > 0 && options.max_depth != Some(1) && !direct_children_only {
+        return Err(ScanFailure::InvalidOptions(
+            "child_offset requires a one-level listing".into(),
+        ));
+    }
     if limits.max_entries == 0 || limits.max_path_bytes == 0 {
         return Err(ScanFailure::InvalidOptions(
             "max_entries et max_path_bytes doivent être supérieurs à zéro".into(),
         ));
     }
     let mut builder = InventoryBuilder::new(limits);
+    builder.skip_children = child_offset;
+    builder.direct_children_only = direct_children_only;
     builder.aggregates = aggregation.map(AllocationBuilder::new);
     builder.owners = selection.owner.then(Vec::new);
     builder.dates = selection.metadata.dates.then(Vec::new);
     builder.allocations = selection.metadata.allocation.then(Vec::new);
+    let builder = std::cell::RefCell::new(builder);
     let report = scan_observed(
         root,
         options,
         cancellation,
-        progress,
+        |p| {
+            let builder = builder.borrow();
+            progress(
+                p,
+                InventoryPreview {
+                    entries: &builder.entries,
+                    dates: builder.dates.as_deref().unwrap_or_default(),
+                    owners: builder.owners.as_deref().unwrap_or_default(),
+                    entries_omitted: builder.omitted,
+                    direct_children_seen: builder.direct_children_seen,
+                },
+            );
+        },
         CollectFields {
             owner: selection.owner,
             dates: selection.metadata.dates,
@@ -362,9 +498,10 @@ fn scan_inventory_collect(
             ..Default::default()
         },
         |path, observation| {
-            builder.observe(path, observation);
+            builder.borrow_mut().observe(path, observation);
         },
     )?;
+    let mut builder = builder.into_inner();
     let owners = builder.owners.take().unwrap_or_default();
     let dates = builder.dates.take().unwrap_or_default();
     let allocations = builder.allocations.take().unwrap_or_default();
@@ -404,6 +541,9 @@ struct InventoryBuilder {
     omitted: u64,
     path_bytes: usize,
     path_limit_reached: bool,
+    skip_children: u64,
+    direct_children_only: bool,
+    direct_children_seen: u64,
 }
 
 /// Index paths already owned by entries. Hashes only choose a bucket: native
@@ -451,6 +591,9 @@ impl InventoryBuilder {
             omitted: 0,
             path_bytes: 0,
             path_limit_reached: false,
+            skip_children: 0,
+            direct_children_only: false,
+            direct_children_seen: 0,
         }
     }
 
@@ -495,8 +638,9 @@ impl InventoryBuilder {
             }
             Observation::Excluded => return,
         };
+        let direct =
+            parent.is_some_and(|parent| path.parent() == Some(self.entries[parent].path.as_path()));
         if let Some(parent) = parent {
-            let direct = path.parent() == Some(self.entries[parent].path.as_path());
             let counts = self.entries[parent].counts.as_mut().unwrap();
             match kind {
                 InventoryKind::File => {
@@ -510,13 +654,24 @@ impl InventoryBuilder {
                 _ => {}
             }
         }
+        let direct_child = parent == Some(0) && direct;
+        if direct_child {
+            self.direct_children_seen += 1;
+        }
+        let skip = direct_child && self.skip_children > 0;
+        let descendant = self.direct_children_only && parent.is_some() && !direct_child;
         let path_bytes = path.as_os_str().as_encoded_bytes().len();
-        if self.entries.len() < self.limits.max_entries
+        if !skip
+            && !descendant
+            && self.entries.len() < self.limits.max_entries
             && path_bytes > self.limits.max_path_bytes - self.path_bytes
         {
             self.path_limit_reached = true;
         }
-        let retain = self.entries.len() < self.limits.max_entries && !self.path_limit_reached;
+        let retain = !skip
+            && !descendant
+            && self.entries.len() < self.limits.max_entries
+            && !self.path_limit_reached;
         // Every file reaches the global ranking before any retention return.
         // The optional index is only a navigation hint, never a ranking input.
         if kind == InventoryKind::File {
@@ -527,6 +682,9 @@ impl InventoryBuilder {
             );
         }
         if !retain {
+            if skip {
+                self.skip_children -= 1;
+            }
             if incomplete && let Some(parent) = parent {
                 self.entries[parent].incomplete = true;
             }
@@ -1003,5 +1161,346 @@ mod tests {
         assert_eq!(builder.entries[0].logical_bytes, Some(8));
         assert_eq!(builder.omitted, 2);
         assert!(builder.path_limit_reached);
+    }
+}
+
+#[cfg(test)]
+mod progressive_tests {
+    use super::*;
+
+    #[test]
+    fn independent_prefix_oracle_checks_every_retained_subtree_at_one_and_eight_workers() {
+        use std::collections::{HashMap, HashSet};
+        let fixture = tempfile::TempDir::new().unwrap();
+        let root = std::fs::canonicalize(fixture.path()).unwrap();
+        let mut files = HashMap::new();
+        let mut directories = HashSet::from([root.clone()]);
+        for i in 0..9 {
+            let folder = root.join(format!("d{i}")).join("deep");
+            std::fs::create_dir_all(&folder).unwrap();
+            directories.insert(folder.parent().unwrap().to_owned());
+            directories.insert(folder.clone());
+            for j in 0..7 {
+                let path = folder.join(format!("f{j}"));
+                let size = (i * 7 + j + 1) as u64;
+                std::fs::write(&path, vec![0; size as usize]).unwrap();
+                files.insert(path, size);
+            }
+        }
+        let linked = root.join("hardlink");
+        std::fs::hard_link(root.join("d0/deep/f0"), &linked).unwrap();
+        files.insert(linked, 1); // Logical totals are by path, including hardlinks.
+        let expected_bytes: u64 = files.values().sum();
+        for workers in [1, 8] {
+            for max_entries in [1, 8, 50_000] {
+                for cancel in [false, true] {
+                    let token = CancellationToken::default();
+                    let mut observed_files = HashMap::new();
+                    let mut observed_directories = HashSet::new();
+                    let mut scratch = Vec::new();
+                    let result = scan_inventory_progressive(
+                        &root,
+                        &ScanOptions {
+                            concurrency: crate::ConcurrencyOptions {
+                                workers,
+                                ..Default::default()
+                            },
+                            ..Default::default()
+                        },
+                        &token,
+                        ProgressiveInventoryOptions {
+                            limits: InventoryLimits {
+                                max_entries,
+                                ..Default::default()
+                            },
+                            ..Default::default()
+                        },
+                        |progress, preview| {
+                            // This oracle never uses inventory parent indices or
+                            // its accumulators: only known fixture paths observed so far.
+                            if let Some(&size) = files.get(&progress.current_path) {
+                                assert!(
+                                    observed_files
+                                        .insert(progress.current_path.clone(), size)
+                                        .is_none()
+                                );
+                            } else if directories.contains(&progress.current_path) {
+                                assert!(observed_directories.insert(progress.current_path.clone()));
+                            }
+                            preview.aggregate_into(&mut scratch);
+                            for (entry, aggregate) in preview.entries.iter().zip(&scratch) {
+                                if entry.kind != InventoryKind::Directory {
+                                    continue;
+                                }
+                                let expected: u64 = observed_files
+                                    .iter()
+                                    .filter(|(path, _)| path.starts_with(&entry.path))
+                                    .map(|(_, size)| size)
+                                    .sum();
+                                let counts = aggregate.counts.unwrap();
+                                assert_eq!(aggregate.logical_bytes, Some(expected));
+                                assert_eq!(
+                                    counts.recursive_files,
+                                    observed_files
+                                        .keys()
+                                        .filter(|path| path.starts_with(&entry.path))
+                                        .count() as u64
+                                );
+                                assert_eq!(
+                                    counts.recursive_directories,
+                                    observed_directories
+                                        .iter()
+                                        .filter(|path| *path != &entry.path
+                                            && path.starts_with(&entry.path))
+                                        .count() as u64
+                                );
+                            }
+                            if cancel && progress.files >= 25 {
+                                token.cancel();
+                            }
+                        },
+                    )
+                    .unwrap();
+                    let inventory = result.collected.metadata.inventory;
+                    assert_eq!(
+                        inventory.entries[0].logical_bytes,
+                        Some(observed_files.values().sum())
+                    );
+                    assert_eq!(inventory.report.files, observed_files.len() as u64);
+                    assert_eq!(
+                        inventory.report.directories,
+                        observed_directories.len() as u64
+                    );
+                    if cancel {
+                        assert_eq!(inventory.report.coverage, Coverage::Cancelled);
+                        assert!(inventory.entries[0].incomplete);
+                    } else {
+                        assert_eq!(inventory.report.coverage, Coverage::Complete);
+                        assert_eq!(inventory.report.logical_bytes, expected_bytes);
+                        assert_eq!(inventory.report.files, files.len() as u64);
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn borrowed_progress_has_recursive_totals_without_mutating_final_consolidation() {
+        let fixture = tempfile::TempDir::new().unwrap();
+        std::fs::create_dir_all(fixture.path().join("a/b")).unwrap();
+        for (path, bytes) in [("a/x", 7), ("a/b/y", 13), ("z", 23)] {
+            std::fs::write(fixture.path().join(path), vec![0; bytes]).unwrap();
+        }
+        for workers in [1, 8] {
+            for limit in [1, 2, 50_000] {
+                let mut aggregates = Vec::new();
+                let mut last_bytes = 0;
+                let mut callbacks = 0;
+                let result = scan_inventory_progressive(
+                    fixture.path(),
+                    &ScanOptions {
+                        concurrency: crate::ConcurrencyOptions {
+                            workers,
+                            ..Default::default()
+                        },
+                        ..Default::default()
+                    },
+                    &CancellationToken::default(),
+                    ProgressiveInventoryOptions {
+                        child_offset: 0,
+                        direct_children_only: false,
+                        limits: InventoryLimits {
+                            max_entries: limit,
+                            ..Default::default()
+                        },
+                        selection: OwnerSelection {
+                            metadata: MetadataSelection {
+                                dates: true,
+                                allocation: false,
+                            },
+                            owner: true,
+                        },
+                        aggregation: None,
+                    },
+                    |p, preview| {
+                        callbacks += 1;
+                        preview.aggregate_into(&mut aggregates);
+                        assert_eq!(aggregates[0].logical_bytes, Some(p.logical_bytes));
+                        assert_eq!(aggregates[0].counts.unwrap().recursive_files, p.files);
+                        assert_eq!(
+                            aggregates[0].counts.unwrap().recursive_directories,
+                            p.directories - 1
+                        );
+                        assert_eq!(preview.entries.len(), preview.dates.len());
+                        assert_eq!(preview.entries.len(), preview.owners.len());
+                        assert!(p.logical_bytes >= last_bytes);
+                        last_bytes = p.logical_bytes;
+                    },
+                )
+                .unwrap();
+                let final_inventory = result.collected.metadata.inventory;
+                assert_eq!(callbacks, 6);
+                assert_eq!(last_bytes, 43);
+                assert_eq!(final_inventory.entries[0].logical_bytes, Some(43));
+                assert_eq!(final_inventory.report.coverage, Coverage::Complete);
+                assert_eq!(final_inventory.entries.len(), limit.min(6));
+                assert_eq!(final_inventory.entries_omitted, (6 - limit.min(6)) as u64);
+            }
+        }
+    }
+
+    #[test]
+    fn cancellation_and_path_limits_keep_preview_and_final_lower_bounds() {
+        let fixture = tempfile::TempDir::new().unwrap();
+        std::fs::write(fixture.path().join("one"), [0; 17]).unwrap();
+        std::fs::write(fixture.path().join("two"), [0; 19]).unwrap();
+        let token = CancellationToken::default();
+        let result = scan_inventory_progressive(
+            fixture.path(),
+            &ScanOptions::default(),
+            &token,
+            ProgressiveInventoryOptions {
+                limits: InventoryLimits {
+                    max_entries: 50_000,
+                    max_path_bytes: std::fs::canonicalize(fixture.path())
+                        .unwrap()
+                        .as_os_str()
+                        .as_encoded_bytes()
+                        .len(),
+                },
+                ..Default::default()
+            },
+            |p, preview| {
+                assert_eq!(preview.entries.len(), 1);
+                if p.files == 1 {
+                    token.cancel();
+                }
+            },
+        )
+        .unwrap();
+        let inventory = result.collected.metadata.inventory;
+        assert_eq!(inventory.report.coverage, Coverage::Cancelled);
+        assert_eq!(inventory.report.files, 1);
+        assert!(inventory.entries[0].incomplete);
+        assert!(inventory.path_bytes_limit_reached);
+        assert_eq!(
+            inventory.entries[0].logical_bytes,
+            Some(inventory.report.logical_bytes)
+        );
+    }
+}
+
+#[cfg(test)]
+mod child_window_tests {
+    use super::*;
+    #[test]
+    fn child_windows_cover_every_direct_entry_without_double_consolidation() {
+        let fixture = tempfile::TempDir::new().unwrap();
+        for i in 0..29 {
+            std::fs::write(fixture.path().join(format!("f-{i:02}")), [0; 3]).unwrap();
+        }
+        std::fs::create_dir(fixture.path().join("child")).unwrap();
+        std::fs::write(fixture.path().join("child/deep"), [0; 91]).unwrap();
+        let initial = scan_inventory(
+            fixture.path(),
+            &ScanOptions::default(),
+            &CancellationToken::default(),
+            1,
+            |_| {},
+        )
+        .unwrap();
+        assert_eq!(initial.report.logical_bytes, 178);
+        let mut seen = std::collections::HashSet::new();
+        for offset in (0..30).step_by(4) {
+            let result = scan_inventory_progressive(
+                fixture.path(),
+                &ScanOptions {
+                    max_depth: Some(1),
+                    ..Default::default()
+                },
+                &CancellationToken::default(),
+                ProgressiveInventoryOptions {
+                    child_offset: offset,
+                    limits: InventoryLimits {
+                        max_entries: 5,
+                        ..Default::default()
+                    },
+                    ..Default::default()
+                },
+                |_, _| {},
+            )
+            .unwrap();
+            let inventory = result.collected.metadata.inventory;
+            assert_eq!(inventory.report.logical_bytes, 87);
+            assert_eq!(inventory.entries[0].logical_bytes, Some(87));
+            assert!(inventory.entries[0].incomplete);
+            for entry in inventory.entries.into_iter().skip(1) {
+                assert!(seen.insert(entry.path));
+            }
+        }
+        assert_eq!(seen.len(), 30);
+        assert_eq!(initial.entries[0].logical_bytes, Some(178));
+        assert!(
+            scan_inventory_progressive(
+                fixture.path(),
+                &ScanOptions::default(),
+                &CancellationToken::default(),
+                ProgressiveInventoryOptions {
+                    child_offset: 1,
+                    ..Default::default()
+                },
+                |_, _| {}
+            )
+            .is_err()
+        );
+    }
+}
+
+#[cfg(test)]
+mod recursive_child_window_tests {
+    use super::*;
+    #[test]
+    fn recursive_totals_cover_omitted_descendants_while_only_direct_children_are_retained() {
+        let fixture = tempfile::TempDir::new().unwrap();
+        for i in 0..12 {
+            let folder = fixture.path().join(format!("d{i}"));
+            std::fs::create_dir_all(folder.join("deep")).unwrap();
+            std::fs::write(folder.join("file"), [0; 3]).unwrap();
+            std::fs::write(folder.join("deep/leaf"), [0; 7]).unwrap();
+        }
+        let mut paths = std::collections::HashSet::new();
+        for offset in (0..12).step_by(4) {
+            let result = scan_inventory_progressive(
+                fixture.path(),
+                &ScanOptions::default(),
+                &CancellationToken::default(),
+                ProgressiveInventoryOptions {
+                    child_offset: offset,
+                    direct_children_only: true,
+                    limits: InventoryLimits {
+                        max_entries: 5,
+                        ..Default::default()
+                    },
+                    ..Default::default()
+                },
+                |_, preview| {
+                    assert!(preview.direct_children_seen <= 12);
+                },
+            )
+            .unwrap();
+            let inventory = result.collected.metadata.inventory;
+            assert_eq!(inventory.entries.len(), 5);
+            assert_eq!(inventory.entries[0].logical_bytes, Some(120));
+            assert_eq!(inventory.entries[0].counts.unwrap().recursive_files, 24);
+            assert_eq!(inventory.entries[0].counts.unwrap().direct_directories, 12);
+            assert!(!inventory.entries[0].incomplete);
+            for entry in inventory.entries.into_iter().skip(1) {
+                assert_eq!(entry.parent, Some(0));
+                assert_eq!(entry.logical_bytes, Some(10));
+                assert_eq!(entry.counts.unwrap().recursive_files, 2);
+                assert!(paths.insert(entry.path));
+            }
+        }
+        assert_eq!(paths.len(), 12);
     }
 }

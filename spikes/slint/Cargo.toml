@@ -1,31 +1,42 @@
 [package]
 name = "sortsize-slint-spike"
-version = "0.2.0-rc.1"
+version = "0.3.0-rc.1"
 edition = "2024"
 rust-version = "1.99"
 publish = false
-default-run = "sortsize-slint-spike"
+default-run = "bunny-and-size"
 
 [workspace]
 resolver = "3"
+
+# Slint upstream #13568, backported to the locked 1.18.1 backend. See vendor/README.md.
+[patch.crates-io]
+i-slint-backend-winit = { path = "../../vendor/i-slint-backend-winit-1.18.1" }
 
 [lib]
 crate-type = ["rlib", "cdylib"]
 
 [[bin]]
-name = "sortsize-slint-spike"
+name = "bunny-and-size"
 path = "src/main.rs"
 
 [dependencies]
+# Already locked transitively by Slint; MIT OR Apache-2.0, offline OS locale.
+sys-locale = "=0.3.2"
 sortsize-core = { path = "../../crates/sortsize-core" }
 sortsize-owner-resolution = { path = "../../crates/sortsize-owner-resolution" }
 slint = { version = "=1.18.1", default-features = false, features = ["std", "compat-1-18", "renderer-software"] }
+
+[build-dependencies]
+slint-build = "=1.18.1"
 
 [dev-dependencies]
 tempfile = "3.20"
 
 [target.'cfg(not(target_os = "android"))'.dependencies]
-slint = { version = "=1.18.1", default-features = false, features = ["backend-winit-x11", "raw-window-handle-06"] }
+# Keep the native accessibility bridge: labels alone are invisible to UIA/AT-SPI
+# when Slint defaults are disabled. Android keeps its separate backend below.
+slint = { version = "=1.18.1", default-features = false, features = ["backend-winit-x11", "raw-window-handle-06", "accessibility"] }
 i-slint-backend-winit = { version = "=1.18.1", optional = true, default-features = false, features = ["x11", "renderer-software"] }
 
 # Dialogue desktop uniquement ; pas de GTK, runtime async ou intégration Android.
@@ -51,6 +62,8 @@ target_sdk_version = 35
 
 # Banc de mesure explicite ; aucun diagnostic dans l'application habituelle.
 [features]
+# Controlled test fixture only. Never used by the application window.
+i18n-pilot = []
 benchmarks = ["dep:i-slint-backend-winit"]
 allocation-profiling = ["benchmarks"]
 owner-profiling = ["benchmarks", "sortsize-core/owner-profiling"]
@@ -58,4 +71,14 @@ owner-profiling = ["benchmarks", "sortsize-core/owner-profiling"]
 [[bin]]
 name = "sortsize-measure"
 path = "src/bin/measure.rs"
+required-features = ["benchmarks"]
+
+[[test]]
+name = "i18n_pilot"
+path = "tests/i18n_pilot.rs"
+required-features = ["i18n-pilot"]
+
+[[bin]]
+name = "sortsize-i18n-harness"
+path = "src/bin/i18n-harness.rs"
 required-features = ["benchmarks"]

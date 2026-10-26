@@ -1,0 +1,1526 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sortsize-slint-spike 0.3.0-dev\n"
+"POT-Creation-Date: 1970-01-01 00:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: spikes/slint/ui/main.slint:5
+msgctxt "ui"
+msgid "Bunny and Size — About / Licenses"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:20
+msgctxt "ui"
+msgid "Bunny and Size {} — About / Licenses"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:22
+msgctxt "ui"
+msgid "Created, published and maintained by Louis Lejuez (@tazmen3)"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:23
+msgctxt "ui"
+msgid "Contributors: Louis Lejuez / tazmen3; assisted by Codex"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:27
+msgctxt "ui"
+msgid "Code: GPL-3.0-only. Artwork: CC BY-SA 4.0 — Louis Lejuez / TazmenWorld."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:29
+msgctxt "ui"
+msgid "Notices and rights"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:30
+msgctxt "ui"
+msgid "Read the full GPLv3"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:35
+msgctxt "ui"
+msgid "Full GPLv3 text"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:35
+msgctxt "ui"
+msgid "Notices, rights and warranty disclaimer"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:72
+msgctxt "ui"
+msgid "Open folder {}, {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:72
+msgctxt "ui"
+msgid "Inspect file {}, {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:72
+msgctxt "ui"
+msgid "Group {}, {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:106
+msgctxt "ui"
+msgid "Bunny and Size {} — storage analysis"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:113
+msgctxt "ui"
+msgid "Name (always visible)"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:113 spikes/slint/ui/main.slint:604
+msgctxt "ui"
+msgid "Logical size"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:113
+msgctxt "ui"
+msgid "Allocated size"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:113 spikes/slint/ui/main.slint:522
+msgctxt "ui"
+msgid "Owner"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:113 spikes/slint/ui/main.slint:527
+msgctxt "ui"
+msgid "Folder share"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:113
+msgctxt "ui"
+msgid "Recursive files"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:113
+msgctxt "ui"
+msgid "Recursive folders"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:113 spikes/slint/ui/main.slint:530
+msgctxt "ui"
+msgid "Type / status"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:113 spikes/slint/ui/main.slint:188
+msgctxt "ui"
+msgid "Last modified"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:113
+msgctxt "ui"
+msgid "Last accessed"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:113 spikes/slint/ui/main.slint:541
+#: spikes/slint/ui/main.slint:113 spikes/slint/ui/main.slint:541
+msgctxt "ui"
+msgid "Full path"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:120
+msgctxt "ui"
+msgid "Saving…"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:120
+msgctxt "ui"
+msgid "Preferences saved."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:120
+msgctxt "ui"
+msgid "Could not save; preferences kept for this session."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:120
+msgctxt "ui"
+msgid "Invalid preferences or unsupported version; using defaults."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:120
+msgctxt "ui"
+msgid "Could not read preferences; using defaults."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:120
+msgctxt "ui"
+msgid "Saving unavailable for this session."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:120
+msgctxt "ui"
+msgid "User directory unavailable; session preferences."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:168
+msgctxt "ui"
+msgid "Choose a folder to scan."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:169
+msgctxt "ui"
+msgid "No inventory"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:176
+msgctxt "ui"
+msgid "Start a scan to explore a folder."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:189
+msgctxt "ui"
+msgid "Last accessed (UTC)"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:192
+msgctxt "ui"
+msgid "Start a scan to display the Top 100."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:203
+msgctxt "ui"
+msgid "Start a scan to display the Treemap."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:223
+msgctxt "ui"
+msgid "Storage analysis"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:224
+msgctxt "ui"
+msgid "READ ONLY"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:225 spikes/slint/ui/main.slint:673
+msgctxt "ui"
+msgid "Columns and display"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:225
+msgctxt "ui"
+msgid "Configure columns and units"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:226
+msgctxt "ui"
+msgid "About / Licenses"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:231
+msgctxt "ui"
+msgid "Path of the folder to scan"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:232
+msgctxt "ui"
+msgid "Folder to scan"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:238
+msgctxt "ui"
+msgid "Browse…"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:238
+msgctxt "ui"
+msgid "Choose a folder to scan"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:243
+msgctxt "ui"
+msgid "1 folder at a time"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:243
+msgctxt "ui"
+msgid "2 folders in parallel"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:243
+msgctxt "ui"
+msgid "4 folders in parallel"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:243
+msgctxt "ui"
+msgid "8 folders in parallel"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:245
+msgctxt "ui"
+msgid "Folders scanned concurrently"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:248
+msgctxt "ui"
+msgid "Scan"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:249
+msgctxt "ui"
+msgid "Cancelling…"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:249
+msgctxt "ui"
+msgid "Cancel"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:249
+msgctxt "ui"
+msgid "Cancel the scan or owner resolution"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:253
+msgctxt "ui"
+msgid "Tree / Treemap"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:253
+msgctxt "ui"
+msgid "Top 100"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:253
+msgctxt "ui"
+msgid "Switch between Top 100 and browsing"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:254
+msgctxt "ui"
+msgid "Treemap"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:254
+msgctxt "ui"
+msgid "Focus the Treemap"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:255
+msgctxt "ui"
+msgid "↑ Parent"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:255
+msgctxt "ui"
+msgid "Go to the parent folder"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:256
+msgctxt "ui"
+msgid "Load folder contents"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:258
+msgctxt "ui"
+msgid "Collect allocated sizes"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:260
+msgctxt "ui"
+msgid "Collect allocated sizes during the next scan"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:263
+msgctxt "ui"
+msgid "Owners"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:264
+msgctxt "ui"
+msgid "Show or hide owner collection and resolution options"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:267
+msgctxt "ui"
+msgid "Current folder"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:267
+msgctxt "ui"
+msgid "Path of the current folder"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:272
+msgctxt "ui"
+msgid "Collect owners"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:274
+msgctxt "ui"
+msgid "Collect native owners during the next scan"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:278
+msgctxt "ui"
+msgid "Resolve names (NSS / AD: network possible)"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:280
+msgctxt "ui"
+msgid ""
+"Explicitly allow name resolution; NSS or Active Directory may access the "
+"network"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:283
+msgctxt "ui"
+msgid "Stop resolution"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:307
+msgctxt "ui"
+msgid "FOLDERS"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:308
+msgctxt "ui"
+msgid "LOGICAL SIZE"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:322
+msgctxt "ui"
+msgid "Collapse {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:322
+msgctxt "ui"
+msgid "Expand {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:328
+msgctxt "ui"
+msgid "Browse {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:337
+msgctxt "ui"
+msgid "Previous page of folders"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:339
+msgctxt "ui"
+msgid "Next page of folders"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:349
+msgctxt "ui"
+msgid "Resize folders and storage sources. Arrows adjust; Enter resets."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:397
+msgctxt "ui"
+msgid "STORAGE SOURCES"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:398
+msgctxt "ui"
+msgid "Refresh"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:414
+msgctxt "ui"
+msgid "Scan local source: {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:435
+msgctxt "ui"
+msgid "Query network / unknown type"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:436
+msgctxt "ui"
+msgid "Query capacities of network or unknown sources; network access possible"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:441
+msgctxt "ui"
+msgid "LOCAL SOURCE"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:443
+msgctxt "ui"
+msgid "Logical per path · links not followed\nAllocated: repeated hardlinks"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:443
+msgctxt "ui"
+msgid ""
+"Logical sizes per path\nAllocated: per path, repeated hardlinks\nLinks not "
+"followed"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:443
+msgctxt "ui"
+msgid "\nAllocated sort: ≥ = known bound\nProvisional ranking"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "FOLDER CONTENTS · "
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Sort: "
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Size ↓"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Size ↑"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Name ↑"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Name ↓"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Allocated ↓"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Allocated ↑"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Owner ↑"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Owner ↓"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Modified newest"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Modified oldest"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Accessed newest"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:451
+msgctxt "ui"
+msgid "Accessed oldest"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:452
+msgctxt "ui"
+msgid "No folder selected"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:455
+msgctxt "ui"
+msgid "TREEMAP · LOGICAL SIZE"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:456
+msgctxt "ui"
+msgid "Arrows · Enter · Backspace"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:461
+msgctxt "ui"
+msgid "Treemap of observed logical sizes"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:465 spikes/slint/ui/main.slint:489
+msgctxt "ui"
+msgid "No measured area"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:514 spikes/slint/ui/main.slint:603
+msgctxt "ui"
+msgid "Name"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:515
+msgctxt "ui"
+msgid "Size"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:517
+msgctxt "ui"
+msgid "Allocated / Per path"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:524
+msgctxt "ui"
+msgid "Sort owners; apply names available at this time"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:528
+msgctxt "ui"
+msgid "Recursive\nfiles"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:529
+msgctxt "ui"
+msgid "Recursive\nfolders"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:533
+msgctxt "ui"
+msgid "; sort newest to oldest, then reverse"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:538
+msgctxt "ui"
+msgid "; according to system policy; sort newest to oldest, then reverse"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:552
+msgctxt "ui"
+msgid "Open {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:552
+msgctxt "ui"
+msgid "Show path of {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:559
+msgctxt "ui"
+msgid "Owner of {}: {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:574
+msgctxt "ui"
+msgid "Show full path: {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:586
+msgctxt "ui"
+msgid "Previous"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:588
+msgctxt "ui"
+msgid "Next"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:590
+msgctxt "ui"
+msgid "Select a path to read it in full"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:590
+msgctxt "ui"
+msgid "Full entry path"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:599
+msgctxt "ui"
+msgid "TOP 100 · LARGEST FILES"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:602
+msgctxt "ui"
+msgid "Rank"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:609
+msgctxt "ui"
+msgid "Top 100, rank {}, {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:609
+msgctxt "ui"
+msgid "Top 100, no file selected"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:645
+msgctxt "ui"
+msgid "No file observed in this scope."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:646
+msgctxt "ui"
+msgid "↑ ↓ · Home / End: select · Enter: reveal in table"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:647
+msgctxt "ui"
+msgid "Full native path of the ranked file, non-Unicode units escaped"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:649
+msgctxt "ui"
+msgid "Reveal in table"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:650
+msgctxt "ui"
+msgid "Select a file."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:650
+msgctxt "ui"
+msgid "File retained in the inventory."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:650
+msgctxt "ui"
+msgid "Path absent from retained inventory; no node to reveal."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:674
+msgctxt "ui"
+msgid "The name stays visible. The active sort is preserved."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:676
+msgctxt "ui"
+msgid "Language"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:678
+msgctxt "ui"
+msgid "Automatic (system)"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:678 spikes/slint/ui/main.slint:686
+#: spikes/slint/ui/main.slint:678 spikes/slint/ui/main.slint:686
+msgctxt "ui"
+msgid "English"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:678 spikes/slint/ui/main.slint:686
+#: spikes/slint/ui/main.slint:678 spikes/slint/ui/main.slint:686
+msgctxt "ui"
+msgid "Français"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:678 spikes/slint/ui/main.slint:686
+#: spikes/slint/ui/main.slint:678 spikes/slint/ui/main.slint:686
+msgctxt "ui"
+msgid "Deutsch"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:678 spikes/slint/ui/main.slint:686
+#: spikes/slint/ui/main.slint:678 spikes/slint/ui/main.slint:686
+msgctxt "ui"
+msgid "Español"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:678 spikes/slint/ui/main.slint:686
+#: spikes/slint/ui/main.slint:678 spikes/slint/ui/main.slint:686
+msgctxt "ui"
+msgid "Português (Portugal)"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:680
+msgctxt "ui"
+msgid "Interface language"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:685
+msgctxt "ui"
+msgid "Detected system locale: {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:686
+msgctxt "ui"
+msgid "Active language: {}"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:690
+msgctxt "ui"
+msgid "Could not activate the language; previous language retained."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:691
+msgctxt "ui"
+msgid ""
+"Requested catalog ({}) unavailable; using English. Saved preference retained."
+msgstr ""
+
+#: spikes/slint/ui/main.slint:702
+msgctxt "ui"
+msgid "Units"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:704
+msgctxt "ui"
+msgid "Binary (KiB, MiB, GiB)"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:704
+msgctxt "ui"
+msgid "Decimal (kB, MB, GB)"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:706
+msgctxt "ui"
+msgid "Units for displayed sizes"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:712
+msgctxt "ui"
+msgid "Reset display"
+msgstr ""
+
+#: spikes/slint/ui/main.slint:713
+msgctxt "ui"
+msgid "Close"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:4
+msgctxt "rust"
+msgid " Independent of the limited inventory."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:5
+msgctxt "rust"
+msgid " Limited inventory; omissions indicated, without individual paths."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:6
+msgctxt "rust"
+msgid " Logical sizes per path, not recoverable space."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:7
+msgctxt "rust"
+msgid " No representable positive size; see the table."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:8
+msgctxt "rust"
+msgid " Path budget reached."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:9
+msgctxt "rust"
+msgid " · limited inventory"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:10
+msgctxt "rust"
+msgid " · partial scan"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:11
+msgctxt "rust"
+msgid "Access denied"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:12
+msgctxt "rust"
+msgid ""
+"Allocations, dates and inventory are inconsistent: different entry counts"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:13
+msgctxt "rust"
+msgid "Android prototype: SAF/MediaStore selection is not yet integrated."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:14
+msgctxt "rust"
+msgid "Available"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:15
+msgctxt "rust"
+msgid "Cancellation requested…"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:16
+msgctxt "rust"
+msgid "Choose a folder to scan"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:17
+msgctxt "rust"
+msgid "Could not open the picker: {}"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:18
+msgctxt "rust"
+msgid "Could not start the scan."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:19
+msgctxt "rust"
+msgid "Dates and inventory are inconsistent: different entry counts"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:20
+msgctxt "rust"
+msgid "Discovering…"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:21
+msgctxt "rust"
+msgid "Discovery failed. Try Refresh."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:22
+msgctxt "rust"
+msgid "Display limited to 256 sources · capacities cannot be summed"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:23
+msgctxt "rust"
+msgid "Enter the path of a folder to scan."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:24
+msgctxt "rust"
+msgid "File"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:25
+msgctxt "rust"
+msgid "Folder"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:26
+msgctxt "rust"
+msgid "Global ranking of the scanned scope."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:27
+msgctxt "rust"
+msgid "Inconsistent aggregates: proportions unavailable."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:28
+msgctxt "rust"
+msgid "Individual entries available in the table."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:29
+msgctxt "rust"
+msgid "Local"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:30
+msgctxt "rust"
+msgid "Logical sizes · click: folder / file inspection."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:31
+msgctxt "rust"
+msgid "Network"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:32
+msgctxt "rust"
+msgid "No accessible entry; the scan is partial."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:33
+msgctxt "rust"
+msgid "No accessible entry; this folder scan is partial."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:34
+msgctxt "rust"
+msgid "No entry retained for this folder; the inventory is limited."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:35
+msgctxt "rust"
+msgid "No entry retained in the scanned scope."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:36
+msgctxt "rust"
+msgid "No inventory available for this folder."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:37
+msgctxt "rust"
+msgid "No inventory available."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:38
+msgctxt "rust"
+msgid "No ranking available: scan failed."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:39
+msgctxt "rust"
+msgid "No storage source visible."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:40
+msgctxt "rust"
+msgid "Not collected"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:41
+msgctxt "rust"
+msgid "Not queried"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:42
+msgctxt "rust"
+msgid "Omitted from inventory"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:43
+msgctxt "rust"
+msgid "Optical"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:44
+msgctxt "rust"
+msgid "Owners and inventory are inconsistent"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:45
+msgctxt "rust"
+msgid "Partial / cancelled scan: ranking of actually observed files only."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:46
+msgctxt "rust"
+msgid "Partial folder"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:47
+msgctxt "rust"
+msgid "Partial scan — some entries were not traversed"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:48
+msgctxt "rust"
+msgid "Paths not retained: no individual details available."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:49
+msgctxt "rust"
+msgid "Point-in-time measurements · capacities cannot be summed"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:50
+msgctxt "rust"
+msgid "Preparing inventory…"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:51
+msgctxt "rust"
+msgid "Processing stopped unexpectedly. You can restart the scan."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:52
+msgctxt "rust"
+msgid "Proportions of observed bytes only; incomplete coverage."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:53
+msgctxt "rust"
+msgid "Removable"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:54
+msgctxt "rust"
+msgid "Scan cancelled before retaining an entry; no inventory available."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:55
+msgctxt "rust"
+msgid "Scan cancelled — partial results retained"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:56
+msgctxt "rust"
+msgid "Scan complete"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:57
+msgctxt "rust"
+msgid "Scan failed."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:58
+msgctxt "rust"
+msgid "Scan in progress…"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:59
+msgctxt "rust"
+msgid "Skipped link"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:60
+msgctxt "rust"
+msgid "Skipped special entry"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:61
+msgctxt "rust"
+msgid ""
+"The picker stopped without a result. Try again or enter the path manually."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:62
+msgctxt "rust"
+msgid "This folder is empty within the scanned scope."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:63
+msgctxt "rust"
+msgid "Unavailable"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:64
+msgctxt "rust"
+msgid "Unknown"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:65
+msgctxt "rust"
+msgid "Unknown availability"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:66
+msgctxt "rust"
+msgid "Unknown type"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:67
+msgctxt "rust"
+msgid "Unsupported"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:68
+msgctxt "rust"
+msgid "{n} file"
+msgid_plural "{n} files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:69
+msgctxt "rust"
+msgid "{n} folder"
+msgid_plural "{n} folders"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:70
+msgctxt "rust"
+msgid "{n} error"
+msgid_plural "{n} errors"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:71
+msgctxt "rust"
+msgid "{n} byte"
+msgid_plural "{n} bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:72
+msgctxt "rust"
+msgid "{n} skipped link"
+msgid_plural "{n} skipped links"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:73
+msgctxt "rust"
+msgid "{n} concurrent folder"
+msgid_plural "{n} concurrent folders"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:74
+msgctxt "rust"
+msgid "{n} additional detail omitted"
+msgid_plural "{n} additional details omitted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:75
+msgctxt "rust"
+msgid "Others ({n} entry)"
+msgid_plural "Others ({n} entries)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:76
+msgctxt "rust"
+msgid " Others: {n} grouped entry, available in the table."
+msgid_plural " Others: {n} grouped entries, available in the table."
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:77
+msgctxt "rust"
+msgid " {n} zero size without area."
+msgid_plural " {n} zero sizes without area."
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:78
+msgctxt "rust"
+msgid " {n} unknown / unmeasured size, without area."
+msgid_plural " {n} unknown / unmeasured sizes, without area."
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:79
+msgctxt "rust"
+msgid " · {n} mount, same storage"
+msgid_plural " · {n} mounts, same storage"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:80
+msgctxt "rust"
+msgid ""
+"Bunny and Size @VERSION@ — free software, GPL-3.0-only\n\nYou may modify "
+"and redistribute this software under GNU GPL version 3 only. NO WARRANTY, "
+"including merchantability or fitness for a particular purpose, to the extent "
+"permitted by law; see sections 15 and 16.\n\nThe “Read the full GPLv3” "
+"button displays a complete offline copy of the license. The LICENSE file "
+"in the archive contains the same text.\n\nThird-party copyright notices are "
+"preserved in THIRD_PARTY_NOTICES.txt and licences/ beside the executable. "
+"Excerpts from the original Slint and Fluent icon notices:\nCopyright © "
+"SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://"
+"github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: "
+"GPL-3.0-only option. Fluent icons: MIT.\n\nAUTHORS.txt lists Bunny and Size "
+"code contributors from Git; this list does not designate an exclusive "
+"copyright holder. No Bunny and Size copyright holder or year is inferred "
+"from these names.\n\nCorresponding source is the Bunny-and-Size-v@VERSION@-"
+"source archive for your platform, supplied with the binaries; its exact name "
+"and SHA-256 appear in BUILDINFO.json. When redistributing, give recipients "
+"effective access to corresponding source under GPLv3; an inaccessible "
+"private repository is insufficient.\n"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:81
+msgctxt "rust"
+msgid "Choose a folder to scan."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:82
+msgctxt "rust"
+msgid "Could not access {}: {}"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:83
+msgctxt "rust"
+msgid "The root {} must be a real folder, not a symbolic link"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:84
+msgctxt "rust"
+msgid "Invalid scan options. Check worker count and traversal limits."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:85
+msgctxt "rust"
+msgid "Could not start a worker: {}"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:86
+msgctxt "rust"
+msgid "Observation stream failed: {}"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:87
+msgctxt "rust"
+msgid "An acquisition worker stopped unexpectedly"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:88
+msgctxt "rust"
+msgid "The sum of sizes exceeds the capacity of a 64-bit integer"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:89
+msgctxt "rust"
+msgid ""
+"Limited inventory: {}, {} (limits: {}, {} of native paths). Scan totals are "
+"preserved."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:90
+msgctxt "rust"
+msgid "Scanner policy: {}. Rules: {}."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:91
+msgctxt "rust"
+msgid ""
+"Traversal budget reached: {}. Their descendants are not counted. Sizes are "
+"lower bounds. Limits: {} and {} of pending native paths."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:92
+msgctxt "rust"
+msgid " Limited ranking: {} (maximum {} native bytes per file)."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:93
+msgctxt "rust"
+msgid ""
+"{} · direct files: {} · direct subfolders: {}\nrecursive files: {} · "
+"recursive subfolders: {} · {}{}{}"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:94
+msgctxt "rust"
+msgid "A native path requires {}; the transmission budget is {}"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:95
+msgctxt "rust"
+msgid "{n} retained entry"
+msgid_plural "{n} retained entries"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:96
+msgctxt "rust"
+msgid "{n} entry not displayed"
+msgid_plural "{n} entries not displayed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:97
+msgctxt "rust"
+msgid "{n} entry"
+msgid_plural "{n} entries"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:98
+msgctxt "rust"
+msgid "{n} excluded entry"
+msgid_plural "{n} excluded entries"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:99
+msgctxt "rust"
+msgid "{n} observed folder not traversed"
+msgid_plural "{n} observed folders not traversed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:100
+msgctxt "rust"
+msgid "{n} oversized path omitted"
+msgid_plural "{n} oversized paths omitted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:101
+msgctxt "rust"
+msgid "Resolution unavailable; native identifiers retained."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:102
+msgctxt "rust"
+msgid "Resolving page names…"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:103
+msgctxt "rust"
+msgid ""
+"Resolution suspended: waiting for previous provider or service unavailable."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:104
+msgctxt "rust"
+msgid "Page names updated; native identifiers retained as fallback."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:105
+msgctxt "rust"
+msgid "Name resolution: {n} identity remaining on this page."
+msgid_plural "Name resolution: {n} identities remaining on this page."
+msgstr[0] ""
+msgstr[1] ""
+
+#: spikes/slint/ui/rust-messages.slint:106
+msgctxt "capacity"
+msgid "Unknown"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:107
+msgctxt "capacity"
+msgid "Unsupported"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:108
+msgctxt "rust"
+msgid "Jan"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:109
+msgctxt "rust"
+msgid "Feb"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:110
+msgctxt "rust"
+msgid "Mar"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:111
+msgctxt "rust"
+msgid "Apr"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:112
+msgctxt "rust"
+msgid "May"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:113
+msgctxt "rust"
+msgid "Jun"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:114
+msgctxt "rust"
+msgid "Jul"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:115
+msgctxt "rust"
+msgid "Aug"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:116
+msgctxt "rust"
+msgid "Sep"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:117
+msgctxt "rust"
+msgid "Oct"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:118
+msgctxt "rust"
+msgid "Nov"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:119
+msgctxt "rust"
+msgid "Dec"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:120
+msgctxt "rust"
+msgid ""
+"Additional folder listing in progress. Initial scan totals are unchanged."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:121
+msgctxt "rust"
+msgid ""
+"Initial folder total: {}. Additional direct-child listing starting at entry "
+"{}. Contents may have changed."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:122
+msgctxt "rust"
+msgid "Additional analysis in progress…"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:123
+msgctxt "rust"
+msgid "Additional analysis complete"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:124
+msgctxt "rust"
+msgid "Additional analysis — partial results"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:125
+msgctxt "rust"
+msgid "Additional analysis cancelled — partial results retained"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:126
+msgctxt "rust"
+msgid "Additional analysis failed."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:127
+msgctxt "rust"
+msgid "Initial scan: {}"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:128
+msgctxt "rust"
+msgid ""
+"Automatic scan unavailable: select an accessible local source. Other paths "
+"require an explicit scan."
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:129
+msgctxt "rust"
+msgid "Capacity unavailable"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:130
+msgctxt "rust"
+msgid "Total {} · Used {} · Free {} · Available {}"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:131
+msgctxt "rust"
+msgid "Usage unavailable"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:132
+msgctxt "rust"
+msgid "{} % used"
+msgstr ""
+
+#: spikes/slint/ui/rust-messages.slint:133
+msgctxt "rust"
+msgid ""
+"Storage source changed or became unavailable. Refresh sources and select it "
+"again."
+msgstr ""

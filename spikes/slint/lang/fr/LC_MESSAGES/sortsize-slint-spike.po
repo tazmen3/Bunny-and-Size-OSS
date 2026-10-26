@@ -1,0 +1,1184 @@
+msgid ""
+msgstr "Project-Id-Version: sortsize-slint-spike 0.3.0-dev\nLanguage: fr\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgctxt "rust"
+msgid " Independent of the limited inventory."
+msgstr " Indépendant de l’inventaire limité."
+
+msgctxt "rust"
+msgid " Limited inventory; omissions indicated, without individual paths."
+msgstr " Inventaire limité ; omissions signalées, sans chemin individuel."
+
+msgctxt "rust"
+msgid " Logical sizes per path, not recoverable space."
+msgstr " Tailles logiques par chemin, pas un espace récupérable."
+
+msgctxt "rust"
+msgid " No representable positive size; see the table."
+msgstr " Aucune taille positive représentable ; consulter le tableau."
+
+msgctxt "rust"
+msgid " Path budget reached."
+msgstr " Budget de chemins atteint."
+
+msgctxt "rust"
+msgid " · limited inventory"
+msgstr " · inventaire limité"
+
+msgctxt "rust"
+msgid " · partial scan"
+msgstr " · analyse partielle"
+
+msgctxt "rust"
+msgid "Access denied"
+msgstr "Accès refusé"
+
+msgctxt "rust"
+msgid "Allocations, dates and inventory are inconsistent: different entry counts"
+msgstr "Allocations, dates et inventaire incohérents : nombres d’entrées différents"
+
+msgctxt "rust"
+msgid "Android prototype: SAF/MediaStore selection is not yet integrated."
+msgstr "Prototype Android : la sélection SAF/MediaStore reste à intégrer."
+
+msgctxt "rust"
+msgid "Available"
+msgstr "Disponible"
+
+msgctxt "rust"
+msgid "Cancellation requested…"
+msgstr "Annulation demandée…"
+
+msgctxt "rust"
+msgid "Choose a folder to scan"
+msgstr "Choisir un dossier à analyser"
+
+msgctxt "rust"
+msgid "Could not open the picker: {}"
+msgstr "Impossible d’ouvrir le sélecteur : {}"
+
+msgctxt "rust"
+msgid "Could not start the scan."
+msgstr "Impossible de démarrer l'analyse."
+
+msgctxt "rust"
+msgid "Dates and inventory are inconsistent: different entry counts"
+msgstr "Dates et inventaire incohérents : nombres d’entrées différents"
+
+msgctxt "rust"
+msgid "Discovering…"
+msgstr "Découverte en cours…"
+
+msgctxt "rust"
+msgid "Discovery failed. Try Refresh."
+msgstr "Découverte impossible. Réessaie avec Actualiser."
+
+msgctxt "rust"
+msgid "Display limited to 256 sources · capacities cannot be summed"
+msgstr "Affichage limité à 256 sources · capacités non additionnables"
+
+msgctxt "rust"
+msgid "Enter the path of a folder to scan."
+msgstr "Saisis le chemin d'un dossier à analyser."
+
+msgctxt "rust"
+msgid "File"
+msgstr "Fichier"
+
+msgctxt "rust"
+msgid "Folder"
+msgstr "Dossier"
+
+msgctxt "rust"
+msgid "Global ranking of the scanned scope."
+msgstr "Classement global du périmètre analysé."
+
+msgctxt "rust"
+msgid "Inconsistent aggregates: proportions unavailable."
+msgstr "Agrégats incohérents : proportions indisponibles."
+
+msgctxt "rust"
+msgid "Individual entries available in the table."
+msgstr "Éléments individuels accessibles dans le tableau."
+
+msgctxt "rust"
+msgid "Local"
+msgstr "Local"
+
+msgctxt "rust"
+msgid "Logical sizes · click: folder / file inspection."
+msgstr "Tailles logiques · clic : dossier / inspection du fichier."
+
+msgctxt "rust"
+msgid "Network"
+msgstr "Réseau"
+
+msgctxt "rust"
+msgid "No accessible entry; the scan is partial."
+msgstr "Aucune entrée accessible ; l’analyse est partielle."
+
+msgctxt "rust"
+msgid "No accessible entry; this folder scan is partial."
+msgstr "Aucune entrée accessible ; l’analyse de ce dossier est partielle."
+
+msgctxt "rust"
+msgid "No entry retained for this folder; the inventory is limited."
+msgstr "Aucune entrée retenue pour ce dossier ; l’inventaire est limité."
+
+msgctxt "rust"
+msgid "No entry retained in the scanned scope."
+msgstr "Aucune entrée retenue dans le périmètre analysé."
+
+msgctxt "rust"
+msgid "No inventory available for this folder."
+msgstr "Aucun inventaire disponible pour ce dossier."
+
+msgctxt "rust"
+msgid "No inventory available."
+msgstr "Aucun inventaire disponible."
+
+msgctxt "rust"
+msgid "No ranking available: scan failed."
+msgstr "Aucun classement disponible : analyse impossible."
+
+msgctxt "rust"
+msgid "No storage source visible."
+msgstr "Aucune source de stockage visible."
+
+msgctxt "rust"
+msgid "Not collected"
+msgstr "Non collectée"
+
+msgctxt "rust"
+msgid "Not queried"
+msgstr "Non interrogé"
+
+msgctxt "rust"
+msgid "Omitted from inventory"
+msgstr "Omis de l’inventaire"
+
+msgctxt "rust"
+msgid "Optical"
+msgstr "Optique"
+
+msgctxt "rust"
+msgid "Owners and inventory are inconsistent"
+msgstr "Propriétaires et inventaire incohérents"
+
+msgctxt "rust"
+msgid "Partial / cancelled scan: ranking of actually observed files only."
+msgstr "Analyse partielle / annulée : classement des fichiers réellement observés uniquement."
+
+msgctxt "rust"
+msgid "Partial folder"
+msgstr "Dossier partiel"
+
+msgctxt "rust"
+msgid "Partial scan — some entries were not traversed"
+msgstr "Analyse partielle — certains éléments n'ont pas été parcourus"
+
+msgctxt "rust"
+msgid "Paths not retained: no individual details available."
+msgstr "Chemins non retenus : aucun détail individuel disponible."
+
+msgctxt "rust"
+msgid "Point-in-time measurements · capacities cannot be summed"
+msgstr "Mesures ponctuelles · capacités non additionnables"
+
+msgctxt "rust"
+msgid "Preparing inventory…"
+msgstr "Préparation de l'inventaire…"
+
+msgctxt "rust"
+msgid "Processing stopped unexpectedly. You can restart the scan."
+msgstr "Le traitement s'est interrompu de façon inattendue. Tu peux relancer l'analyse."
+
+msgctxt "rust"
+msgid "Proportions of observed bytes only; incomplete coverage."
+msgstr "Proportions des octets observés uniquement ; couverture incomplète."
+
+msgctxt "rust"
+msgid "Removable"
+msgstr "Amovible"
+
+msgctxt "rust"
+msgid "Scan cancelled before retaining an entry; no inventory available."
+msgstr "Analyse annulée avant de retenir une entrée ; aucun inventaire disponible."
+
+msgctxt "rust"
+msgid "Scan cancelled — partial results retained"
+msgstr "Analyse annulée — résultats partiels conservés"
+
+msgctxt "rust"
+msgid "Scan complete"
+msgstr "Analyse terminée"
+
+msgctxt "rust"
+msgid "Scan failed."
+msgstr "Analyse impossible."
+
+msgctxt "rust"
+msgid "Scan in progress…"
+msgstr "Analyse en cours…"
+
+msgctxt "rust"
+msgid "Skipped link"
+msgstr "Lien ignoré"
+
+msgctxt "rust"
+msgid "Skipped special entry"
+msgstr "Entrée spéciale ignorée"
+
+msgctxt "rust"
+msgid "The picker stopped without a result. Try again or enter the path manually."
+msgstr "Le sélecteur s’est arrêté sans résultat. Réessaie ou saisis le chemin manuellement."
+
+msgctxt "rust"
+msgid "This folder is empty within the scanned scope."
+msgstr "Ce dossier est vide dans le périmètre analysé."
+
+msgctxt "rust"
+msgid "Unavailable"
+msgstr "Indisponible"
+
+msgctxt "rust"
+msgid "Unknown"
+msgstr "Inconnue"
+
+msgctxt "rust"
+msgid "Unknown availability"
+msgstr "Disponibilité inconnue"
+
+msgctxt "rust"
+msgid "Unknown type"
+msgstr "Type inconnu"
+
+msgctxt "rust"
+msgid "Unsupported"
+msgstr "Non prise en charge"
+
+msgctxt "ui"
+msgid "\nAllocated sort: ≥ = known bound\nProvisional ranking"
+msgstr "\nTri alloué : ≥ = borne connue\nClassement provisoire"
+
+msgctxt "ui"
+msgid "1 folder at a time"
+msgstr "1 dossier à la fois"
+
+msgctxt "ui"
+msgid "2 folders in parallel"
+msgstr "2 dossiers en parallèle"
+
+msgctxt "ui"
+msgid "4 folders in parallel"
+msgstr "4 dossiers en parallèle"
+
+msgctxt "ui"
+msgid "8 folders in parallel"
+msgstr "8 dossiers en parallèle"
+
+msgctxt "ui"
+msgid "; according to system policy; sort newest to oldest, then reverse"
+msgstr "; selon la politique du système ; trier du plus récent au plus ancien, puis inverser"
+
+msgctxt "ui"
+msgid "; sort newest to oldest, then reverse"
+msgstr "; trier du plus récent au plus ancien, puis inverser"
+
+msgctxt "ui"
+msgid "About / Licenses"
+msgstr "À propos / Licences"
+
+msgctxt "ui"
+msgid "Accessed newest"
+msgstr "Accès récent"
+
+msgctxt "ui"
+msgid "Accessed oldest"
+msgstr "Accès ancien"
+
+msgctxt "ui"
+msgid "Allocated / Per path"
+msgstr "Alloué / Par chemin"
+
+msgctxt "ui"
+msgid "Allocated size"
+msgstr "Taille allouée"
+
+msgctxt "ui"
+msgid "Allocated ↑"
+msgstr "Alloué ↑"
+
+msgctxt "ui"
+msgid "Allocated ↓"
+msgstr "Alloué ↓"
+
+msgctxt "ui"
+msgid "Arrows · Enter · Backspace"
+msgstr "Flèches · Entrée · Retour arrière"
+
+msgctxt "ui"
+msgid "Binary (KiB, MiB, GiB)"
+msgstr "Binaire (KiB, MiB, GiB)"
+
+msgctxt "ui"
+msgid "Browse…"
+msgstr "Parcourir…"
+
+msgctxt "ui"
+msgid "Cancel"
+msgstr "Annuler"
+
+msgctxt "ui"
+msgid "Cancel the scan or owner resolution"
+msgstr "Annuler le scan ou la résolution des propriétaires"
+
+msgctxt "ui"
+msgid "Cancelling…"
+msgstr "Annulation…"
+
+msgctxt "ui"
+msgid "Choose a folder to scan"
+msgstr "Choisir un dossier à analyser"
+
+msgctxt "ui"
+msgid "Choose a folder to scan."
+msgstr "Choisis un dossier à analyser."
+
+msgctxt "ui"
+msgid "Close"
+msgstr "Fermer"
+
+msgctxt "ui"
+msgid "Collect allocated sizes"
+msgstr "Collecter les tailles allouées"
+
+msgctxt "ui"
+msgid "Collect allocated sizes during the next scan"
+msgstr "Collecter les tailles allouées lors du prochain scan"
+
+msgctxt "ui"
+msgid "Collect native owners during the next scan"
+msgstr "Collecter les propriétaires natifs lors du prochain scan"
+
+msgctxt "ui"
+msgid "Collect owners"
+msgstr "Collecter les propriétaires"
+
+msgctxt "ui"
+msgid "Columns and display"
+msgstr "Colonnes et affichage"
+
+msgctxt "ui"
+msgid "Configure columns and units"
+msgstr "Configurer les colonnes et les unités"
+
+msgctxt "ui"
+msgid "Could not read preferences; using defaults."
+msgstr "Lecture des préférences impossible ; valeurs par défaut."
+
+msgctxt "ui"
+msgid "Could not save; preferences kept for this session."
+msgstr "Sauvegarde impossible ; préférences conservées pour cette session."
+
+msgctxt "ui"
+msgid "Current folder"
+msgstr "Dossier consulté"
+
+msgctxt "ui"
+msgid "Decimal (kB, MB, GB)"
+msgstr "Décimal (kB, MB, GB)"
+
+msgctxt "ui"
+msgid "Explicitly allow name resolution; NSS or Active Directory may access the network"
+msgstr "Autoriser explicitement la résolution des noms ; NSS ou Active Directory peuvent accéder au réseau"
+
+msgctxt "ui"
+msgid "FOLDER CONTENTS · "
+msgstr "CONTENU DU DOSSIER · "
+
+msgctxt "ui"
+msgid "FOLDERS"
+msgstr "DOSSIERS"
+
+msgctxt "ui"
+msgid "File retained in the inventory."
+msgstr "Fichier retenu dans l’inventaire."
+
+msgctxt "ui"
+msgid "Focus the Treemap"
+msgstr "Placer le focus sur la Treemap"
+
+msgctxt "ui"
+msgid "Folder share"
+msgstr "Part du dossier"
+
+msgctxt "ui"
+msgid "Folder to scan"
+msgstr "Dossier à analyser"
+
+msgctxt "ui"
+msgid "Folders scanned concurrently"
+msgstr "Dossiers analysés simultanément"
+
+msgctxt "ui"
+msgid "Full GPLv3 text"
+msgstr "Texte intégral de la GPLv3"
+
+msgctxt "ui"
+msgid "Full entry path"
+msgstr "Chemin complet de l’entrée"
+
+msgctxt "ui"
+msgid "Full native path of the ranked file, non-Unicode units escaped"
+msgstr "Chemin natif complet du fichier classé, unités non Unicode échappées"
+
+msgctxt "ui"
+msgid "Full path"
+msgstr "Chemin complet"
+
+msgctxt "ui"
+msgid "Go to the parent folder"
+msgstr "Revenir au dossier parent"
+
+msgctxt "ui"
+msgid "Invalid preferences or unsupported version; using defaults."
+msgstr "Préférences illisibles ou version non prise en charge ; valeurs par défaut."
+
+msgctxt "ui"
+msgid "LOCAL SOURCE"
+msgstr "SOURCE LOCALE"
+
+msgctxt "ui"
+msgid "LOGICAL SIZE"
+msgstr "TAILLE LOGIQUE"
+
+msgctxt "ui"
+msgid "Last accessed"
+msgstr "Dernier accès"
+
+msgctxt "ui"
+msgid "Last accessed (UTC)"
+msgstr "Dernier accès (UTC)"
+
+msgctxt "ui"
+msgid "Last modified"
+msgstr "Dernière modification"
+
+msgctxt "ui"
+msgid "Logical per path · links not followed\nAllocated: repeated hardlinks"
+msgstr "Logique par chemin · liens non suivis\nAlloué : hardlinks répétés"
+
+msgctxt "ui"
+msgid "Logical size"
+msgstr "Taille logique"
+
+msgctxt "ui"
+msgid "Logical sizes per path\nAllocated: per path, repeated hardlinks\nLinks not followed"
+msgstr "Tailles logiques par chemin\nAlloué : par chemin, hardlinks répétés\nLiens non suivis"
+
+msgctxt "ui"
+msgid "Modified newest"
+msgstr "Modification récente"
+
+msgctxt "ui"
+msgid "Modified oldest"
+msgstr "Modification ancienne"
+
+msgctxt "ui"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "ui"
+msgid "Name (always visible)"
+msgstr "Nom (toujours visible)"
+
+msgctxt "ui"
+msgid "Name ↑"
+msgstr "Nom ↑"
+
+msgctxt "ui"
+msgid "Name ↓"
+msgstr "Nom ↓"
+
+msgctxt "ui"
+msgid "Next"
+msgstr "Suivante"
+
+msgctxt "ui"
+msgid "Next page of folders"
+msgstr "Page suivante des dossiers"
+
+msgctxt "ui"
+msgid "No file observed in this scope."
+msgstr "Aucun fichier observé dans ce périmètre."
+
+msgctxt "ui"
+msgid "No folder selected"
+msgstr "Aucun dossier sélectionné"
+
+msgctxt "ui"
+msgid "No inventory"
+msgstr "Aucun inventaire"
+
+msgctxt "ui"
+msgid "No measured area"
+msgstr "Aucune surface mesurée"
+
+msgctxt "ui"
+msgid "Notices and rights"
+msgstr "Avis et droits"
+
+msgctxt "ui"
+msgid "Notices, rights and warranty disclaimer"
+msgstr "Avis, droits et absence de garantie"
+
+msgctxt "ui"
+msgid "Owner"
+msgstr "Propriétaire"
+
+msgctxt "ui"
+msgid "Owner ↑"
+msgstr "Propriétaire ↑"
+
+msgctxt "ui"
+msgid "Owner ↓"
+msgstr "Propriétaire ↓"
+
+msgctxt "ui"
+msgid "Owners"
+msgstr "Propriétaires"
+
+msgctxt "ui"
+msgid "Path absent from retained inventory; no node to reveal."
+msgstr "Chemin absent de l’inventaire retenu ; aucun nœud à révéler."
+
+msgctxt "ui"
+msgid "Path of the current folder"
+msgstr "Chemin du dossier consulté"
+
+msgctxt "ui"
+msgid "Path of the folder to scan"
+msgstr "Chemin du dossier à analyser"
+
+msgctxt "ui"
+msgid "Preferences saved."
+msgstr "Préférences enregistrées."
+
+msgctxt "ui"
+msgid "Previous"
+msgstr "Précédente"
+
+msgctxt "ui"
+msgid "Previous page of folders"
+msgstr "Page précédente des dossiers"
+
+msgctxt "ui"
+msgid "Query capacities of network or unknown sources; network access possible"
+msgstr "Interroger les capacités des sources réseau ou de type inconnu ; accès réseau possible"
+
+msgctxt "ui"
+msgid "Query network / unknown type"
+msgstr "Interroger réseau / type inconnu"
+
+msgctxt "ui"
+msgid "READ ONLY"
+msgstr "LECTURE SEULE"
+
+msgctxt "ui"
+msgid "Rank"
+msgstr "Rang"
+
+msgctxt "ui"
+msgid "Read the full GPLv3"
+msgstr "Lire la GPLv3 intégrale"
+
+msgctxt "ui"
+msgid "Recursive\nfiles"
+msgstr "Fichiers\nrécursifs"
+
+msgctxt "ui"
+msgid "Recursive\nfolders"
+msgstr "Dossiers\nrécursifs"
+
+msgctxt "ui"
+msgid "Recursive files"
+msgstr "Fichiers récursifs"
+
+msgctxt "ui"
+msgid "Recursive folders"
+msgstr "Dossiers récursifs"
+
+msgctxt "ui"
+msgid "Refresh"
+msgstr "Actualiser"
+
+msgctxt "ui"
+msgid "Reset display"
+msgstr "Réinitialiser l’affichage"
+
+msgctxt "ui"
+msgid "Resolve names (NSS / AD: network possible)"
+msgstr "Résoudre les noms (NSS / AD : réseau possible)"
+
+msgctxt "ui"
+msgid "Reveal in table"
+msgstr "Révéler dans le tableau"
+
+msgctxt "ui"
+msgid "STORAGE SOURCES"
+msgstr "SOURCES DE STOCKAGE"
+
+msgctxt "ui"
+msgid "Saving unavailable for this session."
+msgstr "Sauvegarde indisponible pour cette session."
+
+msgctxt "ui"
+msgid "Saving…"
+msgstr "Enregistrement…"
+
+msgctxt "ui"
+msgid "Scan"
+msgstr "Analyser"
+
+msgctxt "ui"
+msgid "Select a file."
+msgstr "Sélectionne un fichier."
+
+msgctxt "ui"
+msgid "Select a path to read it in full"
+msgstr "Sélectionne un chemin pour le lire en entier"
+
+msgctxt "ui"
+msgid "Show or hide owner collection and resolution options"
+msgstr "Afficher ou masquer les options de collecte et de résolution des propriétaires"
+
+msgctxt "ui"
+msgid "Size"
+msgstr "Taille"
+
+msgctxt "ui"
+msgid "Size ↑"
+msgstr "Taille ↑"
+
+msgctxt "ui"
+msgid "Size ↓"
+msgstr "Taille ↓"
+
+msgctxt "ui"
+msgid "Sort owners; apply names available at this time"
+msgstr "Trier les propriétaires ; appliquer les noms disponibles à cet instant"
+
+msgctxt "ui"
+msgid "Sort: "
+msgstr "Tri : "
+
+msgctxt "ui"
+msgid "Bunny and Size — About / Licenses"
+msgstr "Bunny and Size — À propos / Licences"
+
+msgctxt "ui"
+msgid "Start a scan to display the Top 100."
+msgstr "Lance une analyse pour afficher le Top 100."
+
+msgctxt "ui"
+msgid "Start a scan to display the Treemap."
+msgstr "Lance une analyse pour afficher la Treemap."
+
+msgctxt "ui"
+msgid "Start a scan to explore a folder."
+msgstr "Lance une analyse pour explorer un dossier."
+
+msgctxt "ui"
+msgid "Stop resolution"
+msgstr "Arrêter la résolution"
+
+msgctxt "ui"
+msgid "Storage analysis"
+msgstr "Analyse du stockage"
+
+msgctxt "ui"
+msgid "Switch between Top 100 and browsing"
+msgstr "Basculer entre Top 100 et exploration"
+
+msgctxt "ui"
+msgid "TOP 100 · LARGEST FILES"
+msgstr "TOP 100 · PLUS GROS FICHIERS"
+
+msgctxt "ui"
+msgid "TREEMAP · LOGICAL SIZE"
+msgstr "TREEMAP · TAILLE LOGIQUE"
+
+msgctxt "ui"
+msgid "The name stays visible. The active sort is preserved."
+msgstr "Le nom reste visible. Le tri actif est conservé."
+
+msgctxt "ui"
+msgid "Top 100"
+msgstr "Top 100"
+
+msgctxt "ui"
+msgid "Top 100, no file selected"
+msgstr "Top 100, aucun fichier sélectionné"
+
+msgctxt "ui"
+msgid "Tree / Treemap"
+msgstr "Arbre / Treemap"
+
+msgctxt "ui"
+msgid "Treemap"
+msgstr "Treemap"
+
+msgctxt "ui"
+msgid "Treemap of observed logical sizes"
+msgstr "Treemap des tailles logiques observées"
+
+msgctxt "ui"
+msgid "Type / status"
+msgstr "Type / état"
+
+msgctxt "ui"
+msgid "Units"
+msgstr "Unités"
+
+msgctxt "ui"
+msgid "Units for displayed sizes"
+msgstr "Unités des tailles affichées"
+
+msgctxt "ui"
+msgid "User directory unavailable; session preferences."
+msgstr "Répertoire utilisateur indisponible ; préférences de session."
+
+msgctxt "ui"
+msgid "↑ Parent"
+msgstr "↑ Parent"
+
+msgctxt "ui"
+msgid "↑ ↓ · Home / End: select · Enter: reveal in table"
+msgstr "↑ ↓ · Début / Fin : sélection · Entrée : révéler dans le tableau"
+
+msgctxt "rust"
+msgid "{n} file"
+msgid_plural "{n} files"
+msgstr[0] "{n} fichier"
+msgstr[1] "{n} fichiers"
+
+msgctxt "rust"
+msgid "{n} folder"
+msgid_plural "{n} folders"
+msgstr[0] "{n} dossier"
+msgstr[1] "{n} dossiers"
+
+msgctxt "rust"
+msgid "{n} error"
+msgid_plural "{n} errors"
+msgstr[0] "{n} erreur"
+msgstr[1] "{n} erreurs"
+
+msgctxt "rust"
+msgid "{n} byte"
+msgid_plural "{n} bytes"
+msgstr[0] "{n} octet"
+msgstr[1] "{n} octets"
+
+msgctxt "rust"
+msgid "{n} skipped link"
+msgid_plural "{n} skipped links"
+msgstr[0] "{n} lien ignoré"
+msgstr[1] "{n} liens ignorés"
+
+msgctxt "rust"
+msgid "{n} concurrent folder"
+msgid_plural "{n} concurrent folders"
+msgstr[0] "{n} dossier simultané"
+msgstr[1] "{n} dossiers simultanés"
+
+msgctxt "rust"
+msgid "{n} additional detail omitted"
+msgid_plural "{n} additional details omitted"
+msgstr[0] "{n} détail supplémentaire omis"
+msgstr[1] "{n} détails supplémentaires omis"
+
+msgctxt "rust"
+msgid "Others ({n} entry)"
+msgid_plural "Others ({n} entries)"
+msgstr[0] "Autres ({n} élément)"
+msgstr[1] "Autres ({n} éléments)"
+
+msgctxt "rust"
+msgid " Others: {n} grouped entry, available in the table."
+msgid_plural " Others: {n} grouped entries, available in the table."
+msgstr[0] " Autres : {n} élément regroupé, accessible dans le tableau."
+msgstr[1] " Autres : {n} éléments regroupés, accessibles dans le tableau."
+
+msgctxt "rust"
+msgid " {n} zero size without area."
+msgid_plural " {n} zero sizes without area."
+msgstr[0] " {n} taille nulle sans surface."
+msgstr[1] " {n} tailles nulles sans surface."
+
+msgctxt "rust"
+msgid " {n} unknown / unmeasured size, without area."
+msgid_plural " {n} unknown / unmeasured sizes, without area."
+msgstr[0] " {n} taille inconnue / non mesurée, sans surface."
+msgstr[1] " {n} tailles inconnues / non mesurées, sans surface."
+
+msgctxt "rust"
+msgid " · {n} mount, same storage"
+msgid_plural " · {n} mounts, same storage"
+msgstr[0] " · {n} point, même stockage"
+msgstr[1] " · {n} points, même stockage"
+
+msgctxt "ui"
+msgid "Bunny and Size {} — About / Licenses"
+msgstr "Bunny and Size {} — À propos / Licences"
+
+msgctxt "ui"
+msgid "Bunny and Size {} — storage analysis"
+msgstr "Bunny and Size {} — analyse du stockage"
+
+msgctxt "ui"
+msgid "Browse {}"
+msgstr "Consulter {}"
+
+msgctxt "ui"
+msgid "Open folder {}, {}"
+msgstr "Ouvrir le dossier {}, {}"
+
+msgctxt "ui"
+msgid "Inspect file {}, {}"
+msgstr "Inspecter le fichier {}, {}"
+
+msgctxt "ui"
+msgid "Group {}, {}"
+msgstr "Groupe {}, {}"
+
+msgctxt "ui"
+msgid "Collapse {}"
+msgstr "Replier {}"
+
+msgctxt "ui"
+msgid "Expand {}"
+msgstr "Déplier {}"
+
+msgctxt "ui"
+msgid "Show full path: {}"
+msgstr "Afficher le chemin complet : {}"
+
+msgctxt "rust"
+msgid "Bunny and Size @VERSION@ — free software, GPL-3.0-only\n\nYou may modify and redistribute this software under GNU GPL version 3 only. NO WARRANTY, including merchantability or fitness for a particular purpose, to the extent permitted by law; see sections 15 and 16.\n\nThe “Read the full GPLv3” button displays a complete offline copy of the license. The LICENSE file in the archive contains the same text.\n\nThird-party copyright notices are preserved in THIRD_PARTY_NOTICES.txt and licences/ beside the executable. Excerpts from the original Slint and Fluent icon notices:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: GPL-3.0-only option. Fluent icons: MIT.\n\nAUTHORS.txt lists Bunny and Size code contributors from Git; this list does not designate an exclusive copyright holder. No Bunny and Size copyright holder or year is inferred from these names.\n\nCorresponding source is the Bunny-and-Size-v@VERSION@-source archive for your platform, supplied with the binaries; its exact name and SHA-256 appear in BUILDINFO.json. When redistributing, give recipients effective access to corresponding source under GPLv3; an inaccessible private repository is insufficient.\n"
+msgstr "Bunny and Size @VERSION@ — logiciel libre, GPL-3.0-only\n\nVous pouvez modifier et redistribuer ce logiciel selon la GNU GPL version 3 uniquement. AUCUNE GARANTIE, notamment de qualité marchande ou d'adéquation à un usage particulier, dans les limites autorisées par la loi ; voir les articles 15 et 16.\n\nLe bouton « Lire la GPLv3 intégrale » affiche une copie complète de la licence, disponible hors ligne. Le fichier LICENSE de l'archive contient le même texte.\n\nLes mentions de droits des composants tiers sont conservées dans THIRD_PARTY_NOTICES.txt et licences/ à côté de l'exécutable. Extraits des mentions d'origine de Slint et de ses icônes Fluent :\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1 : voie GPL-3.0-only. Icônes Fluent : MIT.\n\nAUTHORS.txt recense les contributeurs du code Bunny and Size d'après Git ; cette liste ne désigne pas de titulaire exclusif des droits. Aucun titulaire ni millésime de copyright Bunny and Size n'est déduit de ces noms.\n\nLe source correspondant est l'archive Bunny-and-Size-v@VERSION@-source de votre plateforme, fournie avec les binaires ; son nom exact et son SHA-256 figurent dans BUILDINFO.json. Lors d'une redistribution, donner aux destinataires un accès effectif au source correspondant selon la GPLv3 ; un dépôt privé inaccessible ne suffit pas.\n"
+
+msgctxt "rust"
+msgid "Choose a folder to scan."
+msgstr "Choisis un dossier à analyser."
+
+msgctxt "rust"
+msgid "Could not access {}: {}"
+msgstr "Impossible d'accéder à {} : {}"
+
+msgctxt "rust"
+msgid "The root {} must be a real folder, not a symbolic link"
+msgstr "La racine {} doit être un dossier réel, pas un lien symbolique"
+
+msgctxt "rust"
+msgid "Invalid scan options. Check worker count and traversal limits."
+msgstr "Options invalides. Vérifie le nombre de travailleurs et les limites du parcours."
+
+msgctxt "rust"
+msgid "Could not start a worker: {}"
+msgstr "Impossible de démarrer un travailleur : {}"
+
+msgctxt "rust"
+msgid "Observation stream failed: {}"
+msgstr "Échec du flux d'observations : {}"
+
+msgctxt "rust"
+msgid "An acquisition worker stopped unexpectedly"
+msgstr "Un travailleur d'acquisition s'est interrompu"
+
+msgctxt "rust"
+msgid "The sum of sizes exceeds the capacity of a 64-bit integer"
+msgstr "La somme des tailles dépasse la capacité d'un entier 64 bits"
+
+msgctxt "ui"
+msgid "Owner of {}: {}"
+msgstr "Propriétaire de {} : {}"
+
+msgctxt "ui"
+msgid "Open {}"
+msgstr "Ouvrir {}"
+
+msgctxt "ui"
+msgid "Show path of {}"
+msgstr "Afficher le chemin de {}"
+
+msgctxt "ui"
+msgid "Top 100, rank {}, {}"
+msgstr "Top 100, rang {}, {}"
+
+msgctxt "rust"
+msgid "Limited inventory: {}, {} (limits: {}, {} of native paths). Scan totals are preserved."
+msgstr "Inventaire limité : {}, {} (plafonds : {}, {} de chemins natifs). Les totaux du scan sont conservés."
+
+msgctxt "rust"
+msgid "Scanner policy: {}. Rules: {}."
+msgstr "Politique du scanner : {}. Règles : {}."
+
+msgctxt "rust"
+msgid "Traversal budget reached: {}. Their descendants are not counted. Sizes are lower bounds. Limits: {} and {} of pending native paths."
+msgstr "Budget du parcours atteint : {}. Leurs descendants ne sont pas comptés. Les tailles sont des bornes inférieures. Limites : {} et {} de chemins natifs en attente."
+
+msgctxt "rust"
+msgid " Limited ranking: {} (maximum {} native bytes per file)."
+msgstr " Classement limité : {} (maximum {} octets natifs par fichier)."
+
+msgctxt "rust"
+msgid "{} · direct files: {} · direct subfolders: {}\nrecursive files: {} · recursive subfolders: {} · {}{}{}"
+msgstr "{} · fichiers directs : {} · sous-dossiers directs : {}\nfichiers récursifs : {} · sous-dossiers récursifs : {} · {}{}{}"
+
+msgctxt "rust"
+msgid "A native path requires {}; the transmission budget is {}"
+msgstr "Un chemin natif nécessite {} ; le budget de transmission est de {}"
+
+msgctxt "rust"
+msgid "{n} retained entry"
+msgid_plural "{n} retained entries"
+msgstr[0] "{n} entrée retenue"
+msgstr[1] "{n} entrées retenues"
+
+msgctxt "rust"
+msgid "{n} entry not displayed"
+msgid_plural "{n} entries not displayed"
+msgstr[0] "{n} entrée non affichée"
+msgstr[1] "{n} entrées non affichées"
+
+msgctxt "rust"
+msgid "{n} entry"
+msgid_plural "{n} entries"
+msgstr[0] "{n} entrée"
+msgstr[1] "{n} entrées"
+
+msgctxt "rust"
+msgid "{n} excluded entry"
+msgid_plural "{n} excluded entries"
+msgstr[0] "{n} entrée exclue"
+msgstr[1] "{n} entrées exclues"
+
+msgctxt "rust"
+msgid "{n} observed folder not traversed"
+msgid_plural "{n} observed folders not traversed"
+msgstr[0] "{n} dossier observé non parcouru"
+msgstr[1] "{n} dossiers observés non parcourus"
+
+msgctxt "rust"
+msgid "{n} oversized path omitted"
+msgid_plural "{n} oversized paths omitted"
+msgstr[0] "{n} chemin trop long omis"
+msgstr[1] "{n} chemins trop longs omis"
+
+msgctxt "rust"
+msgid "Resolution unavailable; native identifiers retained."
+msgstr "Résolution indisponible ; identifiants natifs conservés."
+
+msgctxt "rust"
+msgid "Resolving page names…"
+msgstr "Résolution des noms de la page…"
+
+msgctxt "rust"
+msgid "Resolution suspended: waiting for previous provider or service unavailable."
+msgstr "Résolution suspendue : attente du fournisseur précédent ou service indisponible."
+
+msgctxt "rust"
+msgid "Page names updated; native identifiers retained as fallback."
+msgstr "Noms de la page actualisés ; identifiants natifs conservés en secours."
+
+msgctxt "rust"
+msgid "Name resolution: {n} identity remaining on this page."
+msgid_plural "Name resolution: {n} identities remaining on this page."
+msgstr[0] "Résolution des noms : {n} identité restante sur cette page."
+msgstr[1] "Résolution des noms : {n} identités restantes sur cette page."
+
+msgctxt "capacity"
+msgid "Unknown"
+msgstr "Inconnu"
+
+msgctxt "capacity"
+msgid "Unsupported"
+msgstr "Non pris en charge"
+
+msgctxt "ui"
+msgid "Language"
+msgstr "Langue"
+
+msgctxt "ui"
+msgid "Automatic (system)"
+msgstr "Automatique (système)"
+
+msgctxt "ui"
+msgid "English"
+msgstr "English"
+
+msgctxt "ui"
+msgid "Français"
+msgstr "Français"
+
+msgctxt "ui"
+msgid "Interface language"
+msgstr "Langue de l’interface"
+
+msgctxt "ui"
+msgid "Detected system locale: {}"
+msgstr "Locale système détectée : {}"
+
+msgctxt "ui"
+msgid "Active language: {}"
+msgstr "Langue active : {}"
+
+msgctxt "ui"
+msgid "Could not activate the language; previous language retained."
+msgstr "Impossible d’activer la langue ; langue précédente conservée."
+
+msgctxt "ui"
+msgid "Requested catalog ({}) unavailable; using English. Saved preference retained."
+msgstr "Catalogue demandé ({}) indisponible ; anglais utilisé. Préférence enregistrée conservée."
+
+msgctxt "rust"
+msgid "Jan"
+msgstr "janv."
+
+msgctxt "rust"
+msgid "Feb"
+msgstr "févr."
+
+msgctxt "rust"
+msgid "Mar"
+msgstr "mars"
+
+msgctxt "rust"
+msgid "Apr"
+msgstr "avr."
+
+msgctxt "rust"
+msgid "May"
+msgstr "mai"
+
+msgctxt "rust"
+msgid "Jun"
+msgstr "juin"
+
+msgctxt "rust"
+msgid "Jul"
+msgstr "juil."
+
+msgctxt "rust"
+msgid "Aug"
+msgstr "août"
+
+msgctxt "rust"
+msgid "Sep"
+msgstr "sept."
+
+msgctxt "rust"
+msgid "Oct"
+msgstr "oct."
+
+msgctxt "rust"
+msgid "Nov"
+msgstr "nov."
+
+msgctxt "rust"
+msgid "Dec"
+msgstr "déc."
+
+msgctxt "ui"
+msgid "Deutsch"
+msgstr "Deutsch"
+
+msgctxt "ui"
+msgid "Español"
+msgstr "Español"
+
+msgctxt "ui"
+msgid "Português (Portugal)"
+msgstr "Português (Portugal)"
+
+msgctxt "rust"
+msgid "Additional folder listing in progress. Initial scan totals are unchanged."
+msgstr "Lecture complémentaire du dossier en cours. Les totaux de l’analyse initiale sont conservés."
+
+msgctxt "rust"
+msgid "Initial folder total: {}. Additional direct-child listing starting at entry {}. Contents may have changed."
+msgstr "Total initial du dossier : {}. Liste complémentaire des enfants directs à partir de l’entrée {}. Le contenu peut avoir changé."
+
+msgctxt "ui"
+msgid "Load folder contents"
+msgstr "Lire le contenu du dossier"
+
+msgctxt "rust"
+msgid "Additional analysis in progress…"
+msgstr "Analyse complémentaire en cours…"
+
+msgctxt "rust"
+msgid "Additional analysis complete"
+msgstr "Analyse complémentaire terminée"
+
+msgctxt "rust"
+msgid "Additional analysis — partial results"
+msgstr "Analyse complémentaire — résultats partiels"
+
+msgctxt "rust"
+msgid "Additional analysis cancelled — partial results retained"
+msgstr "Analyse complémentaire annulée — résultats partiels conservés"
+
+msgctxt "rust"
+msgid "Additional analysis failed."
+msgstr "Analyse complémentaire impossible."
+
+msgctxt "rust"
+msgid "Initial scan: {}"
+msgstr "Analyse initiale : {}"
+
+msgctxt "ui"
+msgid "Created, published and maintained by Louis Lejuez (@tazmen3)"
+msgstr "Créé, édité et maintenu par Louis Lejuez (@tazmen3)"
+
+msgctxt "ui"
+msgid "Contributors: Louis Lejuez / tazmen3; assisted by Codex"
+msgstr "Contributeurs : Louis Lejuez / tazmen3 ; assistance de Codex"
+
+msgctxt "ui"
+msgid "Code: GPL-3.0-only. Artwork: CC BY-SA 4.0 — Louis Lejuez / TazmenWorld."
+msgstr "Code : GPL-3.0-only. Visuels : CC BY-SA 4.0 — Louis Lejuez / TazmenWorld."
+
+msgctxt "rust"
+msgid "Automatic scan unavailable: select an accessible local source. Other paths require an explicit scan."
+msgstr "Analyse automatique indisponible : sélectionnez une source locale accessible. Les autres chemins nécessitent une analyse explicite."
+
+msgctxt "ui"
+msgid "Scan local source: {}"
+msgstr "Analyser la source locale : {}"
+
+msgctxt "ui"
+msgid "Resize folders and storage sources. Arrows adjust; Enter resets."
+msgstr "Redimensionner les dossiers et les sources. Les flèches ajustent ; Entrée réinitialise."
+
+msgctxt "rust"
+msgid "Capacity unavailable"
+msgstr "Capacité indisponible"
+
+msgctxt "rust"
+msgid "Total {} · Used {} · Free {} · Available {}"
+msgstr "Total {} · Utilisé {} · Libre {} · Disponible {}"
+
+msgctxt "rust"
+msgid "Usage unavailable"
+msgstr "Occupation indisponible"
+
+msgctxt "rust"
+msgid "{} % used"
+msgstr "{} % utilisés"
+
+msgctxt "rust"
+msgid "Storage source changed or became unavailable. Refresh sources and select it again."
+msgstr "La source de stockage a changé ou est devenue indisponible. Actualisez les sources et sélectionnez-la à nouveau."

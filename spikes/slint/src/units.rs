@@ -13,7 +13,7 @@ impl Units {
         };
         let bytes = u128::from(bytes);
         if bytes < base {
-            return format!("{bytes} {}", if bytes == 1 { "octet" } else { "octets" });
+            return tr_count!("{n} byte", "{n} bytes", bytes as u64);
         }
         let mut divisor = base;
         let mut unit = 0;
@@ -22,7 +22,7 @@ impl Units {
             unit += 1;
         }
         let tenths = (bytes * 10 + divisor / 2) / divisor;
-        format!("{}.{:01} {}", tenths / 10, tenths % 10, labels[unit])
+        format!("{} {}", crate::number_format::tenths(tenths), labels[unit])
     }
 }
 #[cfg(test)]
@@ -31,28 +31,28 @@ mod tests {
     #[test]
     fn boundaries_rounding_and_full_u64_range() {
         for (n, binary, decimal) in [
-            (0, "0 octets", "0 octets"),
+            (0, "0 octet", "0 octet"),
             (1, "1 octet", "1 octet"),
             (999, "999 octets", "999 octets"),
-            (1000, "1000 octets", "1.0 kB"),
-            (1023, "1023 octets", "1.0 kB"),
-            (1024, "1.0 KiB", "1.0 kB"),
-            (1050, "1.0 KiB", "1.1 kB"),
-            (1_048_576, "1.0 MiB", "1.0 MB"),
-            (1 << 40, "1.0 TiB", "1.1 TB"),
-            (u64::MAX, "16.0 EiB", "18.4 EB"),
+            (1000, "1\u{202f}000 octets", "1,0 kB"),
+            (1023, "1\u{202f}023 octets", "1,0 kB"),
+            (1024, "1,0 KiB", "1,0 kB"),
+            (1050, "1,0 KiB", "1,1 kB"),
+            (1_048_576, "1,0 MiB", "1,0 MB"),
+            (1 << 40, "1,0 TiB", "1,1 TB"),
+            (u64::MAX, "16,0 EiB", "18,4 EB"),
         ] {
             assert_eq!(Units::Binary.format(n), binary);
             assert_eq!(Units::Decimal.format(n), decimal);
         }
         for shift in [10, 20, 30, 40, 50, 60] {
-            assert!(Units::Binary.format(1 << shift).starts_with("1.0 "));
+            assert!(Units::Binary.format(1 << shift).starts_with("1,0 "));
         }
         for power in 1..=6 {
             assert!(
                 Units::Decimal
                     .format(1000u64.pow(power))
-                    .starts_with("1.0 ")
+                    .starts_with("1,0 ")
             );
         }
     }

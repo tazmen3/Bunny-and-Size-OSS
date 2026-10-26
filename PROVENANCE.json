@@ -1,135 +1,62 @@
 {
-  "version": "0.2.0-rc.1",
-  "source_commit": "448e92e572c0e986f7706d2373531e033196ed1d",
-  "product_tree_sha256": "f733b5da7d9d5e20443c133f86c0c3eea592dd48b477fa8e4d083fdaeb6234bc",
-  "publication_repository": "tazmen3/SortSize-OSS",
-  "distribution_variant": "documentation-sanitized-1",
+  "product": "Bunny and Size",
+  "version": "0.3.0-rc.1",
+  "date": "2026-10-26",
+  "publication_repository": "tazmen3/Bunny-and-Size-OSS",
+  "release_url": "https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.3.0-rc.1",
+  "source_origin_commit": "addf68704f26ef02559dd56b2e9b75b168fd0752",
+  "original_archives_unchanged": true,
   "executables_recompiled": false,
+  "private_history_imported": false,
+  "source_snapshot": "Approved files selected byte-for-byte from the original Linux corresponding-source archive; no later private tests.",
+  "dependency_complete_sources": "Use the platform-specific corresponding-source release assets; automatic GitHub source archives are not substitutes.",
+  "source_files_manifest": "SOURCE_FILES.json",
   "archives": [
     {
-      "file": "SortSize-v0.2.0-rc.1-source-linux-x86_64.tar.gz",
-      "bytes": 56317775,
-      "sha256": "eb629dfbf0688de4721986677461d1633a29b9eed2a368004dab2150fecfa535",
-      "original_sha256": "620eb99a51d3b18f989943def298cfda11451355a9ccb763eac77ddef206c9f8",
-      "changed_members": [
-        "BUILDINFO.json",
-        "FILES.json",
-        "PUBLIC_DISTRIBUTION.json",
-        "SHA256SUMS",
-        "docs/V01_INTEGRATION.md",
-        "docs/validation/v01-integration/README.md",
-        "docs/validation/v01-integration/SHA256SUMS",
-        "docs/validation/v01-integration/fmt-clippy.log",
-        "docs/validation/v01-integration/qualification.json"
-      ],
-      "source": true,
-      "binaries": {
-        "sortsize-gui": {
-          "sha256": "387f04c71ab46fb33c1897faf9fb68be94aff23e561aa405f1ae2c0ba265e6b1",
-          "bytes": 26870544,
-          "machine": "x86_64",
-          "format": "ELF64"
-        },
-        "sortsize-cli": {
-          "sha256": "82afd3f4516a3d7f0ac20675adeed032cb9bf30e5fe77e755846a66000e86230",
-          "bytes": 3303536,
-          "machine": "x86_64",
-          "format": "ELF64"
-        }
-      }
+      "archive": "Bunny-and-Size-v0.3.0-rc.1-linux-x86_64.tar.gz",
+      "sha256": "f60a86affe78a3a67a6ef071eca7856afeace320040e56faa966b61c991573e0",
+      "source_commit": "addf68704f26ef02559dd56b2e9b75b168fd0752",
+      "version": "0.3.0-rc.1",
+      "product_tree_sha256": "101aca97b2b3d08710a50992f54da5411a650d9840081bfb786f4c21b042ce7b",
+      "source_link_verified": true,
+      "frozen_product_files_verified": null,
+      "source_cargo_checksums_verified": false
     },
     {
-      "file": "SortSize-v0.2.0-rc.1-source-windows-x86_64.zip",
-      "bytes": 55993078,
-      "sha256": "e67bb867959bdfa63078224c1625509c027c51b36f839d85acb5fe5e03d70f8c",
-      "original_sha256": "8b209769f246da0135bc0488589c0b7518f8cad72d8822619270f13b9f63390b",
-      "changed_members": [
-        "BUILDINFO.json",
-        "FILES.json",
-        "PUBLIC_DISTRIBUTION.json",
-        "SHA256SUMS",
-        "docs/V01_INTEGRATION.md",
-        "docs/validation/v01-integration/README.md",
-        "docs/validation/v01-integration/SHA256SUMS",
-        "docs/validation/v01-integration/fmt-clippy.log",
-        "docs/validation/v01-integration/qualification.json"
-      ],
-      "source": true,
-      "binaries": {
-        "SortSize.exe": {
-          "sha256": "0a4da554a2c71a27c92f26996ce49292530ca1f179e129fab5ac29321ccd5af5",
-          "bytes": 17804800,
-          "machine": "x64",
-          "subsystem": 2
-        },
-        "sortsize-cli.exe": {
-          "sha256": "b6ffec509af133b9022f0fddac44e55fdfa914da51cf48f10904e060fddc905e",
-          "bytes": 2353152,
-          "machine": "x64",
-          "subsystem": 3
-        }
-      }
+      "archive": "Bunny-and-Size-v0.3.0-rc.1-source-linux-x86_64.tar.gz",
+      "sha256": "fd5bd05961009a525e117aebd301ef6601523787e524a0303096c321daddf1ef",
+      "source_commit": "addf68704f26ef02559dd56b2e9b75b168fd0752",
+      "version": "0.3.0-rc.1",
+      "product_tree_sha256": "101aca97b2b3d08710a50992f54da5411a650d9840081bfb786f4c21b042ce7b",
+      "source_link_verified": false,
+      "frozen_product_files_verified": 189,
+      "source_cargo_checksums_verified": true
     },
     {
-      "file": "SortSize-v0.2.0-rc.1-linux-x86_64.tar.gz",
-      "bytes": 11302811,
-      "sha256": "9dd39b09a62123827409674b5c4d7fed78d28c28503a3f7f8f810e27bc449c7a",
-      "original_sha256": "016ec6e82b5588375267f5c03e01a77c4e8d41d772b5e8c1a49d4f2bb3570fb5",
-      "changed_members": [
-        "BUILDINFO.json",
-        "FILES.json",
-        "PUBLIC_DISTRIBUTION.json",
-        "SHA256SUMS"
-      ],
-      "source": false,
-      "binaries": {
-        "sortsize-gui": {
-          "sha256": "387f04c71ab46fb33c1897faf9fb68be94aff23e561aa405f1ae2c0ba265e6b1",
-          "bytes": 26870544,
-          "machine": "x86_64",
-          "format": "ELF64"
-        },
-        "sortsize-cli": {
-          "sha256": "82afd3f4516a3d7f0ac20675adeed032cb9bf30e5fe77e755846a66000e86230",
-          "bytes": 3303536,
-          "machine": "x86_64",
-          "format": "ELF64"
-        }
-      }
+      "archive": "Bunny-and-Size-v0.3.0-rc.1-source-windows-x86_64.zip",
+      "sha256": "31c787212547c0f2323a158f1b2134983635ac21fb307e8ebaf96c385eb44079",
+      "source_commit": "addf68704f26ef02559dd56b2e9b75b168fd0752",
+      "version": "0.3.0-rc.1",
+      "product_tree_sha256": "101aca97b2b3d08710a50992f54da5411a650d9840081bfb786f4c21b042ce7b",
+      "source_link_verified": false,
+      "frozen_product_files_verified": 189,
+      "source_cargo_checksums_verified": true
     },
     {
-      "file": "SortSize-v0.2.0-rc.1-windows-x86_64.zip",
-      "bytes": 9933668,
-      "sha256": "125f2157cf6bf5ef52e1157ebd5472cf504b66bf14bde70b3e2665765ca047bf",
-      "original_sha256": "16786e373a3945a18e36196863a69c63e9be7d9e388d512943e4b84ed750daf7",
-      "changed_members": [
-        "BUILDINFO.json",
-        "FILES.json",
-        "PUBLIC_DISTRIBUTION.json",
-        "SHA256SUMS"
-      ],
-      "source": false,
-      "binaries": {
-        "SortSize.exe": {
-          "sha256": "0a4da554a2c71a27c92f26996ce49292530ca1f179e129fab5ac29321ccd5af5",
-          "bytes": 17804800,
-          "machine": "x64",
-          "subsystem": 2
-        },
-        "sortsize-cli.exe": {
-          "sha256": "b6ffec509af133b9022f0fddac44e55fdfa914da51cf48f10904e060fddc905e",
-          "bytes": 2353152,
-          "machine": "x64",
-          "subsystem": 3
-        }
-      }
+      "archive": "Bunny-and-Size-v0.3.0-rc.1-windows-x86_64.zip",
+      "sha256": "064939563a9840eee6457bb821f7fa34f176bd70488de5fb54a175bab71c10fb",
+      "source_commit": "addf68704f26ef02559dd56b2e9b75b168fd0752",
+      "version": "0.3.0-rc.1",
+      "product_tree_sha256": "101aca97b2b3d08710a50992f54da5411a650d9840081bfb786f4c21b042ce7b",
+      "source_link_verified": true,
+      "frozen_product_files_verified": null,
+      "source_cargo_checksums_verified": false
     }
   ],
-  "publication": {
-    "tag": "v0.2.0-rc.1",
-    "release_url": "https://github.com/tazmen3/SortSize-OSS/releases/tag/v0.2.0-rc.1",
-    "prerelease": true,
-    "live_status_authority": "GitHub release page; immutable archive metadata retains its historical packaging-time state (2026-10-21).",
-    "public_history": "Independent SortSize-OSS history; no private commits or parents imported."
-  }
+  "licenses": {
+    "code": "GPL-3.0-only",
+    "approved_artwork": "CC-BY-SA-4.0",
+    "attribution": "Louis Lejuez / TazmenWorld"
+  },
+  "reservations_accepted_by_owner": "2026-10-26; D1 remains unfixed; see PUBLIC_LIMITATIONS.md"
 }

@@ -1,0 +1,10 @@
+{
+  "package": "drm-fourcc 2.2.0",
+  "author_declared_in_Cargo_toml_orig": "Daniel Franklin <daniel@danielzfranklin.org>",
+  "contributors_listed_in_README": [
+    "Daniel Franklin (https://github.com/danielzfranklin)",
+    "Victor Brekenfeld (https://github.com/Drakulix)"
+  ],
+  "crate_commit": "7b9f80060ffd4b35cd236437e65a17fb517d163c",
+  "notice": "Attributions reprises des sources officielles, sans les transformer en mentions de copyright ni déclarer une propriété exclusive. Le texte MIT officiel ajouté en 2023 ne comporte pas de ligne de copyright ; il est conservé sans modification."
+}

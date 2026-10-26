@@ -317,8 +317,8 @@ fn native_names_break_equal_dates_without_lossy_unicode_collisions() {
         assert_eq!(ids(&tree), [3, 2, 1]);
         for row in tree.details().0 {
             assert_eq!(
-                tree.nodes[row.node_id as usize].path,
-                paths[row.node_id as usize]
+                tree.nodes[row.node_id as usize].path.as_ref(),
+                &paths[row.node_id as usize]
             );
         }
     }

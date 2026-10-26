@@ -178,8 +178,10 @@ pub(super) fn memory() -> Result<(), Box<dyn std::error::Error>> {
     let d = discover_volumes(DiscoveryOptions::default())?;
     let discovery_bytes = super::allocations::live_requested_bytes().saturating_sub(before);
     let p = Prepared::new(d);
+    let rows = p.rows_for(crate::units::Units::Binary);
     let projected_bytes = super::allocations::live_requested_bytes().saturating_sub(before);
-    let count = p.rows.len();
+    let count = rows.len();
+    drop(rows);
     drop(p);
     let retained_after_drop = super::allocations::live_requested_bytes().saturating_sub(before);
     println!(

@@ -1,5 +1,5 @@
 //! Opt-in development harness. Output is local numeric JSON, never telemetry.
-use crate::{Controller, SortSizeWindow, connect, tree::Tree};
+use crate::{Controller, connect, tree::Tree};
 use slint::{ComponentHandle, Model, Timer, TimerMode};
 use sortsize_core::{
     CancellationToken, Coverage, InventoryLimits, ScanOptions, ScanReport, scan,
@@ -315,7 +315,7 @@ fn native(
         .with_custom_application_handler(Box::new(loop_trace::Handler(trace.clone())))
         .build()?;
     slint::platform::set_platform(Box::new(backend))?;
-    let window = SortSizeWindow::new()?;
+    let window = crate::new_window()?;
     if std::env::var_os("SORTSIZE_MEASURE_COMPACT").is_some() {
         window
             .window()

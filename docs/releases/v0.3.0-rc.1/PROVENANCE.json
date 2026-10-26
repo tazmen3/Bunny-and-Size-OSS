@@ -1,0 +1,62 @@
+{
+  "product": "Bunny and Size",
+  "version": "0.3.0-rc.1",
+  "date": "2026-10-26",
+  "publication_repository": "tazmen3/Bunny-and-Size-OSS",
+  "release_url": "https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.3.0-rc.1",
+  "source_origin_commit": "addf68704f26ef02559dd56b2e9b75b168fd0752",
+  "original_archives_unchanged": true,
+  "executables_recompiled": false,
+  "private_history_imported": false,
+  "source_snapshot": "Approved files selected byte-for-byte from the original Linux corresponding-source archive; no later private tests.",
+  "dependency_complete_sources": "Use the platform-specific corresponding-source release assets; automatic GitHub source archives are not substitutes.",
+  "source_files_manifest": "SOURCE_FILES.json",
+  "archives": [
+    {
+      "archive": "Bunny-and-Size-v0.3.0-rc.1-linux-x86_64.tar.gz",
+      "sha256": "f60a86affe78a3a67a6ef071eca7856afeace320040e56faa966b61c991573e0",
+      "source_commit": "addf68704f26ef02559dd56b2e9b75b168fd0752",
+      "version": "0.3.0-rc.1",
+      "product_tree_sha256": "101aca97b2b3d08710a50992f54da5411a650d9840081bfb786f4c21b042ce7b",
+      "source_link_verified": true,
+      "frozen_product_files_verified": null,
+      "source_cargo_checksums_verified": false
+    },
+    {
+      "archive": "Bunny-and-Size-v0.3.0-rc.1-source-linux-x86_64.tar.gz",
+      "sha256": "fd5bd05961009a525e117aebd301ef6601523787e524a0303096c321daddf1ef",
+      "source_commit": "addf68704f26ef02559dd56b2e9b75b168fd0752",
+      "version": "0.3.0-rc.1",
+      "product_tree_sha256": "101aca97b2b3d08710a50992f54da5411a650d9840081bfb786f4c21b042ce7b",
+      "source_link_verified": false,
+      "frozen_product_files_verified": 189,
+      "source_cargo_checksums_verified": true
+    },
+    {
+      "archive": "Bunny-and-Size-v0.3.0-rc.1-source-windows-x86_64.zip",
+      "sha256": "31c787212547c0f2323a158f1b2134983635ac21fb307e8ebaf96c385eb44079",
+      "source_commit": "addf68704f26ef02559dd56b2e9b75b168fd0752",
+      "version": "0.3.0-rc.1",
+      "product_tree_sha256": "101aca97b2b3d08710a50992f54da5411a650d9840081bfb786f4c21b042ce7b",
+      "source_link_verified": false,
+      "frozen_product_files_verified": 189,
+      "source_cargo_checksums_verified": true
+    },
+    {
+      "archive": "Bunny-and-Size-v0.3.0-rc.1-windows-x86_64.zip",
+      "sha256": "064939563a9840eee6457bb821f7fa34f176bd70488de5fb54a175bab71c10fb",
+      "source_commit": "addf68704f26ef02559dd56b2e9b75b168fd0752",
+      "version": "0.3.0-rc.1",
+      "product_tree_sha256": "101aca97b2b3d08710a50992f54da5411a650d9840081bfb786f4c21b042ce7b",
+      "source_link_verified": true,
+      "frozen_product_files_verified": null,
+      "source_cargo_checksums_verified": false
+    }
+  ],
+  "licenses": {
+    "code": "GPL-3.0-only",
+    "approved_artwork": "CC-BY-SA-4.0",
+    "attribution": "Louis Lejuez / TazmenWorld"
+  },
+  "reservations_accepted_by_owner": "2026-10-26; D1 remains unfixed; see PUBLIC_LIMITATIONS.md"
+}

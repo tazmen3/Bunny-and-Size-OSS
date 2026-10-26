@@ -1,0 +1,26 @@
+{
+  "status": "APPROVED_FOR_PUBLICATION_2026-10-26",
+  "sidecars": [
+    "PUBLIC_RELEASE_NOTES.md",
+    "PUBLIC_LIMITATIONS.md",
+    "RELEASE_CLARIFICATIONS.md",
+    "USER_GUIDE.md",
+    "SHA256SUMS",
+    "PROVENANCE.json",
+    "LICENSE",
+    "CREDITS.md",
+    "PUBLIC_FILES.json",
+    "PUBLIC_SIDECARS_SHA256SUMS"
+  ],
+  "archives": [
+    "Bunny-and-Size-v0.3.0-rc.1-linux-x86_64.tar.gz",
+    "Bunny-and-Size-v0.3.0-rc.1-source-linux-x86_64.tar.gz",
+    "Bunny-and-Size-v0.3.0-rc.1-source-windows-x86_64.zip",
+    "Bunny-and-Size-v0.3.0-rc.1-windows-x86_64.zip"
+  ],
+  "excluded": [
+    "Private validation evidence",
+    "Private Git history",
+    "Personal portrait and reserved original artwork"
+  ]
+}

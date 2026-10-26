@@ -1,0 +1,26 @@
+# Controlled pilot only; not the application catalog.
+msgid ""
+msgstr ""
+"Project-Id-Version: sortsize-slint-spike 0.2.0-rc.1\n"
+"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgctxt "pilot"
+msgid "Hello, {}!"
+msgstr "Bonjour, {} !"
+
+msgctxt "pilot"
+msgid "{n} file"
+msgid_plural "{n} files"
+msgstr[0] "{n} fichier"
+msgstr[1] "{n} fichiers"
+
+# Missing translation is intentional.
+msgctxt "pilot"
+msgid "Source fallback"
+msgstr ""
+
+msgctxt "I18nPilot"
+msgid "Default context"
+msgstr "Contexte par défaut"

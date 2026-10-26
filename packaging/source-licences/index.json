@@ -1,0 +1,202 @@
+[
+  {
+    "name": "drm-fourcc",
+    "version": "2.2.0",
+    "path": "packaging/source-licences/drm-fourcc-2.2.0-MIT.txt",
+    "url": "https://raw.githubusercontent.com/dzfranklin/drm-fourcc-rs/bb1b81f184650e1418e1dce512e34071675206d7/LICENSE",
+    "commit": "bb1b81f184650e1418e1dce512e34071675206d7",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "kind": "primary",
+    "scope": "source-resolution-only; not enabled in executables"
+  },
+  {
+    "name": "drm-fourcc",
+    "version": "2.2.0",
+    "path": "packaging/source-licences/drm-fourcc-2.2.0-ATTRIBUTIONS.json",
+    "url": null,
+    "commit": "7b9f80060ffd4b35cd236437e65a17fb517d163c",
+    "sha256": "d885411d3d24fc70150ac6f0f789dc5482e3de209de47f547d9b234eb9b08d1f",
+    "kind": "attribution",
+    "scope": "source-resolution-only; not enabled in executables"
+  },
+  {
+    "name": "skia-bindings",
+    "version": "0.153.3",
+    "path": "packaging/source-licences/skia-m153-LICENSE",
+    "url": "https://raw.githubusercontent.com/rust-skia/skia/61e7ca4e99062cdd0ab69445d5963fb3365778f6/LICENSE",
+    "commit": "61e7ca4e99062cdd0ab69445d5963fb3365778f6",
+    "sha256": "5f787c1dee3c56547f09ccc2906ab5f5293c4d8dd6c8654e573216c38e908dbd",
+    "kind": "additional",
+    "scope": "source-resolution-only; not enabled in executables"
+  },
+  {
+    "name": "rspolib",
+    "version": "0.1.2",
+    "path": "packaging/source-licences/rspolib-0.1.2-MIT.txt",
+    "url": "https://raw.githubusercontent.com/mondeja/rspolib/8170d99ebad29d894712ccb3dc6d0be2198d3055/LICENSE",
+    "commit": "8170d99ebad29d894712ccb3dc6d0be2198d3055",
+    "sha256": "4fe9b5fce8fd028261959d039d19ef66182be088ab48ffa97dbeaef7b35e39c3",
+    "kind": "primary",
+    "scope": "GUI build-only i18n catalog compiler; original crate omits license text"
+  },
+  {
+    "name": "accesskit",
+    "version": "0.24.1",
+    "path": "packaging/source-licences/accesskit-0.24.1-LICENSE-MIT",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/a55d3e1a18bb9ef0e4bccc9083fb13c3e0ad8969/LICENSE-MIT",
+    "commit": "a55d3e1a18bb9ef0e4bccc9083fb13c3e0ad8969",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit",
+    "version": "0.24.1",
+    "path": "packaging/source-licences/accesskit-0.24.1-LICENSE-APACHE",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/a55d3e1a18bb9ef0e4bccc9083fb13c3e0ad8969/LICENSE-APACHE",
+    "commit": "a55d3e1a18bb9ef0e4bccc9083fb13c3e0ad8969",
+    "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_atspi_common",
+    "version": "0.19.1",
+    "path": "packaging/source-licences/accesskit_atspi_common-0.19.1-LICENSE-MIT",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-MIT",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_atspi_common",
+    "version": "0.19.1",
+    "path": "packaging/source-licences/accesskit_atspi_common-0.19.1-LICENSE-APACHE",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-APACHE",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_consumer",
+    "version": "0.38.0",
+    "path": "packaging/source-licences/accesskit_consumer-0.38.0-LICENSE-MIT",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-MIT",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_consumer",
+    "version": "0.38.0",
+    "path": "packaging/source-licences/accesskit_consumer-0.38.0-LICENSE-APACHE",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-APACHE",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_ios",
+    "version": "0.1.2",
+    "path": "packaging/source-licences/accesskit_ios-0.1.2-LICENSE-MIT",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-MIT",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_ios",
+    "version": "0.1.2",
+    "path": "packaging/source-licences/accesskit_ios-0.1.2-LICENSE-APACHE",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-APACHE",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_macos",
+    "version": "0.26.3",
+    "path": "packaging/source-licences/accesskit_macos-0.26.3-LICENSE-MIT",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-MIT",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_macos",
+    "version": "0.26.3",
+    "path": "packaging/source-licences/accesskit_macos-0.26.3-LICENSE-APACHE",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-APACHE",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_unix",
+    "version": "0.22.1",
+    "path": "packaging/source-licences/accesskit_unix-0.22.1-LICENSE-MIT",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-MIT",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_unix",
+    "version": "0.22.1",
+    "path": "packaging/source-licences/accesskit_unix-0.22.1-LICENSE-APACHE",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-APACHE",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_windows",
+    "version": "0.34.0",
+    "path": "packaging/source-licences/accesskit_windows-0.34.0-LICENSE-MIT",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-MIT",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_windows",
+    "version": "0.34.0",
+    "path": "packaging/source-licences/accesskit_windows-0.34.0-LICENSE-APACHE",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-APACHE",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_winit",
+    "version": "0.33.2",
+    "path": "packaging/source-licences/accesskit_winit-0.33.2-LICENSE-MIT",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-MIT",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  },
+  {
+    "name": "accesskit_winit",
+    "version": "0.33.2",
+    "path": "packaging/source-licences/accesskit_winit-0.33.2-LICENSE-APACHE",
+    "url": "https://raw.githubusercontent.com/AccessKit/accesskit/c88605b96d04431f9c3c792464a0f2f253480e94/LICENSE-APACHE",
+    "commit": "c88605b96d04431f9c3c792464a0f2f253480e94",
+    "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+    "kind": "primary",
+    "scope": "Desktop accessibility; runtime on supported OS, inactive platform adapters retained for source resolution"
+  }
+]

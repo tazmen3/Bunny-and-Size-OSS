@@ -39,7 +39,7 @@ fn assert_page(window: &SortSizeWindow, expected: &[i32]) {
 fn date_callbacks_show_ordered_pages_arrows_navigation_and_top100_for_all_metadata_modes() {
     let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
     slint::platform::set_platform(Box::new(TestPlatform(adapter.clone()))).unwrap();
-    let window = SortSizeWindow::new().unwrap();
+    let window = crate::new_window().unwrap();
     let controller = connect(&window);
     let fixture = TempDir::new().unwrap();
     fs::create_dir_all(fixture.path().join("folder/child")).unwrap();
@@ -204,7 +204,7 @@ fn date_callbacks_show_ordered_pages_arrows_navigation_and_top100_for_all_metada
 fn completed_owner_sort_arriving_after_date_click_cannot_replace_temporal_rows() {
     let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
     slint::platform::set_platform(Box::new(TestPlatform(adapter))).unwrap();
-    let window = SortSizeWindow::new().unwrap();
+    let window = crate::new_window().unwrap();
     let controller = connect(&window);
     controller.borrow_mut().tree = Some(super::owner_gui_tests::synthetic_tree(50_000));
     let provider = std::sync::Arc::new(NoNames);

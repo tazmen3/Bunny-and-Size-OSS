@@ -144,7 +144,7 @@ fn allocation_labels_follow_native_ids_through_sorts_pages_navigation_and_source
                     let id = row.node_id as usize;
                     assert_eq!(row.allocated, expected[id]);
                     assert_eq!(row.allocated, tree.allocation_label(id));
-                    assert_eq!(tree.nodes[id].path, paths[id]);
+                    assert_eq!(tree.nodes[id].path.as_ref(), &paths[id]);
                     assert_eq!(row.path, native_label(&paths[id]));
                     assert!(row.modified.ends_with(" UTC") || row.modified == "Non collectée");
                 }
@@ -271,7 +271,7 @@ fn partial_cancelled_and_unknown_values_never_infer_a_numeric_bound_from_coverag
             value: 0,
             accuracy: ValueAccuracy::Exact
         }),
-        "0 octets"
+        "0 octet"
     );
 }
 
@@ -338,7 +338,7 @@ fn unpaired_utf16_path_stays_paired_with_its_allocation_label() {
     input.metadata.inventory.entries[1].path = path.clone();
     let expected = crate::allocation_label::format_allocation(input.entries_by_path[1]);
     let (tree, _) = Tree::with_allocations(input).unwrap();
-    assert_eq!(tree.nodes[1].path, path);
+    assert_eq!(tree.nodes[1].path.as_ref(), &path);
     assert_eq!(tree.details().0[0].allocated, expected);
     assert!(tree.details().0[0].path.contains("D800") || tree.details().0[0].path.contains("d800"));
 }

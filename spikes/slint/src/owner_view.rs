@@ -36,11 +36,11 @@ pub(crate) fn compare_id(a: NativeOwnerId, b: NativeOwnerId) -> Ordering {
 pub(crate) fn fallback(owner: MetadataValue<NativeOwnerId>) -> SharedString {
     match owner {
         MetadataValue::Known { value, .. } => owner_id_text(value)
-            .unwrap_or_else(|| "Indisponible".into())
+            .unwrap_or_else(|| tr!("Unavailable").into())
             .into(),
         MetadataValue::NotCollected => "—".into(),
-        MetadataValue::AccessDenied => "Accès refusé".into(),
-        _ => "Indisponible".into(),
+        MetadataValue::AccessDenied => tr!("Access denied").into(),
+        _ => tr!("Unavailable").into(),
     }
 }
 

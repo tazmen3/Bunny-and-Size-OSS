@@ -5,6 +5,9 @@ use sortsize_core::Metadata;
 use sortsize_core::{Coverage, DirectoryCounts, InventoryKind, InventoryReport, ScanReport};
 use sortsize_core::{EntryDates, InventoryWithAllocationTotals, InventoryWithDates, MetadataValue};
 use std::path::PathBuf;
+use std::sync::Arc;
+mod progressive;
+pub(crate) use progressive::{Projector, TreePatch};
 
 pub(crate) const MAX_VISIBLE_ROWS: usize = 2_000;
 
@@ -31,6 +34,8 @@ pub(crate) struct Tree {
     top_files: Vec<sortsize_core::TopFile>,
     pub(crate) top_rows: Vec<TopRow>,
     pub(crate) top_note: String,
+    top_oversized_paths: u64,
+    presentation: crate::presentation::Context,
     roots: Vec<usize>,
     offset: usize,
     detail_offset: usize,
@@ -39,14 +44,15 @@ pub(crate) struct Tree {
     truncated: bool,
     coverage: Coverage,
 }
+#[derive(Debug, Clone)]
 struct Node {
-    name: Box<str>,
+    name: Arc<str>,
     // Native inventory identity is retained; only presentation uses lossy labels.
-    path: PathBuf,
+    path: Arc<PathBuf>,
     // Classified once on the worker, without retaining a second full label.
     // Rechecking every character of 2,000 long paths would delay UI callbacks.
     plain_path: bool,
-    map: Option<Box<Projection>>,
+    map: Option<Arc<Projection>>,
     parent: Option<usize>,
     bytes: Option<u64>,
     kind: InventoryKind,
@@ -56,8 +62,9 @@ struct Node {
     expanded: bool,
     directory_count: usize,
     // Only nonempty parents own orders; no per-leaf sort storage.
-    children: Option<Box<ChildOrders>>,
+    children: Option<Arc<ChildOrders>>,
 }
+#[derive(Debug, Clone)]
 struct ChildOrders {
     standard: [Box<[usize]>; 4],
     // Opt-in: two node-index arrays, no copied paths.
@@ -84,21 +91,120 @@ impl Node {
             || "—".into(),
             |counts| {
                 let prefix = if self.incomplete { "≥ " } else { "" };
-                format!("{prefix}{}", value(counts))
+                format!(
+                    "{prefix}{}",
+                    crate::number_format::integer(value(counts).into())
+                )
             },
         )
     }
     fn note(&self) -> &'static str {
         match self.kind {
-            InventoryKind::Directory if self.incomplete => "Dossier partiel",
-            InventoryKind::Directory => "Dossier",
-            InventoryKind::File => "Fichier",
-            InventoryKind::Symlink => "Lien ignoré",
-            InventoryKind::Special => "Entrée spéciale ignorée",
+            InventoryKind::Directory if self.incomplete => tr!("Partial folder"),
+            InventoryKind::Directory => tr!("Folder"),
+            InventoryKind::File => tr!("File"),
+            InventoryKind::Symlink => tr!("Skipped link"),
+            InventoryKind::Special => tr!("Skipped special entry"),
         }
     }
 }
 impl Tree {
+    #[cfg(test)]
+    pub(crate) fn selected_totals(&self) -> Option<(Option<u64>, DirectoryCounts, bool)> {
+        let node = self.nodes.get(self.selected?)?;
+        Some((node.bytes, node.counts?, node.incomplete))
+    }
+    #[cfg(test)]
+    pub(crate) fn aggregate_fingerprint(&self) -> u64 {
+        use std::hash::{Hash, Hasher};
+        let mut hash = std::collections::hash_map::DefaultHasher::new();
+        for node in &self.nodes {
+            node.path.hash(&mut hash);
+            node.bytes.hash(&mut hash);
+            node.incomplete.hash(&mut hash);
+            if let Some(c) = node.counts {
+                [
+                    c.direct_files,
+                    c.direct_directories,
+                    c.recursive_files,
+                    c.recursive_directories,
+                ]
+                .hash(&mut hash);
+            }
+        }
+        hash.finish()
+    }
+    #[cfg(any(test, feature = "benchmarks"))]
+    pub(crate) fn raw_fingerprint(&self) -> u64 {
+        use std::{
+            fmt::Write,
+            hash::{Hash, Hasher},
+        };
+        struct Sink(std::collections::hash_map::DefaultHasher);
+        impl std::fmt::Write for Sink {
+            fn write_str(&mut self, s: &str) -> std::fmt::Result {
+                s.hash(&mut self.0);
+                Ok(())
+            }
+        }
+        let mut sink = Sink(Default::default());
+        write!(
+            sink,
+            "{:?}{:?}{:?}{:?}{:?}{:?}{:?}{:?}{:?}",
+            self.nodes,
+            self.dates,
+            self.allocation_values,
+            self.top_files,
+            self.roots,
+            self.owner_page_key(),
+            self.coverage,
+            self.truncated,
+            self.owner_data.as_ref().map(|d| &d.owners)
+        )
+        .unwrap();
+        sink.0.finish()
+    }
+    fn format_top_note(coverage: Coverage, truncated: bool, oversized_paths: u64) -> String {
+        let mut top_note = if coverage == Coverage::Complete {
+            tr!("Global ranking of the scanned scope.").to_owned()
+        } else {
+            tr!("Partial / cancelled scan: ranking of actually observed files only.").to_owned()
+        };
+        if oversized_paths > 0 {
+            top_note.push_str(&tr_format!(
+                " Limited ranking: {} (maximum {} native bytes per file).",
+                tr_count!(
+                    "{n} oversized path omitted",
+                    "{n} oversized paths omitted",
+                    oversized_paths
+                ),
+                crate::number_format::integer(sortsize_core::TOP_FILE_MAX_PATH_BYTES as u128)
+            ));
+        }
+        if truncated {
+            top_note.push_str(tr!(" Independent of the limited inventory."));
+        }
+        top_note.push_str(tr!(" Logical sizes per path, not recoverable space."));
+        top_note
+    }
+    /// Rebuild bounded cached presentation from native values. No scan, sorting,
+    /// filesystem metadata, provider resolution, or identity reconstruction.
+    pub(crate) fn prepare_presentation(&mut self, context: crate::presentation::Context) {
+        let _scope = context.enter();
+        self.presentation = context;
+        self.allocation_not_collected = tr!("Not collected").into();
+        if self.owner_data.is_some() {
+            self.owner_absent_labels = Some(Box::new([
+                tr!("Access denied").into(),
+                tr!("Unavailable").into(),
+            ]));
+        }
+        self.top_note =
+            Self::format_top_note(self.coverage, self.truncated, self.top_oversized_paths);
+        // set_units only updates the bounded Top 100 sizes.
+        self.set_units(self.units);
+    }
+
     pub(crate) fn attach_owners(
         &mut self,
         owners: Vec<sortsize_core::EntryOwner>,
@@ -106,7 +212,7 @@ impl Tree {
         #[cfg(feature = "benchmarks")]
         let started = std::time::Instant::now();
         if owners.len() != self.nodes.len() {
-            return Err("Propriétaires et inventaire incohérents");
+            return Err("Owners and inventory are inconsistent");
         }
         let mut children = Vec::with_capacity(self.nodes.len());
         let ranges = self
@@ -138,7 +244,10 @@ impl Tree {
         )));
         self.owner_native_orders = self.owner_orders.clone();
         self.owner_data = Some(data);
-        self.owner_absent_labels = Some(Box::new(["Accès refusé".into(), "Indisponible".into()]));
+        self.owner_absent_labels = Some(Box::new([
+            tr!("Access denied").into(),
+            tr!("Unavailable").into(),
+        ]));
         #[cfg(feature = "benchmarks")]
         {
             self.owner_prepare_ms = started.elapsed().as_secs_f64() * 1000.0;
@@ -217,7 +326,7 @@ impl Tree {
         input: InventoryWithDates,
     ) -> Result<(Self, ScanReport), &'static str> {
         if input.dates.len() != input.inventory.entries.len() {
-            return Err("Dates et inventaire incohérents : nombres d’entrées différents");
+            return Err("Dates and inventory are inconsistent: different entry counts");
         }
         let (mut tree, report) = Self::new(input.inventory);
         tree.attach_dates(input.dates);
@@ -234,7 +343,7 @@ impl Tree {
             || (!input.metadata.allocations.is_empty() && input.metadata.allocations.len() != count)
         {
             return Err(
-                "Allocations, dates et inventaire incohérents : nombres d’entrées différents",
+                "Allocations, dates and inventory are inconsistent: different entry counts",
             );
         }
         let (mut tree, report) =
@@ -286,7 +395,8 @@ impl Tree {
                 });
                 sorted.into_boxed_slice()
             });
-            self.nodes[index].children.as_mut().unwrap().temporal = Some(Box::new(orders));
+            Arc::make_mut(self.nodes[index].children.as_mut().unwrap()).temporal =
+                Some(Box::new(orders));
         }
         #[cfg(feature = "benchmarks")]
         {
@@ -318,7 +428,7 @@ impl Tree {
                 } else {
                     entry.path.file_name().unwrap_or(entry.path.as_os_str())
                 };
-                let name = display_label(&name.to_string_lossy()).into_boxed_str();
+                let name = Arc::from(display_label(&name.to_string_lossy()));
                 let plain_path = entry
                     .path
                     .to_str()
@@ -326,7 +436,7 @@ impl Tree {
                 Node {
                     name,
                     plain_path,
-                    path: entry.path,
+                    path: Arc::new(entry.path),
                     map: None,
                     parent: entry.parent,
                     bytes: entry.logical_bytes,
@@ -350,78 +460,7 @@ impl Tree {
             }
         }
         for (index, siblings) in children.into_iter().enumerate() {
-            if siblings.is_empty() {
-                continue;
-            }
-            let orders = std::array::from_fn(|order| {
-                let mut sorted = siblings.clone();
-                sorted.sort_unstable_by(|left, right| {
-                    let a = &nodes[*left];
-                    let b = &nodes[*right];
-                    let metric = match order {
-                        0 | 1 => a
-                            .bytes
-                            .is_none()
-                            .cmp(&b.bytes.is_none())
-                            .then_with(|| {
-                                if order == 0 {
-                                    b.bytes.cmp(&a.bytes)
-                                } else {
-                                    a.bytes.cmp(&b.bytes)
-                                }
-                            })
-                            .then_with(|| a.name.cmp(&b.name)),
-                        2 => a.name.cmp(&b.name),
-                        _ => b.name.cmp(&a.name),
-                    };
-                    b.directory
-                        .cmp(&a.directory)
-                        .then(metric)
-                        .then_with(|| left.cmp(right))
-                });
-                sorted.into_boxed_slice()
-            });
-            nodes[index].directory_count = orders[0]
-                .iter()
-                .take_while(|&&i| nodes[i].directory)
-                .count();
-            let allocated = allocations.map(|values| {
-                Box::new(std::array::from_fn(|direction| {
-                    let mut sorted = siblings.clone();
-                    sorted.sort_unstable_by(|&left, &right| {
-                        let a = &nodes[left];
-                        let b = &nodes[right];
-                        let number = |i: usize| match values[i].value {
-                            MetadataValue::Known { value, .. } => Some(value),
-                            _ => None,
-                        };
-                        let (av, bv) = (number(left), number(right));
-                        b.directory
-                            .cmp(&a.directory)
-                            // Unavailable values stay last within each kind in BOTH directions.
-                            .then_with(|| av.is_none().cmp(&bv.is_none()))
-                            .then_with(|| {
-                                if direction == 0 {
-                                    bv.cmp(&av)
-                                } else {
-                                    av.cmp(&bv)
-                                }
-                            })
-                            // Siblings share their parent: compare native basenames first
-                            // to avoid parsing a long common prefix for every comparison.
-                            // Lossy display names never determine this tie-break.
-                            .then_with(|| a.path.file_name().cmp(&b.path.file_name()))
-                            .then_with(|| a.path.as_os_str().cmp(b.path.as_os_str()))
-                            .then_with(|| left.cmp(&right))
-                    });
-                    sorted.into_boxed_slice()
-                }))
-            });
-            nodes[index].children = Some(Box::new(ChildOrders {
-                standard: orders,
-                allocated,
-                temporal: None,
-            }));
+            Self::prepare_children(&mut nodes, index, siblings, allocations);
         }
         // Projection and grouping happen on the worker, once per inventory.
         for index in 0..nodes.len() {
@@ -437,9 +476,10 @@ impl Tree {
                     nodes[index].incomplete,
                     truncated,
                 );
-                nodes[index].map = Some(Box::new(projection));
+                nodes[index].map = Some(Arc::new(projection));
             }
         }
+        let top_oversized_paths = inventory.top_files.oversized_paths;
         let top_files = inventory.top_files.entries;
         let top_rows = top_files
             .iter()
@@ -454,19 +494,7 @@ impl Tree {
                 path: native_label(&f.path).into(),
             })
             .collect();
-        let mut top_note = if coverage == Coverage::Complete {
-            "Classement global du périmètre analysé.".to_owned()
-        } else {
-            "Analyse partielle / annulée : classement des fichiers réellement observés uniquement."
-                .to_owned()
-        };
-        if inventory.top_files.oversized_paths > 0 {
-            top_note.push_str(&format!(" Classement limité : {} chemins dépassent {} octets natifs par fichier et sont omis.", inventory.top_files.oversized_paths, sortsize_core::TOP_FILE_MAX_PATH_BYTES));
-        }
-        if truncated {
-            top_note.push_str(" Indépendant de l’inventaire limité.");
-        }
-        top_note.push_str(" Tailles logiques par chemin, pas un espace récupérable.");
+        let top_note = Self::format_top_note(coverage, truncated, top_oversized_paths);
         let selected = roots.first().copied();
         (
             Self {
@@ -474,7 +502,7 @@ impl Tree {
                 dates: None,
                 allocation_values: None,
                 units: Units::Binary,
-                allocation_not_collected: "Non collectée".into(),
+                allocation_not_collected: tr!("Not collected").into(),
                 allocation_sort_available: allocations.is_some(),
                 owner_data: None,
                 owner_orders: None,
@@ -488,6 +516,8 @@ impl Tree {
                 top_files,
                 top_rows,
                 top_note,
+                top_oversized_paths,
+                presentation: crate::presentation::Context::current(),
                 roots,
                 offset: 0,
                 detail_offset: 0,
@@ -498,6 +528,85 @@ impl Tree {
             },
             inventory.report,
         )
+    }
+    fn prepare_children(
+        nodes: &mut [Node],
+        index: usize,
+        siblings: Vec<usize>,
+        allocations: Option<&[Metadata<u64>]>,
+    ) {
+        if siblings.is_empty() {
+            return;
+        }
+        let orders = std::array::from_fn(|order| {
+            let mut sorted = siblings.clone();
+            sorted.sort_unstable_by(|left, right| {
+                let a = &nodes[*left];
+                let b = &nodes[*right];
+                let metric = match order {
+                    0 | 1 => a
+                        .bytes
+                        .is_none()
+                        .cmp(&b.bytes.is_none())
+                        .then_with(|| {
+                            if order == 0 {
+                                b.bytes.cmp(&a.bytes)
+                            } else {
+                                a.bytes.cmp(&b.bytes)
+                            }
+                        })
+                        .then_with(|| a.name.cmp(&b.name)),
+                    2 => a.name.cmp(&b.name),
+                    _ => b.name.cmp(&a.name),
+                };
+                b.directory
+                    .cmp(&a.directory)
+                    .then(metric)
+                    .then_with(|| left.cmp(right))
+            });
+            sorted.into_boxed_slice()
+        });
+        nodes[index].directory_count = orders[0]
+            .iter()
+            .take_while(|&&i| nodes[i].directory)
+            .count();
+        let allocated = allocations.map(|values| {
+            Box::new(std::array::from_fn(|direction| {
+                let mut sorted = siblings.clone();
+                sorted.sort_unstable_by(|&left, &right| {
+                    let a = &nodes[left];
+                    let b = &nodes[right];
+                    let number = |i: usize| match values[i].value {
+                        MetadataValue::Known { value, .. } => Some(value),
+                        _ => None,
+                    };
+                    let (av, bv) = (number(left), number(right));
+                    b.directory
+                        .cmp(&a.directory)
+                        // Unavailable values stay last within each kind in BOTH directions.
+                        .then_with(|| av.is_none().cmp(&bv.is_none()))
+                        .then_with(|| {
+                            if direction == 0 {
+                                bv.cmp(&av)
+                            } else {
+                                av.cmp(&bv)
+                            }
+                        })
+                        // Siblings share their parent: compare native basenames first
+                        // to avoid parsing a long common prefix for every comparison.
+                        // Lossy display names never determine this tie-break.
+                        .then_with(|| a.path.file_name().cmp(&b.path.file_name()))
+                        .then_with(|| a.path.as_os_str().cmp(b.path.as_os_str()))
+                        .then_with(|| left.cmp(&right))
+                });
+                sorted.into_boxed_slice()
+            }))
+        });
+        nodes[index].children = Some(Arc::new(ChildOrders {
+            standard: orders,
+            allocated,
+            temporal: None,
+        }));
     }
     pub(crate) fn top_selection(&self, rank: usize) -> Option<(String, Option<usize>)> {
         let file = self.top_files.get(rank)?;
@@ -544,15 +653,19 @@ impl Tree {
             let fraction = (bytes as f64 / total as f64).clamp(0.0, 1.0);
             let prefix = if parent.incomplete { "≈ " } else { "" };
             let label = if bytes > 0 && fraction < 0.0005 {
-                format!("{prefix}< 0.1 %")
+                format!("{prefix}< {} %", crate::number_format::decimal(0.1))
             } else {
-                format!("{prefix}{:.1} %", fraction * 100.0)
+                format!(
+                    "{prefix}{} %",
+                    crate::number_format::decimal(fraction * 100.0)
+                )
             };
             Some((label, fraction as f32))
         });
         value.unwrap_or_else(|| ("—".into(), 0.0))
     }
     pub(crate) fn treemap(&self, width: f64, height: f64) -> Vec<MapTile> {
+        let _scope = self.presentation.enter();
         let Some(projection) = self.selected.and_then(|i| self.nodes[i].map.as_ref()) else {
             return Vec::new();
         };
@@ -572,14 +685,18 @@ impl Tree {
                     ),
                     Target::Other => (
                         -1,
-                        format!("Autres ({} éléments)", projection.grouped),
+                        tr_count!(
+                            "Others ({n} entry)",
+                            "Others ({n} entries)",
+                            projection.grouped as u64
+                        ),
                         false,
                         6,
                         projection.partial,
                     ),
                     Target::Omitted => (
                         -2,
-                        "Omis de l’inventaire".to_owned(),
+                        tr!("Omitted from inventory").to_owned(),
                         false,
                         7,
                         projection.partial,
@@ -607,37 +724,46 @@ impl Tree {
             .collect()
     }
     pub(crate) fn treemap_note(&self) -> String {
+        let _scope = self.presentation.enter();
         let Some(p) = self.selected.and_then(|i| self.nodes[i].map.as_ref()) else {
             return self.empty_message().to_owned();
         };
         if p.inconsistent {
-            return "Agrégats incohérents : proportions indisponibles.".into();
+            return tr!("Inconsistent aggregates: proportions unavailable.").into();
         }
         let mut note = if p.partial || p.unknown > 0 || self.truncated {
-            "Proportions des octets observés uniquement ; couverture incomplète.".to_owned()
+            tr!("Proportions of observed bytes only; incomplete coverage.").to_owned()
         } else {
-            "Tailles logiques · clic : dossier / inspection du fichier.".to_owned()
+            tr!("Logical sizes · click: folder / file inspection.").to_owned()
         };
         if self.truncated {
-            note.push_str(" Inventaire limité ; omissions signalées, sans chemin individuel.");
+            note.push_str(tr!(
+                " Limited inventory; omissions indicated, without individual paths."
+            ));
         }
         if p.grouped > 0 {
-            note.push_str(&format!(
-                " Autres : {} éléments regroupés, accessibles dans le tableau.",
-                p.grouped
+            note.push_str(&tr_count!(
+                " Others: {n} grouped entry, available in the table.",
+                " Others: {n} grouped entries, available in the table.",
+                p.grouped as u64
             ));
         }
         if p.zeros > 0 {
-            note.push_str(&format!(" {} taille(s) nulle(s) sans surface.", p.zeros));
+            note.push_str(&tr_count!(
+                " {n} zero size without area.",
+                " {n} zero sizes without area.",
+                p.zeros as u64
+            ));
         }
         if p.unknown > 0 {
-            note.push_str(&format!(
-                " {} taille(s) inconnue(s) / non mesurée(s), sans surface.",
-                p.unknown
+            note.push_str(&tr_count!(
+                " {n} unknown / unmeasured size, without area.",
+                " {n} unknown / unmeasured sizes, without area.",
+                p.unknown as u64
             ));
         }
         if p.weights.is_empty() {
-            note.push_str(" Aucune taille positive représentable ; consulter le tableau.");
+            note.push_str(tr!(" No representable positive size; see the table."));
         }
         note
     }
@@ -672,6 +798,71 @@ impl Tree {
             self.select(parent);
         }
     }
+    pub(crate) fn selected_native(&self) -> Option<&std::path::Path> {
+        self.selected.map(|i| self.nodes[i].path.as_path())
+    }
+    pub(crate) fn root_native(&self) -> Option<&std::path::Path> {
+        self.roots.first().map(|&i| self.nodes[i].path.as_path())
+    }
+    pub(crate) fn needs_details(&self) -> bool {
+        self.selected.is_some_and(|i| {
+            let node = &self.nodes[i];
+            let retained = self
+                .children(i, 0)
+                .iter()
+                .filter(|&&child| {
+                    matches!(
+                        self.nodes[child].kind,
+                        InventoryKind::File | InventoryKind::Directory
+                    )
+                })
+                .count() as u64;
+            node.counts
+                .is_some_and(|c| c.direct_files + c.direct_directories > retained)
+                || (node.incomplete && self.children(i, 0).is_empty())
+        })
+    }
+    pub(crate) fn selected_is_root(&self) -> bool {
+        self.selected
+            .is_some_and(|i| self.nodes[i].parent.is_none())
+    }
+    pub(crate) fn select_native(&mut self, path: &std::path::Path) -> bool {
+        if let Some(index) = self
+            .nodes
+            .iter()
+            .position(|n| n.path.as_path() == path && n.directory)
+        {
+            self.select(index);
+            true
+        } else {
+            false
+        }
+    }
+    pub(crate) fn known_size(&self, path: &std::path::Path, units: Units) -> Option<String> {
+        self.nodes
+            .iter()
+            .find(|n| n.path.as_path() == path)
+            .map(|n| n.size(units))
+    }
+    pub(crate) fn detail_boundary(&mut self, last: bool) {
+        self.detail_offset = if last {
+            self.selected.map_or(0, |i| {
+                self.children(i, self.sort).len().saturating_sub(1) / MAX_VISIBLE_ROWS
+                    * MAX_VISIBLE_ROWS
+            })
+        } else {
+            0
+        };
+    }
+    pub(crate) fn inherit_sort(&mut self, sort: usize) {
+        self.sort = sort.min(11);
+    }
+    pub(crate) fn coverage(&self) -> Coverage {
+        self.coverage
+    }
+    pub(crate) fn node_count(&self) -> usize {
+        self.nodes.len()
+    }
     pub(crate) fn has_parent(&self) -> bool {
         self.selected
             .is_some_and(|i| self.nodes[i].parent.is_some())
@@ -699,23 +890,23 @@ impl Tree {
         0
     }
     pub(crate) fn selection_summary(&self) -> String {
+        let _scope = self.presentation.enter();
         self.selected.map_or_else(String::new, |i| {
             let node = &self.nodes[i];
-            format!(
-                "{} · fichiers directs : {} · sous-dossiers directs : {}\nfichiers récursifs : {} · sous-dossiers récursifs : {} · {} entrées retenues{}{}",
+            tr_format!("{} · direct files: {} · direct subfolders: {}\nrecursive files: {} · recursive subfolders: {} · {}{}{}",
                 node.size(self.units),
                 node.count(|c| c.direct_files),
                 node.count(|c| c.direct_directories),
                 node.count(|c| c.recursive_files),
                 node.count(|c| c.recursive_directories),
-                self.children(i, 0).len(),
+                tr_count!("{n} retained entry", "{n} retained entries", self.children(i, 0).len() as u64),
                 if node.incomplete {
-                    " · analyse partielle"
+                    tr!(" · partial scan")
                 } else {
                     ""
                 },
                 if self.truncated {
-                    " · inventaire limité"
+                    tr!(" · limited inventory")
                 } else {
                     ""
                 }
@@ -723,20 +914,21 @@ impl Tree {
         })
     }
     pub(crate) fn empty_message(&self) -> &'static str {
+        let _scope = self.presentation.enter();
         if self.selected.is_none() {
             match self.coverage {
                 Coverage::Cancelled => {
-                    "Analyse annulée avant de retenir une entrée ; aucun inventaire disponible."
+                    tr!("Scan cancelled before retaining an entry; no inventory available.")
                 }
-                Coverage::Partial => "Aucune entrée accessible ; l’analyse est partielle.",
-                Coverage::Complete => "Aucune entrée retenue dans le périmètre analysé.",
+                Coverage::Partial => tr!("No accessible entry; the scan is partial."),
+                Coverage::Complete => tr!("No entry retained in the scanned scope."),
             }
         } else if self.truncated {
-            "Aucune entrée retenue pour ce dossier ; l’inventaire est limité."
+            tr!("No entry retained for this folder; the inventory is limited.")
         } else if self.selected.is_some_and(|i| self.nodes[i].incomplete) {
-            "Aucune entrée accessible ; l’analyse de ce dossier est partielle."
+            tr!("No accessible entry; this folder scan is partial.")
         } else {
-            "Ce dossier est vide dans le périmètre analysé."
+            tr!("This folder is empty within the scanned scope.")
         }
     }
     fn visible_directories(&self) -> Vec<(usize, i32)> {
@@ -762,6 +954,7 @@ impl Tree {
         visible
     }
     pub(crate) fn rows(&self) -> (Vec<TreeRow>, bool) {
+        let _scope = self.presentation.enter();
         let visible = self.visible_directories();
         let rows = visible
             .iter()
@@ -783,6 +976,7 @@ impl Tree {
         (rows, visible.len() > self.offset + MAX_VISIBLE_ROWS)
     }
     pub(crate) fn details(&self) -> (Vec<DetailRow>, bool) {
+        let _scope = self.presentation.enter();
         let Some(index) = self.selected else {
             return (Vec::new(), false);
         };
@@ -829,15 +1023,18 @@ impl Tree {
         (rows, children.len() > self.detail_offset + MAX_VISIBLE_ROWS)
     }
     pub(crate) fn size_label(&self, index: usize) -> slint::SharedString {
+        let _scope = self.presentation.enter();
         self.nodes[index].size(self.units).into()
     }
     pub(crate) fn allocation_label(&self, index: usize) -> slint::SharedString {
+        let _scope = self.presentation.enter();
         self.allocation_values.as_ref().map_or_else(
             || self.allocation_not_collected.clone(),
             |values| crate::allocation_label::format_value(values[index], self.units).into(),
         )
     }
     pub(crate) fn set_units(&mut self, units: Units) {
+        let _scope = self.presentation.enter();
         self.units = units;
         for (row, file) in self.top_rows.iter_mut().zip(&self.top_files) {
             row.size = units.format(file.logical_bytes).into();
@@ -1141,7 +1338,7 @@ mod tests {
             details.iter().map(|r| r.name.as_str()).collect::<Vec<_>>(),
             ["folder", "large", "small"]
         );
-        assert_eq!(details[1].proportion, "55.6 %");
+        assert_eq!(details[1].proportion, "55,6 %");
         tree.sort_by(false);
         assert_eq!(tree.details().0[1].name, "small");
         tree.sort_by(true);
@@ -1160,7 +1357,7 @@ mod tests {
                 .any(|r| r.selected && r.node_id == nested as i32)
         );
         assert_eq!(tree.details().0[0].name, "child");
-        assert_eq!(tree.details().0[0].proportion, "100.0 %");
+        assert_eq!(tree.details().0[0].proportion, "100,0 %");
         assert!(tree.has_parent());
         tree.parent();
         assert!(tree.path().ends_with("folder"));
@@ -1402,7 +1599,7 @@ mod tests {
 
 /// Unicode stays readable; invalid native units use Rust's lossless OS-string
 /// debug escapes, rather than replacement characters that alias distinct paths.
-fn native_label(path: &std::path::Path) -> String {
+pub(crate) fn native_label(path: &std::path::Path) -> String {
     match path.to_str() {
         Some(value) if !value.chars().any(char::is_control) => value.to_owned(),
         _ => format!("{:?}", path.as_os_str()),

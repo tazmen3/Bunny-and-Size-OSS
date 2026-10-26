@@ -1,0 +1,12 @@
+// Test-only English source; never instantiated by the product.
+export component I18nPilot inherits Window {
+    in property <int> count: 1;
+    // Simulates a controller-owned message rebuilt on LocaleChange.
+    in property <string> rust-label;
+    in property <string> person: "Ada";
+    out property <string> greeting: @tr("pilot" => "Hello, {}!", root.person);
+    out property <string> files: @tr("pilot" => "{n} file" | "{n} files" % root.count);
+    out property <string> missing: @tr("pilot" => "Source fallback");
+    out property <string> default-context: @tr("Default context");
+    Text { text: root.greeting; }
+}

@@ -111,7 +111,7 @@ pub(super) fn synthetic_tree(count: usize) -> Tree {
 fn owner_gui_off_native_single_scan_and_explicit_resolution() {
     let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
     slint::platform::set_platform(Box::new(TestPlatform(adapter))).unwrap();
-    let window = SortSizeWindow::new().unwrap();
+    let window = crate::new_window().unwrap();
     let controller = connect(&window);
     let fixture = TempDir::new().unwrap();
     fs::write(fixture.path().join("f"), [1; 4096]).unwrap();
@@ -169,7 +169,7 @@ fn owner_gui_off_native_single_scan_and_explicit_resolution() {
 fn fifty_thousand_nodes_keep_pages_identity_scroll_snapshot_sort_and_stale_guards() {
     let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
     slint::platform::set_platform(Box::new(TestPlatform(adapter.clone()))).unwrap();
-    let window = SortSizeWindow::new().unwrap();
+    let window = crate::new_window().unwrap();
     let controller = connect(&window);
     window.set_scan_path("corpus-public".into());
     window.set_collect_owner(true);

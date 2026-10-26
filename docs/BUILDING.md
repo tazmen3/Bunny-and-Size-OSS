@@ -1,44 +1,14 @@
-# Compilation / Building
+# Compilation / Building — v0.3.0-rc.1
 
-**Historical v0.1 documentation.** For 0.2.0-rc.1, see [current release materials](releases/v0.2.0-rc.1/RELEASE_NOTES.md) and [corresponding-source downloads](releases/v0.2.0-rc.1/DOWNLOADS.md). The buildable product snapshot on this branch is v0.2; the old statements below retain their historical scope.
+Pour reconstruire les binaires distribués hors ligne, télécharger l'archive source correspondante Linux ou Windows de la release, vérifier SHA256SUMS, extraire tout et suivre son README et `rebuild-linux.sh` / `rebuild-windows.ps1`. Rust/Cargo 1.99.0 est requis ; les outils natifs C/C++ et dépendances système restent des prérequis externes. Les dépendances Cargo verrouillées et le backend Slint modifié sont fournis dans ces archives. Aucune garantie de reproductibilité binaire octet pour octet n'est revendiquée.
 
-Les binaires validés n’ont pas été reconstruits pour cette publication. Les commandes ci-dessous sont destinées aux personnes souhaitant compiler ou modifier les sources. The validated binaries were not rebuilt for publication; these commands are for building or modifying the source.
+For offline rebuilding, download the matching platform's corresponding-source release asset, verify SHA256SUMS, fully extract and follow its README and `rebuild-linux.sh` / `rebuild-windows.ps1`. Rust/Cargo 1.99.0 is required; native C/C++ tools and system dependencies are external prerequisites. The bundles include locked Cargo dependencies and the modified Slint backend. Byte-for-byte binary reproducibility is not claimed.
 
-## Prérequis / Requirements
-
-- Rust **1.99.0** épinglé par `rust-toolchain.toml`, Cargo et les deux lockfiles inchangés. Rust 1.99.0 is pinned; both lockfiles are preserved.
-- Windows x64 : MSVC Build Tools, Windows SDK, terminal développeur x64 ; GUI native Winit. Windows requires MSVC Build Tools and a Windows SDK.
-- Ubuntu 24.04 x86_64 : compilateur/linker C, `pkg-config`, développement Fontconfig (`libfontconfig-dev`) et les bibliothèques d’exécution décrites dans le guide. Ubuntu requires a C toolchain, pkg-config, Fontconfig development files and the documented runtime libraries.
-
-## Depuis ce dépôt / From this repository
-
-Le workspace racine contient moteur et CLI ; le prototype Slint a son propre workspace et lockfile. The root workspace contains the core and CLI; Slint has a separate workspace/lockfile.
+L'instantané Git public peut utiliser le registre Cargo en ligne / The public Git snapshot can use the online Cargo registry:
 
 ```sh
-cargo build --locked --release -p sortsize-cli --bin sortsize
-cargo build --locked --release --manifest-path spikes/slint/Cargo.toml --bin sortsize-slint-spike
+cargo build --locked --release -p sortsize-cli
+cargo build --locked --release --manifest-path spikes/slint/Cargo.toml --bin bunny-and-size
 ```
 
-Sorties / Outputs : `target/release/sortsize` et `spikes/slint/target/release/sortsize-slint-spike`, avec suffixe `.exe` sous Windows. Les noms des binaires sources diffèrent des noms de distribution `sortsize-cli` et `sortsize-gui` / `SortSize.exe`.
-
-Vérifications de développement possibles, non relancées par cette publication / Development checks, not rerun for this publication:
-
-```sh
-cargo fmt --all --check
-cargo clippy --locked --workspace --all-targets -- -D warnings
-cargo test --locked --workspace
-cargo fmt --manifest-path spikes/slint/Cargo.toml --all --check
-cargo clippy --locked --manifest-path spikes/slint/Cargo.toml --all-targets -- -D warnings
-cargo test --locked --manifest-path spikes/slint/Cargo.toml
-```
-
-## Sources correspondant aux binaires / Corresponding source
-
-Les bundles source joints à la Release sont la référence de reconstruction des binaires distribués. Ils incluent les registres Cargo verrouillés, licences et README nécessaires. The named source release assets are the reference for the shipped binaries and include locked local Cargo registries and notices.
-
-- Windows : extraire `SortSize-v0.1.0-source-windows-x86_64.zip`, puis suivre son README et `rebuild-windows.ps1 -BuildDirectory CHEMIN_NEUF` depuis PowerShell 7 avec Rust/MSVC/SDK préparés.
-- Ubuntu : extraire `SortSize-v0.1.0-source-linux-x86_64.tar.gz`, puis suivre son README et `./rebuild-linux.sh DOSSIER_BUILD_NEUF` sur un hôte préparé.
-
-Ces recettes utilisent `--frozen` et des dossiers de build neufs ; elles ne dispensent pas d’installer préalablement la chaîne système. Elles ne sont pas exécutées pour cette publication. Offline recipes use --frozen and fresh build folders but still require a preinstalled toolchain; they were not executed for this publication.
-
-Aucune identité bit à bit entre des builds sur des chemins/hôtes différents n’est promise. Le snapshot public conserve les sources produit exactes, sans exporter l’ancien historique ou les scripts de packaging dépendant des preuves internes. No bit-for-bit reproducibility across hosts/paths is promised; history-dependent internal packaging tools are not imported.
+Ubuntu : environnement de compilation C/C++, pkg-config et fichiers de développement Fontconfig, plus bibliothèques du guide utilisateur. Windows : outils MSVC C++ x64 et SDK Windows. Les scripts historiques de packaging conservent leurs références d'audit privé ; ils ne sont pas la recette publique de reconstruction. / Ubuntu needs C/C++ build tools, pkg-config and Fontconfig development files, plus the user guide's libraries. Windows needs MSVC C++ x64 build tools and Windows SDK. Historical packaging scripts retain private audit references; use the source bundle recipes for public rebuilding.

@@ -552,3 +552,49 @@ fn entries_native_windows_utf16_sid_and_private_spool_work_together() {
     assert!(data.contains("windows_sid_hex"));
     assert!(data.contains("\tend\t"));
 }
+
+#[test]
+fn new_command_and_legacy_alias_share_identity_errors_and_scan_contract() {
+    let programs = [
+        env!("CARGO_BIN_EXE_bunny-and-size-cli"),
+        env!("CARGO_BIN_EXE_sortsize"),
+    ];
+    let fixture = TempDir::new().unwrap();
+    fs::write(fixture.path().join("données.txt"), b"preserve").unwrap();
+    let mut reports = Vec::new();
+    for program in programs {
+        let version = Command::new(program).arg("--version").output().unwrap();
+        assert!(version.status.success());
+        assert!(
+            String::from_utf8_lossy(&version.stdout)
+                .contains(&format!("Bunny and Size {}", env!("CARGO_PKG_VERSION")))
+        );
+        let help = Command::new(program).arg("--help").output().unwrap();
+        assert!(String::from_utf8_lossy(&help.stdout).contains("Bunny and Size"));
+        let invalid = Command::new(program)
+            .args(["scan", "--workers", "0"])
+            .output()
+            .unwrap();
+        assert!(!invalid.status.success());
+        let output = Command::new(program)
+            .arg("scan")
+            .arg(fixture.path())
+            .args(["--format", "json", "--quiet"])
+            .output()
+            .unwrap();
+        assert!(output.status.success());
+        let report: serde_json::Value = serde_json::from_slice(&output.stdout).unwrap();
+        reports.push(report);
+    }
+    for key in [
+        "schema_version",
+        "files",
+        "directories",
+        "logical_bytes",
+        "coverage",
+        "errors",
+    ] {
+        assert_eq!(reports[0][key], reports[1][key], "{key}");
+    }
+    assert_eq!(reports[0]["logical_bytes"], 8);
+}

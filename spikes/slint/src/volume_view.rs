@@ -9,10 +9,10 @@ use std::{
     },
 };
 
-pub(crate) const LOADING: &str = "Découverte en cours…";
-pub(crate) const EMPTY: &str = "Aucune source de stockage visible.";
-pub(crate) const FAILED: &str = "Découverte impossible. Réessaie avec Actualiser.";
-pub(crate) const READY: &str = "Mesures ponctuelles · capacités non additionnables";
+pub(crate) const LOADING: &str = "Discovering…";
+pub(crate) const EMPTY: &str = "No storage source visible.";
+pub(crate) const FAILED: &str = "Discovery failed. Try Refresh.";
+pub(crate) const READY: &str = "Point-in-time measurements · capacities cannot be summed";
 pub(crate) const MAX_ROWS: usize = 256;
 type Discover = Arc<dyn Fn(DiscoveryOptions) -> io::Result<VolumeDiscovery> + Send + Sync>;
 struct Job {
@@ -21,7 +21,6 @@ struct Job {
 }
 pub(crate) struct Prepared {
     pub discovery: VolumeDiscovery,
-    pub rows: Vec<VolumeRow>,
     pub limited: bool,
 }
 impl Prepared {
@@ -29,9 +28,8 @@ impl Prepared {
         self.discovery
             .volumes
             .iter()
-            .zip(&self.rows)
-            .map(|(volume, original)| {
-                let mut row = original.clone();
+            .map(|volume| {
+                let mut row = row(volume);
                 row.summary = summary(volume, units).into();
                 row
             })
@@ -40,12 +38,7 @@ impl Prepared {
     pub(crate) fn new(mut discovery: VolumeDiscovery) -> Self {
         let limited = discovery.volumes.len() > MAX_ROWS;
         discovery.volumes.truncate(MAX_ROWS);
-        let rows = discovery.volumes.iter().map(row).collect();
-        Self {
-            discovery,
-            rows,
-            limited,
-        }
+        Self { discovery, limited }
     }
 }
 /// One running native operation and one latest coalesced request per window.
@@ -72,6 +65,26 @@ impl Sources {
             current: None,
             error: false,
         }
+    }
+    /// Revalidate native identity and exact mount on the scan worker. A stale
+    /// Linux mountpoint may remain a readable directory after unmounting.
+    pub(crate) fn scan_preflight(
+        &self,
+        volume: &Volume,
+        mount: &VolumeMount,
+    ) -> crate::directory_worker::Preflight {
+        let discover = self.discover.clone();
+        let identity = volume.identity.clone();
+        let mount = mount.clone();
+        Box::new(move || {
+            discover(DiscoveryOptions::default()).is_ok_and(|fresh| {
+                fresh.volumes.iter().any(|volume| {
+                    volume.identity == identity
+                        && can_auto_scan(volume)
+                        && volume.mounts.contains(&mount)
+                })
+            })
+        })
     }
     pub fn loading(&self) -> bool {
         self.active.is_some()
@@ -137,37 +150,81 @@ impl Sources {
     }
     pub fn status(&self) -> &'static str {
         if self.loading() {
-            LOADING
+            tr!(LOADING)
         } else if self.error {
-            FAILED
+            tr!(FAILED)
         } else if self.current.as_ref().is_some_and(|r| r.limited) {
-            "Affichage limité à 256 sources · capacités non additionnables"
-        } else if self.current.as_ref().is_some_and(|r| r.rows.is_empty()) {
-            EMPTY
+            tr!("Display limited to 256 sources · capacities cannot be summed")
+        } else if self
+            .current
+            .as_ref()
+            .is_some_and(|r| r.discovery.volumes.is_empty())
+        {
+            tr!(EMPTY)
         } else {
-            READY
+            tr!(READY)
         }
     }
+}
+/// Only positively identified, accessible local sources can start implicitly.
+pub(crate) fn can_auto_scan(volume: &Volume) -> bool {
+    matches!(
+        volume.kind,
+        SourceKind::Local | SourceKind::Removable | SourceKind::Optical
+    ) && volume.availability == VolumeAvailability::Available
+        && !volume.mounts.is_empty()
+        // WindowsPath identifies only a location (for example SUBST), whose
+        // target can change without changing this identity or its mounts.
+        && !matches!(volume.identity, VolumeIdentity::WindowsPath(_))
 }
 fn size(value: MetadataValue<u64>, units: crate::units::Units) -> String {
     match value {
         MetadataValue::Known { value, .. } => units.format(value),
-        MetadataValue::AccessDenied => "Accès refusé".into(),
-        MetadataValue::Unsupported => "Non pris en charge".into(),
-        MetadataValue::NotCollected => "Non interrogé".into(),
-        _ => "Inconnu".into(),
+        MetadataValue::AccessDenied => tr!("Access denied").into(),
+        MetadataValue::Unsupported => tr_in!("capacity", "Unsupported").into(),
+        MetadataValue::NotCollected => tr!("Not queried").into(),
+        _ => tr_in!("capacity", "Unknown").into(),
     }
 }
-fn summary(volume: &Volume, units: crate::units::Units) -> String {
-    let usage = match volume.capacity.utilization_percent() {
-        MetadataValue::Known { value, .. } => format!(" · {value:.1} % utilisés"),
-        _ => String::new(),
+// Thresholds use exact byte ratios, independent of unit and display rounding.
+const OCCUPANCY_WARNING: u128 = 70;
+const OCCUPANCY_CRITICAL: u128 = 90;
+fn usage(volume: &Volume) -> Option<(f32, i32, f64)> {
+    if volume.availability != VolumeAvailability::Available {
+        return None;
+    }
+    let (MetadataValue::Known { value: total, .. }, MetadataValue::Known { value: used, .. }) =
+        (volume.capacity.total, volume.capacity.used)
+    else {
+        return None;
     };
-    format!(
-        "Total {} · Libre {}{}",
+    if total == 0 || used > total {
+        return None;
+    }
+    let scaled = u128::from(used) * 100;
+    let total128 = u128::from(total);
+    let level = if scaled >= total128 * OCCUPANCY_CRITICAL {
+        3
+    } else if scaled >= total128 * OCCUPANCY_WARNING {
+        2
+    } else {
+        1
+    };
+    // Floor to one decimal so 69.99 never reads 70.0 beside a green bar,
+    // and a non-full volume never reads 100.0. Geometry uses the full ratio.
+    let displayed = (u128::from(used) * 1000 / total128) as f64 / 10.;
+    Some((used as f32 / total as f32, level, displayed))
+}
+fn summary(volume: &Volume, units: crate::units::Units) -> String {
+    if volume.availability != VolumeAvailability::Available {
+        return tr!("Capacity unavailable").into();
+    }
+    tr_format!(
+        "Total {} · Used {} · Free {} · Available {}",
         size(volume.capacity.total, units),
-        size(volume.capacity.available, units),
-        usage
+        size(volume.capacity.used, units),
+        size(volume.capacity.free_total, units),
+        size(volume.capacity.available, units)
     )
 }
 fn display(value: &std::ffi::OsStr) -> String {
@@ -195,25 +252,26 @@ fn row(volume: &Volume) -> VolumeRow {
         _ => path.clone(),
     };
     let kind = match volume.kind {
-        SourceKind::Local => "Local",
-        SourceKind::Removable => "Amovible",
-        SourceKind::Optical => "Optique",
-        SourceKind::Remote => "Réseau",
-        SourceKind::Unknown => "Type inconnu",
+        SourceKind::Local => tr!("Local"),
+        SourceKind::Removable => tr!("Removable"),
+        SourceKind::Optical => tr!("Optical"),
+        SourceKind::Remote => tr!("Network"),
+        SourceKind::Unknown => tr!("Unknown type"),
     };
     let availability = match volume.availability {
-        VolumeAvailability::Available => "Disponible",
-        VolumeAvailability::NotProbed => "Non interrogé",
-        VolumeAvailability::AccessDenied => "Accès refusé",
-        VolumeAvailability::Unavailable => "Indisponible",
-        VolumeAvailability::Unknown => "Disponibilité inconnue",
+        VolumeAvailability::Available => tr!("Available"),
+        VolumeAvailability::NotProbed => tr!("Not queried"),
+        VolumeAvailability::AccessDenied => tr!("Access denied"),
+        VolumeAvailability::Unavailable => tr!("Unavailable"),
+        VolumeAvailability::Unknown => tr!("Unknown availability"),
     };
-    let percentage = match volume.capacity.utilization_percent() {
-        MetadataValue::Known { value, .. } => Some(value),
-        _ => None,
-    };
+    let usage = usage(volume);
     let aliases = if volume.mounts.len() > 1 {
-        format!(" · {} points, même stockage", volume.mounts.len())
+        tr_count!(
+            " · {n} mount, same storage",
+            " · {n} mounts, same storage",
+            volume.mounts.len() as u64
+        )
     } else {
         String::new()
     };
@@ -221,8 +279,15 @@ fn row(volume: &Volume) -> VolumeRow {
         name: format!("{name} · {path}").into(),
         summary: summary(volume, crate::units::Units::Binary).into(),
         state: format!("{kind} · {availability}{aliases}").into(),
-        fraction: (percentage.unwrap_or(0.0) / 100.0) as f32,
-        has_usage: percentage.is_some(),
+        fraction: usage.map_or(0., |u| u.0),
+        // Accessibility follows the textual tenth, not the rounded f32 geometry.
+        usage_percent: usage.map_or(0., |u| u.2 as f32),
+        has_usage: usage.is_some(),
+        usage_level: usage.map_or(0, |u| u.1),
+        usage: usage
+            .map(|u| tr_format!("{} % used", crate::number_format::decimal(u.2)))
+            .unwrap_or_else(|| tr!("Usage unavailable").into())
+            .into(),
         selectable: volume.availability == VolumeAvailability::Available,
     }
 }
@@ -243,6 +308,32 @@ mod tests {
             capacity_time: Duration::ZERO,
             capacity_calls: 0,
         }
+    }
+    #[test]
+    fn fallback_path_identity_cannot_authorize_a_retargeted_virtual_drive() {
+        let volume = Volume {
+            identity: VolumeIdentity::WindowsPath("Q:\\".into()),
+            label: MetadataValue::Unknown,
+            filesystem: MetadataValue::Unknown,
+            kind: SourceKind::Local,
+            mounts: vec![VolumeMount {
+                path: "Q:\\".into(),
+                mount_id: None,
+                root: None,
+            }],
+            capacity: VolumeCapacity::absent(MetadataValue::Unknown),
+            availability: VolumeAvailability::Available,
+        };
+        // A SUBST target may change while this location-only identity stays equal.
+        let fresh = volume.clone();
+        let sources = Sources::with_provider(Arc::new(move |_| {
+            Ok(VolumeDiscovery {
+                volumes: vec![fresh.clone()],
+                ..result()
+            })
+        }));
+        assert!(!sources.scan_preflight(&volume, &volume.mounts[0])());
+        assert!(!can_auto_scan(&volume));
     }
     #[test]
     fn refresh_coalesces_rejects_late_result_and_drop_does_not_wait() {
@@ -282,7 +373,7 @@ mod tests {
             std::thread::yield_now();
         }
         assert_eq!(entered.load(Ordering::SeqCst), 2);
-        assert_eq!(s.status(), EMPTY);
+        assert_eq!(s.status(), tr!(EMPTY));
         let (send, recv) = mpsc::channel();
         let recv = Mutex::new(recv);
         let (started, ready) = mpsc::channel();
@@ -318,6 +409,6 @@ mod tests {
             }
             assert_eq!(s.error, error);
         }
-        assert_eq!(s.status(), EMPTY);
+        assert_eq!(s.status(), tr!(EMPTY));
     }
 }

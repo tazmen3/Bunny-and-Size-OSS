@@ -5,12 +5,12 @@ use std::time::{SystemTime, UNIX_EPOCH};
 pub(crate) fn format_date(date: MetadataValue<SystemTime>) -> String {
     let value = match date {
         MetadataValue::Known { value, .. } => value,
-        MetadataValue::Unknown => return "Inconnue".into(),
-        MetadataValue::Unsupported => return "Non prise en charge".into(),
-        MetadataValue::AccessDenied => return "Accès refusé".into(),
-        MetadataValue::NotCollected => return "Non collectée".into(),
+        MetadataValue::Unknown => return tr!("Unknown").into(),
+        MetadataValue::Unsupported => return tr!("Unsupported").into(),
+        MetadataValue::AccessDenied => return tr!("Access denied").into(),
+        MetadataValue::NotCollected => return tr!("Not collected").into(),
         // Future availability states must never invent an instant.
-        _ => return "Inconnue".into(),
+        _ => return tr!("Unknown").into(),
     };
     // Signed nanoseconds plus Euclidean division preserve fractional instants
     // before 1970 (e.g. epoch - 1 ns is in the preceding calendar second).
@@ -28,8 +28,25 @@ pub(crate) fn format_date(date: MetadataValue<SystemTime>) -> String {
     } else {
         format!("{year:+07}")
     };
+    // Localize only the selected month for each visible timestamp.
+    let month = match month {
+        1 => tr!("Jan"),
+        2 => tr!("Feb"),
+        3 => tr!("Mar"),
+        4 => tr!("Apr"),
+        5 => tr!("May"),
+        6 => tr!("Jun"),
+        7 => tr!("Jul"),
+        8 => tr!("Aug"),
+        9 => tr!("Sep"),
+        10 => tr!("Oct"),
+        11 => tr!("Nov"),
+        12 => tr!("Dec"),
+        _ => unreachable!("Gregorian month is in 1..=12"),
+    };
+    let decimal = crate::number_format::decimal_separator();
     format!(
-        "{year}-{month:02}-{day:02} {:02}:{:02}:{:02}.{nanos:09} UTC",
+        "{day:02} {month} {year} {:02}:{:02}:{:02}{decimal}{nanos:09} UTC",
         time / 3600,
         time / 60 % 60,
         time % 60,
@@ -69,25 +86,25 @@ mod tests {
 
     #[test]
     fn dates_keep_pre_epoch_fraction_precision_leap_centuries_and_utc() {
-        assert_eq!(label(UNIX_EPOCH), "1970-01-01 00:00:00.000000000 UTC");
+        assert_eq!(label(UNIX_EPOCH), "01 janv. 1970 00:00:00,000000000 UTC");
         assert_eq!(
             label(UNIX_EPOCH - Duration::from_nanos(100)),
-            "1969-12-31 23:59:59.999999900 UTC"
+            "31 déc. 1969 23:59:59,999999900 UTC"
         );
         #[cfg(unix)]
         assert_eq!(
             label(UNIX_EPOCH - Duration::from_nanos(1)),
-            "1969-12-31 23:59:59.999999999 UTC"
+            "31 déc. 1969 23:59:59,999999999 UTC"
         );
         assert_eq!(
             label(
                 UNIX_EPOCH - Duration::from_secs(315_619_200) + Duration::from_nanos(123_456_700)
             ),
-            "1960-01-01 00:00:00.123456700 UTC"
+            "01 janv. 1960 00:00:00,123456700 UTC"
         );
         assert_eq!(
             label(UNIX_EPOCH + Duration::new(951_827_696, 765_432_100)),
-            "2000-02-29 12:34:56.765432100 UTC"
+            "29 févr. 2000 12:34:56,765432100 UTC"
         );
         for (days, expected) in [
             (-719_528, (0, 1, 1)),
@@ -97,6 +114,38 @@ mod tests {
             (-719_529, (-1, 12, 31)),
         ] {
             assert_eq!(civil_date(days), expected);
+        }
+    }
+
+    #[test]
+    fn effective_locale_policy_is_unambiguous_for_fr_us_and_gb() {
+        use crate::{locale::LanguagePreference, presentation::Context};
+        let value = UNIX_EPOCH + Duration::new(951_827_696, 765_432_100);
+        for (system, expected) in [
+            ("fr_FR", "29 févr. 2000 12:34:56,765432100 UTC"),
+            ("fr_CA", "29 févr. 2000 12:34:56,765432100 UTC"),
+            ("en_US", "29 Feb 2000 12:34:56.765432100 UTC"),
+            ("en_GB", "29 Feb 2000 12:34:56.765432100 UTC"),
+            ("de_DE", "29 Feb. 2000 12:34:56,765432100 UTC"),
+            ("de_CH", "29 Feb. 2000 12:34:56,765432100 UTC"),
+            ("es_ES", "29 feb 2000 12:34:56,765432100 UTC"),
+            ("es_MX", "29 feb 2000 12:34:56,765432100 UTC"),
+            ("pt_PT", "29 fev. 2000 12:34:56,765432100 UTC"),
+            ("pt_BR", "29 fev. 2000 12:34:56,765432100 UTC"),
+            ("ja_JP", "29 Feb 2000 12:34:56.765432100 UTC"),
+        ] {
+            let language = LanguagePreference::Automatic.resolve(Some(system));
+
+            let _scope = Context {
+                language,
+                generation: 1,
+            }
+            .enter();
+            assert_eq!(label(value), expected);
+            assert_eq!(
+                value.duration_since(UNIX_EPOCH).unwrap(),
+                Duration::new(951_827_696, 765_432_100)
+            );
         }
     }
 

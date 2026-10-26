@@ -16,7 +16,7 @@ fn fifty_thousand_nodes_all_twelve_orders_page_selection_and_owner_generation_su
  {
     let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
     slint::platform::set_platform(Box::new(TestPlatform(adapter))).unwrap();
-    let window = SortSizeWindow::new().unwrap();
+    let window = crate::new_window().unwrap();
     let controller = connect(&window);
     let fixture = TempDir::new().unwrap();
     fs::write(fixture.path().join("seed"), [1; 4096]).unwrap();
@@ -154,7 +154,7 @@ fn fifty_thousand_nodes_all_twelve_orders_page_selection_and_owner_generation_su
 fn display_edits_during_scan_use_latest_preferences_and_do_not_replace_the_task() {
     let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
     slint::platform::set_platform(Box::new(TestPlatform(adapter))).unwrap();
-    let window = SortSizeWindow::new().unwrap();
+    let window = crate::new_window().unwrap();
     let controller = connect(&window);
     let fixture = TempDir::new().unwrap();
     fs::write(fixture.path().join("file"), [0; 4096]).unwrap();
@@ -176,19 +176,19 @@ fn display_edits_during_scan_use_latest_preferences_and_do_not_replace_the_task(
         assert!(start.elapsed() < Duration::from_secs(10));
         std::thread::yield_now();
     }
-    assert_eq!(window.get_details().row_data(0).unwrap().size, "4.1 kB");
-    assert!(window.get_summary().contains("4.1 kB"));
-    assert_eq!(window.get_top_rows().row_data(0).unwrap().size, "4.1 kB");
+    assert_eq!(window.get_details().row_data(0).unwrap().size, "4,1 kB");
+    assert!(window.get_summary().contains("4,1 kB"));
+    assert_eq!(window.get_top_rows().row_data(0).unwrap().size, "4,1 kB");
     let tiles = window.get_tiles();
-    assert!(tiles.iter().any(|tile| tile.size == "4.1 kB"));
+    assert!(tiles.iter().any(|tile| tile.size == "4,1 kB"));
     let geometry: Vec<_> = tiles
         .iter()
         .map(|tile| (tile.node_id, tile.x, tile.y, tile.w, tile.h))
         .collect();
     assert!(!window.get_column_settings().row_data(8).unwrap().shown);
     window.invoke_set_units(false);
-    assert!(window.get_summary().contains("4.0 KiB"));
-    assert_eq!(window.get_top_rows().row_data(0).unwrap().size, "4.0 KiB");
+    assert!(window.get_summary().contains("4,0 KiB"));
+    assert_eq!(window.get_top_rows().row_data(0).unwrap().size, "4,0 KiB");
     assert_eq!(
         window
             .get_tiles()
@@ -210,7 +210,7 @@ fn display_edits_during_scan_use_latest_preferences_and_do_not_replace_the_task(
 fn compact_and_large_windows_visibility_patterns_scroll_clamp_and_persistence_are_isolated() {
     let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
     slint::platform::set_platform(Box::new(TestPlatform(adapter.clone()))).unwrap();
-    let window = SortSizeWindow::new().unwrap();
+    let window = crate::new_window().unwrap();
     let controller = connect(&window);
     let fixture = TempDir::new().unwrap();
     let config = fixture.path().join("config/display-v1.conf");
@@ -270,7 +270,7 @@ fn injected_volume_capacity_units_preserve_usage_unknowns_selection_and_never_di
     };
     let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
     slint::platform::set_platform(Box::new(TestPlatform(adapter))).unwrap();
-    let window = SortSizeWindow::new().unwrap();
+    let window = crate::new_window().unwrap();
     let controller = connect(&window);
     let calls = Arc::new(AtomicUsize::new(0));
     let called = calls.clone();
@@ -290,8 +290,8 @@ fn injected_volume_capacity_units_preserve_usage_unknowns_selection_and_never_di
     let original = window.get_volumes().row_data(0).unwrap();
     window.invoke_set_units(true);
     let decimal = window.get_volumes().row_data(0).unwrap();
-    assert!(original.summary.contains("1.0 GiB"));
-    assert!(decimal.summary.contains("1.1 GB"));
+    assert!(original.summary.contains("1,0 GiB"));
+    assert!(decimal.summary.contains("1,1 GB"));
     assert!(decimal.summary.contains("Accès refusé"));
     assert_eq!(decimal.fraction, original.fraction);
     assert_eq!(decimal.has_usage, original.has_usage);
@@ -304,7 +304,7 @@ fn unit_selector_keyboard_changes_preferences_through_the_actual_slint_widget() 
     use slint::platform::{PointerEventButton, WindowEvent};
     let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
     slint::platform::set_platform(Box::new(TestPlatform(adapter.clone()))).unwrap();
-    let window = SortSizeWindow::new().unwrap();
+    let window = crate::new_window().unwrap();
     let controller = connect(&window);
     window
         .window()
@@ -315,7 +315,7 @@ fn unit_selector_keyboard_changes_preferences_through_the_actual_slint_widget() 
     adapter.draw_if_needed(|renderer| {
         renderer.render(&mut pixels, 1200);
     });
-    let position = slint::LogicalPosition::new(500.0, 459.0);
+    let position = slint::LogicalPosition::new(500.0, 549.0);
     window.window().dispatch_event(WindowEvent::PointerPressed {
         position,
         button: PointerEventButton::Left,

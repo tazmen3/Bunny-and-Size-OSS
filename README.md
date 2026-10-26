@@ -1,58 +1,34 @@
 # Bunny and Size
 
-**SortSize devient Bunny and Size pour la v0.3, actuellement en développement.**
-La dernière prerelease publiée reste SortSize 0.2.0-rc.1 ; ses fichiers, tags et
-notes historiques sont conservés. Aucune release v0.3 n’est disponible.
+![Bunny and Size — TazmenWorld](assets/branding/readme-banner.svg)
 
-**SortSize is becoming Bunny and Size for v0.3, currently in development.**
-The latest published prerelease remains SortSize 0.2.0-rc.1. Historical binaries,
-tags and release notes are preserved; no v0.3 release is available.
+**v0.3.0-rc.1 — première RC publique / first public RC**, 26 octobre 2026 / 26 October 2026.
+[Téléchargements et sources correspondantes / Downloads and corresponding sources](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.3.0-rc.1).
+Version d'évaluation, avec réserves connues. / Evaluation prerelease with known reservations.
 
-Analyse locale du stockage en lecture seule, avec interface graphique Slint et
-CLI Rust. La prerelease **0.2.0-rc.1** est disponible pour Ubuntu 24.04 x86_64 et
-Windows 11 x64 : [téléchargements publics](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.2.0-rc.1).
+Analyse locale du stockage en lecture seule : arbre/tableau, Treemap, Top 100, analyse progressive et annulation, exploration complémentaire des dossiers, préférences persistantes et interface en cinq langues (EN/FR/DE/ES/PT-PT). CLI : exports de résumés JSON/CSV/TSV et d'entrées CSV/TSV. Aucune suppression ni télémétrie.
 
-Read-only local storage analysis with a Rust CLI and Slint GUI. Release candidate
-**0.2.0-rc.1** is available for Ubuntu 24.04 x86_64 and Windows 11 x64.
-This is an evaluation prerelease; see the [release page](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.2.0-rc.1).
+Read-only local storage analysis: tree/table, Treemap, Top 100, progressive scanning and cancellation, additional folder exploration, persistent preferences and five interface languages (EN/FR/DE/ES/PT-PT). CLI summary exports in JSON/CSV/TSV and entry exports in CSV/TSV. No deletion or telemetry.
 
-- [Release notes / Présentation française](docs/releases/v0.2.0-rc.1/RELEASE_NOTES.md)
-- [User instructions](docs/releases/v0.2.0-rc.1/USER_GUIDE.md)
-- [Downloads and matching sources](docs/releases/v0.2.0-rc.1/DOWNLOADS.md)
-- [Known limitations](docs/releases/v0.2.0-rc.1/KNOWN_ISSUES.md)
-- [Qualification clarifications](docs/releases/v0.2.0-rc.1/RELEASE_CLARIFICATIONS.md)
-- [Archive checksums](docs/releases/v0.2.0-rc.1/SHA256SUMS)
-- [Public distribution provenance](docs/releases/v0.2.0-rc.1/PROVENANCE.json)
+- [Notes de publication / Release notes](docs/releases/v0.3.0-rc.1/PUBLIC_RELEASE_NOTES.md)
+- [Installation Ubuntu et Windows / User guide](docs/releases/v0.3.0-rc.1/USER_GUIDE.md)
+- [Limitations connues / Known limitations](docs/releases/v0.3.0-rc.1/PUBLIC_LIMITATIONS.md)
+- [Clarifications des textes embarqués / Archive wording](docs/releases/v0.3.0-rc.1/RELEASE_CLARIFICATIONS.md)
+- [SHA-256 des quatre archives / Archive checksums](docs/releases/v0.3.0-rc.1/SHA256SUMS)
+- [Provenance](PROVENANCE.json) · [Compilation / Building](docs/BUILDING.md) · [Crédits / Credits](CREDITS.md)
 
-The GUI is currently in French. Treemap, Top 100, configurable columns, UTC dates,
-optional allocations/owners and CLI summary/detailed exports are included.
-No cleanup operation, GUI export, SQLite history, cloud connector or Android
-package is delivered. See the release notes for scope and remaining reservations.
+Ubuntu 24.04 x86_64 : extraire toute l'archive Linux et lancer `./bunny-and-size` (X11/XWayland, prérequis dans le guide). Windows 11 x64 : extraire tout le ZIP et lancer `bunny-and-size.exe` ; [Microsoft Visual C++ Redistributable x64 v14](https://aka.ms/vc14/vc_redist.x64.exe) requis. Pas de MSI/DEB ; aucun Rust requis à l'exécution.
 
-Windows: install the latest supported official
-[Microsoft Visual C++ Redistributable x64 v14](https://aka.ms/vc14/vc_redist.x64.exe)
-if needed. Version 14.44.35211.0 was tested; it is not a universal minimum.
-Use a runtime at least as recent as the MSVC Build Tools, following
-[Microsoft guidance](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist).
-No Microsoft DLL or installer is bundled. Launch SortSize.exe or sortsize-cli.exe.
-Ubuntu: launch ./sortsize-gui or ./sortsize-cli; system X11/Fontconfig/portal
-prerequisites are described in the release notes. No Rust/compiler is needed
-to run the binaries.
+Ubuntu 24.04 x86_64: fully extract the Linux archive and run `./bunny-and-size` (X11/XWayland; see the guide for prerequisites). Windows 11 x64: fully extract the ZIP and run `bunny-and-size.exe`; official Microsoft Visual C++ Redistributable x64 v14 required. No MSI/DEB installer or Rust runtime requirement.
 
-**GPL-3.0-only**, without warranty. Keep LICENSE, AUTHORS.txt, third-party notices
-and license texts. Both dependency-complete corresponding-source bundles must be
-served with the binaries; GitHub's automatic source downloads do not replace them.
+**D1 Windows reste non corrigé :** après certains changements de langue, le pied peut garder temporairement l'ancienne langue ; un redimensionnement manuel a rétabli l'affichage dans les cas observés. Données cohérentes dans ces scénarios, investigation en cours. Binaires non signés, avertissement SmartScreen possible. Accessibilité humaine exhaustive, multi-écran, Wayland natif et Android non qualifiés ; CI GitHub Actions volontairement désactivée.
 
-This public repository has its own history. The v0.2 product snapshot matches
-frozen source 448e92e572c0e986f7706d2373531e033196ed1d, but that private-origin
-commit and its ancestors are not imported. The public tag identifies
-a commit in this public history. Public source containers remove personal paths
-from four historical documentation files, with original/public hashes recorded.
-Executable bytes, build inputs, Cargo sources and license texts are unchanged.
+**Windows D1 remains unfixed:** after some language changes the footer may temporarily retain the old language; manual resizing restored it in observed cases. Data remained consistent in those scenarios; investigation continues. Unsigned binaries may trigger SmartScreen. Exhaustive human accessibility, multiple monitors, native Wayland and Android are unqualified; GitHub Actions CI is intentionally disabled.
 
-The previous v0.1 release remains historical; its documentation is not the current
-v0.2 qualification. No private validation corpus or development workflow is added.
+Code **GPL-3.0-only**, sans garantie / no warranty. Visuels adaptés approuvés / approved adapted artwork: **CC BY-SA 4.0**, **Louis Lejuez / TazmenWorld**. Voir / see [BRANDING.md](BRANDING.md), [CREDITS.md](CREDITS.md) et / and [LICENSE](LICENSE). Le portrait et l'original réservé ne sont pas distribués / The portrait and reserved original artwork are not distributed. Les tiers conservent leurs licences / Third parties retain their own licenses.
 
-Root PROVENANCE.json, SOURCE_FILES.json and SHA256SUMS describe v0.2.0-rc.1.
-RELEASE_NOTES.fr-en.md and docs/notices/ retain their historical v0.1 scope;
-current notices and full third-party license texts accompany each release archive.
+Les quatre archives originales proviennent du gel `addf68704f26ef02559dd56b2e9b75b168fd0752` et restent inchangées. Les paquets source complets (dépendances Cargo et recettes hors ligne) accompagnent les binaires ; les ZIP/tar source automatiques GitHub ne les remplacent pas. L'instantané Git public sélectionne les fichiers approuvés de ces mêmes sources. Aucun historique Git privé n'est importé. Les tests privés ajoutés après le gel ne sont pas inclus. V0.4 est la prochaine étape de développement fonctionnel.
+
+The four original archives originate from freeze `addf68704f26ef02559dd56b2e9b75b168fd0752` and remain unchanged. Dependency-complete source bundles with offline recipes accompany the binaries; GitHub's automatic source ZIP/tar downloads do not replace them. The public Git snapshot selects approved files from those same sources. Private Git history and later private tests are not imported. V0.4 is the next functional development stage.
+
+Les releases [v0.2.0-rc.1](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.2.0-rc.1) et [v0.1.0](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.1.0) et leurs tags restent historiques. Leurs documents conservent leur portée d'origine. / Earlier releases, tags and documents retain their historical scope.

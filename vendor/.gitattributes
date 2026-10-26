@@ -1,0 +1,4 @@
+# Keep published crate bytes identical to their recorded upstream hashes.
+** -text
+# Unified diff context lines legitimately contain a single space.
+*.patch -whitespace

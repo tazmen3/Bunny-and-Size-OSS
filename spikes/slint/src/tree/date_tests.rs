@@ -37,7 +37,7 @@ fn verify_page(tree: &Tree, expected: &[(PathBuf, EntryDates)]) {
     for row in tree.details().0 {
         let id = row.node_id as usize;
         assert_eq!(row.path, native_label(&expected[id].0));
-        assert_eq!(tree.nodes[id].path, expected[id].0);
+        assert_eq!(tree.nodes[id].path.as_ref(), &expected[id].0);
         assert_eq!(
             row.modified,
             crate::date_label::format_date(expected[id].1.modified)
@@ -263,7 +263,7 @@ fn unpaired_windows_surrogate_is_preserved_in_memory_with_its_date_identity() {
     result.inventory.entries[1].path = native.clone();
     result.dates[1].modified = exact(123);
     let (tree, _) = Tree::with_dates(result).unwrap();
-    assert_eq!(tree.nodes[1].path, native);
+    assert_eq!(tree.nodes[1].path.as_ref(), &native);
     assert_eq!(
         tree.details().0[0].modified,
         crate::date_label::format_date(exact(123))

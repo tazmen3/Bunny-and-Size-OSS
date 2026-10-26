@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-24",
+  "source": "Personal artwork provided by Louis Lejuez on 2026-10-24; only the adapted rabbit and listed derivatives are licensed here.",
+  "author": "Louis Lejuez / TazmenWorld",
+  "tool": "built-in image_gen image editing; transparent background",
+  "prompt": "Use case: background-extraction / logo-brand. Input image 1 is the exact mascot reference. Create a square app icon master: isolate ONLY the white and grey rabbit wearing its RED flowing superhero cape from this image. Preserve the rabbit's distinctive grey upright ears, grey eye patch, white muzzle and body, black friendly eye, pose and red cape. Remove the man and all background. Place the full rabbit and red cape, no clipping, centered on a genuinely transparent background with about 8 percent safe padding. Simplify fur details and strengthen clean dark outlines for excellent small-size 16/24/32px legibility, keep the original illustration character faithfully recognizable. No text, no letters, no invented accessories, no badges, no ground shadow or background. Output a single crisp square mascot icon, not a sheet or mockup.",
+  "license": "CC-BY-SA-4.0",
+  "files": {
+    "assets/branding/bunny-and-size.ico": "b197deddb18349caf28a5e1f81cf59e0aa3e55461f236657a21c7b1f395e69cf",
+    "assets/branding/icons/bunny-and-size-128.png": "936ae6884e587e3f6b2296d67364e958ee07b7323e4a26c1e9e55c03858fc6c1",
+    "assets/branding/icons/bunny-and-size-16.png": "e57bc3467df41c134fe83f0b1e569c5b39af6296aa8fa1395cc526179cccf398",
+    "assets/branding/icons/bunny-and-size-24.png": "700cba876a089689fbabad98bc78e77763d1b2f5164e42a7aad45d3371ea1b18",
+    "assets/branding/icons/bunny-and-size-256.png": "cc2aaec42db3ba9cafbc74828c8378dfaa0105f2563e533a2ff9461a3b7566d9",
+    "assets/branding/icons/bunny-and-size-32.png": "6a40251fca206794b51f0ea8a01bf542c84d04b21b18e798816196bc1918623f",
+    "assets/branding/icons/bunny-and-size-48.png": "d92e396853bd112d9d805ce8375b0377c92c0e8e476d096d142eee9f5772adeb",
+    "assets/branding/icons/bunny-and-size-512.png": "9746d1f5ead908517e388551be9c1b56d9008f707338d8056c7cc68693800334",
+    "assets/branding/icons/bunny-and-size-64.png": "af0ddb6905cc8ce7ee82fb2eb4d16ac05d89dfa8504aa30d18c835e91ebfffa1",
+    "assets/branding/mascot-master.png": "2f710ebdc70c27296995e38b0b09361df7c23f31a3366884796e557896ba3203",
+    "assets/branding/readme-banner.svg": "a8e7717b251edf69e6940c9332421cdb95e4f008ad3251e5b1f39145851a9759"
+  },
+  "banner": "Deterministic SVG layout with embedded derivative icon; no new generation",
+  "license_status": "approved",
+  "owner_approval": {
+    "owner": "Louis Lejuez / TazmenWorld",
+    "date": "2026-10-25",
+    "evidence": "Explicit owner instruction in the attached mission BUNNY AND SIZE v0.3 — FINALISATION ET INTÉGRATION, phase 1; recorded by Codex, no signature or external attestation claimed.",
+    "files": {
+      "assets/branding/bunny-and-size.ico": "b197deddb18349caf28a5e1f81cf59e0aa3e55461f236657a21c7b1f395e69cf",
+      "assets/branding/icons/bunny-and-size-128.png": "936ae6884e587e3f6b2296d67364e958ee07b7323e4a26c1e9e55c03858fc6c1",
+      "assets/branding/icons/bunny-and-size-16.png": "e57bc3467df41c134fe83f0b1e569c5b39af6296aa8fa1395cc526179cccf398",
+      "assets/branding/icons/bunny-and-size-24.png": "700cba876a089689fbabad98bc78e77763d1b2f5164e42a7aad45d3371ea1b18",
+      "assets/branding/icons/bunny-and-size-256.png": "cc2aaec42db3ba9cafbc74828c8378dfaa0105f2563e533a2ff9461a3b7566d9",
+      "assets/branding/icons/bunny-and-size-32.png": "6a40251fca206794b51f0ea8a01bf542c84d04b21b18e798816196bc1918623f",
+      "assets/branding/icons/bunny-and-size-48.png": "d92e396853bd112d9d805ce8375b0377c92c0e8e476d096d142eee9f5772adeb",
+      "assets/branding/icons/bunny-and-size-512.png": "9746d1f5ead908517e388551be9c1b56d9008f707338d8056c7cc68693800334",
+      "assets/branding/icons/bunny-and-size-64.png": "af0ddb6905cc8ce7ee82fb2eb4d16ac05d89dfa8504aa30d18c835e91ebfffa1",
+      "assets/branding/mascot-master.png": "2f710ebdc70c27296995e38b0b09361df7c23f31a3366884796e557896ba3203",
+      "assets/branding/readme-banner.svg": "a8e7717b251edf69e6940c9332421cdb95e4f008ad3251e5b1f39145851a9759"
+    },
+    "permissions": [
+      "adaptations",
+      "redistribution",
+      "commercial use"
+    ],
+    "irrevocable": "Subject to CC BY-SA 4.0 terms"
+  },
+  "rights_note": "Only files listed in files are CC BY-SA 4.0. Full original illustration, portrait and other personal creations remain reserved. No previously valid grant is revoked.",
+  "private_source": {
+    "path": "assets/branding/tazmenworld-original.png",
+    "sha256": "683c568876149bb0b2e99114e4b6e640ff46445788e3a5e26e50142ccb6e6bea",
+    "license": "All rights reserved",
+    "distribution": "Private development repository only; excluded from software and public sources"
+  },
+  "embedded_adaptations_license": "GPL-3.0-only under CC BY-SA 4.0 section 3(b) and the one-way GPLv3 compatibility mechanism; standalone artwork remains CC BY-SA 4.0."
+}

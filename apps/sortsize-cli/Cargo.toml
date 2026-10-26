@@ -4,11 +4,16 @@ version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 publish.workspace = true
-description = "Interface console SortSize"
+description = "Interface console Bunny and Size"
+default-run = "bunny-and-size-cli"
+
+[[bin]]
+name = "bunny-and-size-cli"
+path = "src/main.rs"
 
 [[bin]]
 name = "sortsize"
-path = "src/main.rs"
+path = "src/bin/sortsize.rs"
 
 [dependencies]
 sortsize-core = { path = "../../crates/sortsize-core" }

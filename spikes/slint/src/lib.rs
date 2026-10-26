@@ -1,11 +1,21 @@
+#[macro_use]
+pub mod presentation;
+mod catalog_generated;
+#[cfg(feature = "benchmarks")]
+pub mod i18n_harness;
 #[cfg(feature = "benchmarks")]
 pub mod measure;
 
 mod allocation_label;
 mod date_label;
+mod directory_controller;
+mod directory_worker;
 mod display_preferences;
 #[cfg(any(target_os = "linux", target_os = "windows"))]
 mod folder_picker;
+mod language_controller;
+pub mod locale;
+mod number_format;
 mod owner_controller;
 mod owner_view;
 mod path_input;
@@ -28,598 +38,17 @@ use std::time::Duration;
 use tree::Tree;
 use worker::Task;
 
-slint::slint! {
-    import { Button, CheckBox, ComboBox, LineEdit, ListView, ScrollView, Spinner, TextEdit } from "std-widgets.slint";
-
-    export component LegalWindow inherits Window {
-        title: "SortSize — À propos / Licences";
-        preferred-width: 760px; preferred-height: 560px;
-        min-width: 580px; min-height: 400px;
-        in property <string> product-version;
-        in property <string> notices;
-        in property <string> license-text;
-        private property <bool> full-license: false;
-        VerticalLayout {
-            padding: 16px; spacing: 12px;
-            Text { text: "SortSize " + root.product-version + " — À propos / Licences"; font-size: 22px; }
-            HorizontalLayout {
-                Button { text: "Avis et droits"; clicked => { root.full-license = false; } }
-                Button { text: "Lire la GPLv3 intégrale"; clicked => { root.full-license = true; } }
-            }
-            TextEdit {
-                text: root.full-license ? root.license-text : root.notices;
-                read-only: true;
-                accessible-label: root.full-license ? "Texte intégral de la GPLv3" : "Avis, droits et absence de garantie";
-            }
-        }
-    }
-
-    export struct ColumnSetting { label: string, shown: bool, pixels: float, }
-    export struct VolumeRow {
-        name: string, summary: string, state: string,
-        fraction: float, has-usage: bool, selectable: bool,
-    }
-    export struct TreeRow {
-        node-id: int, depth: int, name: string, size: string,
-        expandable: bool, expanded: bool, selected: bool,
-    }
-    export struct DetailRow {
-        node-id: int, name: string, path: string, size: string, note: string,
-        directory: bool, proportion: string, fraction: float,
-        files: string, directories: string, modified: string, accessed: string, allocated: string, owner: string,
-    }
-    export struct TopRow { rank: int, name: string, size: string, path: string, }
-    export struct MapTile {
-        node-id: int, name: string, size: string, directory: bool,
-        color-index: int, x: float, y: float, w: float, h: float,
-    }
-    component TreemapTile inherits Rectangle {
-        in property <MapTile> tile;
-        in property <bool> inspected;
-        in property <bool> focused;
-        callback activate();
-        clip: true;
-        background: tile.color-index == 0 ? #23658a : tile.color-index == 1 ? #386b47 :
-            tile.color-index == 2 ? #704e89 : tile.color-index == 3 ? #8a4b35 :
-            tile.color-index == 4 ? #356b72 : tile.color-index == 5 ? #805d20 :
-            tile.color-index == 6 ? #4f5c70 : #6e532b;
-        border-width: focused || inspected ? 3px : 1px;
-        border-color: focused ? #ffdd75 : inspected ? #ffffff : #ffffff80;
-        accessible-role: button;
-        accessible-label: (tile.directory ? "Ouvrir le dossier " : tile.node-id >= 0 ? "Inspecter le fichier " : "Groupe ") + tile.name + ", " + tile.size;
-        accessible-action-default => { root.activate(); }
-        TouchArea { mouse-cursor: pointer; clicked => { root.activate(); } }
-        if root.width > 70px && root.height > 24px: Text {
-            x: 7px; y: 4px; width: max(0px, parent.width - 14px); height: 20px;
-            text: (root.tile.directory ? "▸ " : "") + root.tile.name;
-            color: white; font-size: 12px; font-weight: 600; overflow: elide;
-        }
-        if root.width > 70px && root.height > 48px: Text {
-            x: 7px; y: 26px; width: max(0px, parent.width - 14px); height: 18px;
-            text: root.tile.size; color: white; font-size: 11px; overflow: elide;
-        }
-    }
-    // A native, keyboard-focusable button with an elided display label. Full
-    // names remain available through accessibility and the read-only path.
-    component NameButton inherits Rectangle {
-        in property <string> label;
-        in property <string> action-label;
-        callback clicked();
-        min-width: 20px;
-        Button {
-            width: 100%; height: 100%;
-            text: ""; accessible-label: root.action-label;
-            clicked => { root.clicked(); }
-        }
-        Text {
-            x: 8px; width: parent.width - 16px; height: 100%;
-            text: root.label; color: #153550; font-size: 12px;
-            overflow: elide; vertical-alignment: center;
-        }
-    }
-    export component SortSizeWindow inherits Window {
-        in property <string> product-version;
-        title: "SortSize " + root.product-version + " — analyse du stockage";
-        preferred-width: 1200px; preferred-height: 760px;
-        min-width: 960px; min-height: 600px;
-        background: #edf2f7;
-        private property <bool> compact-view: false;
-        changed height => { root.compact-view = root.height < 680px; }
-        in-out property <bool> preferences-open: false;
-        in property <[string]> column-labels: [@tr("Nom (toujours visible)"), @tr("Taille logique"), @tr("Taille allouée"), @tr("Propriétaire"), @tr("Part du dossier"), @tr("Fichiers récursifs"), @tr("Dossiers récursifs"), @tr("Type / état"), @tr("Dernière modification"), @tr("Dernier accès"), @tr("Chemin complet")];
-        in property <[ColumnSetting]> column-settings;
-        in property <float> table-pixels: 1946;
-        in property <length> table-width: root.table-pixels * 1px;
-        changed table-pixels => { root.detail-scroll-x = clamp(root.detail-scroll-x, min(0px, detail-columns.visible-width - max(detail-columns.visible-width, root.table-width)), 0px); }
-        in property <bool> decimal-units: false;
-        in property <int> preference-state: 0;
-        in property <string> preference-status: ["", @tr("Enregistrement…"), @tr("Préférences enregistrées."), @tr("Sauvegarde impossible ; préférences conservées pour cette session."), @tr("Préférences illisibles ou version non prise en charge ; valeurs par défaut."), @tr("Lecture des préférences impossible ; valeurs par défaut."), @tr("Sauvegarde indisponible pour cette session."), @tr("Répertoire utilisateur indisponible ; préférences de session.")][root.preference-state];
-        callback set-column(int, bool);
-        callback set-units(bool);
-        callback reset-display();
-        in-out property <string> scan-path;
-        in-out property <int> worker-choice: 0;
-        in-out property <bool> collect-allocation: false;
-        in-out property <bool> collect-owner: false;
-        in-out property <bool> resolve-owner: false;
-        private property <bool> owner-options: false;
-        changed collect-owner => { if !root.collect-owner { root.resolve-owner = false; } }
-        in property <bool> owner-sort-available: false;
-        in property <bool> owner-sort-preparing: false;
-        in property <string> owner-status: "";
-        callback owner-resolution-changed();
-        callback sort-owner();
-        in property <bool> storage-enabled: false;
-        in property <bool> storage-loading: false;
-        in property <[VolumeRow]> volumes;
-        in property <string> storage-status;
-        in property <int> selected-volume: -1;
-        callback refresh-volumes(bool);
-        callback select-volume(int);
-        in property <bool> busy: false;
-        in property <bool> cancelling: false;
-        in property <bool> choosing-folder: false;
-        in property <bool> folder-picker-enabled: false;
-        in property <bool> scan-enabled: true;
-        in property <string> status: "Choisis un dossier à analyser.";
-        in property <string> summary: "Aucun inventaire";
-        in property <string> errors: "";
-        in property <string> inventory-warning: "";
-        in property <string> view-warning: "";
-        in property <string> current-path: "";
-        in property <string> entry-path: "";
-        in property <string> selection-summary: "";
-        in property <string> empty-message: "Lance une analyse pour explorer un dossier.";
-        in property <bool> has-parent: false;
-        in property <bool> has-previous-page: false;
-        in property <bool> has-next-page: false;
-        in property <bool> has-previous-detail-page: false;
-        in property <bool> has-next-detail-page: false;
-        in property <string> tree-page: "";
-        in property <string> detail-page: "";
-        in property <int> sort-order: 0;
-        in property <bool> allocation-sort-available: false;
-        callback sort-allocated();
-        callback sort-dates(bool);
-        in property <string> modified-heading: "Dernière modification" + (root.sort-order == 8 ? " ↓" : root.sort-order == 9 ? " ↑" : "");
-        in property <string> accessed-heading: "Dernier accès (UTC)" + (root.sort-order == 10 ? " ↓" : root.sort-order == 11 ? " ↑" : "");
-        in-out property <bool> top-visible: false;
-        in property <[TopRow]> top-rows;
-        in property <string> top-note: "Lance une analyse pour afficher le Top 100.";
-        in property <string> top-path;
-        in property <int> top-selected: -1;
-        in property <bool> top-retained: false;
-        in-out property <length> top-scroll-y <=> top-view.content-y;
-        callback select-top(int); callback reveal-top();
-        in property <[TreeRow]> rows;
-        in property <[DetailRow]> details;
-        in-out property <length> detail-scroll-y <=> details-view.content-y;
-        in-out property <length> detail-scroll-x <=> detail-columns.content-x;
-        in property <[MapTile]> tiles;
-        in property <string> treemap-note: "Lance une analyse pour afficher la Treemap.";
-        in property <int> inspected-node: -1;
-        in-out property <int> map-cursor: 0;
-        in-out property <float> map-width: map-area.width / 1px;
-        in-out property <float> map-height: map-area.height / 1px;
-        changed map-width => { root.resize-treemap(root.map-width, root.map-height); }
-        changed map-height => { root.resize-treemap(root.map-width, root.map-height); }
-        callback resize-treemap(float, float);
-        callback activate-tile(int);
-        callback show-legal();
-        callback browse-folder(); callback path-edited();
-        callback start-scan(); callback cancel-scan(); callback toggle-node(int);
-        callback select-node(int); callback inspect-entry(int);
-        callback go-parent(); callback sort-details(bool); callback change-page(bool, bool);
-
-        VerticalLayout {
-            padding: root.compact-view ? 10px : 14px; spacing: root.compact-view ? 6px : 8px;
-            HorizontalLayout {
-                height: 36px; spacing: 12px;
-                Text { text: "SortSize"; color: #153550; font-size: 24px; font-weight: 700; vertical-alignment: center; }
-                Text { text: "Analyse du stockage"; color: #4c6175; font-size: 13px; horizontal-stretch: 1; vertical-alignment: center; }
-                Text { text: "LECTURE SEULE"; color: #226747; font-size: 11px; vertical-alignment: center; }
-                Button { text: @tr("Colonnes et affichage"); accessible-label: @tr("Configurer les colonnes et les unités"); clicked => { root.preferences-open = !root.preferences-open; } }
-                Button { text: "À propos / Licences"; clicked => { root.show-legal(); } }
-            }
-            HorizontalLayout {
-                spacing: 8px;
-                LineEdit {
-                    text <=> root.scan-path; placeholder-text: "Chemin du dossier à analyser";
-                    accessible-label: "Dossier à analyser";
-                    enabled: !root.busy && !root.choosing-folder && root.scan-enabled;
-                    edited => { root.path-edited(); }
-                    accepted => { root.start-scan(); }
-                }
-                Button {
-                    text: "Parcourir…"; accessible-label: "Choisir un dossier à analyser";
-                    enabled: root.folder-picker-enabled && root.scan-enabled && !root.busy && !root.choosing-folder;
-                    clicked => { root.browse-folder(); }
-                }
-                ComboBox {
-                    model: ["1 dossier à la fois", "2 dossiers en parallèle", "4 dossiers en parallèle", "8 dossiers en parallèle"];
-                    current-index <=> root.worker-choice;
-                    accessible-label: "Dossiers analysés simultanément";
-                    enabled: !root.busy && !root.choosing-folder && root.scan-enabled;
-                }
-                Button { text: "Analyser"; enabled: !root.busy && !root.choosing-folder && root.scan-enabled; clicked => { root.start-scan(); } }
-                Button { text: root.cancelling ? "Annulation…" : "Annuler"; accessible-label: "Annuler le scan ou la résolution des propriétaires"; enabled: (root.busy || root.resolve-owner) && !root.cancelling; clicked => { root.cancel-scan(); } }
-            }
-            HorizontalLayout {
-                spacing: 8px;
-                Button { text: root.top-visible ? "Arbre / Treemap" : "Top 100"; accessible-label: "Basculer entre Top 100 et exploration"; clicked => { root.top-visible = !root.top-visible; if root.top-visible { top-focus.focus(); } } }
-                Button { text: "Treemap"; accessible-label: "Placer le focus sur la Treemap"; enabled: root.tiles.length > 0; clicked => { root.top-visible = false; map-focus.focus(); } }
-                Button { text: "↑ Parent"; accessible-label: "Revenir au dossier parent"; enabled: root.has-parent; clicked => { root.go-parent(); } }
-                CheckBox {
-                    text: "Collecter les tailles allouées";
-                    checked <=> root.collect-allocation;
-                    accessible-label: "Collecter les tailles allouées lors du prochain scan";
-                    enabled: !root.busy && !root.choosing-folder && root.scan-enabled;
-                }
-                Button { text: "Propriétaires" + (root.collect-owner ? " ✓" : "");
-                    accessible-label: "Afficher ou masquer les options de collecte et de résolution des propriétaires";
-                    clicked => { root.owner-options = !root.owner-options; }
-                }
-                LineEdit { text: root.current-path; read-only: true; placeholder-text: "Dossier consulté"; accessible-label: "Chemin du dossier consulté"; }
-            }
-            if root.owner-options: HorizontalLayout {
-                spacing: 8px;
-                CheckBox {
-                    text: "Collecter les propriétaires"; checked <=> root.collect-owner;
-                    toggled => { if !root.collect-owner { root.resolve-owner = false; root.owner-resolution-changed(); } }
-                    accessible-label: "Collecter les propriétaires natifs lors du prochain scan";
-                    enabled: !root.busy && !root.choosing-folder && root.scan-enabled;
-                }
-                CheckBox {
-                    text: "Résoudre les noms (NSS / AD : réseau possible)"; checked <=> root.resolve-owner;
-                    toggled => { root.owner-resolution-changed(); }
-                    accessible-label: "Autoriser explicitement la résolution des noms ; NSS ou Active Directory peuvent accéder au réseau";
-                    enabled: root.collect-owner && !root.busy && root.scan-enabled;
-                }
-                Button { text: "Arrêter la résolution"; enabled: root.resolve-owner;
-                    clicked => { root.resolve-owner = false; root.owner-resolution-changed(); }
-                }
-            }
-            Rectangle {
-                HorizontalLayout {
-                    width: 100%; height: 100%; visible: !root.top-visible;
-                    spacing: 10px;
-                    // Layout stretch avoids a window-size/minimum-size binding loop.
-                    Rectangle {
-                        horizontal-stretch: 3; min-width: 260px;
-                        background: #ffffff; border-color: #cbd7e2; border-width: 1px; border-radius: 5px;
-                        VerticalLayout {
-                            padding: 8px; spacing: 6px;
-                            HorizontalLayout {
-                                height: 30px;
-                                Text { text: "DOSSIERS"; color: #4c6175; font-size: 11px; font-weight: 600; horizontal-stretch: 1; vertical-alignment: center; }
-                                Text { text: "TAILLE LOGIQUE"; color: #4c6175; font-size: 10px; vertical-alignment: center; }
-                            }
-                            ListView {
-                                for row in root.rows: Rectangle {
-                                    height: 34px;
-                                    background: row.selected ? #dcecf7 : #ffffff;
-                                    border-radius: 3px;
-                                    HorizontalLayout {
-                                        padding-left: 3px + row.depth * 12px; padding-right: 4px; spacing: 4px;
-                                        if row.expandable: Button {
-                                            width: 25px; text: row.expanded ? "−" : "+";
-                                            accessible-label: (row.expanded ? "Replier " : "Déplier ") + row.name;
-                                            clicked => { root.toggle-node(row.node-id); }
-                                        }
-                                        if !row.expandable: Text { width: 25px; text: "·"; color: #91a0af; horizontal-alignment: center; vertical-alignment: center; }
-                                        NameButton {
-                                            label: row.name; horizontal-stretch: 1;
-                                            action-label: "Consulter " + row.name;
-                                            clicked => { root.select-node(row.node-id); }
-                                        }
-                                        Text { text: row.size; color: #153550; width: 84px; font-size: 11px; horizontal-alignment: right; vertical-alignment: center; }
-                                    }
-                                }
-                            }
-                            if root.has-previous-page || root.has-next-page: HorizontalLayout {
-                                spacing: 4px;
-                                Button { text: "←"; accessible-label: "Page précédente des dossiers"; enabled: root.has-previous-page; clicked => { root.change-page(false, false); } }
-                                Text { text: root.tree-page; color: #4c6175; font-size: 11px; horizontal-alignment: center; vertical-alignment: center; }
-                                Button { text: "→"; accessible-label: "Page suivante des dossiers"; enabled: root.has-next-page; clicked => { root.change-page(false, true); } }
-                            }
-                            Rectangle { height: 1px; background: #d4dfe9; }
-                            if root.storage-enabled: VerticalLayout {
-                                spacing: 3px;
-                                HorizontalLayout {
-                                    Text { text: @tr("SOURCES DE STOCKAGE"); font-size: 10px; color: #4c6175; font-weight: 600; vertical-alignment: center; horizontal-stretch: 1; }
-                                    Button { text: @tr("Actualiser"); enabled: !root.storage-loading; clicked => { root.refresh-volumes(false); } }
-                                }
-                                Text { text: root.storage-status; font-size: 10px; color: #4c6175; overflow: elide; }
-                                ListView {
-                                    height: root.compact-view ? 112px : 164px;
-                                    vertical-stretch: 0;
-                                    for volume[index] in root.volumes: Rectangle {
-                                        height: 78px; background: root.selected-volume == index ? #dcecf7 : #f4f7fa;
-                                        VerticalLayout {
-                                            padding: 3px; spacing: 2px;
-                                            Rectangle { height: 25px;
-                                                Button { width: 100%; height: 100%; text: "";
-                                                    enabled: volume.selectable && !root.busy && !root.choosing-folder && root.scan-enabled;
-                                                    accessible-label: @tr("Sélectionner comme prochaine source : ") + volume.name;
-                                                    clicked => { root.select-volume(index); }
-                                                }
-                                                Text { x: 5px; width: parent.width - 10px; height: 100%; text: volume.name; font-size: 11px; color: #153550; overflow: elide; vertical-alignment: center; }
-                                            }
-                                            Text { text: volume.summary; color: #153550; font-size: 10px; overflow: elide; }
-                                            Rectangle { height: 4px; background: #d4dfe9; visible: volume.has-usage;
-                                                Rectangle { height: 100%; width: parent.width * volume.fraction; background: #397dab; }
-                                            }
-                                            Text { text: volume.state; color: #4c6175; font-size: 10px; overflow: elide; }
-                                        }
-                                    }
-                                }
-                                Button { text: @tr("Interroger réseau / type inconnu"); enabled: !root.storage-loading;
-                                    accessible-label: @tr("Interroger les capacités des sources réseau ou de type inconnu ; accès réseau possible");
-                                    clicked => { root.refresh-volumes(true); }
-                                }
-                            }
-                            if !root.compact-view: Text { text: "SOURCE LOCALE"; color: #4c6175; font-size: 10px; font-weight: 600; }
-                            if root.owner-status != "": Text { text: root.owner-status; color: #4c6175; font-size: 11px; wrap: word-wrap; }
-                            Text { text: (root.compact-view ? @tr("Logique par chemin · liens non suivis\nAlloué : hardlinks répétés") : "Tailles logiques par chemin\nAlloué : par chemin, hardlinks répétés\nLiens non suivis") + (root.sort-order == 4 || root.sort-order == 5 ? "\nTri alloué : ≥ = borne connue\nClassement provisoire" : ""); color: #4c6175; font-size: root.compact-view ? 10px : 12px; wrap: word-wrap; }
-                        }
-                    }
-                    Rectangle {
-                        horizontal-stretch: 7; min-width: 560px;
-                        background: #ffffff; border-color: #cbd7e2; border-width: 1px; border-radius: 5px;
-                        VerticalLayout {
-                            padding: 8px; spacing: root.compact-view ? 4px : 6px;
-                            Text { text: "CONTENU DU DOSSIER · " + @tr("Tri : ") + [@tr("Taille ↓"), @tr("Taille ↑"), @tr("Nom ↑"), @tr("Nom ↓"), @tr("Alloué ↓"), @tr("Alloué ↑"), @tr("Propriétaire ↑"), @tr("Propriétaire ↓"), @tr("Modification récente"), @tr("Modification ancienne"), @tr("Accès récent"), @tr("Accès ancien")][root.sort-order]; color: #4c6175; font-size: 11px; font-weight: 600; }
-                            Text { text: root.selection-summary == "" ? "Aucun dossier sélectionné" : root.selection-summary; color: #153550; font-size: 13px; wrap: word-wrap; }
-                            HorizontalLayout {
-                                height: 24px;
-                                Text { text: "TREEMAP · TAILLE LOGIQUE"; color: #4c6175; font-size: 11px; font-weight: 600; horizontal-stretch: 1; }
-                                Text { text: "Flèches · Entrée · Retour arrière"; color: #4c6175; font-size: 10px; }
-                            }
-                            map-area := Rectangle {
-                                min-height: 80px; preferred-height: root.compact-view ? 100px : 190px; max-height: root.compact-view ? 100px : 230px;
-                                vertical-stretch: 0; background: #edf2f7; clip: true;
-                                accessible-role: groupbox; accessible-label: "Treemap des tailles logiques observées";
-                                map-focus := FocusScope {
-                                    width: 100%; height: 100%;
-                                    accessible-role: groupbox;
-                                    accessible-label: root.tiles.length > 0 ? root.tiles[root.map-cursor].name + ", " + root.tiles[root.map-cursor].size : "Aucune surface mesurée";
-                                    key-pressed(event) => {
-                                        if event.text == Key.RightArrow || event.text == Key.DownArrow {
-                                            root.map-cursor = mod(root.map-cursor + 1, max(1, root.tiles.length));
-                                            return accept;
-                                        }
-                                        if event.text == Key.LeftArrow || event.text == Key.UpArrow {
-                                            root.map-cursor = mod(root.map-cursor + max(1, root.tiles.length) - 1, max(1, root.tiles.length));
-                                            return accept;
-                                        }
-                                        if event.text == Key.Return || event.text == Key.Space {
-                                            root.activate-tile(root.map-cursor); return accept;
-                                        }
-                                        if event.text == Key.Backspace { root.go-parent(); return accept; }
-                                        return reject;
-                                    }
-                                    for tile[index] in root.tiles: TreemapTile {
-                                        x: parent.width * tile.x; y: parent.height * tile.y;
-                                        width: parent.width * tile.w; height: parent.height * tile.h;
-                                        tile: tile; inspected: tile.node-id >= 0 && tile.node-id == root.inspected-node;
-                                        focused: map-focus.has-focus && root.map-cursor == index;
-                                        activate => { root.map-cursor = index; map-focus.focus(); root.activate-tile(index); }
-                                    }
-                                    if root.tiles.length == 0: Text {
-                                        text: "Aucune surface mesurée"; color: #4c6175; horizontal-alignment: center; vertical-alignment: center;
-                                    }
-                                }
-                            }
-                            if map-focus.has-focus && root.tiles.length > 0: Text {
-                                text: root.tiles[root.map-cursor].name + " · " + root.tiles[root.map-cursor].size;
-                                color: #153550; font-size: 12px; overflow: elide;
-                            }
-                            Text { text: root.treemap-note; color: #4c6175; font-size: 11px; wrap: word-wrap; }
-                            // One horizontal viewport owns both header and rows. The inner
-                            // ListView retains vertical virtualization and 34px reveal offsets.
-                            detail-columns := ScrollView {
-                                min-width: 0px;
-                                content-width: max(self.visible-width, root.table-width);
-                                content-height: self.visible-height;
-                                vertical-scrollbar-policy: always-off;
-                                Rectangle {
-                                    width: detail-columns.content-width;
-                                    height: detail-columns.visible-height;
-                                    VerticalLayout {
-                                        spacing: 6px;
-                                        Rectangle {
-                                            height: 34px;
-                                            HorizontalLayout {
-                                                x: 0px; height: 34px; width: root.table-width; padding-left: 2px; padding-right: 0px; spacing: 6px;
-                                                Button { text: "Nom" + (root.sort-order == 2 ? " ↑" : root.sort-order == 3 ? " ↓" : ""); width: root.column-settings[0].pixels * 1px; clicked => { root.sort-details(true); } }
-                                                if root.column-settings[1].shown: Button { text: "Taille" + (root.sort-order == 0 ? " ↓" : root.sort-order == 1 ? " ↑" : ""); width: root.column-settings[1].pixels * 1px; clicked => { root.sort-details(false); } }
-                                                if root.column-settings[2].shown: Button {
-                                                    text: "Alloué / Par chemin" + (root.sort-order == 4 ? " ↓" : root.sort-order == 5 ? " ↑" : "");
-                                                    width: root.column-settings[2].pixels * 1px; enabled: root.allocation-sort-available;
-                                                    clicked => { root.sort-allocated(); }
-                                                }
-                                                if root.column-settings[3].shown: Button {
-                                                    text: "Propriétaire" + (root.sort-order == 6 ? " ↑" : root.sort-order == 7 ? " ↓" : "");
-                                                    width: root.column-settings[3].pixels * 1px; enabled: root.owner-sort-available && !root.owner-sort-preparing;
-                                                    accessible-label: "Trier les propriétaires ; appliquer les noms disponibles à cet instant";
-                                                    clicked => { root.sort-owner(); }
-                                                }
-                                                if root.column-settings[4].shown: Text { text: "Part du dossier"; color: #4c6175; width: root.column-settings[4].pixels * 1px; font-size: 11px; horizontal-alignment: center; vertical-alignment: center; }
-                                                if root.column-settings[5].shown: Text { text: "Fichiers\nrécursifs"; color: #4c6175; width: root.column-settings[5].pixels * 1px; font-size: 11px; horizontal-alignment: right; vertical-alignment: center; }
-                                                if root.column-settings[6].shown: Text { text: "Dossiers\nrécursifs"; color: #4c6175; width: root.column-settings[6].pixels * 1px; font-size: 11px; horizontal-alignment: right; vertical-alignment: center; }
-                                                if root.column-settings[7].shown: Text { text: "Type / état"; color: #4c6175; width: root.column-settings[7].pixels * 1px; font-size: 11px; vertical-alignment: center; }
-                                                if root.column-settings[8].shown: Button {
-                                                    text: root.modified-heading; width: root.column-settings[8].pixels * 1px;
-                                                    accessible-label: root.modified-heading + "; trier du plus récent au plus ancien, puis inverser";
-                                                    clicked => { root.sort-dates(false); }
-                                                }
-                                                if root.column-settings[9].shown: Button {
-                                                    text: root.accessed-heading; width: root.column-settings[9].pixels * 1px;
-                                                    accessible-label: root.accessed-heading + "; selon la politique du système ; trier du plus récent au plus ancien, puis inverser";
-                                                    clicked => { root.sort-dates(true); }
-                                                }
-                                                if root.column-settings[10].shown: Text { text: "Chemin complet"; color: #4c6175; width: root.column-settings[10].pixels * 1px; font-size: 11px; vertical-alignment: center; }
-                                            }
-                                        }
-                                        details-view := ListView {
-                                            horizontal-scrollbar-policy: always-off;
-                                            for entry[index] in root.details: Rectangle {
-                                                height: 34px; background: entry.node-id == root.inspected-node ? #dcecf7 : mod(index, 2) == 0 ? #f4f7fa : #ffffff; border-radius: 3px;
-                                                HorizontalLayout {
-                                                    x: 0px; width: root.table-width; padding-left: 2px; padding-right: 0px; spacing: 6px;
-                                                    NameButton {
-                                                        label: entry.name; width: root.column-settings[0].pixels * 1px;
-                                                        action-label: (entry.directory ? "Ouvrir " : "Afficher le chemin de ") + entry.name;
-                                                        clicked => { if entry.directory { root.select-node(entry.node-id); } else { root.inspect-entry(entry.node-id); } }
-                                                    }
-                                                    if root.column-settings[1].shown: Text { text: entry.size; color: #153550; width: root.column-settings[1].pixels * 1px; font-size: 12px; horizontal-alignment: right; vertical-alignment: center; }
-                                                    if root.column-settings[2].shown: Text { text: entry.allocated; color: #153550; width: root.column-settings[2].pixels * 1px; font-size: 11px; horizontal-alignment: right; vertical-alignment: center; }
-                                                    if root.column-settings[3].shown: NameButton {
-                                                        label: entry.owner; width: root.column-settings[3].pixels * 1px;
-                                                        action-label: "Propriétaire de " + entry.name + " : " + entry.owner;
-                                                        clicked => { root.inspect-entry(entry.node-id); }
-                                                    }
-                                                    if root.column-settings[4].shown: Rectangle {
-                                                        width: root.column-settings[4].pixels * 1px; height: 22px; background: #e8edf3; border-radius: 3px;
-                                                        Rectangle { x: 0px; y: 0px; width: parent.width * entry.fraction; height: parent.height; background: #afd5eb; border-radius: 3px; }
-                                                        Text { text: entry.proportion; color: #153550; font-size: 11px; horizontal-alignment: center; vertical-alignment: center; }
-                                                    }
-                                                    if root.column-settings[5].shown: Text { text: entry.files; color: #153550; width: root.column-settings[5].pixels * 1px; font-size: 11px; horizontal-alignment: right; vertical-alignment: center; }
-                                                    if root.column-settings[6].shown: Text { text: entry.directories; color: #153550; width: root.column-settings[6].pixels * 1px; font-size: 11px; horizontal-alignment: right; vertical-alignment: center; }
-                                                    if root.column-settings[7].shown: Text { text: entry.note; color: #4c6175; width: root.column-settings[7].pixels * 1px; font-size: 11px; vertical-alignment: center; overflow: elide; }
-                                                    if root.column-settings[8].shown: Text { text: entry.modified; color: #153550; width: root.column-settings[8].pixels * 1px; font-size: 11px; vertical-alignment: center; }
-                                                    if root.column-settings[9].shown: Text { text: entry.accessed; color: #153550; width: root.column-settings[9].pixels * 1px; font-size: 11px; vertical-alignment: center; }
-                                                    if root.column-settings[10].shown: NameButton {
-                                                        label: entry.path; width: root.column-settings[10].pixels * 1px;
-                                                        action-label: "Afficher le chemin complet : " + entry.path;
-                                                        clicked => { root.inspect-entry(entry.node-id); }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            if root.details.length == 0: Text { text: root.empty-message; color: #4c6175; wrap: word-wrap; }
-                            if root.has-previous-detail-page || root.has-next-detail-page: HorizontalLayout {
-                                spacing: 8px;
-                                Button { text: "Précédente"; enabled: root.has-previous-detail-page; clicked => { root.change-page(true, false); } }
-                                Text { text: root.detail-page; color: #4c6175; font-size: 11px; horizontal-alignment: center; vertical-alignment: center; }
-                                Button { text: "Suivante"; enabled: root.has-next-detail-page; clicked => { root.change-page(true, true); } }
-                            }
-                            LineEdit { text: root.entry-path; placeholder-text: "Sélectionne un chemin pour le lire en entier"; read-only: true; accessible-label: "Chemin complet de l’entrée"; }
-                        }
-                    }
-                }
-                Rectangle {
-                    width: 100%; height: 100%; visible: root.top-visible;
-                    background: white; border-width: 1px; border-color: #cbd7e2; border-radius: 5px;
-                    VerticalLayout {
-                        padding: 8px; spacing: 6px;
-                        Text { text: "TOP 100 · PLUS GROS FICHIERS"; color: #153550; font-size: 15px; font-weight: 600; }
-                        Text { text: root.top-note; color: #4c6175; font-size: 12px; wrap: word-wrap; }
-                        HorizontalLayout {
-                            Text { text: "Rang"; width: 42px; color: #4c6175; }
-                            Text { text: "Nom"; width: 200px; color: #4c6175; }
-                            Text { text: "Taille logique"; width: 110px; color: #4c6175; }
-                            Text { text: "Chemin complet"; horizontal-stretch: 1; color: #4c6175; }
-                        }
-                        top-focus := FocusScope {
-                            accessible-role: groupbox;
-                            accessible-label: root.top-selected >= 0 ? "Top 100, rang " + root.top-rows[root.top-selected].rank + ", " + root.top-rows[root.top-selected].name : "Top 100, aucun fichier sélectionné";
-                            key-pressed(event) => {
-                                if root.top-rows.length > 0 {
-                                    if event.text == Key.DownArrow || event.text == Key.UpArrow || event.text == Key.Home || event.text == Key.End {
-                                        root.select-top(event.text == Key.Home ? 0 : event.text == Key.End ? root.top-rows.length - 1 : clamp(root.top-selected + (event.text == Key.UpArrow ? -1 : 1), 0, root.top-rows.length - 1));
-                                        root.top-scroll-y = min(0px, max(top-view.visible-height - top-view.content-height, -max(0, root.top-selected - 2) * 34px));
-                                        return accept;
-                                    }
-                                    if event.text == Key.Return { root.reveal-top(); if !root.top-visible { map-focus.focus(); } return accept; }
-                                }
-                                return reject;
-                            }
-                            top-view := ListView {
-                                width: 100%; height: 100%;
-                                // Fixed-height rows: avoid a virtualized content-height
-                                // estimate leaving the final row clipped on Windows.
-                                content-height: root.top-rows.length * 34px;
-                                for item[index] in root.top-rows: Rectangle {
-                                    height: 34px;
-                                    background: root.top-selected == index ? #dcecf7 : mod(index, 2) == 0 ? #f4f7fa : white;
-                                    border-width: top-focus.has-focus && root.top-selected == index ? 1px : 0px;
-                                    border-color: #23658a;
-                                    accessible-role: button; accessible-label: item.rank + ", " + item.name + ", " + item.size + ", " + item.path;
-                                    accessible-action-default => { root.select-top(index); }
-                                    HorizontalLayout {
-                                        spacing: 8px; padding-left: 4px; padding-right: 4px;
-                                        Text { text: item.rank; width: 38px; color: #153550; vertical-alignment: center; }
-                                        Text { text: item.name; width: 192px; color: #153550; vertical-alignment: center; overflow: elide; }
-                                        Text { text: item.size; width: 102px; color: #153550; vertical-alignment: center; }
-                                        Text { text: item.path; horizontal-stretch: 1; color: #153550; vertical-alignment: center; overflow: elide; }
-                                    }
-                                    TouchArea { clicked => { root.select-top(index); top-focus.focus(); } }
-                                }
-                            }
-                        }
-                        if root.top-rows.length == 0: Text { text: "Aucun fichier observé dans ce périmètre."; color: #4c6175; }
-                        Text { text: "↑ ↓ · Début / Fin : sélection · Entrée : révéler dans le tableau"; color: #4c6175; font-size: 11px; }
-                        LineEdit { text: root.top-path; read-only: true; accessible-label: "Chemin natif complet du fichier classé, unités non Unicode échappées"; }
-                        HorizontalLayout {
-                            Button { text: "Révéler dans le tableau"; enabled: root.top-retained; clicked => { root.reveal-top(); if !root.top-visible { map-focus.focus(); } } }
-                            Text { text: root.top-selected < 0 ? "Sélectionne un fichier." : root.top-retained ? "Fichier retenu dans l’inventaire." : "Chemin absent de l’inventaire retenu ; aucun nœud à révéler."; color: #4c6175; font-size: 12px; wrap: word-wrap; }
-                        }
-                    }
-                }
-            }
-            if root.inventory-warning != "" || root.view-warning != "": Text {
-                text: root.inventory-warning + (root.inventory-warning != "" && root.view-warning != "" ? "\n" : "") + root.view-warning;
-                color: #845112; font-size: 12px; wrap: word-wrap;
-            }
-            if root.errors != "": ScrollView { height: 70px; Text { text: root.errors; color: #845112; font-size: 12px; wrap: word-wrap; } }
-            HorizontalLayout {
-                spacing: 8px;
-                Spinner { visible: root.busy; width: 20px; height: 20px; }
-                Text { text: root.status; color: #153550; font-size: 12px; font-weight: 600; wrap: word-wrap; vertical-alignment: center; }
-            }
-            Text { text: root.summary; color: #4c6175; font-size: 12px; wrap: word-wrap; }
-        }
-        if root.preferences-open: Rectangle {
-            x: max(16px, (root.width - self.width) / 2); y: 70px;
-            width: min(620px, root.width - 32px); height: min(480px, root.height - 90px);
-            background: #ffffff; border-width: 2px; border-color: #397dab; border-radius: 6px;
-            VerticalLayout {
-                padding: 12px; spacing: 8px;
-                Text { text: @tr("Colonnes et affichage"); font-size: 18px; color: #153550; }
-                Text { text: @tr("Le nom reste visible. Le tri actif est conservé."); font-size: 12px; color: #4c6175; }
-                ListView {
-                    for column[index] in root.column-settings: CheckBox {
-                        height: 26px; text: column.label; checked: column.shown;
-                        enabled: index != 0; accessible-label: column.label;
-                        toggled => { root.set-column(index, self.checked); }
-                    }
-                }
-                HorizontalLayout {
-                    Text { text: @tr("Unités"); vertical-alignment: center; }
-                    ComboBox {
-                        model: [@tr("Binaire (KiB, MiB, GiB)"), @tr("Décimal (kB, MB, GB)")];
-                        current-index: root.decimal-units ? 1 : 0;
-                        accessible-label: @tr("Unités des tailles affichées");
-                        selected(value) => { root.set-units(self.current-index == 1); }
-                    }
-                }
-                Text { text: root.preference-status; font-size: 11px; color: #845112; wrap: word-wrap; }
-                HorizontalLayout {
-                    Button { text: @tr("Réinitialiser l’affichage"); clicked => { root.reset-display(); } }
-                    Button { text: @tr("Fermer"); clicked => { root.preferences-open = false; } }
-                }
-            }
-        }
-
-    }
-}
+slint::include_modules!();
 
 #[derive(Default)]
 struct Controller {
+    presentation: presentation::Context,
+    language_activation: Option<locale::Activation>,
+    system_locale: Option<String>,
+    inspected_group: Option<i32>,
+    legal: Option<slint::Weak<LegalWindow>>,
+    status: presentation::Status,
+    diagnostic: presentation::Diagnostic,
     preferences: display_preferences::Preferences,
     #[cfg(any(target_os = "linux", windows))]
     preference_store: Option<preferences_store::Store>,
@@ -628,9 +57,17 @@ struct Controller {
     path_input: PathInput,
     #[cfg(any(target_os = "linux", windows))]
     sources: volume_view::Sources,
+    #[cfg(any(target_os = "linux", windows))]
+    scan_volume: Option<(
+        sortsize_core::volumes::VolumeIdentity,
+        sortsize_core::volumes::VolumeMount,
+    )>,
     #[cfg(any(target_os = "linux", target_os = "windows"))]
     folder_picker: Option<folder_picker::FolderPicker>,
     task: Option<Task>,
+    scan_worker: Option<directory_worker::DirectoryWorker>,
+    scan_root: Option<std::path::PathBuf>,
+    directory: directory_controller::DirectoryState,
     tree: Option<Tree>,
     generation: u64,
     owner_task: Option<owner_view::Task>,
@@ -640,6 +77,7 @@ struct Controller {
     owner_sort_serial: u64,
     owner_sort_pending: Option<(u64, usize)>,
     owner_stats: sortsize_owner_resolution::ResolverStats,
+    owner_status: presentation::OwnerStatus,
     #[cfg(feature = "benchmarks")]
     owner_patch_max_ms: f64,
     #[cfg(feature = "benchmarks")]
@@ -651,7 +89,19 @@ struct Controller {
 }
 
 impl Controller {
+    fn status(&mut self, window: &SortSizeWindow, status: presentation::Status) {
+        let _presentation = self.presentation.enter();
+        self.status = status;
+        window.set_status(self.status.render().into());
+    }
+    fn diagnostic(&mut self, window: &SortSizeWindow, diagnostic: presentation::Diagnostic) {
+        let _presentation = self.presentation.enter();
+        self.diagnostic = diagnostic;
+        window.set_errors(self.diagnostic.render().into());
+    }
+
     fn show_preferences(&self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         let labels = window.get_column_labels();
         let columns = (0..11)
             .map(|i| ColumnSetting {
@@ -673,8 +123,10 @@ impl Controller {
         }
         window.set_table_pixels(f32::from(self.preferences.width()));
         window.set_decimal_units(self.preferences.units == units::Units::Decimal);
+        window.set_sidebar_ratio(i32::from(self.preferences.sidebar_ratio));
     }
     fn display_changed(&mut self, window: &SortSizeWindow, previous: units::Units) {
+        let _presentation = self.presentation.enter();
         self.show_preferences(window);
         if previous != self.preferences.units {
             self.update_units(window);
@@ -686,7 +138,11 @@ impl Controller {
         }
     }
     fn update_units(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         let units = self.preferences.units;
+        if let Some(original) = &mut self.directory.original {
+            original.set_units(units);
+        }
         if let Some(tree) = &mut self.tree {
             tree.set_units(units);
             // Patch size fields only. Do not reset pagination, selection, scroll,
@@ -706,7 +162,17 @@ impl Controller {
                     details.set_row_data(i, row);
                 }
             }
-            window.set_top_rows(Rc::new(VecModel::from(tree.top_rows.clone())).into());
+            window.set_top_rows(
+                Rc::new(VecModel::from(
+                    self.directory
+                        .original
+                        .as_ref()
+                        .unwrap_or(tree)
+                        .top_rows
+                        .clone(),
+                ))
+                .into(),
+            );
             window.set_selection_summary(tree.selection_summary().into());
             self.show_treemap(window);
         }
@@ -718,9 +184,11 @@ impl Controller {
         }
         #[cfg(any(target_os = "linux", windows))]
         self.show_sources(window);
+        self.directory_controls(window);
     }
     #[cfg(any(target_os = "linux", windows))]
     fn refresh_sources(&mut self, window: &SortSizeWindow, remote: bool) {
+        let _presentation = self.presentation.enter();
         self.sources
             .refresh(sortsize_core::volumes::DiscoveryOptions {
                 probe_remote: remote,
@@ -744,6 +212,7 @@ impl Controller {
     }
     #[cfg(any(target_os = "linux", windows))]
     fn show_sources(&self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         window.set_storage_loading(self.sources.loading());
         window.set_storage_status(self.sources.status().into());
         if let Some(prepared) = &self.sources.current {
@@ -757,15 +226,20 @@ impl Controller {
                 .iter()
                 .position(|v| v.mounts.first().is_some_and(|m| m.path == path));
             window.set_selected_volume(selected.map(|i| i as i32).unwrap_or(-1));
+            let scanned = prepared.discovery.volumes.iter().position(|v| {
+                self.scan_volume.as_ref().is_some_and(|(identity, mount)| {
+                    &v.identity == identity
+                        && v.mounts.contains(mount)
+                        && self.scan_root.as_ref() == Some(&mount.path)
+                })
+            });
+            window.set_scanned_volume(scanned.map(|i| i as i32).unwrap_or(-1));
         }
     }
     #[cfg(any(target_os = "linux", windows))]
     fn select_volume(&mut self, window: &SortSizeWindow, index: i32) {
-        if self.task.is_some()
-            || window.get_busy()
-            || window.get_choosing_folder()
-            || !window.get_scan_enabled()
-        {
+        let _presentation = self.presentation.enter();
+        if window.get_choosing_folder() || !window.get_scan_enabled() {
             return;
         }
         let Some(volume) = usize::try_from(index)
@@ -774,27 +248,76 @@ impl Controller {
         else {
             return;
         };
-        if volume.availability != sortsize_core::volumes::VolumeAvailability::Available {
+        if !volume_view::can_auto_scan(volume) {
+            self.diagnostic(window, presentation::Diagnostic::VolumeBlocked);
             return;
         }
         let Some(mount) = volume.mounts.first() else {
             return;
         };
-        window.set_scan_path(self.path_input.select(mount.path.clone()).into());
+        let preflight = self.sources.scan_preflight(volume, mount);
+        let path = mount.path.clone();
+        // Same source while running is idempotent. A completed source can be rescanned.
+        let identity = (volume.identity.clone(), mount.clone());
+        if self
+            .task
+            .as_ref()
+            .is_some_and(|task| !task.cancellation.is_cancelled())
+            && self.scan_volume.as_ref() == Some(&identity)
+        {
+            return;
+        }
+        // Dropping the only visible mailbox cancels the old generation. Its late
+        // progress, patches and completion are unreachable from the next poll.
+        self.task = None;
+        self.scan_volume = Some(identity);
+        window.set_scan_path(self.path_input.select(path).into());
         window.set_selected_volume(index);
         window.set_resolve_owner(false);
         self.resolution_changed(window);
+        self.start_checked(window, Some(preflight));
     }
     fn start(&mut self, window: &SortSizeWindow) {
+        self.start_checked(window, None);
+    }
+    fn start_checked(
+        &mut self,
+        window: &SortSizeWindow,
+        preflight: Option<directory_worker::Preflight>,
+    ) {
+        let _presentation = self.presentation.enter();
         if self.task.is_some() || window.get_choosing_folder() || !window.get_scan_enabled() {
             return;
         }
         let path = self.path_input.resolve(window.get_scan_path().as_str());
         if path.as_os_str().is_empty() {
-            window.set_status("Saisis le chemin d'un dossier à analyser.".into());
+            self.status(window, presentation::Status::EnterPath);
             return;
         }
+        #[cfg(any(target_os = "linux", windows))]
+        if preflight.is_none() {
+            // Bind a manual scan to the identity known at its start. A later
+            // discovery at the same pathname must never acquire its old results.
+            self.scan_volume = self.sources.current.as_ref().and_then(|prepared| {
+                prepared
+                    .discovery
+                    .volumes
+                    .iter()
+                    .filter(|volume| volume_view::can_auto_scan(volume))
+                    .find_map(|volume| {
+                        volume
+                            .mounts
+                            .iter()
+                            .find(|mount| mount.path == path)
+                            .map(|mount| (volume.identity.clone(), mount.clone()))
+                    })
+            });
+        }
+        self.directory
+            .reset(window.get_collect_allocation(), window.get_collect_owner());
+        window.set_can_load_details(false);
         self.tree = None;
+        self.inspected_group = None;
         self.scan_labels = None;
         self.warning_labels = None;
         self.generation = self.generation.wrapping_add(1);
@@ -812,27 +335,33 @@ impl Controller {
         window.set_top_selected(-1);
         window.set_top_path("".into());
         window.set_top_retained(false);
-        window.set_top_note("Analyse en cours…".into());
+        window.set_top_note(tr!("Scan in progress…").into());
         window.set_top_scroll_y(0.0);
+        window.set_detail_scroll_y(0.0);
+        window.set_map_cursor(0);
         window.set_rows(ModelRc::default());
         window.set_details(ModelRc::default());
         window.set_detail_scroll_x(0.0);
         window.set_tiles(ModelRc::default());
-        window.set_treemap_note("Analyse en cours…".into());
+        window.set_treemap_note(tr!("Scan in progress…").into());
         window.set_inspected_node(-1);
+        self.scan_root = Some(path.clone());
+        window.set_scan_source(tree::native_label(&path).into());
         window.set_current_path("".into());
+        #[cfg(any(target_os = "linux", windows))]
+        self.show_sources(window);
         window.set_entry_path("".into());
         window.set_selection_summary("".into());
-        window.set_empty_message("Analyse en cours…".into());
+        window.set_empty_message(tr!("Scan in progress…").into());
         window.set_has_parent(false);
         window.set_has_previous_detail_page(false);
         window.set_has_next_detail_page(false);
-        window.set_errors("".into());
+        self.diagnostic(window, presentation::Diagnostic::None);
         window.set_inventory_warning("".into());
         window.set_view_warning("".into());
         window.set_has_previous_page(false);
         window.set_has_next_page(false);
-        window.set_summary("Préparation de l'inventaire…".into());
+        window.set_summary(tr!("Preparing inventory…").into());
         window.set_cancelling(false);
         let workers = match window.get_worker_choice() {
             1 => 2,
@@ -840,29 +369,48 @@ impl Controller {
             3 => 8,
             _ => 1,
         };
-        match Task::start(
-            path,
-            workers,
-            window.get_collect_allocation(),
-            window.get_collect_owner(),
-        ) {
+        // One persistent worker and one replaceable pending request per window.
+        // A blocked OS call delays the new scan but cannot accumulate threads.
+        let task = (|| {
+            if self.scan_worker.is_none() {
+                self.scan_worker = Some(directory_worker::DirectoryWorker::named("sortsize-scan")?);
+            }
+            Ok::<_, std::io::Error>(self.scan_worker.as_ref().unwrap().submit_checked(
+                worker::Job {
+                    root: path,
+                    workers,
+                    collect_allocation: window.get_collect_allocation(),
+                    collect_owner: window.get_collect_owner(),
+                    limits: sortsize_core::InventoryLimits::default(),
+                    child_offset: 0,
+                    scope: None,
+                },
+                preflight,
+            ))
+        })();
+        match task {
             Ok(task) => {
                 self.task = Some(task);
                 window.set_busy(true);
-                window.set_status("Analyse en cours…".into());
+                self.status(window, presentation::Status::Scanning);
             }
             Err(error) => {
-                window.set_status("Impossible de démarrer l'analyse.".into());
-                window.set_errors(error.to_string().escape_debug().to_string().into());
+                window.set_busy(false);
+                self.status(window, presentation::Status::StartFailed);
+                self.diagnostic(
+                    window,
+                    presentation::Diagnostic::Native(error.to_string().escape_debug().to_string()),
+                );
             }
         }
     }
 
     #[cfg(any(target_os = "linux", target_os = "windows"))]
     fn browse(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         self.begin_browse(window, |initial| {
             let mut dialog = rfd::FileDialog::new()
-                .set_title("Choisir un dossier à analyser")
+                .set_title(tr!("Choose a folder to scan"))
                 .set_parent(&window.window().window_handle());
             if !initial.as_os_str().is_empty() {
                 dialog = dialog.set_directory(initial);
@@ -877,6 +425,7 @@ impl Controller {
         window: &SortSizeWindow,
         open: impl FnOnce(std::path::PathBuf) -> std::io::Result<folder_picker::FolderPicker>,
     ) {
+        let _presentation = self.presentation.enter();
         if self.task.is_some()
             || self.folder_picker.is_some()
             || !window.get_scan_enabled()
@@ -889,18 +438,16 @@ impl Controller {
                 self.folder_picker = Some(picker);
                 window.set_choosing_folder(true);
             }
-            Err(error) => window.set_errors(
-                format!(
-                    "Impossible d’ouvrir le sélecteur : {}",
-                    error.to_string().escape_debug()
-                )
-                .into(),
+            Err(error) => self.diagnostic(
+                window,
+                presentation::Diagnostic::PickerStart(error.to_string().escape_debug().to_string()),
             ),
         }
     }
 
     #[cfg(any(target_os = "linux", target_os = "windows"))]
     fn poll_folder(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         let Some(result) = self.folder_picker.as_ref().and_then(|picker| picker.poll()) else {
             return;
         };
@@ -915,22 +462,25 @@ impl Controller {
             }
             // rfd also returns None when the desktop service is unavailable.
             // Preserve the previous source and inventory in either case.
-            Ok(None) => {},
-            Err(_) => window.set_errors("Le sélecteur s’est arrêté sans résultat. Réessaie ou saisis le chemin manuellement.".into()),
+            Ok(None) => {}
+            Err(_) => self.diagnostic(window, presentation::Diagnostic::PickerStopped),
         }
     }
 
     fn cancel(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         window.set_resolve_owner(false);
         self.resolution_changed(window);
+        self.cancel_directory(window);
         if let Some(task) = &self.task {
             task.cancellation.cancel();
             window.set_cancelling(true);
-            window.set_status("Annulation demandée…".into());
+            self.status(window, presentation::Status::Cancelling);
         }
     }
 
     fn poll(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         #[cfg(any(target_os = "linux", windows))]
         if let Some(success) = self
             .preference_store
@@ -946,20 +496,30 @@ impl Controller {
         self.poll_owners(window);
         #[cfg(any(target_os = "linux", target_os = "windows"))]
         self.poll_folder(window);
+        self.poll_directory(window);
         let Some(task) = &self.task else {
             return;
         };
-        let (progress, completion) = {
+        let (progress, patch, completion) = {
             let mut mailbox = match task.mailbox.try_lock() {
                 Ok(mailbox) => mailbox,
                 Err(std::sync::TryLockError::Poisoned(error)) => error.into_inner(),
                 Err(std::sync::TryLockError::WouldBlock) => return,
             };
-            (mailbox.progress.take(), mailbox.completion.take())
+            (
+                mailbox.progress.take(),
+                mailbox.patch.take(),
+                mailbox.completion.take(),
+            )
         };
         if let Some(progress) = progress {
             window.set_summary(progress.get(self.preferences.units).into());
             self.scan_labels = Some(progress);
+        }
+        if completion.is_none()
+            && let Some(patch) = patch
+        {
+            self.apply_inventory_patch(window, patch);
         }
         if let Some(completion) = completion {
             self.task = None;
@@ -967,15 +527,25 @@ impl Controller {
             window.set_cancelling(false);
             match completion {
                 Ok(mut result) => {
+                    if let Some(previous) = &self.tree {
+                        result.tree.keep_navigation(previous);
+                    }
+                    result.tree.prepare_presentation(self.presentation);
                     result.tree.set_units(self.preferences.units);
                     #[cfg(feature = "benchmarks")]
                     {
                         self.benchmark_summary = Some(result.benchmark_summary);
                     }
-                    window.set_status(result.status.into());
+                    self.status(
+                        window,
+                        presentation::Status::Completed(result.presentation.report.coverage),
+                    );
                     window.set_summary(result.summary.get(self.preferences.units).into());
                     self.scan_labels = Some(result.summary);
-                    window.set_errors(result.errors.into());
+                    self.diagnostic(
+                        window,
+                        presentation::Diagnostic::Report(result.presentation.clone()),
+                    );
                     window.set_inventory_warning(result.warning.get(self.preferences.units).into());
                     self.warning_labels = Some(result.warning);
                     window
@@ -985,22 +555,45 @@ impl Controller {
                     self.show_rows(window);
                 }
                 Err(error) => {
-                    window.set_top_note("Aucun classement disponible : analyse impossible.".into());
-                    window.set_status("Analyse impossible.".into());
-                    window.set_summary("Aucun inventaire disponible pour ce dossier.".into());
-                    window.set_errors(error.into());
-                    window.set_empty_message("Aucun inventaire disponible.".into());
-                    window.set_treemap_note("Aucun inventaire disponible.".into());
+                    self.tree = None;
+                    window.set_rows(ModelRc::default());
+                    window.set_details(ModelRc::default());
+                    window.set_tiles(ModelRc::default());
+                    self.scan_labels = None;
+                    window.set_top_note(tr!("No ranking available: scan failed.").into());
+                    self.status(window, presentation::Status::Failed);
+                    window.set_summary(tr!("No inventory available for this folder.").into());
+                    self.diagnostic(window, presentation::Diagnostic::Failure(error));
+                    window.set_empty_message(tr!("No inventory available.").into());
+                    window.set_treemap_note(tr!("No inventory available.").into());
                 }
             }
         }
     }
 
+    fn apply_inventory_patch(&mut self, window: &SortSizeWindow, patch: tree::TreePatch) {
+        let tree = self.tree.get_or_insert_with(Tree::preview);
+        tree.apply_patch(patch);
+        tree.prepare_presentation(self.presentation);
+        tree.set_units(self.preferences.units);
+        let scroll = window.get_detail_scroll_y();
+        let inspected = window.get_inspected_node();
+        let entry_path = window.get_entry_path();
+        let cursor = window.get_map_cursor();
+        self.show_rows(window);
+        window.set_detail_scroll_y(scroll);
+        window.set_inspected_node(inspected);
+        window.set_entry_path(entry_path);
+        window.set_map_cursor(cursor);
+    }
     fn select_top(&self, window: &SortSizeWindow, rank: i32) {
+        let _presentation = self.presentation.enter();
         if rank >= 0
             && let Some((path, node)) = self
-                .tree
+                .directory
+                .original
                 .as_ref()
+                .or(self.tree.as_ref())
                 .and_then(|t| t.top_selection(rank as usize))
         {
             window.set_top_selected(rank);
@@ -1009,13 +602,17 @@ impl Controller {
         }
     }
     fn reveal_top(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         let rank = window.get_top_selected();
-        if rank >= 0
-            && let Some((_, Some(index))) = self
-                .tree
+        let selected = usize::try_from(rank).ok().and_then(|rank| {
+            self.directory
+                .original
                 .as_ref()
-                .and_then(|t| t.top_selection(rank as usize))
-        {
+                .or(self.tree.as_ref())
+                .and_then(|tree| tree.top_selection(rank))
+        });
+        if let Some((_, Some(index))) = selected {
+            self.restore_primary(window);
             self.tree.as_mut().unwrap().select_entry_parent(index);
             window.set_top_visible(false);
             self.inspect(window, index);
@@ -1029,6 +626,8 @@ impl Controller {
         }
     }
     fn show_rows(&mut self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
+        self.inspected_group = None;
         if let Some(tree) = &self.tree {
             let (rows, limited) = tree.rows();
             let first = tree.offset(false) + 1;
@@ -1036,14 +635,14 @@ impl Controller {
             window.set_has_previous_page(tree.offset(false) > 0);
             window.set_has_next_page(limited);
             window.set_rows(Rc::new(VecModel::from(rows)).into());
-            window.set_tree_page(format!("{first}–{last}").into());
+            window.set_tree_page(presentation::page(first, last).into());
             let (details, limited) = tree.details();
             let first = tree.offset(true) + 1;
             let last = tree.offset(true) + details.len();
             window.set_has_previous_detail_page(tree.offset(true) > 0);
             window.set_has_next_detail_page(limited);
             window.set_details(Rc::new(VecModel::from(details)).into());
-            window.set_detail_page(format!("{first}–{last}").into());
+            window.set_detail_page(presentation::page(first, last).into());
             window.set_current_path(tree.path().into());
             window.set_entry_path("".into());
             window.set_inspected_node(-1);
@@ -1059,8 +658,10 @@ impl Controller {
         }
         self.request_owners(window, None);
         self.apply_owner_names(window);
+        self.directory_controls(window);
     }
     fn show_treemap(&self, window: &SortSizeWindow) {
+        let _presentation = self.presentation.enter();
         if let Some(tree) = &self.tree {
             window.set_tiles(
                 Rc::new(VecModel::from(tree.treemap(
@@ -1073,6 +674,8 @@ impl Controller {
         }
     }
     fn inspect(&mut self, window: &SortSizeWindow, index: usize) {
+        self.directory_interacted();
+        let _presentation = self.presentation.enter();
         if let Some(tree) = &mut self.tree
             && let Some(path) = tree.entry_path(index)
         {
@@ -1088,8 +691,14 @@ impl Controller {
 }
 
 fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
-    let controller = Rc::new(RefCell::new(Controller::default()));
+    let controller = Rc::new(RefCell::new(Controller {
+        presentation: presentation::Context::current(),
+        system_locale: sys_locale::get_locale(),
+        ..Controller::default()
+    }));
     controller.borrow().show_preferences(window);
+    controller.borrow().show_language(window);
+    language_controller::register(window, &controller);
     let state = controller.clone();
     let weak = window.as_weak();
     window.on_set_column(move |index, visible| {
@@ -1122,8 +731,25 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
         if let Some(window) = weak.upgrade() {
             let mut state = state.borrow_mut();
             let previous = state.preferences.units;
-            state.preferences = Default::default();
+            state.preferences = display_preferences::Preferences {
+                language: state.preferences.language,
+                ..Default::default()
+            };
             state.display_changed(&window, previous);
+        }
+    });
+    let state = controller.clone();
+    let weak = window.as_weak();
+    window.on_resize_sidebar(move |ratio| {
+        if let Some(window) = weak.upgrade() {
+            let mut state = state.borrow_mut();
+            let ratio = ratio.clamp(100, 900) as u16;
+            if state.preferences.sidebar_ratio != ratio {
+                state.preferences.sidebar_ratio = ratio;
+                // I/O remains on the coalescing preferences worker.
+                let units = state.preferences.units;
+                state.display_changed(&window, units);
+            }
         }
     });
     #[cfg(any(target_os = "linux", target_os = "windows"))]
@@ -1155,6 +781,13 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
             }
         });
     }
+    let weak = window.as_weak();
+    let state = controller.clone();
+    window.on_load_folder_details(move || {
+        if let Some(window) = weak.upgrade() {
+            state.borrow_mut().load_directory(&window, true);
+        }
+    });
     let weak = window.as_weak();
     let state = controller.clone();
     window.on_select_top(move |rank| {
@@ -1228,6 +861,10 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
     window.on_change_page(move |details, next| {
         if let Some(window) = weak.upgrade() {
             let mut state = state.borrow_mut();
+            if state.directory_page(&window, details, next) {
+                return;
+            }
+            state.directory_interacted();
             if let Some(tree) = &mut state.tree {
                 tree.change_page(details, next);
             }
@@ -1245,6 +882,7 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
                 tree.select(index as usize);
             }
             state.show_rows(&window);
+            state.load_directory(&window, false);
         }
     });
     let weak = window.as_weak();
@@ -1252,6 +890,9 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
     window.on_go_parent(move || {
         if let Some(window) = weak.upgrade() {
             let mut state = state.borrow_mut();
+            if state.directory_parent(&window) {
+                return;
+            }
             if let Some(tree) = &mut state.tree {
                 tree.parent();
             }
@@ -1263,6 +904,7 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
     window.on_sort_details(move |name| {
         if let Some(window) = weak.upgrade() {
             let mut state = state.borrow_mut();
+            state.directory_interacted();
             state.cancel_owner_sort(&window);
             if let Some(tree) = &mut state.tree {
                 tree.sort_by(name);
@@ -1275,6 +917,7 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
     window.on_sort_allocated(move || {
         if let Some(window) = weak.upgrade() {
             let mut state = state.borrow_mut();
+            state.directory_interacted();
             state.cancel_owner_sort(&window);
             if let Some(tree) = &mut state.tree {
                 tree.sort_allocated();
@@ -1287,6 +930,7 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
     window.on_sort_dates(move |accessed| {
         if let Some(window) = weak.upgrade() {
             let mut state = state.borrow_mut();
+            state.directory_interacted();
             state.cancel_owner_sort(&window);
             if let Some(tree) = &mut state.tree {
                 tree.sort_dates(accessed);
@@ -1325,23 +969,15 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
                         tree.select(tile.node_id as usize);
                     }
                     state.show_rows(&window);
+                    state.load_directory(&window, false);
                 } else {
                     state.inspect(&window, tile.node_id as usize);
                 }
+            } else if tile.node_id == -2 && state.tree.as_ref().is_some_and(Tree::needs_details) {
+                state.load_omitted(&window);
             } else {
-                window.set_entry_path(
-                    format!(
-                        "{} · {} · {}",
-                        tile.name,
-                        tile.size,
-                        if tile.node_id == -1 {
-                            "Éléments individuels accessibles dans le tableau."
-                        } else {
-                            "Chemins non retenus : aucun détail individuel disponible."
-                        }
-                    )
-                    .into(),
-                );
+                state.inspected_group = Some(tile.node_id);
+                state.show_inspected_group(&window);
                 window.set_inspected_node(-1);
             }
         }
@@ -1349,13 +985,65 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
     controller
 }
 
-pub fn run() -> Result<(), slint::PlatformError> {
+/// Construct a bare component using the scoped presentation language. Restores
+/// the global bundle and managed sessions' effective language, without editing
+/// their preferences. Use the session boundary for a managed product window.
+pub fn new_window() -> Result<SortSizeWindow, slint::PlatformError> {
     let window = SortSizeWindow::new()?;
+    let language = presentation::Context::current().language;
+    let activation = locale::activate_bundled(language).map_err(|error| {
+        slint::PlatformError::Other(format!("Translation activation failed: {error}"))
+    })?;
+    language_controller::publish_effective_language(activation);
+    Ok(window)
+}
+
+/// Production startup boundary; locale injection keeps tests out of user config.
+/// The last activation governs all managed windows on this UI thread. Existing
+/// sessions retain their own preferences until an explicit selector action.
+fn new_session(
+    preferences: display_preferences::Preferences,
+    system_locale: Option<String>,
+) -> Result<(SortSizeWindow, Rc<RefCell<Controller>>), slint::PlatformError> {
+    let window = SortSizeWindow::new()?;
+    let activation =
+        locale::activate_bundled(preferences.language.resolve(system_locale.as_deref())).map_err(
+            |error| slint::PlatformError::Other(format!("Translation activation failed: {error}")),
+        )?;
+    let context = presentation::Context {
+        language: activation.effective,
+        generation: 0,
+    };
+    let _scope = context.enter();
+    let controller = connect(&window);
+    {
+        let mut state = controller.borrow_mut();
+        state.system_locale = system_locale;
+        state.preferences = preferences;
+    }
+    language_controller::publish_effective_language(activation);
+    Ok((window, controller))
+}
+
+pub fn run() -> Result<(), slint::PlatformError> {
+    // Read before the first component; activate after construction but before
+    // any rendering or Rust model publication. No English startup frame.
+    #[cfg(any(target_os = "linux", windows))]
+    let path = preferences_store::config_path();
+    #[cfg(any(target_os = "linux", windows))]
+    let (preferences, message) = path
+        .as_deref()
+        .map(preferences_store::load)
+        .unwrap_or_else(|| (Default::default(), 7));
+    #[cfg(not(any(target_os = "linux", windows)))]
+    let preferences = display_preferences::Preferences::default();
+    let (window, controller) = new_session(preferences, sys_locale::get_locale())?;
+    let _presentation = controller.borrow().presentation.enter();
     let legal = LegalWindow::new()?;
     window.set_product_version(env!("CARGO_PKG_VERSION").into());
     legal.set_product_version(env!("CARGO_PKG_VERSION").into());
     legal.set_notices(
-        include_str!("legal-notice.txt")
+        tr!(include_str!("legal-notice-en.txt"))
             .replace("@VERSION@", env!("CARGO_PKG_VERSION"))
             .into(),
     );
@@ -1365,7 +1053,7 @@ pub fn run() -> Result<(), slint::PlatformError> {
         if let Some(legal) = weak_legal.upgrade()
             && let Err(error) = legal.show()
         {
-            eprintln!("SortSize — Licences : {error}");
+            eprintln!("Bunny and Size — Licences : {error}");
         }
     });
     let weak_legal = legal.as_weak();
@@ -1378,23 +1066,22 @@ pub fn run() -> Result<(), slint::PlatformError> {
     #[cfg(target_os = "android")]
     {
         window.set_scan_enabled(false);
-        window
-            .set_status("Prototype Android : la sélection SAF/MediaStore reste à intégrer.".into());
+        window.set_status(
+            tr!("Android prototype: SAF/MediaStore selection is not yet integrated.").into(),
+        );
     }
-    let controller = connect(&window);
-    #[cfg(any(target_os = "linux", windows))]
     {
-        if let Some(path) = preferences_store::config_path() {
-            let (preferences, message) = preferences_store::load(&path);
-            controller.borrow_mut().preferences = preferences;
-            controller.borrow().show_preferences(&window);
+        let mut state = controller.borrow_mut();
+        state.legal = Some(legal.as_weak());
+        #[cfg(any(target_os = "linux", windows))]
+        {
             window.set_preference_state(message);
-            match preferences_store::Store::start(path) {
-                Ok(store) => controller.borrow_mut().preference_store = Some(store),
-                Err(_) => window.set_preference_state(6),
+            if let Some(path) = path {
+                match preferences_store::Store::start(path) {
+                    Ok(store) => state.preference_store = Some(store),
+                    Err(_) => window.set_preference_state(6),
+                }
             }
-        } else {
-            window.set_preference_state(7);
         }
     }
     #[cfg(not(target_os = "android"))]
@@ -1425,6 +1112,7 @@ pub fn run() -> Result<(), slint::PlatformError> {
     let result = window.run();
     timer.stop();
     controller.borrow_mut().task = None;
+    controller.borrow_mut().scan_worker = None;
     controller.borrow_mut().owner_task = None;
     #[cfg(any(target_os = "linux", windows))]
     {
@@ -1445,15 +1133,22 @@ pub fn android_main(app: slint::android::AndroidApp) {
         return;
     }
     if let Err(error) = run() {
-        eprintln!("SortSize : {error}");
+        eprintln!("Bunny and Size : {error}");
     }
 }
 
 #[cfg(test)]
 mod tests {
+    mod branding_gui_tests;
     mod display_gui_tests;
+    mod i18n_gui_tests;
+    mod language_gui_tests;
+    mod ondemand_gui_tests;
     mod owner_gui_tests;
+    mod progressive_gui_tests;
     mod temporal_gui_tests;
+    #[cfg(windows)]
+    mod windows_redraw_product;
     use super::*;
     #[cfg(any(target_os = "linux", windows))]
     mod volume_gui_tests;
@@ -1477,7 +1172,7 @@ mod tests {
     fn allocation_checkbox_applies_only_to_the_next_explicit_scan() {
         let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
         slint::platform::set_platform(Box::new(TestPlatform(adapter))).unwrap();
-        let window = SortSizeWindow::new().unwrap();
+        let window = new_window().unwrap();
         let controller = connect(&window);
         let fixture = TempDir::new().unwrap();
         fs::write(fixture.path().join("file"), [1; 4096]).unwrap();
@@ -1516,10 +1211,12 @@ mod tests {
     fn gui_callbacks_scan_expand_and_recover_from_a_missing_root() {
         let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
         slint::platform::set_platform(Box::new(TestPlatform(adapter.clone()))).unwrap();
-        let window = SortSizeWindow::new().unwrap();
+        let window = new_window().unwrap();
         let controller = connect(&window);
         // A worker publishing progress must never make the UI wait for its lock.
         let mailbox = std::sync::Arc::new(std::sync::Mutex::new(worker::Mailbox {
+            directory: None,
+            patch: None,
             progress: Some("progression différée".into()),
             completion: None,
         }));
@@ -1559,6 +1256,17 @@ mod tests {
         assert_eq!(window.get_status(), "Analyse terminée");
         assert!(window.get_summary().contains("5 octets"));
         assert!(window.get_summary().contains("4 dossiers simultanés"));
+        // Language storage is independent from display reset and scan state.
+        let language = locale::LanguagePreference::Explicit(locale::Language::German);
+        controller.borrow_mut().preferences.language = language;
+        let generation = controller.borrow().generation;
+        let summary = window.get_summary();
+        window.invoke_reset_display();
+        assert_eq!(controller.borrow().preferences.language, language);
+        assert_eq!(controller.borrow().generation, generation);
+        assert!(controller.borrow().task.is_none());
+        assert_eq!(window.get_summary(), summary);
+
         assert_eq!(window.get_rows().row_count(), 2);
         assert_eq!(window.get_details().row_count(), 2);
         for row in window.get_details().iter() {
@@ -1624,7 +1332,7 @@ mod tests {
                 .get_selection_summary()
                 .contains("sous-dossiers directs : 1")
         );
-        assert_eq!(file.proportion, "100.0 %");
+        assert_eq!(file.proportion, "100,0 %");
         let file_tile = window
             .get_tiles()
             .iter()

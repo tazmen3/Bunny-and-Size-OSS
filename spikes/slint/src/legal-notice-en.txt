@@ -1,0 +1,14 @@
+Bunny and Size @VERSION@ — free software, GPL-3.0-only
+
+You may modify and redistribute this software under GNU GPL version 3 only. NO WARRANTY, including merchantability or fitness for a particular purpose, to the extent permitted by law; see sections 15 and 16.
+
+The “Read the full GPLv3” button displays a complete offline copy of the license. The LICENSE file in the archive contains the same text.
+
+Third-party copyright notices are preserved in THIRD_PARTY_NOTICES.txt and licences/ beside the executable. Excerpts from the original Slint and Fluent icon notices:
+Copyright © SixtyFPS GmbH <info@slint.dev>
+Copyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>
+Slint 1.18.1: GPL-3.0-only option. Fluent icons: MIT.
+
+AUTHORS.txt lists Bunny and Size code contributors from Git; this list does not designate an exclusive copyright holder. No Bunny and Size copyright holder or year is inferred from these names.
+
+Corresponding source is the Bunny-and-Size-v@VERSION@-source archive for your platform, supplied with the binaries; its exact name and SHA-256 appear in BUILDINFO.json. When redistributing, give recipients effective access to corresponding source under GPLv3; an inaccessible private repository is insufficient.

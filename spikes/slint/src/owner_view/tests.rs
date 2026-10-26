@@ -270,10 +270,22 @@ fn closing_does_not_join_a_blocked_native_provider() {
         calls: AtomicUsize::new(0),
     });
     let mut task = Task::start(gate.clone()).unwrap();
+    // Force the coordinator's startup-lock race deterministically.
+    let inbox = task.inbox.clone();
+    let held = inbox.lock().unwrap();
     task.request(request(data(2), 1, 1, vec![id(1)]));
+    assert!(task.pending.is_some());
+    drop(held);
     let deadline = Instant::now() + Duration::from_secs(10);
     while gate.calls.load(AtomicOrdering::SeqCst) != 1 {
-        assert!(Instant::now() < deadline);
+        // request() intentionally defers a contended inbox to the UI poll.
+        let _ = task.poll();
+        assert!(
+            Instant::now() < deadline,
+            "pending={} native_calls={}",
+            task.pending.is_some(),
+            gate.calls.load(AtomicOrdering::SeqCst)
+        );
         std::thread::sleep(Duration::from_millis(5));
     }
     let (tx, rx) = std::sync::mpsc::channel();

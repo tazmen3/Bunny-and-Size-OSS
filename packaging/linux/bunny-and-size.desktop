@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=Bunny and Size
+Comment=Read-only storage analysis
+Comment[fr]=Analyse du stockage en lecture seule
+Comment[de]=Speicheranalyse im Nur-Lese-Modus
+Comment[es]=Análisis de almacenamiento de solo lectura
+Comment[pt]=Análise do armazenamento apenas de leitura
+Exec=bunny-and-size
+TryExec=bunny-and-size
+Icon=bunny-and-size
+Terminal=false
+Categories=Utility;System;FileTools;
+StartupNotify=true

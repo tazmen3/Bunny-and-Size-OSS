@@ -12,8 +12,15 @@ fn main() {
     let out = PathBuf::from(env::var_os("OUT_DIR").unwrap());
     let rc = out.join("sortsize-version.rc");
     let res = out.join("sortsize-version.res");
+    let cli = env::var("CARGO_PKG_NAME").unwrap() == "sortsize-cli";
+    let filename = if cli { "bunny-and-size-cli.exe" } else { "bunny-and-size.exe" };
+    let internal = if cli { "bunny-and-size-cli" } else { "bunny-and-size" };
+    let icon = PathBuf::from(env::var_os("CARGO_MANIFEST_DIR").unwrap()).join("../../assets/branding/bunny-and-size.ico");
+    println!("cargo:rerun-if-changed={}", icon.display());
+    let icon = icon.display().to_string().replace('\\', "/");
     let flags = if version.contains('-') { 2 } else { 0 };
     fs::write(&rc, format!(r#"#pragma code_page(65001)
+1 ICON "{icon}"
 1 VERSIONINFO
 FILEVERSION {numeric}
 PRODUCTVERSION {numeric}
@@ -26,11 +33,14 @@ BEGIN
  BEGIN
   BLOCK "040904B0"
   BEGIN
-   VALUE "FileDescription", "SortSize storage analysis\0"
+   VALUE "FileDescription", "Bunny and Size storage analysis\0"
+   VALUE "CompanyName", "TazmenWorld\0"
    VALUE "FileVersion", "{version}\0"
-   VALUE "ProductName", "SortSize\0"
+   VALUE "ProductName", "Bunny and Size\0"
+   VALUE "OriginalFilename", "{filename}\0"
+   VALUE "InternalName", "{internal}\0"
    VALUE "ProductVersion", "{version}\0"
-   VALUE "LegalCopyright", "SortSize contributors; GPL-3.0-only\0"
+   VALUE "LegalCopyright", "Bunny and Size contributors; GPL-3.0-only\0"
   END
  END
  BLOCK "VarFileInfo"
@@ -55,7 +65,7 @@ END
     let status = Command::new(compiler).arg("/nologo").arg("/fo").arg(&res).arg(&rc)
         .status().expect("run Windows resource compiler");
     assert!(status.success(), "Windows version resource compilation failed");
-    println!("cargo:rustc-link-arg-bin={}={}",
-        if env::var("CARGO_PKG_NAME").unwrap() == "sortsize-cli" { "sortsize" } else { "sortsize-slint-spike" },
-        res.display());
+    for binary in if cli { &["bunny-and-size-cli", "sortsize"][..] } else { &["bunny-and-size"][..] } {
+        println!("cargo:rustc-link-arg-bin={binary}={}", res.display());
+    }
 }

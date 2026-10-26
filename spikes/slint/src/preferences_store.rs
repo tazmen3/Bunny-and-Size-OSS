@@ -17,6 +17,7 @@ fn resolve_path(env: impl Fn(&str) -> Option<std::ffi::OsString>) -> Option<Path
     let base = absolute("APPDATA");
     #[cfg(not(windows))]
     let base = absolute("XDG_CONFIG_HOME").or_else(|| absolute("HOME").map(|p| p.join(".config")));
+    // Stable v0.2 store: a product rename never moves or forks user preferences.
     base.map(|p| p.join("sortsize").join("display-v1.conf"))
 }
 pub(crate) fn load(path: &Path) -> (Preferences, i32) {
@@ -105,6 +106,10 @@ impl Store {
             worker: Some(worker),
             serial: 0,
         })
+    }
+    #[cfg(test)]
+    pub(crate) fn submissions(&self) -> u64 {
+        self.serial
     }
     pub fn submit(&mut self, preferences: Preferences) {
         self.serial = self.serial.wrapping_add(1);
@@ -241,5 +246,171 @@ mod windows_tests {
             std::path::PathBuf::from(r"C:\fixture\Roaming\sortsize\display-v1.conf")
         );
         assert!(super::resolve_path(|_| Some("relative".into())).is_none());
+    }
+}
+
+#[cfg(test)]
+mod migration_tests {
+    use super::*;
+    use crate::locale::{Language, LanguagePreference};
+
+    #[test]
+    fn real_v1_fixture_migrates_on_explicit_save_then_language_and_auto_reopen() {
+        let directory = tempfile::tempdir().unwrap();
+        let path = directory.path().join("sortsize/display-v1.conf");
+        fs::create_dir(path.parent().unwrap()).unwrap();
+        let original = include_str!("../tests/fixtures/preferences/display-v1.conf");
+        fs::write(&path, original).unwrap();
+        let (mut preferences, status) = load(&path);
+        assert_eq!(status, 0);
+        assert_eq!(preferences.language, LanguagePreference::Automatic);
+        assert_eq!(fs::read_to_string(&path).unwrap(), original); // no startup rewrite
+        let units = preferences.units;
+        let columns = preferences.visible;
+        for choice in Language::ALL
+            .map(LanguagePreference::Explicit)
+            .into_iter()
+            .chain([LanguagePreference::Automatic])
+        {
+            preferences.language = choice;
+            let mut store = Store::start(path.clone()).unwrap();
+            store.submit(preferences.clone());
+            drop(store); // close process's persistence worker
+            let (loaded, status) = load(&path);
+            assert_eq!(status, 0);
+            assert_eq!(loaded, preferences);
+            assert_eq!(loaded.units, units);
+            assert_eq!(loaded.visible, columns);
+            assert!(
+                fs::read_to_string(&path)
+                    .unwrap()
+                    .starts_with("version=2\n")
+            );
+        }
+        let future = "version=999\nunits=decimal\nhidden_columns=owner\nlanguage=es\n";
+        fs::write(&path, future).unwrap();
+        assert_eq!(load(&path).1, 4);
+        assert_eq!(fs::read_to_string(&path).unwrap(), future);
+    }
+
+    #[test]
+    fn atomic_replacements_never_expose_partial_v2_and_failure_preserves_destination() {
+        let directory = tempfile::tempdir().unwrap();
+        let path = directory.path().join("display-v1.conf");
+        let old = Preferences::default();
+        let new = Preferences {
+            units: crate::units::Units::Decimal,
+            sidebar_ratio: 375,
+            language: LanguagePreference::Explicit(Language::French),
+            visible: [
+                true, false, false, false, false, false, false, false, false, false, false,
+            ],
+        };
+        save(&path, &old).unwrap();
+        let reader_path = path.clone();
+        let old_text = old.encode();
+        let new_text = new.encode();
+        let reader = std::thread::spawn(move || {
+            for _ in 0..500 {
+                // Windows may reject an open while an atomic rename is in flight.
+                if let Ok(text) = fs::read_to_string(&reader_path) {
+                    assert!(
+                        text == old_text || text == new_text,
+                        "partial configuration: {text}"
+                    );
+                }
+            }
+        });
+        for index in 0..30 {
+            let expected = if index % 2 == 0 { &new } else { &old };
+            let previous = fs::read_to_string(&path).unwrap();
+            if save(&path, expected).is_err() {
+                assert_eq!(fs::read_to_string(&path).unwrap(), previous);
+            }
+        }
+        reader.join().unwrap();
+        // A destination directory cannot be replaced by a preference file.
+        let blocked = directory.path().join("blocked");
+        fs::create_dir(&blocked).unwrap();
+        fs::write(blocked.join("marker"), "preserve").unwrap();
+        assert!(save(&blocked, &new).is_err());
+        assert_eq!(
+            fs::read_to_string(blocked.join("marker")).unwrap(),
+            "preserve"
+        );
+    }
+
+    #[cfg(windows)]
+    #[test]
+    fn windows_file_lock_keeps_v1_intact_and_retry_migrates() {
+        use std::os::windows::fs::OpenOptionsExt;
+        let directory = tempfile::tempdir().unwrap();
+        let path = directory.path().join("display-v1.conf");
+        let original = include_str!("../tests/fixtures/preferences/display-v1.conf");
+        fs::write(&path, original).unwrap();
+        let lock = fs::OpenOptions::new()
+            .read(true)
+            .share_mode(0)
+            .open(&path)
+            .unwrap();
+        assert_eq!(load(&path).1, 5);
+        assert!(save(&path, &Preferences::default()).is_err());
+        drop(lock);
+        assert_eq!(fs::read_to_string(&path).unwrap(), original);
+        save(
+            &path,
+            &Preferences {
+                language: LanguagePreference::Explicit(Language::Spanish),
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        assert_eq!(
+            load(&path).0.language,
+            LanguagePreference::Explicit(Language::Spanish)
+        );
+    }
+}
+
+// Branding changes must never create a second, divergent settings store.
+#[cfg(test)]
+mod rebranding_tests {
+    use super::*;
+    use crate::locale::{Language, LanguagePreference};
+
+    #[test]
+    fn v02_settings_survive_rebranding_and_restarts_without_startup_writes() {
+        let directory = tempfile::tempdir().unwrap();
+        let path = resolve_path(|name| match name {
+            "APPDATA" | "XDG_CONFIG_HOME" => Some(directory.path().as_os_str().into()),
+            _ => None,
+        })
+        .unwrap();
+        assert_eq!(path, directory.path().join("sortsize/display-v1.conf"));
+        let v1 = include_str!("../tests/fixtures/preferences/display-v1.conf");
+        fs::create_dir_all(path.parent().unwrap()).unwrap();
+        fs::write(&path, v1).unwrap();
+        for _ in 0..3 {
+            assert_eq!(load(&path).1, 0);
+            assert_eq!(fs::read_to_string(&path).unwrap(), v1);
+        }
+        for language in Language::ALL {
+            for units in [crate::units::Units::Decimal, crate::units::Units::Binary] {
+                let mut previous = load(&path).0;
+                previous.language = LanguagePreference::Explicit(language);
+                previous.units = units;
+                previous.set_column(3, false);
+                previous.set_column(10, false);
+                let mut store = Store::start(path.clone()).unwrap();
+                store.submit(previous.clone());
+                drop(store);
+                let bytes = fs::read(&path).unwrap();
+                for _ in 0..3 {
+                    assert_eq!(load(&path), (previous.clone(), 0));
+                    assert_eq!(fs::read(&path).unwrap(), bytes);
+                }
+            }
+        }
+        assert!(!directory.path().join("bunny-and-size").exists());
     }
 }
