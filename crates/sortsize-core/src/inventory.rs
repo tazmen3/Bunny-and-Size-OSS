@@ -554,9 +554,31 @@ struct DirectoryLookup {
     heads: HashMap<u64, usize>,
     collisions: HashMap<usize, usize>,
 }
+// Canonical UNC share roots may omit the final separator, while parent()
+// of a direct child includes it. Use the same borrowed key for those two root
+// spellings only. Retained/exported paths, drive-relative C:, case, and all
+// non-root components remain native and unchanged. No filesystem access.
+fn directory_key(path: &Path) -> &Path {
+    #[cfg(windows)]
+    {
+        use std::path::{Component, Prefix};
+        let mut components = path.components();
+        if let Some(Component::Prefix(prefix)) = components.next()
+            && matches!(prefix.kind(), Prefix::UNC(..) | Prefix::VerbatimUNC(..))
+            && match components.next() {
+                None => true,
+                Some(Component::RootDir) => components.next().is_none(),
+                _ => false,
+            }
+        {
+            return Path::new(prefix.as_os_str());
+        }
+    }
+    path
+}
 impl DirectoryLookup {
     fn insert(&mut self, path: &Path, index: usize) {
-        self.insert_key(self.hasher.hash_one(path), index);
+        self.insert_key(self.hasher.hash_one(directory_key(path)), index);
     }
     fn insert_key(&mut self, key: u64, index: usize) {
         if let Some(previous) = self.heads.insert(key, index) {
@@ -564,12 +586,12 @@ impl DirectoryLookup {
         }
     }
     fn get(&self, path: &Path, entries: &[InventoryEntry]) -> Option<usize> {
-        self.get_key(self.hasher.hash_one(path), path, entries)
+        self.get_key(self.hasher.hash_one(directory_key(path)), path, entries)
     }
     fn get_key(&self, key: u64, path: &Path, entries: &[InventoryEntry]) -> Option<usize> {
         let mut index = *self.heads.get(&key)?;
         loop {
-            if entries[index].path == path {
+            if directory_key(&entries[index].path) == directory_key(path) {
                 return Some(index);
             }
             index = *self.collisions.get(&index)?;
@@ -638,8 +660,11 @@ impl InventoryBuilder {
             }
             Observation::Excluded => return,
         };
-        let direct =
-            parent.is_some_and(|parent| path.parent() == Some(self.entries[parent].path.as_path()));
+        let direct = parent.is_some_and(|parent| {
+            path.parent().is_some_and(|path| {
+                directory_key(path) == directory_key(&self.entries[parent].path)
+            })
+        });
         if let Some(parent) = parent {
             let counts = self.entries[parent].counts.as_mut().unwrap();
             match kind {
@@ -1502,5 +1527,108 @@ mod recursive_child_window_tests {
             }
         }
         assert_eq!(paths.len(), 12);
+    }
+}
+
+#[cfg(all(test, windows))]
+mod unc_parent_tests {
+    use super::*;
+    fn directory(builder: &mut InventoryBuilder, path: &Path) {
+        builder.observe(
+            path,
+            &Observation::Directory {
+                depth_limited: false,
+                resource_limited: false,
+                dates: None,
+                owner: None,
+            },
+        );
+    }
+    fn file(builder: &mut InventoryBuilder, path: &Path, bytes: u64) {
+        builder.observe(
+            path,
+            &Observation::File {
+                bytes,
+                hardlinked: None,
+                dates: None,
+                allocation: None,
+                owner: None,
+            },
+        );
+    }
+    #[test]
+    fn share_root_parent_links_totals_and_direct_counts_survive_both_spellings() {
+        for root in [
+            r"\\server\share",
+            r"\\server\share\",
+            r"\\?\UNC\server\été 日本語",
+            r"\\?\UNC\server\été 日本語\",
+        ] {
+            for max_entries in [1, 10] {
+                let root = Path::new(root);
+                let mut builder = InventoryBuilder::new(InventoryLimits {
+                    max_entries,
+                    ..Default::default()
+                });
+                directory(&mut builder, root);
+                directory(&mut builder, &root.join("folder"));
+                file(&mut builder, &root.join("copy.txt"), 4);
+                file(&mut builder, &root.join("folder/nested.txt"), 6);
+                if max_entries > 1 {
+                    assert_eq!(builder.entries[1].parent, Some(0));
+                    assert_eq!(builder.entries[2].parent, Some(0));
+                    assert_eq!(builder.entries[3].parent, Some(1));
+                }
+                let fixture = tempfile::tempdir().unwrap();
+                let report = crate::scan(
+                    fixture.path(),
+                    &Default::default(),
+                    &Default::default(),
+                    |_| {},
+                )
+                .unwrap();
+                let result = builder.finish(report);
+                assert_eq!(result.entries[0].logical_bytes, Some(10));
+                let counts = result.entries[0].counts.unwrap();
+                assert_eq!(counts.direct_files, 1);
+                assert_eq!(counts.direct_directories, 1);
+                assert_eq!(counts.recursive_files, 2);
+                assert_eq!(counts.recursive_directories, 1);
+            }
+        }
+    }
+    #[test]
+    fn share_root_child_offsets_skip_the_requested_direct_child() {
+        let root = Path::new(r"\\?\UNC\server\share");
+        let mut builder = InventoryBuilder::new(Default::default());
+        builder.direct_children_only = true;
+        builder.skip_children = 1;
+        directory(&mut builder, root);
+        file(&mut builder, &root.join("a.txt"), 4);
+        file(&mut builder, &root.join("b.txt"), 6);
+        assert_eq!(builder.direct_children_seen, 2);
+        assert_eq!(builder.entries.len(), 2);
+        assert!(builder.entries[1].path.ends_with("b.txt"));
+        assert_eq!(builder.entries[1].parent, Some(0));
+    }
+}
+
+#[cfg(all(test, windows))]
+#[test]
+fn inventory_share_keys_do_not_merge_drives_other_shares_or_descendants() {
+    for (a, b) in [
+        (r"C:", r"C:\"),
+        (r"\\?\C:", r"\\?\C:\"),
+        (r"\\s\a", r"\\s\b"),
+        (r"\\s\share", r"\\s\share\child"),
+        (r"\\s\share", r"\\other\share"),
+    ] {
+        assert_ne!(directory_key(Path::new(a)), directory_key(Path::new(b)));
+    }
+    for (a, b) in [
+        (r"\\s\share", r"\\s\share\"),
+        (r"\\?\UNC\s\share", r"\\?\UNC\s\share\"),
+    ] {
+        assert_eq!(directory_key(Path::new(a)), directory_key(Path::new(b)));
     }
 }

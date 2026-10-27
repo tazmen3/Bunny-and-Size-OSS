@@ -1,0 +1,10 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "//!   - Copyright (c) 2009 The Go Authors",
+    "//!   - Copyright 2013-2014 The Rust Project Developers",
+    "Copyright (c) 2009 The Go Authors. All rights reserved.",
+    "Copyright (c) 2019 The Crossbeam Project Developers"
+  ],
+  "spdx_lines": []
+}

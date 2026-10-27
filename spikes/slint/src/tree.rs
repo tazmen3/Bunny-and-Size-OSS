@@ -42,6 +42,7 @@ pub(crate) struct Tree {
     selected: Option<usize>,
     sort: usize,
     truncated: bool,
+    analysis_omitted: u64,
     coverage: Coverage,
 }
 #[derive(Debug, Clone)]
@@ -109,6 +110,28 @@ impl Node {
     }
 }
 impl Tree {
+    pub(crate) fn analysis_snapshot(&self) -> sortsize_core::analysis::AnalysisSnapshot {
+        sortsize_core::analysis::AnalysisSnapshot {
+            entries: self
+                .nodes
+                .iter()
+                .enumerate()
+                .map(|(i, n)| sortsize_core::analysis::AnalysisEntry {
+                    path: n.path.clone(),
+                    kind: n.kind,
+                    logical_bytes: n.bytes,
+                    modified: self.dates.as_ref().and_then(|d| d.get(i)).and_then(|d| {
+                        match d.modified {
+                            MetadataValue::Known { value, .. } => Some(value),
+                            _ => None,
+                        }
+                    }),
+                })
+                .collect(),
+            scan_coverage: self.coverage,
+            entries_omitted: self.analysis_omitted,
+        }
+    }
     #[cfg(test)]
     pub(crate) fn selected_totals(&self) -> Option<(Option<u64>, DirectoryCounts, bool)> {
         let node = self.nodes.get(self.selected?)?;
@@ -417,7 +440,8 @@ impl Tree {
                 .iter()
                 .any(|m| matches!(m.value, MetadataValue::Known { .. }))
         });
-        let truncated = inventory.entries_omitted > 0;
+        let analysis_omitted = inventory.entries_omitted;
+        let truncated = analysis_omitted > 0;
         let coverage = inventory.report.coverage;
         let mut nodes: Vec<_> = inventory
             .entries
@@ -524,6 +548,7 @@ impl Tree {
                 selected,
                 sort: 0,
                 truncated,
+                analysis_omitted,
                 coverage,
             },
             inventory.report,
@@ -837,6 +862,16 @@ impl Tree {
         } else {
             false
         }
+    }
+    /// An analysis snapshot can outlive a directory-window change. Resolve its
+    /// native path in the current tree rather than reusing another tree's ID.
+    pub(crate) fn select_analysis_path(&mut self, path: &std::path::Path) -> Option<usize> {
+        let index = self
+            .nodes
+            .iter()
+            .position(|node| node.path.as_path() == path)?;
+        self.select(self.nodes[index].parent.unwrap_or(index));
+        Some(index)
     }
     pub(crate) fn known_size(&self, path: &std::path::Path, units: Units) -> Option<String> {
         self.nodes

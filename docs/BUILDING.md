@@ -1,14 +1,26 @@
-# Compilation / Building — v0.3.0-rc.1
+# Compilation — v0.4.0-rc.1
 
-Pour reconstruire les binaires distribués hors ligne, télécharger l'archive source correspondante Linux ou Windows de la release, vérifier SHA256SUMS, extraire tout et suivre son README et `rebuild-linux.sh` / `rebuild-windows.ps1`. Rust/Cargo 1.99.0 est requis ; les outils natifs C/C++ et dépendances système restent des prérequis externes. Les dépendances Cargo verrouillées et le backend Slint modifié sont fournis dans ces archives. Aucune garantie de reproductibilité binaire octet pour octet n'est revendiquée.
+Pour reconstruire les exécutables distribués, télécharger l’asset source correspondant de la release,
+vérifier SHA256SUMS et extraire l’intégralité de `Bunny-and-Size-v0.4.0-rc.1-source.tar.gz`.
+Suivre son README : Python >= 3.11, Rust 1.99.0 x64 natif, outils système Ubuntu 24.04 ou MSVC/SDK Windows.
+Depuis l’archive extraite intacte :
 
-For offline rebuilding, download the matching platform's corresponding-source release asset, verify SHA256SUMS, fully extract and follow its README and `rebuild-linux.sh` / `rebuild-windows.ps1`. Rust/Cargo 1.99.0 is required; native C/C++ tools and system dependencies are external prerequisites. The bundles include locked Cargo dependencies and the modified Slint backend. Byte-for-byte binary reproducibility is not claimed.
-
-L'instantané Git public peut utiliser le registre Cargo en ligne / The public Git snapshot can use the online Cargo registry:
-
-```sh
-cargo build --locked --release -p sortsize-cli
-cargo build --locked --release --manifest-path spikes/slint/Cargo.toml --bin bunny-and-size
+```text
+python scripts/v04_distribution.py build --source . --output ../build-neuf
 ```
 
-Ubuntu : environnement de compilation C/C++, pkg-config et fichiers de développement Fontconfig, plus bibliothèques du guide utilisateur. Windows : outils MSVC C++ x64 et SDK Windows. Les scripts historiques de packaging conservent leurs références d'audit privé ; ils ne sont pas la recette publique de reconstruction. / Ubuntu needs C/C++ build tools, pkg-config and Fontconfig development files, plus the user guide's libraries. Windows needs MSVC C++ x64 build tools and Windows SDK. Historical packaging scripts retain private audit references; use the source bundle recipes for public rebuilding.
+Cette recette contrôle les manifestes originaux et utilise deux jobs, les dépendances vendoriées,
+`--frozen` et Cargo hors ligne. Les outils système ne sont pas redistribués.
+La reproductibilité binaire entre machines n’est pas revendiquée.
+
+L’instantané Git conserve les mêmes 26 998 entrées de compilation et les dépendances hors ligne.
+Une compilation manuelle de développement peut être lancée avec :
+
+```text
+cargo build --frozen --release -p sortsize-cli
+cargo build --frozen --release --manifest-path spikes/slint/Cargo.toml --bin bunny-and-size
+```
+
+Les documents publics courants diffèrent de ceux de l’archive ; leurs empreintes et celles des fichiers originaux
+sont documentées dans SOURCE_FILES.json. Les scripts de préparation exigeant les manifestes d’origine
+doivent être exécutés depuis l’archive source intacte. Aucun rebuild n’a été effectué pour cette publication.

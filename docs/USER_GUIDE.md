@@ -1,5 +1,4 @@
-# Bunny and Size v0.3.0-rc.1
+# Bunny and Size v0.4.0-rc.1
 
-Documentation courante / Current documentation: [v0.3.0-rc.1](releases/v0.3.0-rc.1/USER_GUIDE.md).
-
-Les documents datés précédents restent historiques / Earlier dated documents retain their historical scope.
+Documentation courante : [consulter](../docs/v0.4/USAGE.md).
+Les documents datés antérieurs restent historiques.

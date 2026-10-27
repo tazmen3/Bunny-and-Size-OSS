@@ -1,0 +1,9 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "Copyright (c) 2015 Danny Guo",
+    "Copyright (c) 2016 Titus Wormer <tituswormer@gmail.com>",
+    "Copyright (c) 2018 Akash Kurdekar"
+  ],
+  "spdx_lines": []
+}

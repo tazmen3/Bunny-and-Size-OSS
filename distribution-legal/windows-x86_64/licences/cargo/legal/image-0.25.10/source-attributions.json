@@ -1,0 +1,8 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "// Copyright (c) 2018 Guillaume Gomez",
+    "This software is copyright (C) 1991-2014, Thomas G. Lane, Guido Vollbeding."
+  ],
+  "spdx_lines": []
+}

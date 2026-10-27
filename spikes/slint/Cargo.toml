@@ -1,6 +1,6 @@
 [package]
 name = "sortsize-slint-spike"
-version = "0.3.0-rc.1"
+version = "0.4.0-rc.1"
 edition = "2024"
 rust-version = "1.99"
 publish = false
@@ -32,6 +32,7 @@ slint-build = "=1.18.1"
 
 [dev-dependencies]
 tempfile = "3.20"
+serde_json = "1.0"
 
 [target.'cfg(not(target_os = "android"))'.dependencies]
 # Keep the native accessibility bridge: labels alone are invisible to UIA/AT-SPI

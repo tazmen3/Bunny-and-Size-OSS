@@ -1,0 +1,19 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "* // Copyright (c) Radzivon Bartoshyk 12/2025. All rights reserved.",
+    "* // Copyright (c) Radzivon Bartoshyk 2/2025. All rights reserved.",
+    "* // Copyright (c) Radzivon Bartoshyk 3/2025. All rights reserved.",
+    "* // Copyright (c) Radzivon Bartoshyk 4/2025. All rights reserved.",
+    "* // Copyright (c) Radzivon Bartoshyk 5/2025. All rights reserved.",
+    "* // Copyright (c) Radzivon Bartoshyk 6/2025. All rights reserved.",
+    "* // Copyright (c) Radzivon Bartoshyk 7/2025. All rights reserved.",
+    "* // Copyright (c) Radzivon Bartoshyk 8/2025. All rights reserved.",
+    "* // Copyright 2024 (c) the Radzivon Bartoshyk. All rights reserved.",
+    "Copyright (c) Radzivon Bartoshyk. All rights reserved.",
+    "Copyright 2024 Radzivon Bartoshyk",
+    "copyright: Some(ProfileText::Localizable(vec![LocalizableString::new(",
+    "pub copyright: Option<ProfileText>,"
+  ],
+  "spdx_lines": []
+}

@@ -1,0 +1,1611 @@
+Bunny and Size 0.3.0-rc.1 — notices du candidat Linux x64
+
+Code original : GPL-3.0-only ; contributeurs recensés dans AUTHORS.txt.
+AUCUNE GARANTIE ; voir LICENSE pour les droits et conditions complets.
+Slint 1.18.1 : voie GPL-3.0-only, SixtyFPS GmbH et contributeurs.
+Neuf SVG Fluent : Microsoft Corporation, MIT ; complément Material Icons/Apache-2.0 conservé pour les contenus partagés.
+Runtime Rust 1.99.0 : disclosure et textes intégraux sous licences/rust-runtime.
+Les bibliothèques système Ubuntu sont des prérequis externes ; aucune copie redistribuée.
+
+Rôles : runtime = candidat du graphe normal Linux ; production/build inclut les générateurs et outils de compilation du source correspondant.
+Une présence dans ce graphe ne prouve pas que tout le code du composant subsiste dans le binaire ELF.
+Les notices de source-résolution/tests ne sont pas présentées comme des dépendances binaires.
+Les textes originaux, copyrights et notices particuliers (AND Unicode/dpi, cfg_aliases) restent applicables.
+
+Lapin adapté et dérivés : Louis Lejuez / TazmenWorld, CC BY-SA 4.0 ; adaptations et incorporation Slint/PE sous GPL-3.0-only (compatibilité unidirectionnelle). Voir BRANDING.md et licences/artwork/. Original complet et portrait exclus.
+
+accesskit 0.24.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/source-extra/accesskit-0.24.1/accesskit-0.24.1-LICENSE-MIT
+  licences/cargo/source-extra/accesskit-0.24.1/accesskit-0.24.1-LICENSE-APACHE
+  licences/cargo/source-extra/accesskit-0.24.1/attributions.json
+
+accesskit_atspi_common 0.19.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/source-extra/accesskit_atspi_common-0.19.1/accesskit_atspi_common-0.19.1-LICENSE-MIT
+  licences/cargo/source-extra/accesskit_atspi_common-0.19.1/accesskit_atspi_common-0.19.1-LICENSE-APACHE
+  licences/cargo/source-extra/accesskit_atspi_common-0.19.1/attributions.json
+
+accesskit_consumer 0.38.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/source-extra/accesskit_consumer-0.38.0/accesskit_consumer-0.38.0-LICENSE-MIT
+  licences/cargo/source-extra/accesskit_consumer-0.38.0/accesskit_consumer-0.38.0-LICENSE-APACHE
+  licences/cargo/source-extra/accesskit_consumer-0.38.0/attributions.json
+
+accesskit_unix 0.22.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/source-extra/accesskit_unix-0.22.1/accesskit_unix-0.22.1-LICENSE-MIT
+  licences/cargo/source-extra/accesskit_unix-0.22.1/accesskit_unix-0.22.1-LICENSE-APACHE
+  licences/cargo/source-extra/accesskit_unix-0.22.1/attributions.json
+
+accesskit_winit 0.33.2 | Apache-2.0 | gui:production/build, gui:runtime
+  licences/cargo/source-extra/accesskit_winit-0.33.2/accesskit_winit-0.33.2-LICENSE-MIT
+  licences/cargo/source-extra/accesskit_winit-0.33.2/accesskit_winit-0.33.2-LICENSE-APACHE
+  licences/cargo/source-extra/accesskit_winit-0.33.2/attributions.json
+
+adler2 2.0.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/adler2-2.0.1/LICENSE-0BSD
+  licences/cargo/legal/adler2-2.0.1/LICENSE-APACHE
+  licences/cargo/legal/adler2-2.0.1/LICENSE-MIT
+  licences/cargo/legal/adler2-2.0.1/source-attributions.json
+
+aho-corasick 1.1.5 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/aho-corasick-1.1.5/COPYING
+  licences/cargo/legal/aho-corasick-1.1.5/LICENSE-MIT
+  licences/cargo/legal/aho-corasick-1.1.5/source-attributions.json
+
+allocator-api2 0.2.21 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/allocator-api2-0.2.21/LICENSE-APACHE
+  licences/cargo/legal/allocator-api2-0.2.21/LICENSE-MIT
+  licences/cargo/legal/allocator-api2-0.2.21/source-attributions.json
+
+annotate-snippets 0.12.16 | MIT | gui:production/build
+  licences/cargo/legal/annotate-snippets-0.12.16/LICENSE-APACHE
+  licences/cargo/legal/annotate-snippets-0.12.16/LICENSE-MIT
+  licences/cargo/legal/annotate-snippets-0.12.16/source-attributions.json
+
+anstream 1.0.0 | MIT | cli:production/build, cli:runtime
+  licences/cargo/legal/anstream-1.0.0/LICENSE-APACHE
+  licences/cargo/legal/anstream-1.0.0/LICENSE-MIT
+  licences/cargo/legal/anstream-1.0.0/source-attributions.json
+
+anstyle 1.0.14 | MIT | cli:production/build, cli:runtime, gui:production/build
+  licences/cargo/legal/anstyle-1.0.14/LICENSE-APACHE
+  licences/cargo/legal/anstyle-1.0.14/LICENSE-MIT
+  licences/cargo/legal/anstyle-1.0.14/source-attributions.json
+
+anstyle-parse 1.0.0 | MIT | cli:production/build, cli:runtime
+  licences/cargo/legal/anstyle-parse-1.0.0/LICENSE-APACHE
+  licences/cargo/legal/anstyle-parse-1.0.0/LICENSE-MIT
+  licences/cargo/legal/anstyle-parse-1.0.0/source-attributions.json
+
+anstyle-query 1.1.5 | MIT | cli:production/build, cli:runtime
+  licences/cargo/legal/anstyle-query-1.1.5/LICENSE-APACHE
+  licences/cargo/legal/anstyle-query-1.1.5/LICENSE-MIT
+  licences/cargo/legal/anstyle-query-1.1.5/source-attributions.json
+
+arboard 3.6.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/arboard-3.6.1/LICENSE-APACHE.txt
+  licences/cargo/legal/arboard-3.6.1/LICENSE-MIT.txt
+  licences/cargo/legal/arboard-3.6.1/source-attributions.json
+
+arrayref 0.3.9 | BSD-2-Clause | gui:production/build, gui:runtime
+  licences/cargo/legal/arrayref-0.3.9/LICENSE
+  licences/cargo/legal/arrayref-0.3.9/source-attributions.json
+
+arrayvec 0.7.8 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/arrayvec-0.7.8/LICENSE-APACHE
+  licences/cargo/legal/arrayvec-0.7.8/LICENSE-MIT
+  licences/cargo/legal/arrayvec-0.7.8/source-attributions.json
+
+as-raw-xcb-connection 1.0.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/as-raw-xcb-connection-1.0.1/LICENSE-APACHE
+  licences/cargo/legal/as-raw-xcb-connection-1.0.1/LICENSE-MIT
+  licences/cargo/legal/as-raw-xcb-connection-1.0.1/source-attributions.json
+
+async-broadcast 0.7.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/async-broadcast-0.7.2/LICENSE-APACHE
+  licences/cargo/legal/async-broadcast-0.7.2/LICENSE-MIT
+  licences/cargo/legal/async-broadcast-0.7.2/source-attributions.json
+
+async-channel 2.5.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/async-channel-2.5.0/LICENSE-APACHE
+  licences/cargo/legal/async-channel-2.5.0/LICENSE-MIT
+  licences/cargo/legal/async-channel-2.5.0/source-attributions.json
+
+async-executor 1.14.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/async-executor-1.14.0/LICENSE-APACHE
+  licences/cargo/legal/async-executor-1.14.0/LICENSE-MIT
+  licences/cargo/legal/async-executor-1.14.0/source-attributions.json
+
+async-io 2.6.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/async-io-2.6.0/LICENSE-APACHE
+  licences/cargo/legal/async-io-2.6.0/LICENSE-MIT
+  licences/cargo/legal/async-io-2.6.0/source-attributions.json
+
+async-lock 3.4.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/async-lock-3.4.2/LICENSE-APACHE
+  licences/cargo/legal/async-lock-3.4.2/LICENSE-MIT
+  licences/cargo/legal/async-lock-3.4.2/source-attributions.json
+
+async-process 2.5.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/async-process-2.5.0/LICENSE-APACHE
+  licences/cargo/legal/async-process-2.5.0/LICENSE-MIT
+  licences/cargo/legal/async-process-2.5.0/source-attributions.json
+
+async-recursion 1.2.0 | MIT | gui:production/build
+  licences/cargo/legal/async-recursion-1.2.0/LICENSE-APACHE
+  licences/cargo/legal/async-recursion-1.2.0/LICENSE-MIT
+  licences/cargo/legal/async-recursion-1.2.0/source-attributions.json
+
+async-signal 0.2.14 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/async-signal-0.2.14/LICENSE-APACHE
+  licences/cargo/legal/async-signal-0.2.14/LICENSE-MIT
+  licences/cargo/legal/async-signal-0.2.14/source-attributions.json
+
+async-task 4.7.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/async-task-4.7.1/LICENSE-APACHE
+  licences/cargo/legal/async-task-4.7.1/LICENSE-MIT
+  licences/cargo/legal/async-task-4.7.1/source-attributions.json
+
+async-trait 0.1.92 | MIT | gui:production/build
+  licences/cargo/legal/async-trait-0.1.92/LICENSE-APACHE
+  licences/cargo/legal/async-trait-0.1.92/LICENSE-MIT
+  licences/cargo/legal/async-trait-0.1.92/source-attributions.json
+
+atomic-waker 1.1.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/atomic-waker-1.1.2/LICENSE-APACHE
+  licences/cargo/legal/atomic-waker-1.1.2/LICENSE-MIT
+  licences/cargo/legal/atomic-waker-1.1.2/LICENSE-THIRD-PARTY
+  licences/cargo/legal/atomic-waker-1.1.2/source-attributions.json
+
+atspi 0.29.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/source-extra/atspi-0.29.0/LICENSE-APACHE2.txt
+  licences/cargo/source-extra/atspi-0.29.0/LICENSE-MIT.txt
+  licences/cargo/source-extra/atspi-0.29.0/attributions.json
+
+atspi-common 0.13.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/source-extra/atspi-common-0.13.0/LICENSE-APACHE2.txt
+  licences/cargo/source-extra/atspi-common-0.13.0/LICENSE-MIT.txt
+  licences/cargo/source-extra/atspi-common-0.13.0/attributions.json
+
+atspi-proxies 0.13.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/source-extra/atspi-proxies-0.13.0/LICENSE-APACHE2.txt
+  licences/cargo/source-extra/atspi-proxies-0.13.0/LICENSE-MIT.txt
+  licences/cargo/source-extra/atspi-proxies-0.13.0/attributions.json
+
+autocfg 1.5.1 | MIT | gui:production/build
+  licences/cargo/legal/autocfg-1.5.1/LICENSE-APACHE
+  licences/cargo/legal/autocfg-1.5.1/LICENSE-MIT
+  licences/cargo/legal/autocfg-1.5.1/source-attributions.json
+
+base64 0.23.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/base64-0.23.1/LICENSE-APACHE
+  licences/cargo/legal/base64-0.23.1/LICENSE-MIT
+  licences/cargo/legal/base64-0.23.1/source-attributions.json
+
+bitflags 2.13.2 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/bitflags-2.13.2/LICENSE-APACHE
+  licences/cargo/legal/bitflags-2.13.2/LICENSE-MIT
+  licences/cargo/legal/bitflags-2.13.2/source-attributions.json
+
+blocking 1.7.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/blocking-1.7.0/LICENSE-APACHE
+  licences/cargo/legal/blocking-1.7.0/LICENSE-MIT
+  licences/cargo/legal/blocking-1.7.0/source-attributions.json
+
+bstr 1.13.1 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/bstr-1.13.1/COPYING
+  licences/cargo/legal/bstr-1.13.1/LICENSE-APACHE
+  licences/cargo/legal/bstr-1.13.1/LICENSE-MIT
+  licences/cargo/legal/bstr-1.13.1/source-attributions.json
+
+by_address 1.2.1 | MIT | gui:production/build
+  licences/cargo/legal/by_address-1.2.1/LICENSE-APACHE
+  licences/cargo/legal/by_address-1.2.1/LICENSE-MIT
+  licences/cargo/legal/by_address-1.2.1/source-attributions.json
+
+bytemuck 1.25.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/bytemuck-1.25.2/LICENSE-APACHE
+  licences/cargo/legal/bytemuck-1.25.2/LICENSE-MIT
+  licences/cargo/legal/bytemuck-1.25.2/LICENSE-ZLIB
+  licences/cargo/legal/bytemuck-1.25.2/source-attributions.json
+
+bytemuck_derive 1.12.1 | MIT | gui:production/build
+  licences/cargo/legal/bytemuck_derive-1.12.1/LICENSE-APACHE
+  licences/cargo/legal/bytemuck_derive-1.12.1/LICENSE-MIT
+  licences/cargo/legal/bytemuck_derive-1.12.1/LICENSE-ZLIB
+  licences/cargo/legal/bytemuck_derive-1.12.1/source-attributions.json
+
+byteorder-lite 0.1.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/byteorder-lite-0.1.0/LICENSE-MIT
+  licences/cargo/legal/byteorder-lite-0.1.0/source-attributions.json
+
+calloop 0.13.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/calloop-0.13.0/LICENSE.txt
+  licences/cargo/legal/calloop-0.13.0/source-attributions.json
+
+cfg-if 1.0.5 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/cfg-if-1.0.5/LICENSE-APACHE
+  licences/cargo/legal/cfg-if-1.0.5/LICENSE-MIT
+  licences/cargo/legal/cfg-if-1.0.5/source-attributions.json
+
+cfg_aliases 0.2.2 | MIT | cli:production/build, gui:production/build
+  licences/cargo/legal/cfg_aliases-0.2.2/LICENSE
+  licences/cargo/legal/cfg_aliases-0.2.2/NOTICES.md
+  licences/cargo/legal/cfg_aliases-0.2.2/source-attributions.json
+
+chrono 0.4.45 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/chrono-0.4.45/LICENSE.txt
+  licences/cargo/legal/chrono-0.4.45/source-attributions.json
+
+clap 4.6.7 | MIT | cli:production/build, cli:runtime
+  licences/cargo/legal/clap-4.6.7/LICENSE-APACHE
+  licences/cargo/legal/clap-4.6.7/LICENSE-MIT
+  licences/cargo/legal/clap-4.6.7/source-attributions.json
+
+clap_builder 4.6.7 | MIT | cli:production/build, cli:runtime
+  licences/cargo/legal/clap_builder-4.6.7/LICENSE-APACHE
+  licences/cargo/legal/clap_builder-4.6.7/LICENSE-MIT
+  licences/cargo/legal/clap_builder-4.6.7/source-attributions.json
+
+clap_derive 4.6.7 | MIT | cli:production/build
+  licences/cargo/legal/clap_derive-4.6.7/LICENSE-APACHE
+  licences/cargo/legal/clap_derive-4.6.7/LICENSE-MIT
+  licences/cargo/legal/clap_derive-4.6.7/source-attributions.json
+
+clap_lex 1.1.1 | MIT | cli:production/build, cli:runtime
+  licences/cargo/legal/clap_lex-1.1.1/LICENSE-APACHE
+  licences/cargo/legal/clap_lex-1.1.1/LICENSE-MIT
+  licences/cargo/legal/clap_lex-1.1.1/source-attributions.json
+
+clru 0.6.3 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/clru-0.6.3/LICENSE
+  licences/cargo/legal/clru-0.6.3/source-attributions.json
+
+color_quant 1.1.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/color_quant-1.1.0/LICENSE
+  licences/cargo/legal/color_quant-1.1.0/source-attributions.json
+
+colorchoice 1.0.5 | MIT | cli:production/build, cli:runtime
+  licences/cargo/legal/colorchoice-1.0.5/LICENSE-APACHE
+  licences/cargo/legal/colorchoice-1.0.5/LICENSE-MIT
+  licences/cargo/legal/colorchoice-1.0.5/source-attributions.json
+
+concurrent-queue 2.5.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/concurrent-queue-2.5.0/LICENSE-APACHE
+  licences/cargo/legal/concurrent-queue-2.5.0/LICENSE-MIT
+  licences/cargo/legal/concurrent-queue-2.5.0/source-attributions.json
+
+const-field-offset 0.2.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/upstream/const-field-offset-0.2.1-MIT.txt
+  licences/cargo/legal/const-field-offset-0.2.1/source-attributions.json
+
+const-field-offset-macro 0.2.1 | MIT | gui:production/build
+  licences/cargo/upstream/const-field-offset-macro-0.2.1-MIT.txt
+  licences/cargo/legal/const-field-offset-macro-0.2.1/source-attributions.json
+
+convert_case 0.10.0 | MIT | gui:production/build
+  licences/cargo/legal/convert_case-0.10.0/LICENSE
+  licences/cargo/legal/convert_case-0.10.0/source-attributions.json
+
+countme 3.0.1 | MIT | gui:production/build
+  licences/cargo/legal/countme-3.0.1/LICENSE-APACHE
+  licences/cargo/legal/countme-3.0.1/LICENSE-MIT
+  licences/cargo/legal/countme-3.0.1/source-attributions.json
+
+crc32fast 1.5.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/crc32fast-1.5.2/LICENSE-APACHE
+  licences/cargo/legal/crc32fast-1.5.2/LICENSE-MIT
+  licences/cargo/legal/crc32fast-1.5.2/source-attributions.json
+
+critical-section 1.2.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/critical-section-1.2.0/LICENSE-APACHE
+  licences/cargo/legal/critical-section-1.2.0/LICENSE-MIT
+  licences/cargo/legal/critical-section-1.2.0/source-attributions.json
+
+crossbeam-deque 0.8.8 | MIT | gui:production/build
+  licences/cargo/source-extra/crossbeam-deque-0.8.8/LICENSE-APACHE
+  licences/cargo/source-extra/crossbeam-deque-0.8.8/LICENSE-MIT
+  licences/cargo/source-extra/crossbeam-deque-0.8.8/attributions.json
+
+crossbeam-epoch 0.9.21 | MIT | gui:production/build
+  licences/cargo/source-extra/crossbeam-epoch-0.9.21/LICENSE-APACHE
+  licences/cargo/source-extra/crossbeam-epoch-0.9.21/LICENSE-MIT
+  licences/cargo/source-extra/crossbeam-epoch-0.9.21/attributions.json
+
+crossbeam-utils 0.8.23 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/crossbeam-utils-0.8.23/LICENSE-APACHE
+  licences/cargo/legal/crossbeam-utils-0.8.23/LICENSE-MIT
+  licences/cargo/legal/crossbeam-utils-0.8.23/source-attributions.json
+
+ctor 0.10.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/ctor-0.10.1/LICENSE-APACHE
+  licences/cargo/legal/ctor-0.10.1/LICENSE-MIT
+  licences/cargo/legal/ctor-0.10.1/source-attributions.json
+
+ctrlc 3.5.2 | MIT | cli:production/build, cli:runtime
+  licences/cargo/legal/ctrlc-3.5.2/LICENSE-APACHE
+  licences/cargo/legal/ctrlc-3.5.2/LICENSE-MIT
+  licences/cargo/legal/ctrlc-3.5.2/source-attributions.json
+
+cursor-icon 1.2.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/cursor-icon-1.2.0/LICENSE-APACHE
+  licences/cargo/legal/cursor-icon-1.2.0/LICENSE-MIT
+  licences/cargo/legal/cursor-icon-1.2.0/LICENSE-ZLIB
+  licences/cargo/legal/cursor-icon-1.2.0/source-attributions.json
+
+data-url 0.3.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/data-url-0.3.2/LICENSE-APACHE
+  licences/cargo/legal/data-url-0.3.2/LICENSE-MIT
+  licences/cargo/legal/data-url-0.3.2/source-attributions.json
+
+derive_more 2.1.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/derive_more-2.1.1/LICENSE
+  licences/cargo/legal/derive_more-2.1.1/source-attributions.json
+
+derive_more-impl 2.1.1 | MIT | gui:production/build
+  licences/cargo/legal/derive_more-impl-2.1.1/LICENSE
+  licences/cargo/legal/derive_more-impl-2.1.1/source-attributions.json
+
+displaydoc 0.2.7 | MIT | gui:production/build
+  licences/cargo/legal/displaydoc-0.2.7/LICENSE-APACHE
+  licences/cargo/legal/displaydoc-0.2.7/LICENSE-MIT
+  licences/cargo/legal/displaydoc-0.2.7/source-attributions.json
+
+dlib 0.5.3 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/dlib-0.5.3/LICENSE.txt
+  licences/cargo/legal/dlib-0.5.3/source-attributions.json
+
+dpi 0.1.2 | Apache-2.0 AND MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/dpi-0.1.2/LICENSE
+  licences/cargo/legal/dpi-0.1.2/LICENSE-LIBM-MIT
+  licences/cargo/legal/dpi-0.1.2/source-attributions.json
+
+either 1.19.0 | MIT | gui:production/build
+  licences/cargo/legal/either-1.19.0/LICENSE-APACHE
+  licences/cargo/legal/either-1.19.0/LICENSE-MIT
+  licences/cargo/legal/either-1.19.0/source-attributions.json
+
+endi 1.1.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/endi-1.1.1/LICENSE-MIT
+  licences/cargo/legal/endi-1.1.1/source-attributions.json
+
+enumflags2 0.7.12 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/enumflags2-0.7.12/LICENSE-APACHE
+  licences/cargo/legal/enumflags2-0.7.12/LICENSE-MIT
+  licences/cargo/legal/enumflags2-0.7.12/source-attributions.json
+
+enumflags2_derive 0.7.12 | MIT | gui:production/build
+  licences/cargo/legal/enumflags2_derive-0.7.12/LICENSE-APACHE
+  licences/cargo/legal/enumflags2_derive-0.7.12/LICENSE-MIT
+  licences/cargo/legal/enumflags2_derive-0.7.12/source-attributions.json
+
+equivalent 1.0.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/equivalent-1.0.2/LICENSE-APACHE
+  licences/cargo/legal/equivalent-1.0.2/LICENSE-MIT
+  licences/cargo/legal/equivalent-1.0.2/source-attributions.json
+
+errno 0.3.14 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/errno-0.3.14/LICENSE-APACHE
+  licences/cargo/legal/errno-0.3.14/LICENSE-MIT
+  licences/cargo/legal/errno-0.3.14/source-attributions.json
+
+euclid 0.22.14 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/euclid-0.22.14/COPYRIGHT
+  licences/cargo/legal/euclid-0.22.14/LICENSE-APACHE
+  licences/cargo/legal/euclid-0.22.14/LICENSE-MIT
+  licences/cargo/legal/euclid-0.22.14/source-attributions.json
+
+event-listener 5.4.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/event-listener-5.4.2/LICENSE-APACHE
+  licences/cargo/legal/event-listener-5.4.2/LICENSE-MIT
+  licences/cargo/legal/event-listener-5.4.2/source-attributions.json
+
+event-listener-strategy 0.5.4 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/event-listener-strategy-0.5.4/LICENSE-APACHE
+  licences/cargo/legal/event-listener-strategy-0.5.4/LICENSE-MIT
+  licences/cargo/legal/event-listener-strategy-0.5.4/source-attributions.json
+
+fastrand 2.5.0 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/fastrand-2.5.0/LICENSE-APACHE
+  licences/cargo/legal/fastrand-2.5.0/LICENSE-MIT
+  licences/cargo/legal/fastrand-2.5.0/source-attributions.json
+
+fdeflate 0.3.7 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/fdeflate-0.3.7/LICENSE-APACHE
+  licences/cargo/legal/fdeflate-0.3.7/LICENSE-MIT
+  licences/cargo/legal/fdeflate-0.3.7/source-attributions.json
+
+field-offset 0.3.6 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/field-offset-0.3.6/LICENSE-APACHE
+  licences/cargo/legal/field-offset-0.3.6/LICENSE-MIT
+  licences/cargo/legal/field-offset-0.3.6/source-attributions.json
+
+fixed_decimal 0.7.2 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/fixed_decimal-0.7.2/LICENSE
+  licences/cargo/legal/fixed_decimal-0.7.2/source-attributions.json
+
+flate2 1.1.10 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/flate2-1.1.10/LICENSE-APACHE
+  licences/cargo/legal/flate2-1.1.10/LICENSE-MIT
+  licences/cargo/legal/flate2-1.1.10/source-attributions.json
+
+float-cmp 0.9.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/float-cmp-0.9.0/LICENSE
+  licences/cargo/legal/float-cmp-0.9.0/source-attributions.json
+
+foldhash 0.2.0 | Zlib | gui:production/build, gui:runtime
+  licences/cargo/legal/foldhash-0.2.0/LICENSE
+  licences/cargo/legal/foldhash-0.2.0/source-attributions.json
+
+font-types 0.12.6 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/font-types-0.12.6/LICENSE-APACHE
+  licences/cargo/legal/font-types-0.12.6/LICENSE-MIT
+  licences/cargo/legal/font-types-0.12.6/source-attributions.json
+
+fontdb 0.24.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/fontdb-0.24.0/LICENSE
+  licences/cargo/legal/fontdb-0.24.0/tests/fonts/LICENSE.txt
+  licences/cargo/legal/fontdb-0.24.0/source-attributions.json
+
+fontique 0.11.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/fontique-0.11.1/LICENSE-APACHE
+  licences/cargo/legal/fontique-0.11.1/LICENSE-MIT
+  licences/cargo/legal/fontique-0.11.1/source-attributions.json
+
+form_urlencoded 1.2.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/form_urlencoded-1.2.2/LICENSE-APACHE
+  licences/cargo/legal/form_urlencoded-1.2.2/LICENSE-MIT
+  licences/cargo/legal/form_urlencoded-1.2.2/source-attributions.json
+
+futures 0.3.34 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/futures-0.3.34/LICENSE-APACHE
+  licences/cargo/legal/futures-0.3.34/LICENSE-MIT
+  licences/cargo/legal/futures-0.3.34/source-attributions.json
+
+futures-channel 0.3.34 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/futures-channel-0.3.34/LICENSE-APACHE
+  licences/cargo/legal/futures-channel-0.3.34/LICENSE-MIT
+  licences/cargo/legal/futures-channel-0.3.34/source-attributions.json
+
+futures-core 0.3.34 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/futures-core-0.3.34/LICENSE-APACHE
+  licences/cargo/legal/futures-core-0.3.34/LICENSE-MIT
+  licences/cargo/legal/futures-core-0.3.34/source-attributions.json
+
+futures-executor 0.3.34 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/futures-executor-0.3.34/LICENSE-APACHE
+  licences/cargo/legal/futures-executor-0.3.34/LICENSE-MIT
+  licences/cargo/legal/futures-executor-0.3.34/source-attributions.json
+
+futures-io 0.3.34 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/futures-io-0.3.34/LICENSE-APACHE
+  licences/cargo/legal/futures-io-0.3.34/LICENSE-MIT
+  licences/cargo/legal/futures-io-0.3.34/source-attributions.json
+
+futures-lite 2.6.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/futures-lite-2.6.1/LICENSE-APACHE
+  licences/cargo/legal/futures-lite-2.6.1/LICENSE-MIT
+  licences/cargo/legal/futures-lite-2.6.1/LICENSE-THIRD-PARTY
+  licences/cargo/legal/futures-lite-2.6.1/source-attributions.json
+
+futures-macro 0.3.34 | MIT | gui:production/build
+  licences/cargo/legal/futures-macro-0.3.34/LICENSE-APACHE
+  licences/cargo/legal/futures-macro-0.3.34/LICENSE-MIT
+  licences/cargo/legal/futures-macro-0.3.34/source-attributions.json
+
+futures-sink 0.3.34 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/futures-sink-0.3.34/LICENSE-APACHE
+  licences/cargo/legal/futures-sink-0.3.34/LICENSE-MIT
+  licences/cargo/legal/futures-sink-0.3.34/source-attributions.json
+
+futures-task 0.3.34 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/futures-task-0.3.34/LICENSE-APACHE
+  licences/cargo/legal/futures-task-0.3.34/LICENSE-MIT
+  licences/cargo/legal/futures-task-0.3.34/source-attributions.json
+
+futures-util 0.3.34 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/futures-util-0.3.34/LICENSE-APACHE
+  licences/cargo/legal/futures-util-0.3.34/LICENSE-MIT
+  licences/cargo/legal/futures-util-0.3.34/source-attributions.json
+
+gethostname 1.1.0 | Apache-2.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/gethostname-1.1.0/LICENSE
+  licences/cargo/legal/gethostname-1.1.0/source-attributions.json
+
+getrandom 0.4.3 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/source-extra/getrandom-0.4.3/LICENSE-APACHE
+  licences/cargo/source-extra/getrandom-0.4.3/LICENSE-MIT
+  licences/cargo/source-extra/getrandom-0.4.3/attributions.json
+
+gif 0.14.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/gif-0.14.2/LICENSE-APACHE
+  licences/cargo/legal/gif-0.14.2/LICENSE-MIT
+  licences/cargo/legal/gif-0.14.2/source-attributions.json
+
+globset 0.4.20 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/globset-0.4.20/COPYING
+  licences/cargo/legal/globset-0.4.20/LICENSE-MIT
+  licences/cargo/legal/globset-0.4.20/source-attributions.json
+
+harfrust 0.12.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/harfrust-0.12.0/LICENSE
+  licences/cargo/legal/harfrust-0.12.0/source-attributions.json
+
+hashbrown 0.14.5 | MIT | gui:production/build
+  licences/cargo/legal/hashbrown-0.14.5/LICENSE-APACHE
+  licences/cargo/legal/hashbrown-0.14.5/LICENSE-MIT
+  licences/cargo/legal/hashbrown-0.14.5/source-attributions.json
+
+hashbrown 0.16.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/hashbrown-0.16.1/LICENSE-APACHE
+  licences/cargo/legal/hashbrown-0.16.1/LICENSE-MIT
+  licences/cargo/legal/hashbrown-0.16.1/source-attributions.json
+
+hashbrown 0.17.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/hashbrown-0.17.1/LICENSE-APACHE
+  licences/cargo/legal/hashbrown-0.17.1/LICENSE-MIT
+  licences/cargo/legal/hashbrown-0.17.1/source-attributions.json
+
+heck 0.5.0 | MIT | cli:production/build, gui:production/build
+  licences/cargo/legal/heck-0.5.0/LICENSE-APACHE
+  licences/cargo/legal/heck-0.5.0/LICENSE-MIT
+  licences/cargo/legal/heck-0.5.0/source-attributions.json
+
+hex 0.4.3 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/hex-0.4.3/LICENSE-APACHE
+  licences/cargo/legal/hex-0.4.3/LICENSE-MIT
+  licences/cargo/legal/hex-0.4.3/source-attributions.json
+
+htmlparser 0.2.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/htmlparser-0.2.1/LICENSE-APACHE
+  licences/cargo/legal/htmlparser-0.2.1/LICENSE-MIT
+  licences/cargo/legal/htmlparser-0.2.1/source-attributions.json
+
+i-slint-backend-selector 1.18.1 | GPL-3.0-only | gui:production/build, gui:runtime
+  licences/cargo/legal/i-slint-backend-selector-1.18.1/LICENSES/LicenseRef-Slint-Royalty-free-2.0.md
+  licences/cargo/legal/i-slint-backend-selector-1.18.1/LICENSES/LicenseRef-Slint-Software-3.0.md
+  licences/cargo/legal/i-slint-backend-selector-1.18.1/source-attributions.json
+  licences/cargo/source-extra/i-slint-backend-selector-1.18.1/GPL-3.0-only.txt
+
+i-slint-common 1.18.1 | GPL-3.0-only | gui:production/build, gui:runtime
+  licences/cargo/legal/i-slint-common-1.18.1/LICENSES/LicenseRef-Slint-Royalty-free-2.0.md
+  licences/cargo/legal/i-slint-common-1.18.1/LICENSES/LicenseRef-Slint-Software-3.0.md
+  licences/cargo/legal/i-slint-common-1.18.1/sharedfontique/Inter-VariableFont.ttf.license
+  licences/cargo/legal/i-slint-common-1.18.1/source-attributions.json
+  licences/cargo/source-extra/i-slint-common-1.18.1/GPL-3.0-only.txt
+
+i-slint-compiler 1.18.1 | GPL-3.0-only | gui:production/build
+  licences/cargo/legal/i-slint-compiler-1.18.1/LICENSES/LicenseRef-Slint-Royalty-free-2.0.md
+  licences/cargo/legal/i-slint-compiler-1.18.1/LICENSES/LicenseRef-Slint-Software-3.0.md
+  licences/cargo/legal/i-slint-compiler-1.18.1/source-attributions.json
+  licences/cargo/source-extra/i-slint-compiler-1.18.1/GPL-3.0-only.txt
+
+i-slint-core 1.18.1 | GPL-3.0-only | gui:production/build, gui:runtime
+  licences/cargo/legal/i-slint-core-1.18.1/LICENSES/LicenseRef-Slint-Royalty-free-2.0.md
+  licences/cargo/legal/i-slint-core-1.18.1/LICENSES/LicenseRef-Slint-Software-3.0.md
+  licences/cargo/legal/i-slint-core-1.18.1/source-attributions.json
+  licences/cargo/source-extra/i-slint-core-1.18.1/GPL-3.0-only.txt
+
+i-slint-core-macros 1.18.1 | GPL-3.0-only | gui:production/build
+  licences/cargo/legal/i-slint-core-macros-1.18.1/LICENSES/LicenseRef-Slint-Royalty-free-2.0.md
+  licences/cargo/legal/i-slint-core-macros-1.18.1/LICENSES/LicenseRef-Slint-Software-3.0.md
+  licences/cargo/legal/i-slint-core-macros-1.18.1/source-attributions.json
+  licences/cargo/source-extra/i-slint-core-macros-1.18.1/GPL-3.0-only.txt
+
+i-slint-renderer-software 1.18.1 | GPL-3.0-only | gui:production/build, gui:runtime
+  licences/cargo/legal/i-slint-renderer-software-1.18.1/LICENSES/LicenseRef-Slint-Royalty-free-2.0.md
+  licences/cargo/legal/i-slint-renderer-software-1.18.1/LICENSES/LicenseRef-Slint-Software-3.0.md
+  licences/cargo/legal/i-slint-renderer-software-1.18.1/source-attributions.json
+  licences/cargo/source-extra/i-slint-renderer-software-1.18.1/GPL-3.0-only.txt
+
+iana-time-zone 0.1.65 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/iana-time-zone-0.1.65/LICENSE-APACHE
+  licences/cargo/legal/iana-time-zone-0.1.65/LICENSE-MIT
+  licences/cargo/legal/iana-time-zone-0.1.65/source-attributions.json
+
+icu_collections 2.3.0 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_collections-2.3.0/LICENSE
+  licences/cargo/legal/icu_collections-2.3.0/source-attributions.json
+
+icu_decimal 2.3.0 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_decimal-2.3.0/LICENSE
+  licences/cargo/legal/icu_decimal-2.3.0/source-attributions.json
+
+icu_decimal_data 2.3.0 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_decimal_data-2.3.0/LICENSE
+  licences/cargo/legal/icu_decimal_data-2.3.0/source-attributions.json
+
+icu_locale_core 2.3.0 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_locale_core-2.3.0/LICENSE
+  licences/cargo/legal/icu_locale_core-2.3.0/source-attributions.json
+
+icu_locale_fallback 2.3.0 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_locale_fallback-2.3.0/LICENSE
+  licences/cargo/legal/icu_locale_fallback-2.3.0/source-attributions.json
+
+icu_locale_fallback_data 2.3.0 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_locale_fallback_data-2.3.0/LICENSE
+  licences/cargo/legal/icu_locale_fallback_data-2.3.0/source-attributions.json
+
+icu_normalizer 2.3.0 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_normalizer-2.3.0/LICENSE
+  licences/cargo/legal/icu_normalizer-2.3.0/source-attributions.json
+
+icu_normalizer_data 2.3.0 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_normalizer_data-2.3.0/LICENSE
+  licences/cargo/legal/icu_normalizer_data-2.3.0/source-attributions.json
+
+icu_properties 2.3.0 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_properties-2.3.0/LICENSE
+  licences/cargo/legal/icu_properties-2.3.0/source-attributions.json
+
+icu_properties_data 2.3.0 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_properties_data-2.3.0/LICENSE
+  licences/cargo/legal/icu_properties_data-2.3.0/source-attributions.json
+
+icu_provider 2.3.1 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_provider-2.3.1/LICENSE
+  licences/cargo/legal/icu_provider-2.3.1/source-attributions.json
+
+icu_segmenter 2.3.0 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_segmenter-2.3.0/LICENSE
+  licences/cargo/legal/icu_segmenter-2.3.0/source-attributions.json
+
+icu_segmenter_data 2.3.0 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/icu_segmenter_data-2.3.0/LICENSE
+  licences/cargo/legal/icu_segmenter_data-2.3.0/source-attributions.json
+
+idna 1.1.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/idna-1.1.0/LICENSE-APACHE
+  licences/cargo/legal/idna-1.1.0/LICENSE-MIT
+  licences/cargo/legal/idna-1.1.0/source-attributions.json
+
+idna_adapter 1.2.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/idna_adapter-1.2.2/LICENSE-APACHE
+  licences/cargo/legal/idna_adapter-1.2.2/LICENSE-MIT
+  licences/cargo/legal/idna_adapter-1.2.2/source-attributions.json
+
+image 0.25.10 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/image-0.25.10/LICENSE-APACHE
+  licences/cargo/legal/image-0.25.10/LICENSE-MIT
+  licences/cargo/legal/image-0.25.10/source-attributions.json
+
+image-webp 0.2.4 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/image-webp-0.2.4/LICENSE-APACHE
+  licences/cargo/legal/image-webp-0.2.4/LICENSE-MIT
+  licences/cargo/legal/image-webp-0.2.4/source-attributions.json
+
+imagesize 0.15.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/imagesize-0.15.0/LICENSE
+  licences/cargo/legal/imagesize-0.15.0/source-attributions.json
+
+imgref 1.12.3 | Apache-2.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/imgref-1.12.3/LICENSE-APACHE
+  licences/cargo/legal/imgref-1.12.3/LICENSE-CC0
+  licences/cargo/legal/imgref-1.12.3/source-attributions.json
+
+indexmap 2.14.2 | MIT | gui:production/build
+  licences/cargo/legal/indexmap-2.14.2/LICENSE-APACHE
+  licences/cargo/legal/indexmap-2.14.2/LICENSE-MIT
+  licences/cargo/legal/indexmap-2.14.2/source-attributions.json
+
+is_terminal_polyfill 1.70.2 | MIT | cli:production/build, cli:runtime
+  licences/cargo/legal/is_terminal_polyfill-1.70.2/LICENSE-APACHE
+  licences/cargo/legal/is_terminal_polyfill-1.70.2/LICENSE-MIT
+  licences/cargo/legal/is_terminal_polyfill-1.70.2/source-attributions.json
+
+itertools 0.15.0 | MIT | gui:production/build
+  licences/cargo/legal/itertools-0.15.0/LICENSE-APACHE
+  licences/cargo/legal/itertools-0.15.0/LICENSE-MIT
+  licences/cargo/legal/itertools-0.15.0/source-attributions.json
+
+itoa 1.0.18 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/itoa-1.0.18/LICENSE-APACHE
+  licences/cargo/legal/itoa-1.0.18/LICENSE-MIT
+  licences/cargo/legal/itoa-1.0.18/source-attributions.json
+
+kurbo 0.13.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/kurbo-0.13.1/LICENSE-APACHE
+  licences/cargo/legal/kurbo-0.13.1/LICENSE-MIT
+  licences/cargo/legal/kurbo-0.13.1/source-attributions.json
+
+lazy_static 1.5.1 | MIT | gui:production/build
+  licences/cargo/source-extra/lazy_static-1.5.1/LICENSE-APACHE
+  licences/cargo/source-extra/lazy_static-1.5.1/LICENSE-MIT
+  licences/cargo/source-extra/lazy_static-1.5.1/attributions.json
+
+libc 0.2.190 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/libc-0.2.190/LICENSE-APACHE
+  licences/cargo/legal/libc-0.2.190/LICENSE-MIT
+  licences/cargo/legal/libc-0.2.190/source-attributions.json
+
+libloading 0.8.9 | ISC | gui:production/build, gui:runtime
+  licences/cargo/legal/libloading-0.8.9/LICENSE
+  licences/cargo/legal/libloading-0.8.9/source-attributions.json
+
+libm 0.2.16 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/libm-0.2.16/LICENSE.txt
+  licences/cargo/legal/libm-0.2.16/source-attributions.json
+
+linebender_resource_handle 0.1.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/linebender_resource_handle-0.1.1/AUTHORS
+  licences/cargo/legal/linebender_resource_handle-0.1.1/LICENSE-APACHE
+  licences/cargo/legal/linebender_resource_handle-0.1.1/LICENSE-MIT
+  licences/cargo/legal/linebender_resource_handle-0.1.1/source-attributions.json
+
+linux-raw-sys 0.12.1 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/linux-raw-sys-0.12.1/COPYRIGHT
+  licences/cargo/legal/linux-raw-sys-0.12.1/LICENSE-APACHE
+  licences/cargo/legal/linux-raw-sys-0.12.1/LICENSE-Apache-2.0_WITH_LLVM-exception
+  licences/cargo/legal/linux-raw-sys-0.12.1/LICENSE-MIT
+  licences/cargo/legal/linux-raw-sys-0.12.1/source-attributions.json
+
+linux-raw-sys 0.4.15 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/linux-raw-sys-0.4.15/COPYRIGHT
+  licences/cargo/legal/linux-raw-sys-0.4.15/LICENSE-APACHE
+  licences/cargo/legal/linux-raw-sys-0.4.15/LICENSE-Apache-2.0_WITH_LLVM-exception
+  licences/cargo/legal/linux-raw-sys-0.4.15/LICENSE-MIT
+  licences/cargo/legal/linux-raw-sys-0.4.15/source-attributions.json
+
+litemap 0.8.3 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/litemap-0.8.3/LICENSE
+  licences/cargo/legal/litemap-0.8.3/source-attributions.json
+
+lock_api 0.4.14 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/lock_api-0.4.14/LICENSE-APACHE
+  licences/cargo/legal/lock_api-0.4.14/LICENSE-MIT
+  licences/cargo/legal/lock_api-0.4.14/source-attributions.json
+
+log 0.4.34 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/log-0.4.34/LICENSE-APACHE
+  licences/cargo/legal/log-0.4.34/LICENSE-MIT
+  licences/cargo/legal/log-0.4.34/source-attributions.json
+
+lyon_algorithms 1.0.21 | MIT | gui:production/build, gui:runtime
+  licences/cargo/upstream/lyon_algorithms-1.0.21-LICENSE-MIT
+  licences/cargo/legal/lyon_algorithms-1.0.21/source-attributions.json
+
+lyon_extra 1.1.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/upstream/lyon_extra-1.1.0-LICENSE-MIT
+  licences/cargo/legal/lyon_extra-1.1.0/source-attributions.json
+
+lyon_geom 1.0.19 | MIT | gui:production/build, gui:runtime
+  licences/cargo/upstream/lyon_geom-1.0.19-LICENSE-MIT
+  licences/cargo/legal/lyon_geom-1.0.19/source-attributions.json
+
+lyon_path 1.0.19 | MIT | gui:production/build, gui:runtime
+  licences/cargo/upstream/lyon_path-1.0.19-LICENSE-MIT
+  licences/cargo/legal/lyon_path-1.0.19/source-attributions.json
+
+memchr 2.8.3 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/memchr-2.8.3/COPYING
+  licences/cargo/legal/memchr-2.8.3/LICENSE-MIT
+  licences/cargo/legal/memchr-2.8.3/source-attributions.json
+
+memmap2 0.9.11 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/memmap2-0.9.11/LICENSE-APACHE
+  licences/cargo/legal/memmap2-0.9.11/LICENSE-MIT
+  licences/cargo/legal/memmap2-0.9.11/source-attributions.json
+
+memoffset 0.9.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/memoffset-0.9.1/LICENSE
+  licences/cargo/legal/memoffset-0.9.1/source-attributions.json
+
+miniz_oxide 0.8.9 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/miniz_oxide-0.8.9/LICENSE
+  licences/cargo/legal/miniz_oxide-0.8.9/LICENSE-APACHE.md
+  licences/cargo/legal/miniz_oxide-0.8.9/LICENSE-MIT.md
+  licences/cargo/legal/miniz_oxide-0.8.9/LICENSE-ZLIB.md
+  licences/cargo/legal/miniz_oxide-0.8.9/source-attributions.json
+
+miniz_oxide 0.9.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/miniz_oxide-0.9.1/LICENSE
+  licences/cargo/legal/miniz_oxide-0.9.1/LICENSE-APACHE.md
+  licences/cargo/legal/miniz_oxide-0.9.1/LICENSE-MIT.md
+  licences/cargo/legal/miniz_oxide-0.9.1/LICENSE-ZLIB.md
+  licences/cargo/legal/miniz_oxide-0.9.1/source-attributions.json
+
+moxcms 0.8.1 | BSD-3-Clause | gui:production/build, gui:runtime
+  licences/cargo/legal/moxcms-0.8.1/LICENSE-APACHE.md
+  licences/cargo/legal/moxcms-0.8.1/LICENSE.md
+  licences/cargo/legal/moxcms-0.8.1/source-attributions.json
+
+natord 1.0.9 | MIT | gui:production/build
+  licences/cargo/source-extra/natord-1.0.9/LICENSE.txt
+  licences/cargo/source-extra/natord-1.0.9/attributions.json
+
+nix 0.31.3 | MIT | cli:production/build, cli:runtime
+  licences/cargo/legal/nix-0.31.3/LICENSE
+  licences/cargo/legal/nix-0.31.3/source-attributions.json
+
+num-traits 0.2.19 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/num-traits-0.2.19/LICENSE-APACHE
+  licences/cargo/legal/num-traits-0.2.19/LICENSE-MIT
+  licences/cargo/legal/num-traits-0.2.19/source-attributions.json
+
+num_enum 0.7.6 | MIT | gui:production/build
+  licences/cargo/legal/num_enum-0.7.6/LICENSE-APACHE
+  licences/cargo/legal/num_enum-0.7.6/LICENSE-BSD
+  licences/cargo/legal/num_enum-0.7.6/LICENSE-MIT
+  licences/cargo/legal/num_enum-0.7.6/source-attributions.json
+
+num_enum_derive 0.7.6 | MIT | gui:production/build
+  licences/cargo/legal/num_enum_derive-0.7.6/LICENSE-APACHE
+  licences/cargo/legal/num_enum_derive-0.7.6/LICENSE-BSD
+  licences/cargo/legal/num_enum_derive-0.7.6/LICENSE-MIT
+  licences/cargo/legal/num_enum_derive-0.7.6/source-attributions.json
+
+once_cell 1.21.4 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/once_cell-1.21.4/LICENSE-APACHE
+  licences/cargo/legal/once_cell-1.21.4/LICENSE-MIT
+  licences/cargo/legal/once_cell-1.21.4/source-attributions.json
+
+ordered-stream 0.2.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/ordered-stream-0.2.0/LICENSE-APACHE
+  licences/cargo/legal/ordered-stream-0.2.0/LICENSE-MIT
+  licences/cargo/legal/ordered-stream-0.2.0/source-attributions.json
+
+parking 2.2.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/parking-2.2.1/LICENSE-APACHE
+  licences/cargo/legal/parking-2.2.1/LICENSE-MIT
+  licences/cargo/legal/parking-2.2.1/LICENSE-THIRD-PARTY
+  licences/cargo/legal/parking-2.2.1/source-attributions.json
+
+parking_lot 0.12.5 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/parking_lot-0.12.5/LICENSE-APACHE
+  licences/cargo/legal/parking_lot-0.12.5/LICENSE-MIT
+  licences/cargo/legal/parking_lot-0.12.5/source-attributions.json
+
+parking_lot_core 0.9.12 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/parking_lot_core-0.9.12/LICENSE-APACHE
+  licences/cargo/legal/parking_lot_core-0.9.12/LICENSE-MIT
+  licences/cargo/legal/parking_lot_core-0.9.12/source-attributions.json
+
+parlance 0.1.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/parlance-0.1.1/LICENSE-APACHE
+  licences/cargo/legal/parlance-0.1.1/LICENSE-MIT
+  licences/cargo/legal/parlance-0.1.1/source-attributions.json
+
+parley 0.11.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/parley-0.11.1/LICENSE-APACHE
+  licences/cargo/legal/parley-0.11.1/LICENSE-MIT
+  licences/cargo/legal/parley-0.11.1/source-attributions.json
+
+parley_data 0.11.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/parley_data-0.11.1/LICENSE-APACHE
+  licences/cargo/legal/parley_data-0.11.1/LICENSE-MIT
+  licences/cargo/legal/parley_data-0.11.1/source-attributions.json
+
+percent-encoding 2.3.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/percent-encoding-2.3.2/LICENSE-APACHE
+  licences/cargo/legal/percent-encoding-2.3.2/LICENSE-MIT
+  licences/cargo/legal/percent-encoding-2.3.2/source-attributions.json
+
+phf 0.13.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/source-extra/phf-0.13.1/LICENSE
+  licences/cargo/source-extra/phf-0.13.1/attributions.json
+
+phf_generator 0.13.1 | MIT | gui:production/build
+  licences/cargo/source-extra/phf_generator-0.13.1/LICENSE
+  licences/cargo/source-extra/phf_generator-0.13.1/attributions.json
+
+phf_macros 0.13.1 | MIT | gui:production/build
+  licences/cargo/source-extra/phf_macros-0.13.1/LICENSE
+  licences/cargo/source-extra/phf_macros-0.13.1/attributions.json
+
+phf_shared 0.13.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/source-extra/phf_shared-0.13.1/LICENSE
+  licences/cargo/source-extra/phf_shared-0.13.1/attributions.json
+
+pico-args 0.5.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/pico-args-0.5.0/LICENSE
+  licences/cargo/legal/pico-args-0.5.0/source-attributions.json
+
+pin-project 1.1.13 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/pin-project-1.1.13/LICENSE-APACHE
+  licences/cargo/legal/pin-project-1.1.13/LICENSE-MIT
+  licences/cargo/legal/pin-project-1.1.13/source-attributions.json
+
+pin-project-internal 1.1.13 | MIT | gui:production/build
+  licences/cargo/legal/pin-project-internal-1.1.13/LICENSE-APACHE
+  licences/cargo/legal/pin-project-internal-1.1.13/LICENSE-MIT
+  licences/cargo/legal/pin-project-internal-1.1.13/source-attributions.json
+
+pin-project-lite 0.2.17 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/pin-project-lite-0.2.17/LICENSE-APACHE
+  licences/cargo/legal/pin-project-lite-0.2.17/LICENSE-MIT
+  licences/cargo/legal/pin-project-lite-0.2.17/source-attributions.json
+
+pin-utils 0.1.1 | MIT | gui:production/build
+  licences/cargo/legal/pin-utils-0.1.1/LICENSE-APACHE
+  licences/cargo/legal/pin-utils-0.1.1/LICENSE-MIT
+  licences/cargo/legal/pin-utils-0.1.1/source-attributions.json
+
+pin-weak 1.1.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/pin-weak-1.1.0/LICENSE
+  licences/cargo/legal/pin-weak-1.1.0/source-attributions.json
+
+piper 0.2.5 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/piper-0.2.5/LICENSE-APACHE
+  licences/cargo/legal/piper-0.2.5/LICENSE-MIT
+  licences/cargo/legal/piper-0.2.5/source-attributions.json
+
+pkg-config 0.3.34 | MIT | gui:production/build
+  licences/cargo/legal/pkg-config-0.3.34/LICENSE-APACHE
+  licences/cargo/legal/pkg-config-0.3.34/LICENSE-MIT
+  licences/cargo/legal/pkg-config-0.3.34/source-attributions.json
+
+png 0.18.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/png-0.18.1/LICENSE-APACHE
+  licences/cargo/legal/png-0.18.1/LICENSE-MIT
+  licences/cargo/legal/png-0.18.1/source-attributions.json
+
+polling 3.11.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/polling-3.11.0/LICENSE-APACHE
+  licences/cargo/legal/polling-3.11.0/LICENSE-MIT
+  licences/cargo/legal/polling-3.11.0/source-attributions.json
+
+pollster 0.4.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/pollster-0.4.0/pollster-0.4.0-MIT.txt
+
+polycool 0.4.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/polycool-0.4.0/LICENSE-APACHE
+  licences/cargo/legal/polycool-0.4.0/LICENSE-MIT
+  licences/cargo/legal/polycool-0.4.0/source-attributions.json
+
+portable-atomic 1.15.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/portable-atomic-1.15.0/LICENSE-APACHE
+  licences/cargo/legal/portable-atomic-1.15.0/LICENSE-MIT
+  licences/cargo/legal/portable-atomic-1.15.0/source-attributions.json
+
+potential_utf 0.1.6 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/potential_utf-0.1.6/LICENSE
+  licences/cargo/legal/potential_utf-0.1.6/source-attributions.json
+
+proc-macro-crate 3.5.0 | MIT | gui:production/build
+  licences/cargo/legal/proc-macro-crate-3.5.0/LICENSE-APACHE
+  licences/cargo/legal/proc-macro-crate-3.5.0/LICENSE-MIT
+  licences/cargo/legal/proc-macro-crate-3.5.0/source-attributions.json
+
+proc-macro2 1.0.107 | MIT | cli:production/build, gui:production/build, gui:runtime
+  licences/cargo/legal/proc-macro2-1.0.107/LICENSE-APACHE
+  licences/cargo/legal/proc-macro2-1.0.107/LICENSE-MIT
+  licences/cargo/legal/proc-macro2-1.0.107/source-attributions.json
+
+pulldown-cmark 0.13.4 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/pulldown-cmark-0.13.4/LICENSE
+  licences/cargo/legal/pulldown-cmark-0.13.4/source-attributions.json
+
+pxfm 0.1.30 | BSD-3-Clause | gui:production/build, gui:runtime
+  licences/cargo/legal/pxfm-0.1.30/LICENSE-APACHE.md
+  licences/cargo/legal/pxfm-0.1.30/LICENSE.md
+  licences/cargo/legal/pxfm-0.1.30/source-attributions.json
+
+quick-error 2.0.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/quick-error-2.0.1/LICENSE-APACHE
+  licences/cargo/legal/quick-error-2.0.1/LICENSE-MIT
+  licences/cargo/legal/quick-error-2.0.1/source-attributions.json
+
+quote 1.0.47 | MIT | cli:production/build, gui:production/build, gui:runtime
+  licences/cargo/legal/quote-1.0.47/LICENSE-APACHE
+  licences/cargo/legal/quote-1.0.47/LICENSE-MIT
+  licences/cargo/legal/quote-1.0.47/source-attributions.json
+
+raw-window-handle 0.6.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/raw-window-handle-0.6.2/LICENSE-APACHE.md
+  licences/cargo/legal/raw-window-handle-0.6.2/LICENSE-MIT.md
+  licences/cargo/legal/raw-window-handle-0.6.2/LICENSE-ZLIB.md
+  licences/cargo/legal/raw-window-handle-0.6.2/source-attributions.json
+
+rayon 1.12.0 | MIT | gui:production/build
+  licences/cargo/source-extra/rayon-1.12.0/LICENSE-APACHE
+  licences/cargo/source-extra/rayon-1.12.0/LICENSE-MIT
+  licences/cargo/source-extra/rayon-1.12.0/attributions.json
+
+rayon-core 1.13.0 | MIT | gui:production/build
+  licences/cargo/source-extra/rayon-core-1.13.0/LICENSE-APACHE
+  licences/cargo/source-extra/rayon-core-1.13.0/LICENSE-MIT
+  licences/cargo/source-extra/rayon-core-1.13.0/attributions.json
+
+read-fonts 0.41.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/read-fonts-0.41.0/LICENSE-APACHE
+  licences/cargo/legal/read-fonts-0.41.0/LICENSE-MIT
+  licences/cargo/legal/read-fonts-0.41.0/source-attributions.json
+
+regex-automata 0.4.18 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/regex-automata-0.4.18/LICENSE-APACHE
+  licences/cargo/legal/regex-automata-0.4.18/LICENSE-MIT
+  licences/cargo/legal/regex-automata-0.4.18/source-attributions.json
+
+regex-syntax 0.8.11 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/regex-syntax-0.8.11/LICENSE-APACHE
+  licences/cargo/legal/regex-syntax-0.8.11/LICENSE-MIT
+  licences/cargo/legal/regex-syntax-0.8.11/src/unicode_tables/LICENSE-UNICODE
+  licences/cargo/legal/regex-syntax-0.8.11/source-attributions.json
+
+resvg 0.48.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/resvg-0.48.1/LICENSE-APACHE
+  licences/cargo/legal/resvg-0.48.1/LICENSE-MIT
+  licences/cargo/legal/resvg-0.48.1/source-attributions.json
+
+rfd 0.17.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/rfd-0.17.2/rfd-0.17.2-MIT.txt
+  licences/cargo/rfd-0.17.2/rfd-0.17.2-LICENSE
+
+rgb 0.8.53 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/rgb-0.8.53/LICENSE
+  licences/cargo/legal/rgb-0.8.53/source-attributions.json
+
+rowan 0.17.0 | MIT | gui:production/build
+  licences/cargo/legal/rowan-0.17.0/LICENSE-APACHE
+  licences/cargo/legal/rowan-0.17.0/LICENSE-MIT
+  licences/cargo/legal/rowan-0.17.0/source-attributions.json
+
+roxmltree 0.21.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/roxmltree-0.21.1/LICENSE-APACHE
+  licences/cargo/legal/roxmltree-0.21.1/LICENSE-MIT
+  licences/cargo/legal/roxmltree-0.21.1/source-attributions.json
+
+rspolib 0.1.2 | MIT | gui:production/build
+  licences/cargo/source-extra/rspolib-0.1.2/rspolib-0.1.2-MIT.txt
+  licences/cargo/source-extra/rspolib-0.1.2/attributions.json
+
+rustc-hash 1.1.0 | MIT | gui:production/build
+  licences/cargo/legal/rustc-hash-1.1.0/LICENSE-APACHE
+  licences/cargo/legal/rustc-hash-1.1.0/LICENSE-MIT
+  licences/cargo/legal/rustc-hash-1.1.0/source-attributions.json
+
+rustc_version 0.4.1 | MIT | gui:production/build
+  licences/cargo/legal/rustc_version-0.4.1/LICENSE-APACHE
+  licences/cargo/legal/rustc_version-0.4.1/LICENSE-MIT
+  licences/cargo/legal/rustc_version-0.4.1/source-attributions.json
+
+rustix 0.38.44 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/rustix-0.38.44/COPYRIGHT
+  licences/cargo/legal/rustix-0.38.44/LICENSE-APACHE
+  licences/cargo/legal/rustix-0.38.44/LICENSE-Apache-2.0_WITH_LLVM-exception
+  licences/cargo/legal/rustix-0.38.44/LICENSE-MIT
+  licences/cargo/legal/rustix-0.38.44/source-attributions.json
+
+rustix 1.1.5 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/rustix-1.1.5/COPYRIGHT
+  licences/cargo/legal/rustix-1.1.5/LICENSE-APACHE
+  licences/cargo/legal/rustix-1.1.5/LICENSE-Apache-2.0_WITH_LLVM-exception
+  licences/cargo/legal/rustix-1.1.5/LICENSE-MIT
+  licences/cargo/legal/rustix-1.1.5/source-attributions.json
+
+rustversion 1.0.23 | MIT | gui:production/build
+  licences/cargo/legal/rustversion-1.0.23/LICENSE-APACHE
+  licences/cargo/legal/rustversion-1.0.23/LICENSE-MIT
+  licences/cargo/legal/rustversion-1.0.23/source-attributions.json
+
+scoped-tls-hkt 0.1.5 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/scoped-tls-hkt-0.1.5/LICENSE-APACHE
+  licences/cargo/legal/scoped-tls-hkt-0.1.5/LICENSE-MIT
+  licences/cargo/legal/scoped-tls-hkt-0.1.5/source-attributions.json
+
+scopeguard 1.2.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/scopeguard-1.2.0/LICENSE-APACHE
+  licences/cargo/legal/scopeguard-1.2.0/LICENSE-MIT
+  licences/cargo/legal/scopeguard-1.2.0/source-attributions.json
+
+semver 1.0.28 | MIT | gui:production/build
+  licences/cargo/legal/semver-1.0.28/LICENSE-APACHE
+  licences/cargo/legal/semver-1.0.28/LICENSE-MIT
+  licences/cargo/legal/semver-1.0.28/source-attributions.json
+
+serde 1.0.229 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/serde-1.0.229/LICENSE-APACHE
+  licences/cargo/legal/serde-1.0.229/LICENSE-MIT
+  licences/cargo/legal/serde-1.0.229/source-attributions.json
+
+serde_core 1.0.229 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/serde_core-1.0.229/LICENSE-APACHE
+  licences/cargo/legal/serde_core-1.0.229/LICENSE-MIT
+  licences/cargo/legal/serde_core-1.0.229/source-attributions.json
+
+serde_derive 1.0.229 | MIT | cli:production/build, gui:production/build
+  licences/cargo/legal/serde_derive-1.0.229/LICENSE-APACHE
+  licences/cargo/legal/serde_derive-1.0.229/LICENSE-MIT
+  licences/cargo/legal/serde_derive-1.0.229/source-attributions.json
+
+serde_json 1.0.154 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/serde_json-1.0.154/LICENSE-APACHE
+  licences/cargo/legal/serde_json-1.0.154/LICENSE-MIT
+  licences/cargo/legal/serde_json-1.0.154/source-attributions.json
+
+serde_repr 0.1.21 | MIT | gui:production/build
+  licences/cargo/legal/serde_repr-0.1.21/LICENSE-APACHE
+  licences/cargo/legal/serde_repr-0.1.21/LICENSE-MIT
+  licences/cargo/legal/serde_repr-0.1.21/source-attributions.json
+
+signal-hook-registry 1.4.8 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/signal-hook-registry-1.4.8/LICENSE-APACHE
+  licences/cargo/legal/signal-hook-registry-1.4.8/LICENSE-MIT
+  licences/cargo/legal/signal-hook-registry-1.4.8/source-attributions.json
+
+simd-adler32 0.3.10 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/simd-adler32-0.3.10/LICENSE.md
+  licences/cargo/legal/simd-adler32-0.3.10/source-attributions.json
+
+simplecss 0.2.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/simplecss-0.2.2/AUTHORS
+  licences/cargo/legal/simplecss-0.2.2/LICENSE-APACHE
+  licences/cargo/legal/simplecss-0.2.2/LICENSE-MIT
+  licences/cargo/legal/simplecss-0.2.2/source-attributions.json
+
+siphasher 1.0.4 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/siphasher-1.0.4/COPYING
+  licences/cargo/legal/siphasher-1.0.4/LICENSE-APACHE
+  licences/cargo/legal/siphasher-1.0.4/LICENSE-MIT
+  licences/cargo/legal/siphasher-1.0.4/source-attributions.json
+
+skrifa 0.44.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/skrifa-0.44.0/LICENSE-APACHE
+  licences/cargo/legal/skrifa-0.44.0/LICENSE-MIT
+  licences/cargo/legal/skrifa-0.44.0/source-attributions.json
+
+slab 0.4.12 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/slab-0.4.12/LICENSE
+  licences/cargo/legal/slab-0.4.12/source-attributions.json
+
+slint 1.18.1 | GPL-3.0-only | gui:production/build, gui:runtime
+  licences/cargo/legal/slint-1.18.1/LICENSES/LicenseRef-Slint-Royalty-free-2.0.md
+  licences/cargo/legal/slint-1.18.1/LICENSES/LicenseRef-Slint-Software-3.0.md
+  licences/cargo/legal/slint-1.18.1/source-attributions.json
+  licences/cargo/source-extra/slint-1.18.1/GPL-3.0-only.txt
+
+slint-build 1.18.1 | GPL-3.0-only | gui:production/build
+  licences/cargo/source-extra/slint-build-1.18.1/LICENSES/LicenseRef-Slint-Royalty-free-2.0.md
+  licences/cargo/source-extra/slint-build-1.18.1/LICENSES/LicenseRef-Slint-Software-3.0.md
+  licences/cargo/source-extra/slint-build-1.18.1/attributions.json
+  licences/cargo/source-extra/slint-build-1.18.1/GPL-3.0-only.txt
+
+slint-macros 1.18.1 | GPL-3.0-only | gui:production/build
+  licences/cargo/legal/slint-macros-1.18.1/LICENSES/LicenseRef-Slint-Royalty-free-2.0.md
+  licences/cargo/legal/slint-macros-1.18.1/LICENSES/LicenseRef-Slint-Software-3.0.md
+  licences/cargo/legal/slint-macros-1.18.1/source-attributions.json
+  licences/cargo/source-extra/slint-macros-1.18.1/GPL-3.0-only.txt
+
+slotmap 1.1.1 | Zlib | gui:production/build, gui:runtime
+  licences/cargo/legal/slotmap-1.1.1/LICENSE
+  licences/cargo/legal/slotmap-1.1.1/source-attributions.json
+
+smallvec 1.16.3 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/smallvec-1.16.3/LICENSE-APACHE
+  licences/cargo/legal/smallvec-1.16.3/LICENSE-MIT
+  licences/cargo/legal/smallvec-1.16.3/source-attributions.json
+
+smol_str 0.2.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/smol_str-0.2.2/LICENSE-APACHE
+  licences/cargo/legal/smol_str-0.2.2/LICENSE-MIT
+  licences/cargo/legal/smol_str-0.2.2/source-attributions.json
+
+smol_str 0.3.6 | MIT | gui:production/build
+  licences/cargo/legal/smol_str-0.3.6/LICENSE-APACHE
+  licences/cargo/legal/smol_str-0.3.6/LICENSE-MIT
+  licences/cargo/legal/smol_str-0.3.6/source-attributions.json
+
+snafu 0.8.9 | MIT | gui:production/build
+  licences/cargo/source-extra/snafu-0.8.9/LICENSE-APACHE
+  licences/cargo/source-extra/snafu-0.8.9/LICENSE-MIT
+  licences/cargo/source-extra/snafu-0.8.9/attributions.json
+
+snafu-derive 0.8.9 | MIT | gui:production/build
+  licences/cargo/source-extra/snafu-derive-0.8.9/LICENSE-APACHE
+  licences/cargo/source-extra/snafu-derive-0.8.9/LICENSE-MIT
+  licences/cargo/source-extra/snafu-derive-0.8.9/attributions.json
+
+softbuffer 0.4.8 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/softbuffer-0.4.8/LICENSE-APACHE
+  licences/cargo/legal/softbuffer-0.4.8/LICENSE-MIT
+  licences/cargo/legal/softbuffer-0.4.8/source-attributions.json
+
+spin_on 0.1.1 | MIT | gui:production/build
+  licences/cargo/legal/spin_on-0.1.1/LICENSE-APACHE
+  licences/cargo/legal/spin_on-0.1.1/LICENSE-MIT
+  licences/cargo/legal/spin_on-0.1.1/source-attributions.json
+
+stable_deref_trait 1.2.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/stable_deref_trait-1.2.1/LICENSE-APACHE
+  licences/cargo/legal/stable_deref_trait-1.2.1/LICENSE-MIT
+  licences/cargo/legal/stable_deref_trait-1.2.1/source-attributions.json
+
+static_assertions 1.1.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/source-extra/static_assertions-1.1.0/LICENSE-APACHE
+  licences/cargo/source-extra/static_assertions-1.1.0/LICENSE-MIT
+  licences/cargo/source-extra/static_assertions-1.1.0/attributions.json
+
+strict-num 0.1.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/strict-num-0.1.1/LICENSE
+  licences/cargo/legal/strict-num-0.1.1/source-attributions.json
+
+strsim 0.11.1 | MIT | cli:production/build, cli:runtime
+  licences/cargo/legal/strsim-0.11.1/LICENSE
+  licences/cargo/legal/strsim-0.11.1/source-attributions.json
+
+strum 0.28.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/strum-0.28.0/LICENSE
+  licences/cargo/legal/strum-0.28.0/source-attributions.json
+
+strum_macros 0.28.0 | MIT | gui:production/build
+  licences/cargo/legal/strum_macros-0.28.0/LICENSE
+  licences/cargo/legal/strum_macros-0.28.0/source-attributions.json
+
+svgtypes 0.16.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/svgtypes-0.16.1/AUTHORS
+  licences/cargo/legal/svgtypes-0.16.1/LICENSE-APACHE
+  licences/cargo/legal/svgtypes-0.16.1/LICENSE-MIT
+  licences/cargo/legal/svgtypes-0.16.1/source-attributions.json
+
+swash 0.2.10 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/swash-0.2.10/LICENSE-APACHE
+  licences/cargo/legal/swash-0.2.10/LICENSE-MIT
+  licences/cargo/legal/swash-0.2.10/source-attributions.json
+
+syn 2.0.119 | MIT | gui:production/build
+  licences/cargo/legal/syn-2.0.119/LICENSE-APACHE
+  licences/cargo/legal/syn-2.0.119/LICENSE-MIT
+  licences/cargo/legal/syn-2.0.119/source-attributions.json
+
+syn 3.0.9 | MIT | cli:production/build, gui:production/build, gui:runtime
+  licences/cargo/legal/syn-3.0.9/LICENSE-APACHE
+  licences/cargo/legal/syn-3.0.9/LICENSE-MIT
+  licences/cargo/legal/syn-3.0.9/source-attributions.json
+
+synstructure 0.14.0 | MIT | gui:production/build
+  licences/cargo/legal/synstructure-0.14.0/LICENSE
+  licences/cargo/legal/synstructure-0.14.0/source-attributions.json
+
+sys-locale 0.3.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/sys-locale-0.3.2/LICENSE-APACHE
+  licences/cargo/legal/sys-locale-0.3.2/LICENSE-MIT
+  licences/cargo/legal/sys-locale-0.3.2/source-attributions.json
+
+taffy 0.10.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/upstream/taffy-0.10.1-LICENSE.md
+  licences/cargo/legal/taffy-0.10.1/source-attributions.json
+
+tempfile 3.27.0 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/source-extra/tempfile-3.27.0/LICENSE-APACHE
+  licences/cargo/source-extra/tempfile-3.27.0/LICENSE-MIT
+  licences/cargo/source-extra/tempfile-3.27.0/attributions.json
+
+text-size 1.1.1 | MIT | gui:production/build
+  licences/cargo/legal/text-size-1.1.1/LICENSE-APACHE
+  licences/cargo/legal/text-size-1.1.1/LICENSE-MIT
+  licences/cargo/legal/text-size-1.1.1/source-attributions.json
+
+thiserror 1.0.69 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/thiserror-1.0.69/LICENSE-APACHE
+  licences/cargo/legal/thiserror-1.0.69/LICENSE-MIT
+  licences/cargo/legal/thiserror-1.0.69/source-attributions.json
+
+thiserror 2.0.21 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/thiserror-2.0.21/LICENSE-APACHE
+  licences/cargo/legal/thiserror-2.0.21/LICENSE-MIT
+  licences/cargo/legal/thiserror-2.0.21/source-attributions.json
+
+thiserror-impl 1.0.69 | MIT | gui:production/build
+  licences/cargo/legal/thiserror-impl-1.0.69/LICENSE-APACHE
+  licences/cargo/legal/thiserror-impl-1.0.69/LICENSE-MIT
+  licences/cargo/legal/thiserror-impl-1.0.69/source-attributions.json
+
+thiserror-impl 2.0.21 | MIT | gui:production/build
+  licences/cargo/legal/thiserror-impl-2.0.21/LICENSE-APACHE
+  licences/cargo/legal/thiserror-impl-2.0.21/LICENSE-MIT
+  licences/cargo/legal/thiserror-impl-2.0.21/source-attributions.json
+
+tiny-skia 0.12.0 | BSD-3-Clause | gui:production/build, gui:runtime
+  licences/cargo/legal/tiny-skia-0.12.0/LICENSE
+  licences/cargo/legal/tiny-skia-0.12.0/source-attributions.json
+
+tiny-skia-path 0.12.0 | BSD-3-Clause | gui:production/build, gui:runtime
+  licences/cargo/legal/tiny-skia-path-0.12.0/LICENSE
+  licences/cargo/legal/tiny-skia-path-0.12.0/source-attributions.json
+
+tiny-xlib 0.2.5 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/tiny-xlib-0.2.5/LICENSE-APACHE.md
+  licences/cargo/legal/tiny-xlib-0.2.5/LICENSE-MIT.md
+  licences/cargo/legal/tiny-xlib-0.2.5/LICENSE-ZLIB.md
+  licences/cargo/legal/tiny-xlib-0.2.5/source-attributions.json
+
+tinystr 0.8.4 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/tinystr-0.8.4/LICENSE
+  licences/cargo/legal/tinystr-0.8.4/source-attributions.json
+
+tinyvec 1.13.3 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/tinyvec-1.13.3/LICENSE-APACHE.md
+  licences/cargo/legal/tinyvec-1.13.3/LICENSE-MIT.md
+  licences/cargo/legal/tinyvec-1.13.3/LICENSE-ZLIB.md
+  licences/cargo/legal/tinyvec-1.13.3/source-attributions.json
+
+toml_datetime 1.1.2+spec-1.1.0 | MIT | gui:production/build
+  licences/cargo/legal/toml_datetime-1.1.2+spec-1.1.0/LICENSE-APACHE
+  licences/cargo/legal/toml_datetime-1.1.2+spec-1.1.0/LICENSE-MIT
+  licences/cargo/legal/toml_datetime-1.1.2+spec-1.1.0/source-attributions.json
+
+toml_edit 0.25.17+spec-1.1.0 | MIT | gui:production/build
+  licences/cargo/legal/toml_edit-0.25.17+spec-1.1.0/LICENSE-APACHE
+  licences/cargo/legal/toml_edit-0.25.17+spec-1.1.0/LICENSE-MIT
+  licences/cargo/legal/toml_edit-0.25.17+spec-1.1.0/source-attributions.json
+
+toml_parser 1.1.5+spec-1.1.0 | MIT | gui:production/build
+  licences/cargo/legal/toml_parser-1.1.5+spec-1.1.0/LICENSE-APACHE
+  licences/cargo/legal/toml_parser-1.1.5+spec-1.1.0/LICENSE-MIT
+  licences/cargo/legal/toml_parser-1.1.5+spec-1.1.0/source-attributions.json
+
+toml_writer 1.1.3+spec-1.1.0 | MIT | gui:production/build
+  licences/cargo/source-extra/toml_writer-1.1.3+spec-1.1.0/LICENSE-APACHE
+  licences/cargo/source-extra/toml_writer-1.1.3+spec-1.1.0/LICENSE-MIT
+  licences/cargo/source-extra/toml_writer-1.1.3+spec-1.1.0/attributions.json
+
+tracing 0.1.44 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/tracing-0.1.44/LICENSE
+  licences/cargo/legal/tracing-0.1.44/source-attributions.json
+
+tracing-attributes 0.1.31 | MIT | gui:production/build
+  licences/cargo/legal/tracing-attributes-0.1.31/LICENSE
+  licences/cargo/legal/tracing-attributes-0.1.31/source-attributions.json
+
+tracing-core 0.1.36 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/tracing-core-0.1.36/LICENSE
+  licences/cargo/legal/tracing-core-0.1.36/src/spin/LICENSE
+  licences/cargo/legal/tracing-core-0.1.36/source-attributions.json
+
+typed-index-collections 3.5.0 | MIT | gui:production/build
+  licences/cargo/legal/typed-index-collections-3.5.0/LICENSE-APACHE
+  licences/cargo/legal/typed-index-collections-3.5.0/LICENSE-MIT
+  licences/cargo/legal/typed-index-collections-3.5.0/source-attributions.json
+
+unicase 2.10.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/unicase-2.10.0/LICENSE-APACHE
+  licences/cargo/legal/unicase-2.10.0/LICENSE-MIT
+  licences/cargo/legal/unicase-2.10.0/source-attributions.json
+
+unicode-bidi 0.3.18 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/unicode-bidi-0.3.18/AUTHORS
+  licences/cargo/legal/unicode-bidi-0.3.18/COPYRIGHT
+  licences/cargo/legal/unicode-bidi-0.3.18/LICENSE-APACHE
+  licences/cargo/legal/unicode-bidi-0.3.18/LICENSE-MIT
+  licences/cargo/legal/unicode-bidi-0.3.18/source-attributions.json
+
+unicode-ident 1.0.27 | MIT AND Unicode-3.0 | cli:production/build, gui:production/build, gui:runtime
+  licences/cargo/legal/unicode-ident-1.0.27/LICENSE-APACHE
+  licences/cargo/legal/unicode-ident-1.0.27/LICENSE-MIT
+  licences/cargo/legal/unicode-ident-1.0.27/LICENSE-UNICODE
+  licences/cargo/legal/unicode-ident-1.0.27/source-attributions.json
+
+unicode-linebreak 0.1.5 | Apache-2.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/unicode-linebreak-0.1.5/LICENSE
+  licences/cargo/legal/unicode-linebreak-0.1.5/source-attributions.json
+
+unicode-script 0.5.8 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/unicode-script-0.5.8/LICENSE-APACHE
+  licences/cargo/legal/unicode-script-0.5.8/LICENSE-MIT
+  licences/cargo/legal/unicode-script-0.5.8/source-attributions.json
+
+unicode-segmentation 1.13.3 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/unicode-segmentation-1.13.3/COPYRIGHT
+  licences/cargo/legal/unicode-segmentation-1.13.3/LICENSE-APACHE
+  licences/cargo/legal/unicode-segmentation-1.13.3/LICENSE-MIT
+  licences/cargo/legal/unicode-segmentation-1.13.3/source-attributions.json
+
+unicode-vo 0.1.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/unicode-vo-0.1.0/LICENSE-APACHE
+  licences/cargo/legal/unicode-vo-0.1.0/LICENSE-MIT
+  licences/cargo/legal/unicode-vo-0.1.0/source-attributions.json
+
+unicode-width 0.2.2 | MIT | gui:production/build
+  licences/cargo/legal/unicode-width-0.2.2/COPYRIGHT
+  licences/cargo/legal/unicode-width-0.2.2/LICENSE-APACHE
+  licences/cargo/legal/unicode-width-0.2.2/LICENSE-MIT
+  licences/cargo/legal/unicode-width-0.2.2/source-attributions.json
+
+unicode-xid 0.2.6 | MIT | gui:production/build
+  licences/cargo/legal/unicode-xid-0.2.6/COPYRIGHT
+  licences/cargo/legal/unicode-xid-0.2.6/LICENSE-APACHE
+  licences/cargo/legal/unicode-xid-0.2.6/LICENSE-MIT
+  licences/cargo/legal/unicode-xid-0.2.6/source-attributions.json
+
+url 2.5.8 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/url-2.5.8/LICENSE-APACHE
+  licences/cargo/legal/url-2.5.8/LICENSE-MIT
+  licences/cargo/legal/url-2.5.8/source-attributions.json
+
+usvg 0.48.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/usvg-0.48.1/LICENSE-APACHE
+  licences/cargo/legal/usvg-0.48.1/LICENSE-MIT
+  licences/cargo/legal/usvg-0.48.1/source-attributions.json
+
+utf8_iter 1.0.4 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/utf8_iter-1.0.4/COPYRIGHT
+  licences/cargo/legal/utf8_iter-1.0.4/LICENSE-APACHE
+  licences/cargo/legal/utf8_iter-1.0.4/LICENSE-MIT
+  licences/cargo/legal/utf8_iter-1.0.4/source-attributions.json
+
+utf8parse 0.2.2 | MIT | cli:production/build, cli:runtime
+  licences/cargo/legal/utf8parse-0.2.2/LICENSE-APACHE
+  licences/cargo/legal/utf8parse-0.2.2/LICENSE-MIT
+  licences/cargo/legal/utf8parse-0.2.2/source-attributions.json
+
+uuid 1.28.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/uuid-1.28.0/LICENSE-APACHE
+  licences/cargo/legal/uuid-1.28.0/LICENSE-MIT
+  licences/cargo/legal/uuid-1.28.0/source-attributions.json
+
+version_check 0.9.5 | MIT | gui:production/build
+  licences/cargo/legal/version_check-0.9.5/LICENSE-APACHE
+  licences/cargo/legal/version_check-0.9.5/LICENSE-MIT
+  licences/cargo/legal/version_check-0.9.5/source-attributions.json
+
+vtable 0.5.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/upstream/vtable-0.5.0-MIT.txt
+  licences/cargo/legal/vtable-0.5.0/source-attributions.json
+
+vtable-macro 0.5.0 | MIT | gui:production/build
+  licences/cargo/upstream/vtable-macro-0.5.0-MIT.txt
+  licences/cargo/legal/vtable-macro-0.5.0/source-attributions.json
+
+webbrowser 1.2.4 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/webbrowser-1.2.4/LICENSE-APACHE
+  licences/cargo/legal/webbrowser-1.2.4/LICENSE-MIT
+  licences/cargo/legal/webbrowser-1.2.4/source-attributions.json
+
+weezl 0.1.12 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/weezl-0.1.12/LICENSE-APACHE
+  licences/cargo/legal/weezl-0.1.12/LICENSE-MIT
+  licences/cargo/legal/weezl-0.1.12/source-attributions.json
+
+winit 0.30.13 | Apache-2.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/winit-0.30.13/LICENSE
+  licences/cargo/legal/winit-0.30.13/source-attributions.json
+
+winnow 1.0.4 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/winnow-1.0.4/LICENSE-MIT
+  licences/cargo/legal/winnow-1.0.4/source-attributions.json
+
+writeable 0.6.4 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/writeable-0.6.4/LICENSE
+  licences/cargo/legal/writeable-0.6.4/source-attributions.json
+
+x11-dl 2.21.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/x11-dl-2.21.0/LICENSE-MIT
+  licences/cargo/legal/x11-dl-2.21.0/source-attributions.json
+
+x11rb 0.13.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/x11rb-0.13.2/LICENSE-APACHE
+  licences/cargo/legal/x11rb-0.13.2/LICENSE-MIT
+  licences/cargo/legal/x11rb-0.13.2/source-attributions.json
+
+x11rb-protocol 0.13.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/x11rb-protocol-0.13.2/LICENSE-APACHE
+  licences/cargo/legal/x11rb-protocol-0.13.2/LICENSE-MIT
+  licences/cargo/legal/x11rb-protocol-0.13.2/source-attributions.json
+
+xkbcommon-dl 0.4.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/xkbcommon-dl-0.4.2/LICENSE
+  licences/cargo/legal/xkbcommon-dl-0.4.2/source-attributions.json
+
+xkeysym 0.2.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/xkeysym-0.2.1/LICENSE-APACHE
+  licences/cargo/legal/xkeysym-0.2.1/LICENSE-MIT
+  licences/cargo/legal/xkeysym-0.2.1/LICENSE-ZLIB
+  licences/cargo/legal/xkeysym-0.2.1/source-attributions.json
+
+xmlwriter 0.1.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/xmlwriter-0.1.0/LICENSE
+  licences/cargo/legal/xmlwriter-0.1.0/source-attributions.json
+
+yazi 0.2.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/yazi-0.2.1/LICENSE-APACHE
+  licences/cargo/legal/yazi-0.2.1/LICENSE-MIT
+  licences/cargo/legal/yazi-0.2.1/source-attributions.json
+
+yeslogic-fontconfig-sys 6.0.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/yeslogic-fontconfig-sys-6.0.1/LICENSE
+  licences/cargo/legal/yeslogic-fontconfig-sys-6.0.1/source-attributions.json
+
+yoke 0.8.3 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/yoke-0.8.3/LICENSE
+  licences/cargo/legal/yoke-0.8.3/source-attributions.json
+
+yoke-derive 0.8.4 | Unicode-3.0 | gui:production/build
+  licences/cargo/legal/yoke-derive-0.8.4/LICENSE
+  licences/cargo/legal/yoke-derive-0.8.4/source-attributions.json
+
+zbus 5.19.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/zbus-5.19.0/LICENSE
+  licences/cargo/legal/zbus-5.19.0/source-attributions.json
+
+zbus-lockstep 0.5.2 | MIT | gui:production/build, gui:runtime
+  licences/cargo/source-extra/zbus-lockstep-0.5.2/LICENSE-MIT
+  licences/cargo/source-extra/zbus-lockstep-0.5.2/attributions.json
+
+zbus-lockstep-macros 0.5.2 | MIT | gui:production/build
+  licences/cargo/source-extra/zbus-lockstep-macros-0.5.2/LICENSE-MIT
+  licences/cargo/source-extra/zbus-lockstep-macros-0.5.2/attributions.json
+
+zbus_macros 5.19.0 | MIT | gui:production/build
+  licences/cargo/legal/zbus_macros-5.19.0/LICENSE
+  licences/cargo/legal/zbus_macros-5.19.0/source-attributions.json
+
+zbus_names 4.3.4 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/zbus_names-4.3.4/LICENSE
+  licences/cargo/legal/zbus_names-4.3.4/source-attributions.json
+
+zbus_xml 5.2.1 | MIT | gui:production/build, gui:runtime
+  licences/cargo/source-extra/zbus_xml-5.2.1/LICENSE
+  licences/cargo/source-extra/zbus_xml-5.2.1/attributions.json
+
+zcheapstr 1.1.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/zcheapstr-1.1.0/LICENSE
+  licences/cargo/legal/zcheapstr-1.1.0/source-attributions.json
+
+zeno 0.3.3 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/zeno-0.3.3/LICENSE-APACHE
+  licences/cargo/legal/zeno-0.3.3/LICENSE-MIT
+  licences/cargo/legal/zeno-0.3.3/source-attributions.json
+
+zerofrom 0.1.8 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/zerofrom-0.1.8/LICENSE
+  licences/cargo/legal/zerofrom-0.1.8/source-attributions.json
+
+zerofrom-derive 0.1.8 | Unicode-3.0 | gui:production/build
+  licences/cargo/legal/zerofrom-derive-0.1.8/LICENSE
+  licences/cargo/legal/zerofrom-derive-0.1.8/source-attributions.json
+
+zerotrie 0.2.5 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/zerotrie-0.2.5/LICENSE
+  licences/cargo/legal/zerotrie-0.2.5/source-attributions.json
+
+zerovec 0.11.8 | Unicode-3.0 | gui:production/build, gui:runtime
+  licences/cargo/legal/zerovec-0.11.8/LICENSE
+  licences/cargo/legal/zerovec-0.11.8/source-attributions.json
+
+zerovec-derive 0.11.6 | Unicode-3.0 | gui:production/build
+  licences/cargo/legal/zerovec-derive-0.11.6/LICENSE
+  licences/cargo/legal/zerovec-derive-0.11.6/source-attributions.json
+
+zmij 1.0.23 | MIT | cli:production/build, cli:runtime, gui:production/build, gui:runtime
+  licences/cargo/legal/zmij-1.0.23/LICENSE-MIT
+  licences/cargo/legal/zmij-1.0.23/source-attributions.json
+
+zune-core 0.5.3 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/zune-core-0.5.3/LICENSE-APACHE
+  licences/cargo/legal/zune-core-0.5.3/LICENSE-MIT
+  licences/cargo/legal/zune-core-0.5.3/LICENSE-ZLIB
+  licences/cargo/legal/zune-core-0.5.3/source-attributions.json
+
+zune-jpeg 0.5.15 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/zune-jpeg-0.5.15/LICENSE-APACHE
+  licences/cargo/legal/zune-jpeg-0.5.15/LICENSE-MIT
+  licences/cargo/legal/zune-jpeg-0.5.15/LICENSE-ZLIB
+  licences/cargo/legal/zune-jpeg-0.5.15/source-attributions.json
+
+zvariant 5.15.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/zvariant-5.15.0/LICENSE
+  licences/cargo/legal/zvariant-5.15.0/source-attributions.json
+
+zvariant_derive 5.15.0 | MIT | gui:production/build
+  licences/cargo/legal/zvariant_derive-5.15.0/LICENSE
+  licences/cargo/legal/zvariant_derive-5.15.0/source-attributions.json
+
+zvariant_utils 4.2.0 | MIT | gui:production/build, gui:runtime
+  licences/cargo/legal/zvariant_utils-4.2.0/LICENSE
+  licences/cargo/legal/zvariant_utils-4.2.0/source-attributions.json
+
+i-slint-backend-winit 1.18.1 + #94 | GPL-3.0-only | vendored GUI runtime/build
+  licences/vendor/i-slint-backend-winit-1.18.1/LICENSES/GPL-3.0-only.txt
+  licences/vendor/i-slint-backend-winit-1.18.1/LICENSES/LicenseRef-Slint-Royalty-free-2.0.md
+  licences/vendor/i-slint-backend-winit-1.18.1/LICENSES/LicenseRef-Slint-Software-3.0.md
+  licences/vendor/provenance.json
+
+
+V0.4 additions, selected MIT; original MIT and Apache texts retained below licences/v04/.
+block-buffer-0.10.4 | MIT OR Apache-2.0 | selected MIT
+cpufeatures-0.2.17 | MIT OR Apache-2.0 | selected MIT
+crypto-common-0.1.7 | MIT OR Apache-2.0 | selected MIT
+digest-0.10.7 | MIT OR Apache-2.0 | selected MIT
+generic-array-0.14.7 | MIT | selected MIT
+sha2-0.10.9 | MIT OR Apache-2.0 | selected MIT
+typenum-1.20.1 | MIT OR Apache-2.0 | selected MIT
+version_check-0.9.5 | MIT/Apache-2.0 | selected MIT

@@ -258,6 +258,121 @@ pub(crate) fn translation(language: &str, context: &str, source: &str) -> Option
         ) => {
             "Die Speicherquelle wurde geändert oder ist nicht mehr verfügbar. Aktualisieren Sie die Quellen und wählen Sie sie erneut aus."
         }
+        ("de", "rust", "All matched files") => "Alle passenden Dateien",
+        ("de", "rust", "Analysis worker stopped") => "Analyseverarbeitung angehalten",
+        ("de", "rust", "Incomplete coverage") => "Unvollständige Abdeckung",
+        ("de", "rust", "No extension") => "Ohne Erweiterung",
+        ("de", "rust", "Searching retained entries…") => {
+            "Gespeicherte Einträge werden durchsucht…"
+        }
+        ("de", "rust", "Some values are unavailable") => "Einige Werte sind nicht verfügbar",
+        (
+            "de",
+            "rust",
+            "Exact groups: {} · bytes read: {} · hardlink aliases: {} · errors: {}.",
+        ) => "Exakte Gruppen: {} · gelesene Bytes: {} · Hardlink-Aliasse: {} · Fehler: {}.",
+        ("de", "rust", "1 KiB–<1 MiB") => "1 KiB–<1 MiB",
+        ("de", "rust", "1 MiB–<1 GiB") => "1 MiB–<1 GiB",
+        ("de", "rust", "1–1023 bytes") => "1–1023 Bytes",
+        ("de", "rust", "Access denied. Check operating-system permissions.") => {
+            "Zugriff verweigert. Prüfen Sie die Systemberechtigungen."
+        }
+        ("de", "rust", "At least 1 GiB") => "Mindestens 1 GiB",
+        (
+            "de",
+            "rust",
+            "Cancellation requested. A system or network read may take time to return.",
+        ) => "Abbruch angefordert. Ein System- oder Netzwerkzugriff kann verzögert enden.",
+        ("de", "rust", "Cancelled. Only finished groups are shown.") => {
+            "Abgebrochen. Nur fertig geprüfte Gruppen werden angezeigt."
+        }
+        ("de", "rust", "Cancelled. Only observed matches are shown.") => {
+            "Abgebrochen. Nur bereits erfasste Treffer werden angezeigt."
+        }
+        (
+            "de",
+            "rust",
+            "Counts · known logical sizes per path. Unknown file sizes: {}. Hardlinks count as paths.",
+        ) => {
+            "Anzahlen · bekannte logische Größen pro Pfad. Unbekannte Dateigrößen: {}. Hardlinks zählen als Pfade."
+        }
+        ("de", "rust", "Empty files") => "Leere Dateien",
+        ("de", "rust", "Extensions: largest 32 · bars: known bytes") => {
+            "Erweiterungen: die 32 größten · Balken: bekannte Bytes"
+        }
+        ("de", "rust", "File identity is unavailable on this storage.") => {
+            "Die Dateiidentität ist auf diesem Speicher nicht verfügbar."
+        }
+        ("de", "rust", "File no longer accessible. Check the path or network connection.") => {
+            "Datei nicht mehr erreichbar. Prüfen Sie Pfad und Netzwerkverbindung."
+        }
+        ("de", "rust", "Group {} · copy {} ·") => "Gruppe {} · Kopie {} ·",
+        (
+            "de",
+            "rust",
+            "Group {} · independent copies: {} · SHA-256: {} · byte-for-byte verified.",
+        ) => "Gruppe {} · unabhängige Kopien: {} · SHA-256: {} · byteweise geprüft.",
+        ("de", "rust", "Hardlink alias") => "Hardlink-Alias",
+        ("de", "rust", "Invalid filter: check the glob and the limit of 4096 bytes per field.") => {
+            "Ungültiger Filter: Glob und Grenze von 4096 Bytes pro Feld prüfen."
+        }
+        ("de", "rust", "Invalid filter: minimum size must not exceed maximum size.") => {
+            "Ungültiger Filter: Mindestgröße darf Höchstgröße nicht überschreiten."
+        }
+        (
+            "de",
+            "rust",
+            "Invalid filter: sizes must be whole bytes from 0 to 18446744073709551615.",
+        ) => "Ungültiger Filter: Größen als ganze Bytes von 0 bis 18446744073709551615 eingeben.",
+        (
+            "de",
+            "rust",
+            "Matches: {} · retained results: {} · omitted inventory entries: {} · unknown dates: {}. Logical file sizes per path.",
+        ) => {
+            "Treffer: {} · gespeichert: {} · ausgelassene Inventareinträge: {} · unbekannte Datumswerte: {}. Logische Größen pro Pfad."
+        }
+        ("de", "rust", "Network read failed. Check the connection and retry.") => {
+            "Netzwerklesen fehlgeschlagen. Verbindung prüfen und erneut versuchen."
+        }
+        ("de", "rust", "No exact duplicate group in the examined files.") => {
+            "Keine exakte Duplikatgruppe in den geprüften Dateien."
+        }
+        ("de", "rust", "No matching retained entry.") => "Kein passender gespeicherter Eintrag.",
+        ("de", "rust", "Non-Unicode extension") => "Nicht-Unicode-Erweiterung",
+        ("de", "rust", "Other extension groups: {} (included in totals)") => {
+            "Weitere Erweiterungsgruppen: {} (in Gesamtsummen enthalten)"
+        }
+        ("de", "rust", "Read budget or file-size limit reached. Results are incomplete.") => {
+            "Lesebudget oder Dateigrößenlimit erreicht. Ergebnisse sind unvollständig."
+        }
+        ("de", "rust", "Read failed or file changed. Rescan before retrying.") => {
+            "Lesefehler oder Datei geändert. Vor erneutem Versuch neu analysieren."
+        }
+        ("de", "rust", "Reading candidate files…") => "Kandidatendateien werden gelesen…",
+        ("de", "rust", "Reading contents: {} bytes · {} files hashed") => {
+            "Inhalt gelesen: {} Bytes · {} Dateien gehasht"
+        }
+        ("de", "rust", "Retained entries: {} · omitted: {}. Filters never rescan the source.") => {
+            "Gespeicherte Einträge: {} · ausgelassen: {}. Filter starten keine neue Analyse."
+        }
+        ("de", "rust", "Retained inventory") => "Gespeichertes Inventar",
+        ("de", "rust", "Rows {}–{} of {}") => "Zeilen {}–{} von {}",
+        (
+            "de",
+            "rust",
+            "SHA-256 candidates are compared byte for byte. Hardlink aliases are the same file.",
+        ) => {
+            "SHA-256-Kandidaten werden byteweise verglichen. Hardlink-Aliasse bezeichnen dieselbe Datei."
+        }
+        ("de", "rust", "Size classes · bars: file counts") => {
+            "Größenklassen · Balken: Dateianzahlen"
+        }
+        ("de", "rust", "Unknown size") => "Unbekannte Größe",
+        (
+            "de",
+            "rust",
+            "Waiting for the previous read to finish. Reopen Search / statistics afterwards.",
+        ) => "Warten auf vorherigen Lesevorgang. Danach Suche / Statistik erneut öffnen.",
         ("es", "rust", " Independent of the limited inventory.") => {
             " Independiente del inventario limitado."
         }
@@ -510,6 +625,125 @@ pub(crate) fn translation(language: &str, context: &str, source: &str) -> Option
             "Storage source changed or became unavailable. Refresh sources and select it again.",
         ) => {
             "El origen de almacenamiento ha cambiado o ya no está disponible. Actualice los orígenes y vuelva a seleccionarlo."
+        }
+        ("es", "rust", "All matched files") => "Todos los archivos coincidentes",
+        ("es", "rust", "Analysis worker stopped") => "Se detuvo el análisis",
+        ("es", "rust", "Incomplete coverage") => "Cobertura incompleta",
+        ("es", "rust", "No extension") => "Sin extensión",
+        ("es", "rust", "Searching retained entries…") => "Buscando en las entradas conservadas…",
+        ("es", "rust", "Some values are unavailable") => "Algunos valores no están disponibles",
+        (
+            "es",
+            "rust",
+            "Exact groups: {} · bytes read: {} · hardlink aliases: {} · errors: {}.",
+        ) => "Grupos exactos: {} · bytes leídos: {} · alias de enlaces físicos: {} · errores: {}.",
+        ("es", "rust", "1 KiB–<1 MiB") => "1 KiB–<1 MiB",
+        ("es", "rust", "1 MiB–<1 GiB") => "1 MiB–<1 GiB",
+        ("es", "rust", "1–1023 bytes") => "1–1023 bytes",
+        ("es", "rust", "Access denied. Check operating-system permissions.") => {
+            "Acceso denegado. Compruebe los permisos del sistema."
+        }
+        ("es", "rust", "At least 1 GiB") => "Al menos 1 GiB",
+        (
+            "es",
+            "rust",
+            "Cancellation requested. A system or network read may take time to return.",
+        ) => "Cancelación solicitada. Una lectura del sistema o de red puede tardar en finalizar.",
+        ("es", "rust", "Cancelled. Only finished groups are shown.") => {
+            "Cancelado. Solo se muestran los grupos verificados."
+        }
+        ("es", "rust", "Cancelled. Only observed matches are shown.") => {
+            "Cancelado. Solo se muestran las coincidencias ya observadas."
+        }
+        (
+            "es",
+            "rust",
+            "Counts · known logical sizes per path. Unknown file sizes: {}. Hardlinks count as paths.",
+        ) => {
+            "Recuentos · tamaños lógicos conocidos por ruta. Tamaños desconocidos: {}. Los enlaces físicos cuentan por ruta."
+        }
+        ("es", "rust", "Empty files") => "Archivos vacíos",
+        ("es", "rust", "Extensions: largest 32 · bars: known bytes") => {
+            "Extensiones: las 32 mayores · barras: bytes conocidos"
+        }
+        ("es", "rust", "File identity is unavailable on this storage.") => {
+            "La identidad del archivo no está disponible en este almacenamiento."
+        }
+        ("es", "rust", "File no longer accessible. Check the path or network connection.") => {
+            "El archivo ya no es accesible. Compruebe la ruta o la conexión de red."
+        }
+        ("es", "rust", "Group {} · copy {} ·") => "Grupo {} · copia {} ·",
+        (
+            "es",
+            "rust",
+            "Group {} · independent copies: {} · SHA-256: {} · byte-for-byte verified.",
+        ) => {
+            "Grupo {} · copias independientes: {} · SHA-256: {} · igualdad verificada byte a byte."
+        }
+        ("es", "rust", "Hardlink alias") => "Alias de enlace físico",
+        ("es", "rust", "Invalid filter: check the glob and the limit of 4096 bytes per field.") => {
+            "Filtro no válido: compruebe el patrón glob y el límite de 4096 bytes por campo."
+        }
+        ("es", "rust", "Invalid filter: minimum size must not exceed maximum size.") => {
+            "Filtro no válido: el tamaño mínimo no debe superar al máximo."
+        }
+        (
+            "es",
+            "rust",
+            "Invalid filter: sizes must be whole bytes from 0 to 18446744073709551615.",
+        ) => {
+            "Filtro no válido: los tamaños deben ser bytes enteros entre 0 y 18446744073709551615."
+        }
+        (
+            "es",
+            "rust",
+            "Matches: {} · retained results: {} · omitted inventory entries: {} · unknown dates: {}. Logical file sizes per path.",
+        ) => {
+            "Coincidencias: {} · conservadas: {} · entradas de inventario omitidas: {} · fechas desconocidas: {}. Tamaños lógicos por ruta."
+        }
+        ("es", "rust", "Network read failed. Check the connection and retry.") => {
+            "Error de lectura de red. Compruebe la conexión e inténtelo de nuevo."
+        }
+        ("es", "rust", "No exact duplicate group in the examined files.") => {
+            "Ningún grupo de duplicados exactos en los archivos examinados."
+        }
+        ("es", "rust", "No matching retained entry.") => "Ninguna entrada conservada coincide.",
+        ("es", "rust", "Non-Unicode extension") => "Extensión no Unicode",
+        ("es", "rust", "Other extension groups: {} (included in totals)") => {
+            "Otros grupos de extensiones: {} (incluidos en los totales)"
+        }
+        ("es", "rust", "Read budget or file-size limit reached. Results are incomplete.") => {
+            "Se alcanzó el presupuesto de lectura o el tamaño máximo. Resultados incompletos."
+        }
+        ("es", "rust", "Read failed or file changed. Rescan before retrying.") => {
+            "Error de lectura o archivo modificado. Vuelva a analizar antes de reintentar."
+        }
+        ("es", "rust", "Reading candidate files…") => "Leyendo archivos candidatos…",
+        ("es", "rust", "Reading contents: {} bytes · {} files hashed") => {
+            "Contenido leído: {} bytes · {} archivos con hash"
+        }
+        ("es", "rust", "Retained entries: {} · omitted: {}. Filters never rescan the source.") => {
+            "Entradas conservadas: {} · omitidas: {}. Los filtros nunca vuelven a analizar el origen."
+        }
+        ("es", "rust", "Retained inventory") => "Inventario conservado",
+        ("es", "rust", "Rows {}–{} of {}") => "Filas {}–{} de {}",
+        (
+            "es",
+            "rust",
+            "SHA-256 candidates are compared byte for byte. Hardlink aliases are the same file.",
+        ) => {
+            "Los candidatos SHA-256 se comparan byte a byte. Los alias de enlaces físicos son el mismo archivo."
+        }
+        ("es", "rust", "Size classes · bars: file counts") => {
+            "Clases de tamaño · barras: número de archivos"
+        }
+        ("es", "rust", "Unknown size") => "Tamaño desconocido",
+        (
+            "es",
+            "rust",
+            "Waiting for the previous read to finish. Reopen Search / statistics afterwards.",
+        ) => {
+            "Esperando a que termine la lectura anterior. Después vuelva a abrir Búsqueda / estadísticas."
         }
         ("fr", "rust", " Independent of the limited inventory.") => {
             " Indépendant de l’inventaire limité."
@@ -766,6 +1000,865 @@ pub(crate) fn translation(language: &str, context: &str, source: &str) -> Option
         ) => {
             "La source de stockage a changé ou est devenue indisponible. Actualisez les sources et sélectionnez-la à nouveau."
         }
+        ("fr", "rust", "All matched files") => "Tous les fichiers correspondants",
+        ("fr", "rust", "Analysis worker stopped") => "Le traitement d’analyse s’est arrêté",
+        ("fr", "rust", "Incomplete coverage") => "Couverture incomplète",
+        ("fr", "rust", "No extension") => "Sans extension",
+        ("fr", "rust", "Searching retained entries…") => "Recherche dans les entrées conservées…",
+        ("fr", "rust", "Some values are unavailable") => "Certaines valeurs sont indisponibles",
+        (
+            "fr",
+            "rust",
+            "Exact groups: {} · bytes read: {} · hardlink aliases: {} · errors: {}.",
+        ) => {
+            "Groupes exacts : {} · octets lus : {} · alias de liens physiques : {} · erreurs : {}."
+        }
+        ("fr", "rust", "1 KiB–<1 MiB") => "1 KiB–<1 MiB",
+        ("fr", "rust", "1 MiB–<1 GiB") => "1 MiB–<1 GiB",
+        ("fr", "rust", "1–1023 bytes") => "1–1023 octets",
+        ("fr", "rust", "Access denied. Check operating-system permissions.") => {
+            "Accès refusé. Vérifiez les autorisations du système."
+        }
+        ("fr", "rust", "At least 1 GiB") => "Au moins 1 GiB",
+        (
+            "fr",
+            "rust",
+            "Cancellation requested. A system or network read may take time to return.",
+        ) => "Annulation demandée. Un appel système ou réseau peut mettre du temps à se terminer.",
+        ("fr", "rust", "Cancelled. Only finished groups are shown.") => {
+            "Annulé. Seuls les groupes vérifiés sont affichés."
+        }
+        ("fr", "rust", "Cancelled. Only observed matches are shown.") => {
+            "Annulé. Seuls les résultats déjà observés sont affichés."
+        }
+        (
+            "fr",
+            "rust",
+            "Counts · known logical sizes per path. Unknown file sizes: {}. Hardlinks count as paths.",
+        ) => {
+            "Comptes · tailles logiques connues par chemin. Tailles inconnues : {}. Les liens physiques sont comptés par chemin."
+        }
+        ("fr", "rust", "Empty files") => "Fichiers vides",
+        ("fr", "rust", "Extensions: largest 32 · bars: known bytes") => {
+            "Extensions : les 32 plus volumineuses · barres : octets connus"
+        }
+        ("fr", "rust", "File identity is unavailable on this storage.") => {
+            "L’identité du fichier est indisponible sur ce stockage."
+        }
+        ("fr", "rust", "File no longer accessible. Check the path or network connection.") => {
+            "Fichier devenu inaccessible. Vérifiez le chemin ou la connexion réseau."
+        }
+        ("fr", "rust", "Group {} · copy {} ·") => "Groupe {} · copie {} ·",
+        (
+            "fr",
+            "rust",
+            "Group {} · independent copies: {} · SHA-256: {} · byte-for-byte verified.",
+        ) => {
+            "Groupe {} · copies indépendantes : {} · SHA-256 : {} · égalité vérifiée octet par octet."
+        }
+        ("fr", "rust", "Hardlink alias") => "Alias de lien physique",
+        ("fr", "rust", "Invalid filter: check the glob and the limit of 4096 bytes per field.") => {
+            "Filtre invalide : vérifiez le glob et la limite de 4096 octets par champ."
+        }
+        ("fr", "rust", "Invalid filter: minimum size must not exceed maximum size.") => {
+            "Filtre invalide : la taille minimale doit être inférieure ou égale à la taille maximale."
+        }
+        (
+            "fr",
+            "rust",
+            "Invalid filter: sizes must be whole bytes from 0 to 18446744073709551615.",
+        ) => {
+            "Filtre invalide : saisissez un nombre entier d’octets entre 0 et 18446744073709551615."
+        }
+        (
+            "fr",
+            "rust",
+            "Matches: {} · retained results: {} · omitted inventory entries: {} · unknown dates: {}. Logical file sizes per path.",
+        ) => {
+            "Résultats : {} · conservés : {} · entrées d’inventaire omises : {} · dates inconnues : {}. Tailles logiques par chemin."
+        }
+        ("fr", "rust", "Network read failed. Check the connection and retry.") => {
+            "Échec de lecture réseau. Vérifiez la connexion et réessayez."
+        }
+        ("fr", "rust", "No exact duplicate group in the examined files.") => {
+            "Aucun groupe de doublons exacts parmi les fichiers examinés."
+        }
+        ("fr", "rust", "No matching retained entry.") => "Aucune entrée conservée ne correspond.",
+        ("fr", "rust", "Non-Unicode extension") => "Extension non Unicode",
+        ("fr", "rust", "Other extension groups: {} (included in totals)") => {
+            "Autres groupes d’extensions : {} (inclus dans les totaux)"
+        }
+        ("fr", "rust", "Read budget or file-size limit reached. Results are incomplete.") => {
+            "Budget de lecture ou taille maximale atteint. Résultats incomplets."
+        }
+        ("fr", "rust", "Read failed or file changed. Rescan before retrying.") => {
+            "Lecture impossible ou fichier modifié. Relancez l’analyse avant de réessayer."
+        }
+        ("fr", "rust", "Reading candidate files…") => "Lecture des fichiers candidats…",
+        ("fr", "rust", "Reading contents: {} bytes · {} files hashed") => {
+            "Contenu lu : {} octets · {} fichiers hachés"
+        }
+        ("fr", "rust", "Retained entries: {} · omitted: {}. Filters never rescan the source.") => {
+            "Entrées conservées : {} · omises : {}. Les filtres ne relancent jamais l’analyse."
+        }
+        ("fr", "rust", "Retained inventory") => "Inventaire conservé",
+        ("fr", "rust", "Rows {}–{} of {}") => "Lignes {}–{} sur {}",
+        (
+            "fr",
+            "rust",
+            "SHA-256 candidates are compared byte for byte. Hardlink aliases are the same file.",
+        ) => {
+            "Les candidats SHA-256 sont comparés octet par octet. Les alias de liens physiques désignent le même fichier."
+        }
+        ("fr", "rust", "Size classes · bars: file counts") => {
+            "Classes de taille · barres : nombre de fichiers"
+        }
+        ("fr", "rust", "Unknown size") => "Taille inconnue",
+        (
+            "fr",
+            "rust",
+            "Waiting for the previous read to finish. Reopen Search / statistics afterwards.",
+        ) => {
+            "Attente de la lecture précédente. Rouvrez Recherche / statistiques une fois celle-ci terminée."
+        }
+        ("it", "rust", " Independent of the limited inventory.") => {
+            " Indipendente dall’inventario limitato."
+        }
+        ("it", "rust", " Limited inventory; omissions indicated, without individual paths.") => {
+            " Inventario limitato; omissioni indicate senza i singoli percorsi."
+        }
+        ("it", "rust", " Logical sizes per path, not recoverable space.") => {
+            " Dimensioni logiche per percorso, non spazio recuperabile."
+        }
+        ("it", "rust", " No representable positive size; see the table.") => {
+            " Nessuna dimensione positiva rappresentabile; vedere la tabella."
+        }
+        ("it", "rust", " Path budget reached.") => " Limite dei percorsi raggiunto.",
+        ("it", "rust", " · limited inventory") => " · inventario limitato",
+        ("it", "rust", " · partial scan") => " · analisi parziale",
+        ("it", "rust", "Access denied") => "Accesso negato",
+        (
+            "it",
+            "rust",
+            "Allocations, dates and inventory are inconsistent: different entry counts",
+        ) => "Allocazioni, date e inventario incoerenti: numero di voci diverso",
+        ("it", "rust", "Android prototype: SAF/MediaStore selection is not yet integrated.") => {
+            "Prototipo Android: selezione SAF/MediaStore non ancora integrata."
+        }
+        ("it", "rust", "Available") => "Disponibile",
+        ("it", "rust", "Cancellation requested…") => "Annullamento richiesto…",
+        ("it", "rust", "Choose a folder to scan") => "Scegli una cartella da analizzare",
+        ("it", "rust", "Could not open the picker: {}") => "Impossibile aprire il selettore: {}",
+        ("it", "rust", "Could not start the scan.") => "Impossibile avviare l’analisi.",
+        ("it", "rust", "Dates and inventory are inconsistent: different entry counts") => {
+            "Date e inventario incoerenti: numero di voci diverso"
+        }
+        ("it", "rust", "Discovering…") => "Rilevamento…",
+        ("it", "rust", "Discovery failed. Try Refresh.") => {
+            "Rilevamento non riuscito. Prova Aggiorna."
+        }
+        ("it", "rust", "Display limited to 256 sources · capacities cannot be summed") => {
+            "Visualizzazione limitata a 256 origini · le capacità non sono sommabili"
+        }
+        ("it", "rust", "Enter the path of a folder to scan.") => {
+            "Inserisci il percorso di una cartella da analizzare."
+        }
+        ("it", "rust", "File") => "File",
+        ("it", "rust", "Folder") => "Cartella",
+        ("it", "rust", "Global ranking of the scanned scope.") => {
+            "Classifica globale dell’ambito analizzato."
+        }
+        ("it", "rust", "Inconsistent aggregates: proportions unavailable.") => {
+            "Aggregati incoerenti: proporzioni non disponibili."
+        }
+        ("it", "rust", "Individual entries available in the table.") => {
+            "Singole voci disponibili nella tabella."
+        }
+        ("it", "rust", "Local") => "Locale",
+        ("it", "rust", "Logical sizes · click: folder / file inspection.") => {
+            "Dimensioni logiche · clic: cartella / ispezione file."
+        }
+        ("it", "rust", "Network") => "Rete",
+        ("it", "rust", "No accessible entry; the scan is partial.") => {
+            "Nessuna voce accessibile; analisi parziale."
+        }
+        ("it", "rust", "No accessible entry; this folder scan is partial.") => {
+            "Nessuna voce accessibile; analisi della cartella parziale."
+        }
+        ("it", "rust", "No entry retained for this folder; the inventory is limited.") => {
+            "Nessuna voce conservata per questa cartella; inventario limitato."
+        }
+        ("it", "rust", "No entry retained in the scanned scope.") => {
+            "Nessuna voce conservata nell’ambito analizzato."
+        }
+        ("it", "rust", "No inventory available for this folder.") => {
+            "Nessun inventario disponibile per questa cartella."
+        }
+        ("it", "rust", "No inventory available.") => "Nessun inventario disponibile.",
+        ("it", "rust", "No ranking available: scan failed.") => {
+            "Nessuna classifica disponibile: analisi non riuscita."
+        }
+        ("it", "rust", "No storage source visible.") => {
+            "Nessuna origine di archiviazione visibile."
+        }
+        ("it", "rust", "Not collected") => "Non raccolto",
+        ("it", "rust", "Not queried") => "Non interrogato",
+        ("it", "rust", "Omitted from inventory") => "Omesso dall’inventario",
+        ("it", "rust", "Optical") => "Ottico",
+        ("it", "rust", "Owners and inventory are inconsistent") => {
+            "Proprietari e inventario incoerenti"
+        }
+        ("it", "rust", "Partial / cancelled scan: ranking of actually observed files only.") => {
+            "Analisi parziale / annullata: classifica dei soli file effettivamente osservati."
+        }
+        ("it", "rust", "Partial folder") => "Cartella parziale",
+        ("it", "rust", "Partial scan — some entries were not traversed") => {
+            "Analisi parziale — alcune voci non sono state esplorate"
+        }
+        ("it", "rust", "Paths not retained: no individual details available.") => {
+            "Percorsi non conservati: singoli dettagli non disponibili."
+        }
+        ("it", "rust", "Point-in-time measurements · capacities cannot be summed") => {
+            "Misurazioni puntuali · le capacità non sono sommabili"
+        }
+        ("it", "rust", "Preparing inventory…") => "Preparazione dell’inventario…",
+        ("it", "rust", "Processing stopped unexpectedly. You can restart the scan.") => {
+            "Elaborazione interrotta in modo imprevisto. Puoi riavviare l’analisi."
+        }
+        ("it", "rust", "Proportions of observed bytes only; incomplete coverage.") => {
+            "Proporzioni dei soli byte osservati; copertura incompleta."
+        }
+        ("it", "rust", "Removable") => "Rimovibile",
+        ("it", "rust", "Scan cancelled before retaining an entry; no inventory available.") => {
+            "Analisi annullata prima di conservare una voce; nessun inventario disponibile."
+        }
+        ("it", "rust", "Scan cancelled — partial results retained") => {
+            "Analisi annullata — risultati parziali conservati"
+        }
+        ("it", "rust", "Scan complete") => "Analisi completata",
+        ("it", "rust", "Scan failed.") => "Analisi non riuscita.",
+        ("it", "rust", "Scan in progress…") => "Analisi in corso…",
+        ("it", "rust", "Skipped link") => "Collegamento ignorato",
+        ("it", "rust", "Skipped special entry") => "Voce speciale ignorata",
+        (
+            "it",
+            "rust",
+            "The picker stopped without a result. Try again or enter the path manually.",
+        ) => {
+            "Il selettore si è chiuso senza un risultato. Riprova o inserisci il percorso manualmente."
+        }
+        ("it", "rust", "This folder is empty within the scanned scope.") => {
+            "Questa cartella è vuota nell’ambito analizzato."
+        }
+        ("it", "rust", "Unavailable") => "Non disponibile",
+        ("it", "rust", "Unknown") => "Sconosciuto",
+        ("it", "rust", "Unknown availability") => "Disponibilità sconosciuta",
+        ("it", "rust", "Unknown type") => "Tipo sconosciuto",
+        ("it", "rust", "Unsupported") => "Non supportato",
+        (
+            "it",
+            "rust",
+            "Bunny and Size @VERSION@ — free software, GPL-3.0-only\n\nYou may modify and redistribute this software under GNU GPL version 3 only. NO WARRANTY, including merchantability or fitness for a particular purpose, to the extent permitted by law; see sections 15 and 16.\n\nThe “Read the full GPLv3” button displays a complete offline copy of the license. The LICENSE file in the archive contains the same text.\n\nThird-party copyright notices are preserved in THIRD_PARTY_NOTICES.txt and licences/ beside the executable. Excerpts from the original Slint and Fluent icon notices:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: GPL-3.0-only option. Fluent icons: MIT.\n\nAUTHORS.txt lists Bunny and Size code contributors from Git; this list does not designate an exclusive copyright holder. No Bunny and Size copyright holder or year is inferred from these names.\n\nCorresponding source is the Bunny-and-Size-v@VERSION@-source archive for your platform, supplied with the binaries; its exact name and SHA-256 appear in BUILDINFO.json. When redistributing, give recipients effective access to corresponding source under GPLv3; an inaccessible private repository is insufficient.\n",
+        ) => {
+            "Bunny and Size @VERSION@ — software libero, GPL-3.0-only\n\nPuoi modificare e ridistribuire questo software esclusivamente secondo la GNU GPL versione 3. NESSUNA GARANZIA, incluse commerciabilità o idoneità a uno scopo particolare, nei limiti consentiti dalla legge; vedere le sezioni 15 e 16.\n\nIl pulsante «Leggi la GPLv3 integrale» mostra una copia completa della licenza disponibile offline. Il file LICENSE nell’archivio contiene lo stesso testo.\n\nGli avvisi di copyright di terzi sono conservati in THIRD_PARTY_NOTICES.txt e licences/ accanto all’eseguibile. Estratti dagli avvisi originali di Slint e delle icone Fluent:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: opzione GPL-3.0-only. Icone Fluent: MIT.\n\nAUTHORS.txt elenca i collaboratori al codice di Bunny and Size da Git; l’elenco non designa un titolare esclusivo del copyright. Da questi nomi non viene dedotto alcun titolare o anno di copyright di Bunny and Size.\n\nIl sorgente corrispondente è l’archivio Bunny-and-Size-v@VERSION@-source per la tua piattaforma, fornito con i binari; nome esatto e SHA-256 sono indicati in BUILDINFO.json. In caso di ridistribuzione, garantisci ai destinatari l’accesso effettivo al sorgente corrispondente secondo GPLv3; un repository privato inaccessibile non è sufficiente.\n"
+        }
+        ("it", "rust", "Choose a folder to scan.") => "Scegli una cartella da analizzare.",
+        ("it", "rust", "Could not access {}: {}") => "Impossibile accedere a {}: {}",
+        ("it", "rust", "The root {} must be a real folder, not a symbolic link") => {
+            "La radice {} deve essere una cartella reale, non un collegamento simbolico"
+        }
+        ("it", "rust", "Invalid scan options. Check worker count and traversal limits.") => {
+            "Opzioni di analisi non valide. Controlla lavoratori e limiti di esplorazione."
+        }
+        ("it", "rust", "Could not start a worker: {}") => "Impossibile avviare un lavoratore: {}",
+        ("it", "rust", "Observation stream failed: {}") => {
+            "Flusso di osservazione non riuscito: {}"
+        }
+        ("it", "rust", "An acquisition worker stopped unexpectedly") => {
+            "Un lavoratore di acquisizione si è interrotto in modo imprevisto"
+        }
+        ("it", "rust", "The sum of sizes exceeds the capacity of a 64-bit integer") => {
+            "La somma delle dimensioni supera la capacità di un intero a 64 bit"
+        }
+        (
+            "it",
+            "rust",
+            "Limited inventory: {}, {} (limits: {}, {} of native paths). Scan totals are preserved.",
+        ) => {
+            "Inventario limitato: {}, {} (limiti: {}, {} di percorsi nativi). Totali dell’analisi conservati."
+        }
+        ("it", "rust", "Scanner policy: {}. Rules: {}.") => {
+            "Criteri dello scanner: {}. Regole: {}."
+        }
+        (
+            "it",
+            "rust",
+            "Traversal budget reached: {}. Their descendants are not counted. Sizes are lower bounds. Limits: {} and {} of pending native paths.",
+        ) => {
+            "Limite di esplorazione raggiunto: {}. I discendenti non sono conteggiati. Le dimensioni sono limiti inferiori. Limiti: {} e {} di percorsi nativi in attesa."
+        }
+        ("it", "rust", " Limited ranking: {} (maximum {} native bytes per file).") => {
+            " Classifica limitata: {} (massimo {} byte nativi per file)."
+        }
+        (
+            "it",
+            "rust",
+            "{} · direct files: {} · direct subfolders: {}\nrecursive files: {} · recursive subfolders: {} · {}{}{}",
+        ) => {
+            "{} · file diretti: {} · sottocartelle dirette: {}\nfile ricorsivi: {} · sottocartelle ricorsive: {} · {}{}{}"
+        }
+        ("it", "rust", "A native path requires {}; the transmission budget is {}") => {
+            "Un percorso nativo richiede {}; il limite di trasmissione è {}"
+        }
+        ("it", "rust", "Resolution unavailable; native identifiers retained.") => {
+            "Risoluzione non disponibile; identificatori nativi conservati."
+        }
+        ("it", "rust", "Resolving page names…") => "Risoluzione dei nomi della pagina…",
+        (
+            "it",
+            "rust",
+            "Resolution suspended: waiting for previous provider or service unavailable.",
+        ) => "Risoluzione sospesa: attesa del fornitore precedente o servizio non disponibile.",
+        ("it", "rust", "Page names updated; native identifiers retained as fallback.") => {
+            "Nomi della pagina aggiornati; identificatori nativi conservati come ripiego."
+        }
+        ("it", "capacity", "Unknown") => "Sconosciuto",
+        ("it", "capacity", "Unsupported") => "Non supportato",
+        ("it", "rust", "Jan") => "gen",
+        ("it", "rust", "Feb") => "feb",
+        ("it", "rust", "Mar") => "mar",
+        ("it", "rust", "Apr") => "apr",
+        ("it", "rust", "May") => "mag",
+        ("it", "rust", "Jun") => "giu",
+        ("it", "rust", "Jul") => "lug",
+        ("it", "rust", "Aug") => "ago",
+        ("it", "rust", "Sep") => "set",
+        ("it", "rust", "Oct") => "ott",
+        ("it", "rust", "Nov") => "nov",
+        ("it", "rust", "Dec") => "dic",
+        (
+            "it",
+            "rust",
+            "Additional folder listing in progress. Initial scan totals are unchanged.",
+        ) => "Elenco aggiuntivo della cartella in corso. Totali dell’analisi iniziale invariati.",
+        (
+            "it",
+            "rust",
+            "Initial folder total: {}. Additional direct-child listing starting at entry {}. Contents may have changed.",
+        ) => {
+            "Totale iniziale della cartella: {}. Elenco aggiuntivo dei figli diretti dalla voce {}. Il contenuto potrebbe essere cambiato."
+        }
+        ("it", "rust", "Additional analysis in progress…") => "Analisi aggiuntiva in corso…",
+        ("it", "rust", "Additional analysis complete") => "Analisi aggiuntiva completata",
+        ("it", "rust", "Additional analysis — partial results") => {
+            "Analisi aggiuntiva — risultati parziali"
+        }
+        ("it", "rust", "Additional analysis cancelled — partial results retained") => {
+            "Analisi aggiuntiva annullata — risultati parziali conservati"
+        }
+        ("it", "rust", "Additional analysis failed.") => "Analisi aggiuntiva non riuscita.",
+        ("it", "rust", "Initial scan: {}") => "Analisi iniziale: {}",
+        (
+            "it",
+            "rust",
+            "Automatic scan unavailable: select an accessible local source. Other paths require an explicit scan.",
+        ) => {
+            "Analisi automatica non disponibile: seleziona un’origine locale accessibile. Altri percorsi richiedono un’analisi esplicita."
+        }
+        ("it", "rust", "Capacity unavailable") => "Capacità non disponibile",
+        ("it", "rust", "Total {} · Used {} · Free {} · Available {}") => {
+            "Totale {} · Usato {} · Libero {} · Disponibile {}"
+        }
+        ("it", "rust", "Usage unavailable") => "Utilizzo non disponibile",
+        ("it", "rust", "{} % used") => "{} % utilizzato",
+        (
+            "it",
+            "rust",
+            "Storage source changed or became unavailable. Refresh sources and select it again.",
+        ) => {
+            "L’origine di archiviazione è cambiata o non è più disponibile. Aggiorna le origini e selezionala di nuovo."
+        }
+        ("it", "rust", "All matched files") => "Tutti i file corrispondenti",
+        ("it", "rust", "Analysis worker stopped") => "Elaborazione dell’analisi interrotta",
+        ("it", "rust", "Incomplete coverage") => "Copertura incompleta",
+        ("it", "rust", "No extension") => "Nessuna estensione",
+        ("it", "rust", "Searching retained entries…") => "Ricerca nelle voci conservate…",
+        ("it", "rust", "Some values are unavailable") => "Alcuni valori non sono disponibili",
+        (
+            "it",
+            "rust",
+            "Exact groups: {} · bytes read: {} · hardlink aliases: {} · errors: {}.",
+        ) => "Gruppi esatti: {} · byte letti: {} · alias hardlink: {} · errori: {}.",
+        ("it", "rust", "1 KiB–<1 MiB") => "1 KiB–<1 MiB",
+        ("it", "rust", "1 MiB–<1 GiB") => "1 MiB–<1 GiB",
+        ("it", "rust", "1–1023 bytes") => "1–1023 byte",
+        ("it", "rust", "Access denied. Check operating-system permissions.") => {
+            "Accesso negato. Verificare i permessi del sistema."
+        }
+        ("it", "rust", "At least 1 GiB") => "Almeno 1 GiB",
+        (
+            "it",
+            "rust",
+            "Cancellation requested. A system or network read may take time to return.",
+        ) => {
+            "Annullamento richiesto. Una lettura di sistema o di rete può richiedere tempo per terminare."
+        }
+        ("it", "rust", "Cancelled. Only finished groups are shown.") => {
+            "Annullato. Sono mostrati solo i gruppi verificati."
+        }
+        ("it", "rust", "Cancelled. Only observed matches are shown.") => {
+            "Annullato. Sono mostrati solo i risultati già osservati."
+        }
+        (
+            "it",
+            "rust",
+            "Counts · known logical sizes per path. Unknown file sizes: {}. Hardlinks count as paths.",
+        ) => {
+            "Conteggi · dimensioni logiche note per percorso. Dimensioni sconosciute: {}. I collegamenti fisici contano per percorso."
+        }
+        ("it", "rust", "Empty files") => "File vuoti",
+        ("it", "rust", "Extensions: largest 32 · bars: known bytes") => {
+            "Estensioni: le 32 maggiori · barre: byte noti"
+        }
+        ("it", "rust", "File identity is unavailable on this storage.") => {
+            "L’identità del file non è disponibile su questa unità."
+        }
+        ("it", "rust", "File no longer accessible. Check the path or network connection.") => {
+            "Il file non è più accessibile. Verificare il percorso o la connessione di rete."
+        }
+        ("it", "rust", "Group {} · copy {} ·") => "Gruppo {} · copia {} ·",
+        (
+            "it",
+            "rust",
+            "Group {} · independent copies: {} · SHA-256: {} · byte-for-byte verified.",
+        ) => {
+            "Gruppo {} · copie indipendenti: {} · SHA-256: {} · uguaglianza verificata byte per byte."
+        }
+        ("it", "rust", "Hardlink alias") => "Alias di collegamento fisico",
+        ("it", "rust", "Invalid filter: check the glob and the limit of 4096 bytes per field.") => {
+            "Filtro non valido: verificare il glob e il limite di 4096 byte per campo."
+        }
+        ("it", "rust", "Invalid filter: minimum size must not exceed maximum size.") => {
+            "Filtro non valido: la dimensione minima non deve superare la massima."
+        }
+        (
+            "it",
+            "rust",
+            "Invalid filter: sizes must be whole bytes from 0 to 18446744073709551615.",
+        ) => "Filtro non valido: inserire byte interi da 0 a 18446744073709551615.",
+        (
+            "it",
+            "rust",
+            "Matches: {} · retained results: {} · omitted inventory entries: {} · unknown dates: {}. Logical file sizes per path.",
+        ) => {
+            "Risultati: {} · conservati: {} · voci d’inventario omesse: {} · date sconosciute: {}. Dimensioni logiche per percorso."
+        }
+        ("it", "rust", "Network read failed. Check the connection and retry.") => {
+            "Lettura di rete non riuscita. Verificare la connessione e riprovare."
+        }
+        ("it", "rust", "No exact duplicate group in the examined files.") => {
+            "Nessun gruppo di duplicati esatti nei file esaminati."
+        }
+        ("it", "rust", "No matching retained entry.") => "Nessuna voce conservata corrisponde.",
+        ("it", "rust", "Non-Unicode extension") => "Estensione non Unicode",
+        ("it", "rust", "Other extension groups: {} (included in totals)") => {
+            "Altri gruppi di estensioni: {} (inclusi nei totali)"
+        }
+        ("it", "rust", "Read budget or file-size limit reached. Results are incomplete.") => {
+            "Limite di lettura o di dimensione raggiunto. Risultati incompleti."
+        }
+        ("it", "rust", "Read failed or file changed. Rescan before retrying.") => {
+            "Lettura non riuscita o file modificato. Ripetere l’analisi prima di riprovare."
+        }
+        ("it", "rust", "Reading candidate files…") => "Lettura dei file candidati…",
+        ("it", "rust", "Reading contents: {} bytes · {} files hashed") => {
+            "Contenuto letto: {} byte · {} file con hash"
+        }
+        ("it", "rust", "Retained entries: {} · omitted: {}. Filters never rescan the source.") => {
+            "Voci conservate: {} · omesse: {}. I filtri non ripetono mai l’analisi dell’origine."
+        }
+        ("it", "rust", "Retained inventory") => "Inventario conservato",
+        ("it", "rust", "Rows {}–{} of {}") => "Righe {}–{} di {}",
+        (
+            "it",
+            "rust",
+            "SHA-256 candidates are compared byte for byte. Hardlink aliases are the same file.",
+        ) => {
+            "I candidati SHA-256 sono confrontati byte per byte. Gli alias di collegamenti fisici indicano lo stesso file."
+        }
+        ("it", "rust", "Size classes · bars: file counts") => {
+            "Classi di dimensione · barre: numero di file"
+        }
+        ("it", "rust", "Unknown size") => "Dimensione sconosciuta",
+        (
+            "it",
+            "rust",
+            "Waiting for the previous read to finish. Reopen Search / statistics afterwards.",
+        ) => "In attesa della lettura precedente. Poi riaprire Ricerca / statistiche.",
+        ("nl", "rust", " Independent of the limited inventory.") => {
+            " Onafhankelijk van de beperkte inventaris."
+        }
+        ("nl", "rust", " Limited inventory; omissions indicated, without individual paths.") => {
+            " Beperkte inventaris; weglatingen vermeld zonder afzonderlijke paden."
+        }
+        ("nl", "rust", " Logical sizes per path, not recoverable space.") => {
+            " Logische groottes per pad, geen vrij te maken ruimte."
+        }
+        ("nl", "rust", " No representable positive size; see the table.") => {
+            " Geen weer te geven positieve grootte; zie de tabel."
+        }
+        ("nl", "rust", " Path budget reached.") => " Padbudget bereikt.",
+        ("nl", "rust", " · limited inventory") => " · beperkte inventaris",
+        ("nl", "rust", " · partial scan") => " · gedeeltelijke analyse",
+        ("nl", "rust", "Access denied") => "Toegang geweigerd",
+        (
+            "nl",
+            "rust",
+            "Allocations, dates and inventory are inconsistent: different entry counts",
+        ) => "Toewijzingen, datums en inventaris komen niet overeen: verschillend aantal items",
+        ("nl", "rust", "Android prototype: SAF/MediaStore selection is not yet integrated.") => {
+            "Android-prototype: SAF/MediaStore-selectie is nog niet geïntegreerd."
+        }
+        ("nl", "rust", "Available") => "Beschikbaar",
+        ("nl", "rust", "Cancellation requested…") => "Annulering aangevraagd…",
+        ("nl", "rust", "Choose a folder to scan") => "Kies een map om te analyseren",
+        ("nl", "rust", "Could not open the picker: {}") => "Kan de kiezer niet openen: {}",
+        ("nl", "rust", "Could not start the scan.") => "Kan de analyse niet starten.",
+        ("nl", "rust", "Dates and inventory are inconsistent: different entry counts") => {
+            "Datums en inventaris komen niet overeen: verschillend aantal items"
+        }
+        ("nl", "rust", "Discovering…") => "Detecteren…",
+        ("nl", "rust", "Discovery failed. Try Refresh.") => "Detectie mislukt. Probeer Vernieuwen.",
+        ("nl", "rust", "Display limited to 256 sources · capacities cannot be summed") => {
+            "Weergave beperkt tot 256 bronnen · capaciteiten kunnen niet worden opgeteld"
+        }
+        ("nl", "rust", "Enter the path of a folder to scan.") => {
+            "Voer het pad in van een map om te analyseren."
+        }
+        ("nl", "rust", "File") => "Bestand",
+        ("nl", "rust", "Folder") => "Map",
+        ("nl", "rust", "Global ranking of the scanned scope.") => {
+            "Algemene ranglijst van het geanalyseerde bereik."
+        }
+        ("nl", "rust", "Inconsistent aggregates: proportions unavailable.") => {
+            "Inconsistente totalen: verhoudingen niet beschikbaar."
+        }
+        ("nl", "rust", "Individual entries available in the table.") => {
+            "Afzonderlijke items beschikbaar in de tabel."
+        }
+        ("nl", "rust", "Local") => "Lokaal",
+        ("nl", "rust", "Logical sizes · click: folder / file inspection.") => {
+            "Logische groottes · klik: map / bestand bekijken."
+        }
+        ("nl", "rust", "Network") => "Netwerk",
+        ("nl", "rust", "No accessible entry; the scan is partial.") => {
+            "Geen toegankelijk item; de analyse is gedeeltelijk."
+        }
+        ("nl", "rust", "No accessible entry; this folder scan is partial.") => {
+            "Geen toegankelijk item; deze mapanalyse is gedeeltelijk."
+        }
+        ("nl", "rust", "No entry retained for this folder; the inventory is limited.") => {
+            "Geen item voor deze map bewaard; de inventaris is beperkt."
+        }
+        ("nl", "rust", "No entry retained in the scanned scope.") => {
+            "Geen item bewaard binnen het geanalyseerde bereik."
+        }
+        ("nl", "rust", "No inventory available for this folder.") => {
+            "Geen inventaris beschikbaar voor deze map."
+        }
+        ("nl", "rust", "No inventory available.") => "Geen inventaris beschikbaar.",
+        ("nl", "rust", "No ranking available: scan failed.") => {
+            "Geen ranglijst beschikbaar: analyse mislukt."
+        }
+        ("nl", "rust", "No storage source visible.") => "Geen opslagbron zichtbaar.",
+        ("nl", "rust", "Not collected") => "Niet verzameld",
+        ("nl", "rust", "Not queried") => "Niet opgevraagd",
+        ("nl", "rust", "Omitted from inventory") => "Weggelaten uit inventaris",
+        ("nl", "rust", "Optical") => "Optisch",
+        ("nl", "rust", "Owners and inventory are inconsistent") => {
+            "Eigenaren en inventaris komen niet overeen"
+        }
+        ("nl", "rust", "Partial / cancelled scan: ranking of actually observed files only.") => {
+            "Gedeeltelijke / geannuleerde analyse: ranglijst van alleen werkelijk waargenomen bestanden."
+        }
+        ("nl", "rust", "Partial folder") => "Gedeeltelijke map",
+        ("nl", "rust", "Partial scan — some entries were not traversed") => {
+            "Gedeeltelijke analyse — sommige items zijn niet doorlopen"
+        }
+        ("nl", "rust", "Paths not retained: no individual details available.") => {
+            "Paden niet bewaard: geen afzonderlijke details beschikbaar."
+        }
+        ("nl", "rust", "Point-in-time measurements · capacities cannot be summed") => {
+            "Momentopnamen · capaciteiten kunnen niet worden opgeteld"
+        }
+        ("nl", "rust", "Preparing inventory…") => "Inventaris voorbereiden…",
+        ("nl", "rust", "Processing stopped unexpectedly. You can restart the scan.") => {
+            "Verwerking onverwacht gestopt. U kunt de analyse opnieuw starten."
+        }
+        ("nl", "rust", "Proportions of observed bytes only; incomplete coverage.") => {
+            "Verhoudingen van alleen waargenomen bytes; onvolledige dekking."
+        }
+        ("nl", "rust", "Removable") => "Verwisselbaar",
+        ("nl", "rust", "Scan cancelled before retaining an entry; no inventory available.") => {
+            "Analyse geannuleerd voordat een item werd bewaard; geen inventaris beschikbaar."
+        }
+        ("nl", "rust", "Scan cancelled — partial results retained") => {
+            "Analyse geannuleerd — gedeeltelijke resultaten bewaard"
+        }
+        ("nl", "rust", "Scan complete") => "Analyse voltooid",
+        ("nl", "rust", "Scan failed.") => "Analyse mislukt.",
+        ("nl", "rust", "Scan in progress…") => "Analyse bezig…",
+        ("nl", "rust", "Skipped link") => "Koppeling overgeslagen",
+        ("nl", "rust", "Skipped special entry") => "Speciaal item overgeslagen",
+        (
+            "nl",
+            "rust",
+            "The picker stopped without a result. Try again or enter the path manually.",
+        ) => "De kiezer is gestopt zonder resultaat. Probeer opnieuw of voer het pad handmatig in.",
+        ("nl", "rust", "This folder is empty within the scanned scope.") => {
+            "Deze map is leeg binnen het geanalyseerde bereik."
+        }
+        ("nl", "rust", "Unavailable") => "Niet beschikbaar",
+        ("nl", "rust", "Unknown") => "Onbekend",
+        ("nl", "rust", "Unknown availability") => "Beschikbaarheid onbekend",
+        ("nl", "rust", "Unknown type") => "Type onbekend",
+        ("nl", "rust", "Unsupported") => "Niet ondersteund",
+        (
+            "nl",
+            "rust",
+            "Bunny and Size @VERSION@ — free software, GPL-3.0-only\n\nYou may modify and redistribute this software under GNU GPL version 3 only. NO WARRANTY, including merchantability or fitness for a particular purpose, to the extent permitted by law; see sections 15 and 16.\n\nThe “Read the full GPLv3” button displays a complete offline copy of the license. The LICENSE file in the archive contains the same text.\n\nThird-party copyright notices are preserved in THIRD_PARTY_NOTICES.txt and licences/ beside the executable. Excerpts from the original Slint and Fluent icon notices:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: GPL-3.0-only option. Fluent icons: MIT.\n\nAUTHORS.txt lists Bunny and Size code contributors from Git; this list does not designate an exclusive copyright holder. No Bunny and Size copyright holder or year is inferred from these names.\n\nCorresponding source is the Bunny-and-Size-v@VERSION@-source archive for your platform, supplied with the binaries; its exact name and SHA-256 appear in BUILDINFO.json. When redistributing, give recipients effective access to corresponding source under GPLv3; an inaccessible private repository is insufficient.\n",
+        ) => {
+            "Bunny and Size @VERSION@ — vrije software, GPL-3.0-only\n\nU mag deze software uitsluitend onder GNU GPL versie 3 wijzigen en verspreiden. GEEN GARANTIE, ook niet op verkoopbaarheid of geschiktheid voor een bepaald doel, voor zover wettelijk toegestaan; zie secties 15 en 16.\n\nDe knop «Volledige GPLv3 lezen» toont een volledige offlinekopie van de licentie. Het bestand LICENSE in het archief bevat dezelfde tekst.\n\nCopyrightvermeldingen van derden blijven bewaard in THIRD_PARTY_NOTICES.txt en licences/ naast het uitvoerbare bestand. Fragmenten uit de oorspronkelijke kennisgevingen van Slint en Fluent-pictogrammen:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: GPL-3.0-only-optie. Fluent-pictogrammen: MIT.\n\nAUTHORS.txt vermeldt de codebijdragers aan Bunny and Size uit Git; deze lijst wijst geen exclusieve auteursrechthebbende aan. Uit deze namen wordt geen auteursrechthebbende of copyrightjaar voor Bunny and Size afgeleid.\n\nDe bijbehorende broncode is het archief Bunny-and-Size-v@VERSION@-source voor uw platform, meegeleverd met de binaire bestanden; de exacte naam en SHA-256 staan in BUILDINFO.json. Geef ontvangers bij herdistributie daadwerkelijk toegang tot de bijbehorende broncode onder GPLv3; een ontoegankelijke privérepository volstaat niet.\n"
+        }
+        ("nl", "rust", "Choose a folder to scan.") => "Kies een map om te analyseren.",
+        ("nl", "rust", "Could not access {}: {}") => "Geen toegang tot {}: {}",
+        ("nl", "rust", "The root {} must be a real folder, not a symbolic link") => {
+            "De hoofdmap {} moet een echte map zijn, geen symbolische koppeling"
+        }
+        ("nl", "rust", "Invalid scan options. Check worker count and traversal limits.") => {
+            "Ongeldige analyseopties. Controleer het aantal werkers en de doorlooplimieten."
+        }
+        ("nl", "rust", "Could not start a worker: {}") => "Kan een werker niet starten: {}",
+        ("nl", "rust", "Observation stream failed: {}") => "Waarnemingsstroom mislukt: {}",
+        ("nl", "rust", "An acquisition worker stopped unexpectedly") => {
+            "Een verzamelwerker is onverwacht gestopt"
+        }
+        ("nl", "rust", "The sum of sizes exceeds the capacity of a 64-bit integer") => {
+            "De som van de groottes overschrijdt de capaciteit van een 64-bits geheel getal"
+        }
+        (
+            "nl",
+            "rust",
+            "Limited inventory: {}, {} (limits: {}, {} of native paths). Scan totals are preserved.",
+        ) => {
+            "Beperkte inventaris: {}, {} (limieten: {}, {} aan systeempaden). Analysetotalen blijven behouden."
+        }
+        ("nl", "rust", "Scanner policy: {}. Rules: {}.") => "Scannerbeleid: {}. Regels: {}.",
+        (
+            "nl",
+            "rust",
+            "Traversal budget reached: {}. Their descendants are not counted. Sizes are lower bounds. Limits: {} and {} of pending native paths.",
+        ) => {
+            "Doorloopbudget bereikt: {}. Onderliggende items worden niet geteld. Groottes zijn ondergrenzen. Limieten: {} en {} aan wachtende systeempaden."
+        }
+        ("nl", "rust", " Limited ranking: {} (maximum {} native bytes per file).") => {
+            " Beperkte ranglijst: {} (maximaal {} systeembytes per bestand)."
+        }
+        (
+            "nl",
+            "rust",
+            "{} · direct files: {} · direct subfolders: {}\nrecursive files: {} · recursive subfolders: {} · {}{}{}",
+        ) => {
+            "{} · directe bestanden: {} · directe submappen: {}\nrecursieve bestanden: {} · recursieve submappen: {} · {}{}{}"
+        }
+        ("nl", "rust", "A native path requires {}; the transmission budget is {}") => {
+            "Een systeempad vereist {}; het overdrachtsbudget is {}"
+        }
+        ("nl", "rust", "Resolution unavailable; native identifiers retained.") => {
+            "Opzoeken niet beschikbaar; systeemidentificaties bewaard."
+        }
+        ("nl", "rust", "Resolving page names…") => "Namen op deze pagina opzoeken…",
+        (
+            "nl",
+            "rust",
+            "Resolution suspended: waiting for previous provider or service unavailable.",
+        ) => "Opzoeken onderbroken: wachten op vorige aanbieder of dienst niet beschikbaar.",
+        ("nl", "rust", "Page names updated; native identifiers retained as fallback.") => {
+            "Paginanamen bijgewerkt; systeemidentificaties bewaard als terugval."
+        }
+        ("nl", "capacity", "Unknown") => "Onbekend",
+        ("nl", "capacity", "Unsupported") => "Niet ondersteund",
+        ("nl", "rust", "Jan") => "jan",
+        ("nl", "rust", "Feb") => "feb",
+        ("nl", "rust", "Mar") => "mrt",
+        ("nl", "rust", "Apr") => "apr",
+        ("nl", "rust", "May") => "mei",
+        ("nl", "rust", "Jun") => "jun",
+        ("nl", "rust", "Jul") => "jul",
+        ("nl", "rust", "Aug") => "aug",
+        ("nl", "rust", "Sep") => "sep",
+        ("nl", "rust", "Oct") => "okt",
+        ("nl", "rust", "Nov") => "nov",
+        ("nl", "rust", "Dec") => "dec",
+        (
+            "nl",
+            "rust",
+            "Additional folder listing in progress. Initial scan totals are unchanged.",
+        ) => "Aanvullende maplijst bezig. Totalen van de eerste analyse blijven ongewijzigd.",
+        (
+            "nl",
+            "rust",
+            "Initial folder total: {}. Additional direct-child listing starting at entry {}. Contents may have changed.",
+        ) => {
+            "Oorspronkelijk maptotaal: {}. Aanvullende lijst van directe onderliggende items vanaf item {}. De inhoud kan gewijzigd zijn."
+        }
+        ("nl", "rust", "Additional analysis in progress…") => "Aanvullende analyse bezig…",
+        ("nl", "rust", "Additional analysis complete") => "Aanvullende analyse voltooid",
+        ("nl", "rust", "Additional analysis — partial results") => {
+            "Aanvullende analyse — gedeeltelijke resultaten"
+        }
+        ("nl", "rust", "Additional analysis cancelled — partial results retained") => {
+            "Aanvullende analyse geannuleerd — gedeeltelijke resultaten bewaard"
+        }
+        ("nl", "rust", "Additional analysis failed.") => "Aanvullende analyse mislukt.",
+        ("nl", "rust", "Initial scan: {}") => "Eerste analyse: {}",
+        (
+            "nl",
+            "rust",
+            "Automatic scan unavailable: select an accessible local source. Other paths require an explicit scan.",
+        ) => {
+            "Automatische analyse niet beschikbaar: selecteer een toegankelijke lokale bron. Andere paden vereisen een uitdrukkelijke analyse."
+        }
+        ("nl", "rust", "Capacity unavailable") => "Capaciteit niet beschikbaar",
+        ("nl", "rust", "Total {} · Used {} · Free {} · Available {}") => {
+            "Totaal {} · Gebruikt {} · Vrij {} · Beschikbaar {}"
+        }
+        ("nl", "rust", "Usage unavailable") => "Gebruik niet beschikbaar",
+        ("nl", "rust", "{} % used") => "{} % gebruikt",
+        (
+            "nl",
+            "rust",
+            "Storage source changed or became unavailable. Refresh sources and select it again.",
+        ) => {
+            "De opslagbron is gewijzigd of niet meer beschikbaar. Vernieuw de bronnen en selecteer deze opnieuw."
+        }
+        ("nl", "rust", "All matched files") => "Alle overeenkomende bestanden",
+        ("nl", "rust", "Analysis worker stopped") => "Analysewerker gestopt",
+        ("nl", "rust", "Incomplete coverage") => "Onvolledige dekking",
+        ("nl", "rust", "No extension") => "Geen extensie",
+        ("nl", "rust", "Searching retained entries…") => "Bewaarde items doorzoeken…",
+        ("nl", "rust", "Some values are unavailable") => "Sommige waarden zijn niet beschikbaar",
+        (
+            "nl",
+            "rust",
+            "Exact groups: {} · bytes read: {} · hardlink aliases: {} · errors: {}.",
+        ) => "Exacte groepen: {} · gelezen bytes: {} · hardlinkaliassen: {} · fouten: {}.",
+        ("nl", "rust", "1 KiB–<1 MiB") => "1 KiB–<1 MiB",
+        ("nl", "rust", "1 MiB–<1 GiB") => "1 MiB–<1 GiB",
+        ("nl", "rust", "1–1023 bytes") => "1–1023 bytes",
+        ("nl", "rust", "Access denied. Check operating-system permissions.") => {
+            "Toegang geweigerd. Controleer de systeemmachtigingen."
+        }
+        ("nl", "rust", "At least 1 GiB") => "Minstens 1 GiB",
+        (
+            "nl",
+            "rust",
+            "Cancellation requested. A system or network read may take time to return.",
+        ) => {
+            "Annulering aangevraagd. Een systeem- of netwerklezing kan enige tijd nodig hebben om te eindigen."
+        }
+        ("nl", "rust", "Cancelled. Only finished groups are shown.") => {
+            "Geannuleerd. Alleen volledig gecontroleerde groepen worden getoond."
+        }
+        ("nl", "rust", "Cancelled. Only observed matches are shown.") => {
+            "Geannuleerd. Alleen reeds waargenomen resultaten worden getoond."
+        }
+        (
+            "nl",
+            "rust",
+            "Counts · known logical sizes per path. Unknown file sizes: {}. Hardlinks count as paths.",
+        ) => {
+            "Aantallen · bekende logische groottes per pad. Onbekende bestandsgroottes: {}. Harde koppelingen tellen per pad."
+        }
+        ("nl", "rust", "Empty files") => "Lege bestanden",
+        ("nl", "rust", "Extensions: largest 32 · bars: known bytes") => {
+            "Extensies: de 32 grootste · balken: bekende bytes"
+        }
+        ("nl", "rust", "File identity is unavailable on this storage.") => {
+            "De bestandsidentiteit is niet beschikbaar op deze opslag."
+        }
+        ("nl", "rust", "File no longer accessible. Check the path or network connection.") => {
+            "Bestand niet meer toegankelijk. Controleer het pad of de netwerkverbinding."
+        }
+        ("nl", "rust", "Group {} · copy {} ·") => "Groep {} · kopie {} ·",
+        (
+            "nl",
+            "rust",
+            "Group {} · independent copies: {} · SHA-256: {} · byte-for-byte verified.",
+        ) => {
+            "Groep {} · onafhankelijke kopieën: {} · SHA-256: {} · gelijkheid byte voor byte gecontroleerd."
+        }
+        ("nl", "rust", "Hardlink alias") => "Alias van harde koppeling",
+        ("nl", "rust", "Invalid filter: check the glob and the limit of 4096 bytes per field.") => {
+            "Ongeldig filter: controleer het globpatroon en de limiet van 4096 bytes per veld."
+        }
+        ("nl", "rust", "Invalid filter: minimum size must not exceed maximum size.") => {
+            "Ongeldig filter: de minimumgrootte mag de maximumgrootte niet overschrijden."
+        }
+        (
+            "nl",
+            "rust",
+            "Invalid filter: sizes must be whole bytes from 0 to 18446744073709551615.",
+        ) => "Ongeldig filter: groottes moeten gehele bytes van 0 tot 18446744073709551615 zijn.",
+        (
+            "nl",
+            "rust",
+            "Matches: {} · retained results: {} · omitted inventory entries: {} · unknown dates: {}. Logical file sizes per path.",
+        ) => {
+            "Resultaten: {} · bewaard: {} · overgeslagen inventarisitems: {} · onbekende datums: {}. Logische groottes per pad."
+        }
+        ("nl", "rust", "Network read failed. Check the connection and retry.") => {
+            "Netwerklezing mislukt. Controleer de verbinding en probeer opnieuw."
+        }
+        ("nl", "rust", "No exact duplicate group in the examined files.") => {
+            "Geen groep exacte duplicaten in de onderzochte bestanden."
+        }
+        ("nl", "rust", "No matching retained entry.") => "Geen overeenkomend bewaard item.",
+        ("nl", "rust", "Non-Unicode extension") => "Niet-Unicode-extensie",
+        ("nl", "rust", "Other extension groups: {} (included in totals)") => {
+            "Overige extensiegroepen: {} (inbegrepen in totalen)"
+        }
+        ("nl", "rust", "Read budget or file-size limit reached. Results are incomplete.") => {
+            "Leesbudget of maximale bestandsgrootte bereikt. Resultaten zijn onvolledig."
+        }
+        ("nl", "rust", "Read failed or file changed. Rescan before retrying.") => {
+            "Lezen mislukt of bestand gewijzigd. Analyseer opnieuw voordat u het nogmaals probeert."
+        }
+        ("nl", "rust", "Reading candidate files…") => "Kandidaatbestanden worden gelezen…",
+        ("nl", "rust", "Reading contents: {} bytes · {} files hashed") => {
+            "Inhoud gelezen: {} bytes · {} bestanden gehasht"
+        }
+        ("nl", "rust", "Retained entries: {} · omitted: {}. Filters never rescan the source.") => {
+            "Bewaarde items: {} · overgeslagen: {}. Filters analyseren de bron nooit opnieuw."
+        }
+        ("nl", "rust", "Retained inventory") => "Bewaarde inventaris",
+        ("nl", "rust", "Rows {}–{} of {}") => "Rijen {}–{} van {}",
+        (
+            "nl",
+            "rust",
+            "SHA-256 candidates are compared byte for byte. Hardlink aliases are the same file.",
+        ) => {
+            "SHA-256-kandidaten worden byte voor byte vergeleken. Aliassen van harde koppelingen zijn hetzelfde bestand."
+        }
+        ("nl", "rust", "Size classes · bars: file counts") => {
+            "Grootteklassen · balken: aantallen bestanden"
+        }
+        ("nl", "rust", "Unknown size") => "Onbekende grootte",
+        (
+            "nl",
+            "rust",
+            "Waiting for the previous read to finish. Reopen Search / statistics afterwards.",
+        ) => "Wachten op de vorige lezing. Open Zoeken / statistieken daarna opnieuw.",
         ("pt", "rust", " Independent of the limited inventory.") => {
             " Independente do inventário limitado."
         }
@@ -1017,6 +2110,121 @@ pub(crate) fn translation(language: &str, context: &str, source: &str) -> Option
         ) => {
             "A origem de armazenamento mudou ou ficou indisponível. Atualize as origens e selecione-a novamente."
         }
+        ("pt", "rust", "All matched files") => "Todos os ficheiros correspondentes",
+        ("pt", "rust", "Analysis worker stopped") => "A análise foi interrompida",
+        ("pt", "rust", "Incomplete coverage") => "Cobertura incompleta",
+        ("pt", "rust", "No extension") => "Sem extensão",
+        ("pt", "rust", "Searching retained entries…") => "A pesquisar nas entradas retidas…",
+        ("pt", "rust", "Some values are unavailable") => "Alguns valores estão indisponíveis",
+        (
+            "pt",
+            "rust",
+            "Exact groups: {} · bytes read: {} · hardlink aliases: {} · errors: {}.",
+        ) => "Grupos exatos: {} · bytes lidos: {} · aliases de ligações físicas: {} · erros: {}.",
+        ("pt", "rust", "1 KiB–<1 MiB") => "1 KiB–<1 MiB",
+        ("pt", "rust", "1 MiB–<1 GiB") => "1 MiB–<1 GiB",
+        ("pt", "rust", "1–1023 bytes") => "1–1023 bytes",
+        ("pt", "rust", "Access denied. Check operating-system permissions.") => {
+            "Acesso negado. Verifique as permissões do sistema."
+        }
+        ("pt", "rust", "At least 1 GiB") => "Pelo menos 1 GiB",
+        (
+            "pt",
+            "rust",
+            "Cancellation requested. A system or network read may take time to return.",
+        ) => "Cancelamento pedido. Uma leitura do sistema ou da rede pode demorar a terminar.",
+        ("pt", "rust", "Cancelled. Only finished groups are shown.") => {
+            "Cancelado. Apenas são apresentados os grupos verificados."
+        }
+        ("pt", "rust", "Cancelled. Only observed matches are shown.") => {
+            "Cancelado. Apenas são apresentados os resultados já observados."
+        }
+        (
+            "pt",
+            "rust",
+            "Counts · known logical sizes per path. Unknown file sizes: {}. Hardlinks count as paths.",
+        ) => {
+            "Contagens · tamanhos lógicos conhecidos por caminho. Tamanhos desconhecidos: {}. As ligações físicas contam por caminho."
+        }
+        ("pt", "rust", "Empty files") => "Ficheiros vazios",
+        ("pt", "rust", "Extensions: largest 32 · bars: known bytes") => {
+            "Extensões: as 32 maiores · barras: bytes conhecidos"
+        }
+        ("pt", "rust", "File identity is unavailable on this storage.") => {
+            "A identidade do ficheiro não está disponível neste armazenamento."
+        }
+        ("pt", "rust", "File no longer accessible. Check the path or network connection.") => {
+            "O ficheiro já não está acessível. Verifique o caminho ou a ligação de rede."
+        }
+        ("pt", "rust", "Group {} · copy {} ·") => "Grupo {} · cópia {} ·",
+        (
+            "pt",
+            "rust",
+            "Group {} · independent copies: {} · SHA-256: {} · byte-for-byte verified.",
+        ) => {
+            "Grupo {} · cópias independentes: {} · SHA-256: {} · igualdade verificada byte a byte."
+        }
+        ("pt", "rust", "Hardlink alias") => "Alias de ligação física",
+        ("pt", "rust", "Invalid filter: check the glob and the limit of 4096 bytes per field.") => {
+            "Filtro inválido: verifique o padrão glob e o limite de 4096 bytes por campo."
+        }
+        ("pt", "rust", "Invalid filter: minimum size must not exceed maximum size.") => {
+            "Filtro inválido: o tamanho mínimo não pode exceder o máximo."
+        }
+        (
+            "pt",
+            "rust",
+            "Invalid filter: sizes must be whole bytes from 0 to 18446744073709551615.",
+        ) => "Filtro inválido: os tamanhos devem ser bytes inteiros de 0 a 18446744073709551615.",
+        (
+            "pt",
+            "rust",
+            "Matches: {} · retained results: {} · omitted inventory entries: {} · unknown dates: {}. Logical file sizes per path.",
+        ) => {
+            "Resultados: {} · retidos: {} · entradas de inventário omitidas: {} · datas desconhecidas: {}. Tamanhos lógicos por caminho."
+        }
+        ("pt", "rust", "Network read failed. Check the connection and retry.") => {
+            "Falha de leitura da rede. Verifique a ligação e tente novamente."
+        }
+        ("pt", "rust", "No exact duplicate group in the examined files.") => {
+            "Nenhum grupo de duplicados exatos nos ficheiros examinados."
+        }
+        ("pt", "rust", "No matching retained entry.") => "Nenhuma entrada retida corresponde.",
+        ("pt", "rust", "Non-Unicode extension") => "Extensão não Unicode",
+        ("pt", "rust", "Other extension groups: {} (included in totals)") => {
+            "Outros grupos de extensões: {} (incluídos nos totais)"
+        }
+        ("pt", "rust", "Read budget or file-size limit reached. Results are incomplete.") => {
+            "Orçamento de leitura ou tamanho máximo atingido. Resultados incompletos."
+        }
+        ("pt", "rust", "Read failed or file changed. Rescan before retrying.") => {
+            "Falha de leitura ou ficheiro alterado. Volte a analisar antes de tentar novamente."
+        }
+        ("pt", "rust", "Reading candidate files…") => "A ler ficheiros candidatos…",
+        ("pt", "rust", "Reading contents: {} bytes · {} files hashed") => {
+            "Conteúdo lido: {} bytes · {} ficheiros com hash"
+        }
+        ("pt", "rust", "Retained entries: {} · omitted: {}. Filters never rescan the source.") => {
+            "Entradas retidas: {} · omitidas: {}. Os filtros nunca voltam a analisar a origem."
+        }
+        ("pt", "rust", "Retained inventory") => "Inventário retido",
+        ("pt", "rust", "Rows {}–{} of {}") => "Linhas {}–{} de {}",
+        (
+            "pt",
+            "rust",
+            "SHA-256 candidates are compared byte for byte. Hardlink aliases are the same file.",
+        ) => {
+            "Os candidatos SHA-256 são comparados byte a byte. Os aliases de ligações físicas são o mesmo ficheiro."
+        }
+        ("pt", "rust", "Size classes · bars: file counts") => {
+            "Classes de tamanho · barras: número de ficheiros"
+        }
+        ("pt", "rust", "Unknown size") => "Tamanho desconhecido",
+        (
+            "pt",
+            "rust",
+            "Waiting for the previous read to finish. Reopen Search / statistics afterwards.",
+        ) => "A aguardar a leitura anterior. Depois volte a abrir Pesquisa / estatísticas.",
         _ => return None,
     })
 }
@@ -1025,6 +2233,8 @@ pub(crate) fn plural(language: &str, context: &str, source: &str, n: u64) -> Opt
         "de" => (u64::from((n) != (1u64))) as usize,
         "es" => (u64::from((n) != (1u64))) as usize,
         "fr" => (u64::from((n) > (1u64))) as usize,
+        "it" => (u64::from((n) != (1u64))) as usize,
+        "nl" => (u64::from((n) != (1u64))) as usize,
         "pt" => (u64::from((n) != (1u64))) as usize,
         _ => return None,
     };
@@ -1177,6 +2387,104 @@ pub(crate) fn plural(language: &str, context: &str, source: &str, n: u64) -> Opt
         ("fr", "rust", "Name resolution: {n} identity remaining on this page.") => &[
             "Résolution des noms : {n} identité restante sur cette page.",
             "Résolution des noms : {n} identités restantes sur cette page.",
+        ],
+        ("it", "rust", "{n} file") => &["{n} file", "{n} file"],
+        ("it", "rust", "{n} folder") => &["{n} cartella", "{n} cartelle"],
+        ("it", "rust", "{n} error") => &["{n} errore", "{n} errori"],
+        ("it", "rust", "{n} byte") => &["{n} byte", "{n} byte"],
+        ("it", "rust", "{n} skipped link") => {
+            &["{n} collegamento ignorato", "{n} collegamenti ignorati"]
+        }
+        ("it", "rust", "{n} concurrent folder") => {
+            &["{n} cartella contemporanea", "{n} cartelle contemporanee"]
+        }
+        ("it", "rust", "{n} additional detail omitted") => &[
+            "{n} dettaglio aggiuntivo omesso",
+            "{n} dettagli aggiuntivi omessi",
+        ],
+        ("it", "rust", "Others ({n} entry)") => &["Altre ({n} voce)", "Altre ({n} voci)"],
+        ("it", "rust", " Others: {n} grouped entry, available in the table.") => &[
+            " Altre: {n} voce raggruppata, disponibile nella tabella.",
+            " Altre: {n} voci raggruppate, disponibili nella tabella.",
+        ],
+        ("it", "rust", " {n} zero size without area.") => &[
+            " {n} dimensione zero senza area.",
+            " {n} dimensioni zero senza area.",
+        ],
+        ("it", "rust", " {n} unknown / unmeasured size, without area.") => &[
+            " {n} dimensione sconosciuta / non misurata, senza area.",
+            " {n} dimensioni sconosciute / non misurate, senza area.",
+        ],
+        ("it", "rust", " · {n} mount, same storage") => &[
+            " · {n} montaggio, stessa unità",
+            " · {n} montaggi, stessa unità",
+        ],
+        ("it", "rust", "{n} retained entry") => &["{n} voce conservata", "{n} voci conservate"],
+        ("it", "rust", "{n} entry not displayed") => {
+            &["{n} voce non visualizzata", "{n} voci non visualizzate"]
+        }
+        ("it", "rust", "{n} entry") => &["{n} voce", "{n} voci"],
+        ("it", "rust", "{n} excluded entry") => &["{n} voce esclusa", "{n} voci escluse"],
+        ("it", "rust", "{n} observed folder not traversed") => &[
+            "{n} cartella osservata non esplorata",
+            "{n} cartelle osservate non esplorate",
+        ],
+        ("it", "rust", "{n} oversized path omitted") => &[
+            "{n} percorso troppo lungo omesso",
+            "{n} percorsi troppo lunghi omessi",
+        ],
+        ("it", "rust", "Name resolution: {n} identity remaining on this page.") => &[
+            "Risoluzione dei nomi: {n} identità rimanente nella pagina.",
+            "Risoluzione dei nomi: {n} identità rimanenti nella pagina.",
+        ],
+        ("nl", "rust", "{n} file") => &["{n} bestand", "{n} bestanden"],
+        ("nl", "rust", "{n} folder") => &["{n} map", "{n} mappen"],
+        ("nl", "rust", "{n} error") => &["{n} fout", "{n} fouten"],
+        ("nl", "rust", "{n} byte") => &["{n} byte", "{n} bytes"],
+        ("nl", "rust", "{n} skipped link") => {
+            &["{n} overgeslagen koppeling", "{n} overgeslagen koppelingen"]
+        }
+        ("nl", "rust", "{n} concurrent folder") => {
+            &["{n} gelijktijdige map", "{n} gelijktijdige mappen"]
+        }
+        ("nl", "rust", "{n} additional detail omitted") => &[
+            "{n} aanvullend detail weggelaten",
+            "{n} aanvullende details weggelaten",
+        ],
+        ("nl", "rust", "Others ({n} entry)") => &["Overige ({n} item)", "Overige ({n} items)"],
+        ("nl", "rust", " Others: {n} grouped entry, available in the table.") => &[
+            " Overige: {n} gegroepeerd item, beschikbaar in de tabel.",
+            " Overige: {n} gegroepeerde items, beschikbaar in de tabel.",
+        ],
+        ("nl", "rust", " {n} zero size without area.") => &[
+            " {n} nulgrootte zonder oppervlak.",
+            " {n} nulgroottes zonder oppervlak.",
+        ],
+        ("nl", "rust", " {n} unknown / unmeasured size, without area.") => &[
+            " {n} onbekende / ongemeten grootte, zonder oppervlak.",
+            " {n} onbekende / ongemeten groottes, zonder oppervlak.",
+        ],
+        ("nl", "rust", " · {n} mount, same storage") => &[
+            " · {n} koppelpunt, dezelfde opslag",
+            " · {n} koppelpunten, dezelfde opslag",
+        ],
+        ("nl", "rust", "{n} retained entry") => &["{n} bewaard item", "{n} bewaarde items"],
+        ("nl", "rust", "{n} entry not displayed") => {
+            &["{n} item niet weergegeven", "{n} items niet weergegeven"]
+        }
+        ("nl", "rust", "{n} entry") => &["{n} item", "{n} items"],
+        ("nl", "rust", "{n} excluded entry") => &["{n} uitgesloten item", "{n} uitgesloten items"],
+        ("nl", "rust", "{n} observed folder not traversed") => &[
+            "{n} waargenomen map niet doorlopen",
+            "{n} waargenomen mappen niet doorlopen",
+        ],
+        ("nl", "rust", "{n} oversized path omitted") => &[
+            "{n} te lang pad weggelaten",
+            "{n} te lange paden weggelaten",
+        ],
+        ("nl", "rust", "Name resolution: {n} identity remaining on this page.") => &[
+            "Namen opzoeken: {n} resterende identiteit op deze pagina.",
+            "Namen opzoeken: {n} resterende identiteiten op deze pagina.",
         ],
         ("pt", "rust", "{n} file") => &["{n} ficheiro", "{n} ficheiros"],
         ("pt", "rust", "{n} folder") => &["{n} pasta", "{n} pastas"],

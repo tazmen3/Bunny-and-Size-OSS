@@ -37,6 +37,113 @@ export component LegalWindow inherits Window {
     }
 }
 
+export struct AnalysisRow { id: int, label: string, size: string, fraction: float, }
+export component AnalysisWindow inherits Window {
+    title: @tr("ui" => "Search / statistics");
+    preferred-width: 1000px; preferred-height: 650px;
+    min-width: 780px; min-height: 520px;
+    background: #edf2f7;
+    in-out property <string> name-filter;
+    in-out property <string> path-filter;
+    in-out property <string> extension-filter;
+    in-out property <string> glob-filter;
+    in-out property <string> min-filter;
+    in-out property <string> max-filter;
+    in-out property <bool> case-sensitive: false;
+    in-out property <int> sort-order: 0;
+    in property <string> source-path;
+    in property <string> scope-note;
+    in property <string> statistics-note;
+    in property <string> result-note;
+    in property <string> diagnostic-text;
+    in property <string> empty-message;
+    in property <bool> duplicates-visible;
+    in-out property <bool> errors-visible: false;
+    in property <string> page-label;
+    in property <bool> has-previous;
+    in property <bool> has-next;
+    in property <int> selected-id: -1;
+    in-out property <bool> statistics-visible: false;
+    in property <bool> busy: false;
+    in property <string> status;
+    in property <[AnalysisRow]> results;
+    in property <[AnalysisRow]> statistics;
+    callback search();
+    callback duplicates();
+    callback cancel();
+    callback reveal(int);
+    callback change-page(bool);
+    callback change-sort();
+    out property <float> name-input-x: name-input.absolute-position.x / 1px;
+    out property <float> name-input-y: name-input.absolute-position.y / 1px;
+    out property <float> result-viewport-height: result-list.height / 1px;
+    out property <float> result-list-x: result-list.absolute-position.x / 1px;
+    out property <float> result-list-y: result-list.absolute-position.y / 1px;
+    out property <float> next-button-x: next-button.absolute-position.x / 1px;
+    out property <float> next-button-y: next-button.absolute-position.y / 1px;
+    VerticalLayout {
+        padding: 10px; spacing: 6px;
+        LineEdit { text: root.source-path; read-only: true; accessible-label: @tr("ui" => "Analysis source"); }
+        ScrollView {
+            min-height: 80px; preferred-height: 118px; max-height: 170px; vertical-stretch: 0;
+            horizontal-scrollbar-policy: always-off;
+            VerticalLayout {
+                width: parent.visible-width - 18px; spacing: 6px;
+                HorizontalLayout {
+                    name-input := LineEdit { text <=> root.name-filter; enabled: !root.busy; placeholder-text: @tr("ui" => "Name contains"); accessible-label: @tr("ui" => "Name contains"); accepted => { root.search(); } }
+                    LineEdit { text <=> root.path-filter; enabled: !root.busy; placeholder-text: @tr("ui" => "Path contains"); accessible-label: @tr("ui" => "Path contains"); accepted => { root.search(); } }
+                }
+                HorizontalLayout {
+                    LineEdit { text <=> root.extension-filter; enabled: !root.busy; placeholder-text: @tr("ui" => "Extension"); accessible-label: @tr("ui" => "Extension"); accepted => { root.search(); } }
+                    LineEdit { text <=> root.glob-filter; enabled: !root.busy; placeholder-text: @tr("ui" => "Relative path glob"); accessible-label: @tr("ui" => "Relative path glob"); accepted => { root.search(); } }
+                }
+                HorizontalLayout {
+                    LineEdit { text <=> root.min-filter; enabled: !root.busy; placeholder-text: @tr("ui" => "Minimum bytes"); accessible-label: @tr("ui" => "Minimum bytes"); accepted => { root.search(); } }
+                    LineEdit { text <=> root.max-filter; enabled: !root.busy; placeholder-text: @tr("ui" => "Maximum bytes"); accessible-label: @tr("ui" => "Maximum bytes"); accepted => { root.search(); } }
+                }
+
+            }
+        }
+        HorizontalLayout {
+            CheckBox { text: @tr("ui" => "Case sensitive"); checked <=> root.case-sensitive; enabled: !root.busy; }
+            ComboBox { model: [@tr("ui" => "Path"), @tr("ui" => "Size: smallest first"), @tr("ui" => "Size: largest first")]; current-index <=> root.sort-order; enabled: !root.busy && !root.duplicates-visible; selected => { root.change-sort(); } }
+        }
+        HorizontalLayout {
+            Button { text: @tr("ui" => "Search"); enabled: !root.busy; clicked => { root.search(); } }
+            Button { text: @tr("ui" => "Cancel"); enabled: root.busy; clicked => { root.cancel(); } }
+            CheckBox { text: @tr("ui" => "Statistics"); checked <=> root.statistics-visible; }
+            Button { visible: root.diagnostic-text != ""; text: @tr("ui" => "Read errors"); clicked => { root.errors-visible = !root.errors-visible; } }
+        }
+        Button { text: @tr("ui" => "Find exact duplicates (reads files)"); enabled: !root.busy; clicked => { root.duplicates(); } }
+        Text { text: @tr("ui" => "Read-only. No files will be deleted."); wrap: word-wrap; font-size: 12px; }
+        TextEdit {
+            text: root.errors-visible && root.diagnostic-text != "" ? root.diagnostic-text : root.status + "\n" + root.scope-note + (root.statistics-visible ? "\n" + root.statistics-note : root.duplicates-visible ? "\n" + root.result-note : "") + (root.empty-message != "" ? "\n" + root.empty-message : "");
+            read-only: true; min-height: 56px; preferred-height: 76px; max-height: 96px; vertical-stretch: 0;
+            accessible-label: root.errors-visible && root.diagnostic-text != "" ? @tr("ui" => "Read errors") : @tr("ui" => "Analysis status and coverage");
+        }
+        HorizontalLayout {
+            visible: !root.statistics-visible; min-height: 0px; max-height: root.statistics-visible ? 0px : 40px;
+            Button { text: @tr("ui" => "Previous"); enabled: !root.busy && root.has-previous; clicked => { root.change-page(false); } }
+            Text { text: root.page-label; vertical-alignment: center; horizontal-stretch: 1; }
+            next-button := Button { text: @tr("ui" => "Next"); enabled: !root.busy && root.has-next; clicked => { root.change-page(true); } }
+        }
+        result-list := ListView {
+            min-height: 80px; horizontal-scrollbar-policy: always-off;
+            for row in (root.statistics-visible ? root.statistics : root.results): Rectangle {
+                height: 38px; width: max(0px, result-list.visible-width - 18px);
+                background: row.id >= 0 && row.id == root.selected-id ? #dcecf7 : #ffffff;
+                Rectangle { height: 4px; y: parent.height - 4px; width: parent.width * row.fraction; background: #23658a; }
+                HorizontalLayout {
+                    padding: 3px; spacing: 8px;
+                    if row.id >= 0: Button { text: @tr("ui" => "Show"); enabled: !root.busy; clicked => { root.reveal(row.id); } }
+                    LineEdit { text: row.label; read-only: true; accessible-label: row.label; horizontal-stretch: 1; }
+                    Text { text: row.size; min-width: 150px; horizontal-stretch: 0; horizontal-alignment: right; vertical-alignment: center; }
+                }
+            }
+        }
+    }
+}
+
 export struct ColumnSetting { label: string, shown: bool, pixels: float, }
 export struct VolumeRow {
     name: string, summary: string, state: string,
@@ -124,6 +231,7 @@ export component SortSizeWindow inherits Window {
     in property <bool> language-fallback: false;
     in property <int> unavailable-language: 0;
     in property <bool> language-failed: false;
+    callback show-analysis();
     callback set-language(int);
     callback set-column(int, bool);
     callback set-units(bool);
@@ -223,6 +331,7 @@ export component SortSizeWindow inherits Window {
             Text { text: @tr("ui" => "Storage analysis"); color: #4c6175; font-size: 13px; horizontal-stretch: 1; vertical-alignment: center; }
             Text { text: @tr("ui" => "READ ONLY"); color: #226747; font-size: 11px; vertical-alignment: center; }
             Button { text: @tr("ui" => "Columns and display"); accessible-label: @tr("ui" => "Configure columns and units"); clicked => { root.preferences-open = !root.preferences-open; } }
+            Button { text: @tr("ui" => "Search / statistics"); enabled: !root.busy && root.rows.length > 0; clicked => { root.show-analysis(); } }
             Button { text: @tr("ui" => "About / Licenses"); clicked => { root.show-legal(); } }
         }
         HorizontalLayout {
@@ -438,7 +547,7 @@ export component SortSizeWindow inherits Window {
                             }
                         }
                         }
-                        if !root.compact-view: Text { text: @tr("ui" => "LOCAL SOURCE"); color: #4c6175; font-size: 10px; font-weight: 600; }
+                        if !root.compact-view: Text { text: @tr("ui" => "SOURCE"); color: #4c6175; font-size: 10px; font-weight: 600; }
                         if root.owner-status != "": Text { text: root.owner-status; color: #4c6175; font-size: 11px; wrap: word-wrap; }
                         Text { text: (root.compact-view ? @tr("ui" => "Logical per path · links not followed\nAllocated: repeated hardlinks") : @tr("ui" => "Logical sizes per path\nAllocated: per path, repeated hardlinks\nLinks not followed")) + (root.sort-order == 4 || root.sort-order == 5 ? @tr("ui" => "\nAllocated sort: ≥ = known bound\nProvisional ranking") : ""); color: #4c6175; font-size: root.compact-view ? 10px : 12px; wrap: word-wrap; }
                     }
@@ -675,7 +784,7 @@ export component SortSizeWindow inherits Window {
             HorizontalLayout {
                 Text { text: @tr("ui" => "Language"); vertical-alignment: center; }
                 ComboBox {
-                    model: [@tr("ui" => "Automatic (system)"), @tr("ui" => "English"), @tr("ui" => "Français"), @tr("ui" => "Deutsch"), @tr("ui" => "Español"), @tr("ui" => "Português (Portugal)")];
+                    model: [@tr("ui" => "Automatic (system)"), @tr("ui" => "English"), @tr("ui" => "Français"), @tr("ui" => "Deutsch"), @tr("ui" => "Español"), @tr("ui" => "Português (Portugal)"), @tr("ui" => "Italiano"), @tr("ui" => "Nederlands")];
                     current-index: root.language-choice;
                     accessible-label: @tr("ui" => "Interface language");
                     selected(value) => { root.set-language(self.current-index); }
@@ -683,12 +792,12 @@ export component SortSizeWindow inherits Window {
             }
             Text {
                 text: @tr("ui" => "Detected system locale: {}", root.detected-language) + "\n" +
-                    @tr("ui" => "Active language: {}", [@tr("ui" => "English"), @tr("ui" => "Français"), @tr("ui" => "Deutsch"), @tr("ui" => "Español"), @tr("ui" => "Português (Portugal)")][root.effective-language]);
+                    @tr("ui" => "Active language: {}", [@tr("ui" => "English"), @tr("ui" => "Français"), @tr("ui" => "Deutsch"), @tr("ui" => "Español"), @tr("ui" => "Português (Portugal)"), @tr("ui" => "Italiano"), @tr("ui" => "Nederlands")][root.effective-language]);
                 font-size: 11px; color: #4c6175; wrap: word-wrap;
             }
             if root.language-fallback || root.language-failed: Text {
                 text: root.language-failed ? @tr("ui" => "Could not activate the language; previous language retained.") :
-                    @tr("ui" => "Requested catalog ({}) unavailable; using English. Saved preference retained.", [@tr("ui" => "English"), @tr("ui" => "Français"), @tr("ui" => "Deutsch"), @tr("ui" => "Español"), @tr("ui" => "Português (Portugal)")][root.unavailable-language]);
+                    @tr("ui" => "Requested catalog ({}) unavailable; using English. Saved preference retained.", [@tr("ui" => "English"), @tr("ui" => "Français"), @tr("ui" => "Deutsch"), @tr("ui" => "Español"), @tr("ui" => "Português (Portugal)"), @tr("ui" => "Italiano"), @tr("ui" => "Nederlands")][root.unavailable-language]);
                 font-size: 11px; color: #845112; wrap: word-wrap;
             }
             ListView {

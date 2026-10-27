@@ -1326,3 +1326,14 @@ i-slint-backend-winit 1.18.1 + #94 | GPL-3.0-only | vendored GUI runtime/build
   licences/vendor/i-slint-backend-winit-1.18.1/LICENSES/LicenseRef-Slint-Royalty-free-2.0.md
   licences/vendor/i-slint-backend-winit-1.18.1/LICENSES/LicenseRef-Slint-Software-3.0.md
   licences/vendor/provenance.json
+
+
+V0.4 additions, selected MIT; original MIT and Apache texts retained below licences/v04/.
+block-buffer-0.10.4 | MIT OR Apache-2.0 | selected MIT
+cpufeatures-0.2.17 | MIT OR Apache-2.0 | selected MIT
+crypto-common-0.1.7 | MIT OR Apache-2.0 | selected MIT
+digest-0.10.7 | MIT OR Apache-2.0 | selected MIT
+generic-array-0.14.7 | MIT | selected MIT
+sha2-0.10.9 | MIT OR Apache-2.0 | selected MIT
+typenum-1.20.1 | MIT OR Apache-2.0 | selected MIT
+version_check-0.9.5 | MIT/Apache-2.0 | selected MIT

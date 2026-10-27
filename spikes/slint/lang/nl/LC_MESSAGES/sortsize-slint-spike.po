@@ -1,0 +1,1440 @@
+msgid ""
+msgstr "Project-Id-Version: sortsize-slint-spike 0.3.0-dev\nLanguage: nl\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "rust"
+msgid " Independent of the limited inventory."
+msgstr " Onafhankelijk van de beperkte inventaris."
+
+msgctxt "rust"
+msgid " Limited inventory; omissions indicated, without individual paths."
+msgstr " Beperkte inventaris; weglatingen vermeld zonder afzonderlijke paden."
+
+msgctxt "rust"
+msgid " Logical sizes per path, not recoverable space."
+msgstr " Logische groottes per pad, geen vrij te maken ruimte."
+
+msgctxt "rust"
+msgid " No representable positive size; see the table."
+msgstr " Geen weer te geven positieve grootte; zie de tabel."
+
+msgctxt "rust"
+msgid " Path budget reached."
+msgstr " Padbudget bereikt."
+
+msgctxt "rust"
+msgid " · limited inventory"
+msgstr " · beperkte inventaris"
+
+msgctxt "rust"
+msgid " · partial scan"
+msgstr " · gedeeltelijke analyse"
+
+msgctxt "rust"
+msgid "Access denied"
+msgstr "Toegang geweigerd"
+
+msgctxt "rust"
+msgid "Allocations, dates and inventory are inconsistent: different entry counts"
+msgstr "Toewijzingen, datums en inventaris komen niet overeen: verschillend aantal items"
+
+msgctxt "rust"
+msgid "Android prototype: SAF/MediaStore selection is not yet integrated."
+msgstr "Android-prototype: SAF/MediaStore-selectie is nog niet geïntegreerd."
+
+msgctxt "rust"
+msgid "Available"
+msgstr "Beschikbaar"
+
+msgctxt "rust"
+msgid "Cancellation requested…"
+msgstr "Annulering aangevraagd…"
+
+msgctxt "rust"
+msgid "Choose a folder to scan"
+msgstr "Kies een map om te analyseren"
+
+msgctxt "rust"
+msgid "Could not open the picker: {}"
+msgstr "Kan de kiezer niet openen: {}"
+
+msgctxt "rust"
+msgid "Could not start the scan."
+msgstr "Kan de analyse niet starten."
+
+msgctxt "rust"
+msgid "Dates and inventory are inconsistent: different entry counts"
+msgstr "Datums en inventaris komen niet overeen: verschillend aantal items"
+
+msgctxt "rust"
+msgid "Discovering…"
+msgstr "Detecteren…"
+
+msgctxt "rust"
+msgid "Discovery failed. Try Refresh."
+msgstr "Detectie mislukt. Probeer Vernieuwen."
+
+msgctxt "rust"
+msgid "Display limited to 256 sources · capacities cannot be summed"
+msgstr "Weergave beperkt tot 256 bronnen · capaciteiten kunnen niet worden opgeteld"
+
+msgctxt "rust"
+msgid "Enter the path of a folder to scan."
+msgstr "Voer het pad in van een map om te analyseren."
+
+msgctxt "rust"
+msgid "File"
+msgstr "Bestand"
+
+msgctxt "rust"
+msgid "Folder"
+msgstr "Map"
+
+msgctxt "rust"
+msgid "Global ranking of the scanned scope."
+msgstr "Algemene ranglijst van het geanalyseerde bereik."
+
+msgctxt "rust"
+msgid "Inconsistent aggregates: proportions unavailable."
+msgstr "Inconsistente totalen: verhoudingen niet beschikbaar."
+
+msgctxt "rust"
+msgid "Individual entries available in the table."
+msgstr "Afzonderlijke items beschikbaar in de tabel."
+
+msgctxt "rust"
+msgid "Local"
+msgstr "Lokaal"
+
+msgctxt "rust"
+msgid "Logical sizes · click: folder / file inspection."
+msgstr "Logische groottes · klik: map / bestand bekijken."
+
+msgctxt "rust"
+msgid "Network"
+msgstr "Netwerk"
+
+msgctxt "rust"
+msgid "No accessible entry; the scan is partial."
+msgstr "Geen toegankelijk item; de analyse is gedeeltelijk."
+
+msgctxt "rust"
+msgid "No accessible entry; this folder scan is partial."
+msgstr "Geen toegankelijk item; deze mapanalyse is gedeeltelijk."
+
+msgctxt "rust"
+msgid "No entry retained for this folder; the inventory is limited."
+msgstr "Geen item voor deze map bewaard; de inventaris is beperkt."
+
+msgctxt "rust"
+msgid "No entry retained in the scanned scope."
+msgstr "Geen item bewaard binnen het geanalyseerde bereik."
+
+msgctxt "rust"
+msgid "No inventory available for this folder."
+msgstr "Geen inventaris beschikbaar voor deze map."
+
+msgctxt "rust"
+msgid "No inventory available."
+msgstr "Geen inventaris beschikbaar."
+
+msgctxt "rust"
+msgid "No ranking available: scan failed."
+msgstr "Geen ranglijst beschikbaar: analyse mislukt."
+
+msgctxt "rust"
+msgid "No storage source visible."
+msgstr "Geen opslagbron zichtbaar."
+
+msgctxt "rust"
+msgid "Not collected"
+msgstr "Niet verzameld"
+
+msgctxt "rust"
+msgid "Not queried"
+msgstr "Niet opgevraagd"
+
+msgctxt "rust"
+msgid "Omitted from inventory"
+msgstr "Weggelaten uit inventaris"
+
+msgctxt "rust"
+msgid "Optical"
+msgstr "Optisch"
+
+msgctxt "rust"
+msgid "Owners and inventory are inconsistent"
+msgstr "Eigenaren en inventaris komen niet overeen"
+
+msgctxt "rust"
+msgid "Partial / cancelled scan: ranking of actually observed files only."
+msgstr "Gedeeltelijke / geannuleerde analyse: ranglijst van alleen werkelijk waargenomen bestanden."
+
+msgctxt "rust"
+msgid "Partial folder"
+msgstr "Gedeeltelijke map"
+
+msgctxt "rust"
+msgid "Partial scan — some entries were not traversed"
+msgstr "Gedeeltelijke analyse — sommige items zijn niet doorlopen"
+
+msgctxt "rust"
+msgid "Paths not retained: no individual details available."
+msgstr "Paden niet bewaard: geen afzonderlijke details beschikbaar."
+
+msgctxt "rust"
+msgid "Point-in-time measurements · capacities cannot be summed"
+msgstr "Momentopnamen · capaciteiten kunnen niet worden opgeteld"
+
+msgctxt "rust"
+msgid "Preparing inventory…"
+msgstr "Inventaris voorbereiden…"
+
+msgctxt "rust"
+msgid "Processing stopped unexpectedly. You can restart the scan."
+msgstr "Verwerking onverwacht gestopt. U kunt de analyse opnieuw starten."
+
+msgctxt "rust"
+msgid "Proportions of observed bytes only; incomplete coverage."
+msgstr "Verhoudingen van alleen waargenomen bytes; onvolledige dekking."
+
+msgctxt "rust"
+msgid "Removable"
+msgstr "Verwisselbaar"
+
+msgctxt "rust"
+msgid "Scan cancelled before retaining an entry; no inventory available."
+msgstr "Analyse geannuleerd voordat een item werd bewaard; geen inventaris beschikbaar."
+
+msgctxt "rust"
+msgid "Scan cancelled — partial results retained"
+msgstr "Analyse geannuleerd — gedeeltelijke resultaten bewaard"
+
+msgctxt "rust"
+msgid "Scan complete"
+msgstr "Analyse voltooid"
+
+msgctxt "rust"
+msgid "Scan failed."
+msgstr "Analyse mislukt."
+
+msgctxt "rust"
+msgid "Scan in progress…"
+msgstr "Analyse bezig…"
+
+msgctxt "rust"
+msgid "Skipped link"
+msgstr "Koppeling overgeslagen"
+
+msgctxt "rust"
+msgid "Skipped special entry"
+msgstr "Speciaal item overgeslagen"
+
+msgctxt "rust"
+msgid "The picker stopped without a result. Try again or enter the path manually."
+msgstr "De kiezer is gestopt zonder resultaat. Probeer opnieuw of voer het pad handmatig in."
+
+msgctxt "rust"
+msgid "This folder is empty within the scanned scope."
+msgstr "Deze map is leeg binnen het geanalyseerde bereik."
+
+msgctxt "rust"
+msgid "Unavailable"
+msgstr "Niet beschikbaar"
+
+msgctxt "rust"
+msgid "Unknown"
+msgstr "Onbekend"
+
+msgctxt "rust"
+msgid "Unknown availability"
+msgstr "Beschikbaarheid onbekend"
+
+msgctxt "rust"
+msgid "Unknown type"
+msgstr "Type onbekend"
+
+msgctxt "rust"
+msgid "Unsupported"
+msgstr "Niet ondersteund"
+
+msgctxt "ui"
+msgid "\nAllocated sort: ≥ = known bound\nProvisional ranking"
+msgstr "\nSortering toegewezen: ≥ = bekende grens\nVoorlopige ranglijst"
+
+msgctxt "ui"
+msgid "1 folder at a time"
+msgstr "1 map tegelijk"
+
+msgctxt "ui"
+msgid "2 folders in parallel"
+msgstr "2 mappen parallel"
+
+msgctxt "ui"
+msgid "4 folders in parallel"
+msgstr "4 mappen parallel"
+
+msgctxt "ui"
+msgid "8 folders in parallel"
+msgstr "8 mappen parallel"
+
+msgctxt "ui"
+msgid "; according to system policy; sort newest to oldest, then reverse"
+msgstr "; volgens systeembeleid; sorteer van nieuw naar oud en daarna omgekeerd"
+
+msgctxt "ui"
+msgid "; sort newest to oldest, then reverse"
+msgstr "; sorteer van nieuw naar oud en daarna omgekeerd"
+
+msgctxt "ui"
+msgid "About / Licenses"
+msgstr "Over / Licenties"
+
+msgctxt "ui"
+msgid "Accessed newest"
+msgstr "Laatst geopend: nieuwste"
+
+msgctxt "ui"
+msgid "Accessed oldest"
+msgstr "Laatst geopend: oudste"
+
+msgctxt "ui"
+msgid "Allocated / Per path"
+msgstr "Toegewezen / Per pad"
+
+msgctxt "ui"
+msgid "Allocated size"
+msgstr "Toegewezen grootte"
+
+msgctxt "ui"
+msgid "Allocated ↑"
+msgstr "Toegewezen ↑"
+
+msgctxt "ui"
+msgid "Allocated ↓"
+msgstr "Toegewezen ↓"
+
+msgctxt "ui"
+msgid "Arrows · Enter · Backspace"
+msgstr "Pijlen · Enter · Backspace"
+
+msgctxt "ui"
+msgid "Binary (KiB, MiB, GiB)"
+msgstr "Binair (KiB, MiB, GiB)"
+
+msgctxt "ui"
+msgid "Browse…"
+msgstr "Bladeren…"
+
+msgctxt "ui"
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgctxt "ui"
+msgid "Cancel the scan or owner resolution"
+msgstr "Analyse of opzoeken van eigenaren annuleren"
+
+msgctxt "ui"
+msgid "Cancelling…"
+msgstr "Annuleren…"
+
+msgctxt "ui"
+msgid "Choose a folder to scan"
+msgstr "Kies een map om te analyseren"
+
+msgctxt "ui"
+msgid "Choose a folder to scan."
+msgstr "Kies een map om te analyseren."
+
+msgctxt "ui"
+msgid "Close"
+msgstr "Sluiten"
+
+msgctxt "ui"
+msgid "Collect allocated sizes"
+msgstr "Toegewezen groottes verzamelen"
+
+msgctxt "ui"
+msgid "Collect allocated sizes during the next scan"
+msgstr "Toegewezen groottes verzamelen bij de volgende analyse"
+
+msgctxt "ui"
+msgid "Collect native owners during the next scan"
+msgstr "Systeemeigenaren verzamelen bij de volgende analyse"
+
+msgctxt "ui"
+msgid "Collect owners"
+msgstr "Eigenaren verzamelen"
+
+msgctxt "ui"
+msgid "Columns and display"
+msgstr "Kolommen en weergave"
+
+msgctxt "ui"
+msgid "Configure columns and units"
+msgstr "Kolommen en eenheden instellen"
+
+msgctxt "ui"
+msgid "Could not read preferences; using defaults."
+msgstr "Kan voorkeuren niet lezen; standaardinstellingen worden gebruikt."
+
+msgctxt "ui"
+msgid "Could not save; preferences kept for this session."
+msgstr "Kan niet opslaan; voorkeuren blijven voor deze sessie bewaard."
+
+msgctxt "ui"
+msgid "Current folder"
+msgstr "Huidige map"
+
+msgctxt "ui"
+msgid "Decimal (kB, MB, GB)"
+msgstr "Decimaal (kB, MB, GB)"
+
+msgctxt "ui"
+msgid "Explicitly allow name resolution; NSS or Active Directory may access the network"
+msgstr "Sta het opzoeken van namen uitdrukkelijk toe; NSS of Active Directory kan het netwerk gebruiken"
+
+msgctxt "ui"
+msgid "FOLDER CONTENTS · "
+msgstr "MAPINHOUD · "
+
+msgctxt "ui"
+msgid "FOLDERS"
+msgstr "MAPPEN"
+
+msgctxt "ui"
+msgid "File retained in the inventory."
+msgstr "Bestand bewaard in de inventaris."
+
+msgctxt "ui"
+msgid "Focus the Treemap"
+msgstr "Focus op de boomkaart"
+
+msgctxt "ui"
+msgid "Folder share"
+msgstr "Mapaandeel"
+
+msgctxt "ui"
+msgid "Folder to scan"
+msgstr "Te analyseren map"
+
+msgctxt "ui"
+msgid "Folders scanned concurrently"
+msgstr "Gelijktijdig geanalyseerde mappen"
+
+msgctxt "ui"
+msgid "Full GPLv3 text"
+msgstr "Volledige GPLv3-tekst"
+
+msgctxt "ui"
+msgid "Full entry path"
+msgstr "Volledig pad van het item"
+
+msgctxt "ui"
+msgid "Full native path of the ranked file, non-Unicode units escaped"
+msgstr "Volledig systeempad van het gerangschikte bestand, niet-Unicode-eenheden geëscapet"
+
+msgctxt "ui"
+msgid "Full path"
+msgstr "Volledig pad"
+
+msgctxt "ui"
+msgid "Go to the parent folder"
+msgstr "Naar bovenliggende map"
+
+msgctxt "ui"
+msgid "Invalid preferences or unsupported version; using defaults."
+msgstr "Ongeldige voorkeuren of niet-ondersteunde versie; standaardinstellingen worden gebruikt."
+
+msgctxt "ui"
+msgid "SOURCE"
+msgstr "BRON"
+
+msgctxt "ui"
+msgid "LOGICAL SIZE"
+msgstr "LOGISCHE GROOTTE"
+
+msgctxt "ui"
+msgid "Last accessed"
+msgstr "Laatst geopend"
+
+msgctxt "ui"
+msgid "Last accessed (UTC)"
+msgstr "Laatst geopend (UTC)"
+
+msgctxt "ui"
+msgid "Last modified"
+msgstr "Laatst gewijzigd"
+
+msgctxt "ui"
+msgid "Logical per path · links not followed\nAllocated: repeated hardlinks"
+msgstr "Logisch per pad · koppelingen niet gevolgd\nToegewezen: herhaalde hardlinks"
+
+msgctxt "ui"
+msgid "Logical size"
+msgstr "Logische grootte"
+
+msgctxt "ui"
+msgid "Logical sizes per path\nAllocated: per path, repeated hardlinks\nLinks not followed"
+msgstr "Logische groottes per pad\nToegewezen: per pad, herhaalde hardlinks\nKoppelingen niet gevolgd"
+
+msgctxt "ui"
+msgid "Modified newest"
+msgstr "Gewijzigd: nieuwste"
+
+msgctxt "ui"
+msgid "Modified oldest"
+msgstr "Gewijzigd: oudste"
+
+msgctxt "ui"
+msgid "Name"
+msgstr "Naam"
+
+msgctxt "ui"
+msgid "Name (always visible)"
+msgstr "Naam (altijd zichtbaar)"
+
+msgctxt "ui"
+msgid "Name ↑"
+msgstr "Naam ↑"
+
+msgctxt "ui"
+msgid "Name ↓"
+msgstr "Naam ↓"
+
+msgctxt "ui"
+msgid "Next"
+msgstr "Volgende"
+
+msgctxt "ui"
+msgid "Next page of folders"
+msgstr "Volgende pagina met mappen"
+
+msgctxt "ui"
+msgid "No file observed in this scope."
+msgstr "Geen bestand waargenomen binnen dit bereik."
+
+msgctxt "ui"
+msgid "No folder selected"
+msgstr "Geen map geselecteerd"
+
+msgctxt "ui"
+msgid "No inventory"
+msgstr "Geen inventaris"
+
+msgctxt "ui"
+msgid "No measured area"
+msgstr "Geen gemeten oppervlak"
+
+msgctxt "ui"
+msgid "Notices and rights"
+msgstr "Kennisgevingen en rechten"
+
+msgctxt "ui"
+msgid "Notices, rights and warranty disclaimer"
+msgstr "Kennisgevingen, rechten en uitsluiting van garantie"
+
+msgctxt "ui"
+msgid "Owner"
+msgstr "Eigenaar"
+
+msgctxt "ui"
+msgid "Owner ↑"
+msgstr "Eigenaar ↑"
+
+msgctxt "ui"
+msgid "Owner ↓"
+msgstr "Eigenaar ↓"
+
+msgctxt "ui"
+msgid "Owners"
+msgstr "Eigenaren"
+
+msgctxt "ui"
+msgid "Path absent from retained inventory; no node to reveal."
+msgstr "Pad ontbreekt in de bewaarde inventaris; geen knooppunt om te tonen."
+
+msgctxt "ui"
+msgid "Path of the current folder"
+msgstr "Pad van de huidige map"
+
+msgctxt "ui"
+msgid "Path of the folder to scan"
+msgstr "Pad van de te analyseren map"
+
+msgctxt "ui"
+msgid "Preferences saved."
+msgstr "Voorkeuren opgeslagen."
+
+msgctxt "ui"
+msgid "Previous"
+msgstr "Vorige"
+
+msgctxt "ui"
+msgid "Previous page of folders"
+msgstr "Vorige pagina met mappen"
+
+msgctxt "ui"
+msgid "Query capacities of network or unknown sources; network access possible"
+msgstr "Capaciteiten van netwerkbronnen of onbekende bronnen opvragen; netwerktoegang mogelijk"
+
+msgctxt "ui"
+msgid "Query network / unknown type"
+msgstr "Netwerk / onbekend type opvragen"
+
+msgctxt "ui"
+msgid "READ ONLY"
+msgstr "ALLEEN LEZEN"
+
+msgctxt "ui"
+msgid "Rank"
+msgstr "Nr."
+
+msgctxt "ui"
+msgid "Read the full GPLv3"
+msgstr "Volledige GPLv3 lezen"
+
+msgctxt "ui"
+msgid "Recursive\nfiles"
+msgstr "Recursieve\nbestanden"
+
+msgctxt "ui"
+msgid "Recursive\nfolders"
+msgstr "Recursieve\nmappen"
+
+msgctxt "ui"
+msgid "Recursive files"
+msgstr "Recursieve bestanden"
+
+msgctxt "ui"
+msgid "Recursive folders"
+msgstr "Recursieve mappen"
+
+msgctxt "ui"
+msgid "Refresh"
+msgstr "Vernieuwen"
+
+msgctxt "ui"
+msgid "Reset display"
+msgstr "Weergave herstellen"
+
+msgctxt "ui"
+msgid "Resolve names (NSS / AD: network possible)"
+msgstr "Namen opzoeken (NSS / AD: netwerk mogelijk)"
+
+msgctxt "ui"
+msgid "Reveal in table"
+msgstr "In tabel tonen"
+
+msgctxt "ui"
+msgid "STORAGE SOURCES"
+msgstr "OPSLAGBRONNEN"
+
+msgctxt "ui"
+msgid "Saving unavailable for this session."
+msgstr "Opslaan niet beschikbaar voor deze sessie."
+
+msgctxt "ui"
+msgid "Saving…"
+msgstr "Opslaan…"
+
+msgctxt "ui"
+msgid "Scan"
+msgstr "Analyseren"
+
+msgctxt "ui"
+msgid "Select a file."
+msgstr "Selecteer een bestand."
+
+msgctxt "ui"
+msgid "Select a path to read it in full"
+msgstr "Selecteer een pad om het volledig te lezen"
+
+msgctxt "ui"
+msgid "Show or hide owner collection and resolution options"
+msgstr "Opties voor verzamelen en opzoeken van eigenaren tonen of verbergen"
+
+msgctxt "ui"
+msgid "Size"
+msgstr "Grootte"
+
+msgctxt "ui"
+msgid "Size ↑"
+msgstr "Grootte ↑"
+
+msgctxt "ui"
+msgid "Size ↓"
+msgstr "Grootte ↓"
+
+msgctxt "ui"
+msgid "Sort owners; apply names available at this time"
+msgstr "Eigenaren sorteren; namen toepassen die nu beschikbaar zijn"
+
+msgctxt "ui"
+msgid "Sort: "
+msgstr "Sorteren: "
+
+msgctxt "ui"
+msgid "Bunny and Size — About / Licenses"
+msgstr "Bunny and Size — Over / Licenties"
+
+msgctxt "ui"
+msgid "Start a scan to display the Top 100."
+msgstr "Start een analyse om de top 100 te tonen."
+
+msgctxt "ui"
+msgid "Start a scan to display the Treemap."
+msgstr "Start een analyse om de boomkaart te tonen."
+
+msgctxt "ui"
+msgid "Start a scan to explore a folder."
+msgstr "Start een analyse om een map te verkennen."
+
+msgctxt "ui"
+msgid "Stop resolution"
+msgstr "Opzoeken stoppen"
+
+msgctxt "ui"
+msgid "Storage analysis"
+msgstr "Opslaganalyse"
+
+msgctxt "ui"
+msgid "Switch between Top 100 and browsing"
+msgstr "Wisselen tussen top 100 en bladeren"
+
+msgctxt "ui"
+msgid "TOP 100 · LARGEST FILES"
+msgstr "TOP 100 · GROOTSTE BESTANDEN"
+
+msgctxt "ui"
+msgid "TREEMAP · LOGICAL SIZE"
+msgstr "BOOMKAART · LOGISCHE GROOTTE"
+
+msgctxt "ui"
+msgid "The name stays visible. The active sort is preserved."
+msgstr "De naam blijft zichtbaar. De actieve sortering blijft behouden."
+
+msgctxt "ui"
+msgid "Top 100"
+msgstr "Top 100"
+
+msgctxt "ui"
+msgid "Top 100, no file selected"
+msgstr "Top 100, geen bestand geselecteerd"
+
+msgctxt "ui"
+msgid "Tree / Treemap"
+msgstr "Boom / Boomkaart"
+
+msgctxt "ui"
+msgid "Treemap"
+msgstr "Boomkaart"
+
+msgctxt "ui"
+msgid "Treemap of observed logical sizes"
+msgstr "Boomkaart van waargenomen logische groottes"
+
+msgctxt "ui"
+msgid "Type / status"
+msgstr "Type / status"
+
+msgctxt "ui"
+msgid "Units"
+msgstr "Eenheden"
+
+msgctxt "ui"
+msgid "Units for displayed sizes"
+msgstr "Eenheden voor weergegeven groottes"
+
+msgctxt "ui"
+msgid "User directory unavailable; session preferences."
+msgstr "Gebruikersmap niet beschikbaar; sessievoorkeuren."
+
+msgctxt "ui"
+msgid "↑ Parent"
+msgstr "↑ Bovenliggende map"
+
+msgctxt "ui"
+msgid "↑ ↓ · Home / End: select · Enter: reveal in table"
+msgstr "↑ ↓ · Home / End: selecteren · Enter: in tabel tonen"
+
+msgctxt "rust"
+msgid "{n} file"
+msgid_plural "{n} files"
+msgstr[0] "{n} bestand"
+msgstr[1] "{n} bestanden"
+
+msgctxt "rust"
+msgid "{n} folder"
+msgid_plural "{n} folders"
+msgstr[0] "{n} map"
+msgstr[1] "{n} mappen"
+
+msgctxt "rust"
+msgid "{n} error"
+msgid_plural "{n} errors"
+msgstr[0] "{n} fout"
+msgstr[1] "{n} fouten"
+
+msgctxt "rust"
+msgid "{n} byte"
+msgid_plural "{n} bytes"
+msgstr[0] "{n} byte"
+msgstr[1] "{n} bytes"
+
+msgctxt "rust"
+msgid "{n} skipped link"
+msgid_plural "{n} skipped links"
+msgstr[0] "{n} overgeslagen koppeling"
+msgstr[1] "{n} overgeslagen koppelingen"
+
+msgctxt "rust"
+msgid "{n} concurrent folder"
+msgid_plural "{n} concurrent folders"
+msgstr[0] "{n} gelijktijdige map"
+msgstr[1] "{n} gelijktijdige mappen"
+
+msgctxt "rust"
+msgid "{n} additional detail omitted"
+msgid_plural "{n} additional details omitted"
+msgstr[0] "{n} aanvullend detail weggelaten"
+msgstr[1] "{n} aanvullende details weggelaten"
+
+msgctxt "rust"
+msgid "Others ({n} entry)"
+msgid_plural "Others ({n} entries)"
+msgstr[0] "Overige ({n} item)"
+msgstr[1] "Overige ({n} items)"
+
+msgctxt "rust"
+msgid " Others: {n} grouped entry, available in the table."
+msgid_plural " Others: {n} grouped entries, available in the table."
+msgstr[0] " Overige: {n} gegroepeerd item, beschikbaar in de tabel."
+msgstr[1] " Overige: {n} gegroepeerde items, beschikbaar in de tabel."
+
+msgctxt "rust"
+msgid " {n} zero size without area."
+msgid_plural " {n} zero sizes without area."
+msgstr[0] " {n} nulgrootte zonder oppervlak."
+msgstr[1] " {n} nulgroottes zonder oppervlak."
+
+msgctxt "rust"
+msgid " {n} unknown / unmeasured size, without area."
+msgid_plural " {n} unknown / unmeasured sizes, without area."
+msgstr[0] " {n} onbekende / ongemeten grootte, zonder oppervlak."
+msgstr[1] " {n} onbekende / ongemeten groottes, zonder oppervlak."
+
+msgctxt "rust"
+msgid " · {n} mount, same storage"
+msgid_plural " · {n} mounts, same storage"
+msgstr[0] " · {n} koppelpunt, dezelfde opslag"
+msgstr[1] " · {n} koppelpunten, dezelfde opslag"
+
+msgctxt "ui"
+msgid "Bunny and Size {} — About / Licenses"
+msgstr "Bunny and Size {} — Over / Licenties"
+
+msgctxt "ui"
+msgid "Bunny and Size {} — storage analysis"
+msgstr "Bunny and Size {} — opslaganalyse"
+
+msgctxt "ui"
+msgid "Browse {}"
+msgstr "Bladeren door {}"
+
+msgctxt "ui"
+msgid "Open folder {}, {}"
+msgstr "Map openen {}, {}"
+
+msgctxt "ui"
+msgid "Inspect file {}, {}"
+msgstr "Bestand bekijken {}, {}"
+
+msgctxt "ui"
+msgid "Group {}, {}"
+msgstr "Groep {}, {}"
+
+msgctxt "ui"
+msgid "Collapse {}"
+msgstr "{} inklappen"
+
+msgctxt "ui"
+msgid "Expand {}"
+msgstr "{} uitklappen"
+
+msgctxt "ui"
+msgid "Show full path: {}"
+msgstr "Volledig pad tonen: {}"
+
+msgctxt "rust"
+msgid "Bunny and Size @VERSION@ — free software, GPL-3.0-only\n\nYou may modify and redistribute this software under GNU GPL version 3 only. NO WARRANTY, including merchantability or fitness for a particular purpose, to the extent permitted by law; see sections 15 and 16.\n\nThe “Read the full GPLv3” button displays a complete offline copy of the license. The LICENSE file in the archive contains the same text.\n\nThird-party copyright notices are preserved in THIRD_PARTY_NOTICES.txt and licences/ beside the executable. Excerpts from the original Slint and Fluent icon notices:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: GPL-3.0-only option. Fluent icons: MIT.\n\nAUTHORS.txt lists Bunny and Size code contributors from Git; this list does not designate an exclusive copyright holder. No Bunny and Size copyright holder or year is inferred from these names.\n\nCorresponding source is the Bunny-and-Size-v@VERSION@-source archive for your platform, supplied with the binaries; its exact name and SHA-256 appear in BUILDINFO.json. When redistributing, give recipients effective access to corresponding source under GPLv3; an inaccessible private repository is insufficient.\n"
+msgstr "Bunny and Size @VERSION@ — vrije software, GPL-3.0-only\n\nU mag deze software uitsluitend onder GNU GPL versie 3 wijzigen en verspreiden. GEEN GARANTIE, ook niet op verkoopbaarheid of geschiktheid voor een bepaald doel, voor zover wettelijk toegestaan; zie secties 15 en 16.\n\nDe knop «Volledige GPLv3 lezen» toont een volledige offlinekopie van de licentie. Het bestand LICENSE in het archief bevat dezelfde tekst.\n\nCopyrightvermeldingen van derden blijven bewaard in THIRD_PARTY_NOTICES.txt en licences/ naast het uitvoerbare bestand. Fragmenten uit de oorspronkelijke kennisgevingen van Slint en Fluent-pictogrammen:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: GPL-3.0-only-optie. Fluent-pictogrammen: MIT.\n\nAUTHORS.txt vermeldt de codebijdragers aan Bunny and Size uit Git; deze lijst wijst geen exclusieve auteursrechthebbende aan. Uit deze namen wordt geen auteursrechthebbende of copyrightjaar voor Bunny and Size afgeleid.\n\nDe bijbehorende broncode is het archief Bunny-and-Size-v@VERSION@-source voor uw platform, meegeleverd met de binaire bestanden; de exacte naam en SHA-256 staan in BUILDINFO.json. Geef ontvangers bij herdistributie daadwerkelijk toegang tot de bijbehorende broncode onder GPLv3; een ontoegankelijke privérepository volstaat niet.\n"
+
+msgctxt "rust"
+msgid "Choose a folder to scan."
+msgstr "Kies een map om te analyseren."
+
+msgctxt "rust"
+msgid "Could not access {}: {}"
+msgstr "Geen toegang tot {}: {}"
+
+msgctxt "rust"
+msgid "The root {} must be a real folder, not a symbolic link"
+msgstr "De hoofdmap {} moet een echte map zijn, geen symbolische koppeling"
+
+msgctxt "rust"
+msgid "Invalid scan options. Check worker count and traversal limits."
+msgstr "Ongeldige analyseopties. Controleer het aantal werkers en de doorlooplimieten."
+
+msgctxt "rust"
+msgid "Could not start a worker: {}"
+msgstr "Kan een werker niet starten: {}"
+
+msgctxt "rust"
+msgid "Observation stream failed: {}"
+msgstr "Waarnemingsstroom mislukt: {}"
+
+msgctxt "rust"
+msgid "An acquisition worker stopped unexpectedly"
+msgstr "Een verzamelwerker is onverwacht gestopt"
+
+msgctxt "rust"
+msgid "The sum of sizes exceeds the capacity of a 64-bit integer"
+msgstr "De som van de groottes overschrijdt de capaciteit van een 64-bits geheel getal"
+
+msgctxt "ui"
+msgid "Owner of {}: {}"
+msgstr "Eigenaar van {}: {}"
+
+msgctxt "ui"
+msgid "Open {}"
+msgstr "{} openen"
+
+msgctxt "ui"
+msgid "Show path of {}"
+msgstr "Pad van {} tonen"
+
+msgctxt "ui"
+msgid "Top 100, rank {}, {}"
+msgstr "Top 100, positie {}, {}"
+
+msgctxt "rust"
+msgid "Limited inventory: {}, {} (limits: {}, {} of native paths). Scan totals are preserved."
+msgstr "Beperkte inventaris: {}, {} (limieten: {}, {} aan systeempaden). Analysetotalen blijven behouden."
+
+msgctxt "rust"
+msgid "Scanner policy: {}. Rules: {}."
+msgstr "Scannerbeleid: {}. Regels: {}."
+
+msgctxt "rust"
+msgid "Traversal budget reached: {}. Their descendants are not counted. Sizes are lower bounds. Limits: {} and {} of pending native paths."
+msgstr "Doorloopbudget bereikt: {}. Onderliggende items worden niet geteld. Groottes zijn ondergrenzen. Limieten: {} en {} aan wachtende systeempaden."
+
+msgctxt "rust"
+msgid " Limited ranking: {} (maximum {} native bytes per file)."
+msgstr " Beperkte ranglijst: {} (maximaal {} systeembytes per bestand)."
+
+msgctxt "rust"
+msgid "{} · direct files: {} · direct subfolders: {}\nrecursive files: {} · recursive subfolders: {} · {}{}{}"
+msgstr "{} · directe bestanden: {} · directe submappen: {}\nrecursieve bestanden: {} · recursieve submappen: {} · {}{}{}"
+
+msgctxt "rust"
+msgid "A native path requires {}; the transmission budget is {}"
+msgstr "Een systeempad vereist {}; het overdrachtsbudget is {}"
+
+msgctxt "rust"
+msgid "{n} retained entry"
+msgid_plural "{n} retained entries"
+msgstr[0] "{n} bewaard item"
+msgstr[1] "{n} bewaarde items"
+
+msgctxt "rust"
+msgid "{n} entry not displayed"
+msgid_plural "{n} entries not displayed"
+msgstr[0] "{n} item niet weergegeven"
+msgstr[1] "{n} items niet weergegeven"
+
+msgctxt "rust"
+msgid "{n} entry"
+msgid_plural "{n} entries"
+msgstr[0] "{n} item"
+msgstr[1] "{n} items"
+
+msgctxt "rust"
+msgid "{n} excluded entry"
+msgid_plural "{n} excluded entries"
+msgstr[0] "{n} uitgesloten item"
+msgstr[1] "{n} uitgesloten items"
+
+msgctxt "rust"
+msgid "{n} observed folder not traversed"
+msgid_plural "{n} observed folders not traversed"
+msgstr[0] "{n} waargenomen map niet doorlopen"
+msgstr[1] "{n} waargenomen mappen niet doorlopen"
+
+msgctxt "rust"
+msgid "{n} oversized path omitted"
+msgid_plural "{n} oversized paths omitted"
+msgstr[0] "{n} te lang pad weggelaten"
+msgstr[1] "{n} te lange paden weggelaten"
+
+msgctxt "rust"
+msgid "Resolution unavailable; native identifiers retained."
+msgstr "Opzoeken niet beschikbaar; systeemidentificaties bewaard."
+
+msgctxt "rust"
+msgid "Resolving page names…"
+msgstr "Namen op deze pagina opzoeken…"
+
+msgctxt "rust"
+msgid "Resolution suspended: waiting for previous provider or service unavailable."
+msgstr "Opzoeken onderbroken: wachten op vorige aanbieder of dienst niet beschikbaar."
+
+msgctxt "rust"
+msgid "Page names updated; native identifiers retained as fallback."
+msgstr "Paginanamen bijgewerkt; systeemidentificaties bewaard als terugval."
+
+msgctxt "rust"
+msgid "Name resolution: {n} identity remaining on this page."
+msgid_plural "Name resolution: {n} identities remaining on this page."
+msgstr[0] "Namen opzoeken: {n} resterende identiteit op deze pagina."
+msgstr[1] "Namen opzoeken: {n} resterende identiteiten op deze pagina."
+
+msgctxt "capacity"
+msgid "Unknown"
+msgstr "Onbekend"
+
+msgctxt "capacity"
+msgid "Unsupported"
+msgstr "Niet ondersteund"
+
+msgctxt "ui"
+msgid "Language"
+msgstr "Taal"
+
+msgctxt "ui"
+msgid "Automatic (system)"
+msgstr "Automatisch (systeem)"
+
+msgctxt "ui"
+msgid "English"
+msgstr "English"
+
+msgctxt "ui"
+msgid "Français"
+msgstr "Français"
+
+msgctxt "ui"
+msgid "Interface language"
+msgstr "Interfacetaal"
+
+msgctxt "ui"
+msgid "Detected system locale: {}"
+msgstr "Gedetecteerde systeemlocale: {}"
+
+msgctxt "ui"
+msgid "Active language: {}"
+msgstr "Actieve taal: {}"
+
+msgctxt "ui"
+msgid "Could not activate the language; previous language retained."
+msgstr "Kan de taal niet activeren; vorige taal behouden."
+
+msgctxt "ui"
+msgid "Requested catalog ({}) unavailable; using English. Saved preference retained."
+msgstr "Aangevraagde catalogus ({}) niet beschikbaar; Engels wordt gebruikt. Opgeslagen voorkeur behouden."
+
+msgctxt "rust"
+msgid "Jan"
+msgstr "jan"
+
+msgctxt "rust"
+msgid "Feb"
+msgstr "feb"
+
+msgctxt "rust"
+msgid "Mar"
+msgstr "mrt"
+
+msgctxt "rust"
+msgid "Apr"
+msgstr "apr"
+
+msgctxt "rust"
+msgid "May"
+msgstr "mei"
+
+msgctxt "rust"
+msgid "Jun"
+msgstr "jun"
+
+msgctxt "rust"
+msgid "Jul"
+msgstr "jul"
+
+msgctxt "rust"
+msgid "Aug"
+msgstr "aug"
+
+msgctxt "rust"
+msgid "Sep"
+msgstr "sep"
+
+msgctxt "rust"
+msgid "Oct"
+msgstr "okt"
+
+msgctxt "rust"
+msgid "Nov"
+msgstr "nov"
+
+msgctxt "rust"
+msgid "Dec"
+msgstr "dec"
+
+msgctxt "ui"
+msgid "Deutsch"
+msgstr "Deutsch"
+
+msgctxt "ui"
+msgid "Español"
+msgstr "Español"
+
+msgctxt "ui"
+msgid "Português (Portugal)"
+msgstr "Português (Portugal)"
+
+msgctxt "rust"
+msgid "Additional folder listing in progress. Initial scan totals are unchanged."
+msgstr "Aanvullende maplijst bezig. Totalen van de eerste analyse blijven ongewijzigd."
+
+msgctxt "rust"
+msgid "Initial folder total: {}. Additional direct-child listing starting at entry {}. Contents may have changed."
+msgstr "Oorspronkelijk maptotaal: {}. Aanvullende lijst van directe onderliggende items vanaf item {}. De inhoud kan gewijzigd zijn."
+
+msgctxt "ui"
+msgid "Load folder contents"
+msgstr "Mapinhoud laden"
+
+msgctxt "rust"
+msgid "Additional analysis in progress…"
+msgstr "Aanvullende analyse bezig…"
+
+msgctxt "rust"
+msgid "Additional analysis complete"
+msgstr "Aanvullende analyse voltooid"
+
+msgctxt "rust"
+msgid "Additional analysis — partial results"
+msgstr "Aanvullende analyse — gedeeltelijke resultaten"
+
+msgctxt "rust"
+msgid "Additional analysis cancelled — partial results retained"
+msgstr "Aanvullende analyse geannuleerd — gedeeltelijke resultaten bewaard"
+
+msgctxt "rust"
+msgid "Additional analysis failed."
+msgstr "Aanvullende analyse mislukt."
+
+msgctxt "rust"
+msgid "Initial scan: {}"
+msgstr "Eerste analyse: {}"
+
+msgctxt "ui"
+msgid "Created, published and maintained by Louis Lejuez (@tazmen3)"
+msgstr "Gemaakt, gepubliceerd en onderhouden door Louis Lejuez (@tazmen3)"
+
+msgctxt "ui"
+msgid "Contributors: Louis Lejuez / tazmen3; assisted by Codex"
+msgstr "Bijdragers: Louis Lejuez / tazmen3; bijgestaan door Codex"
+
+msgctxt "ui"
+msgid "Code: GPL-3.0-only. Artwork: CC BY-SA 4.0 — Louis Lejuez / TazmenWorld."
+msgstr "Code: GPL-3.0-only. Beeldmateriaal: CC BY-SA 4.0 — Louis Lejuez / TazmenWorld."
+
+msgctxt "rust"
+msgid "Automatic scan unavailable: select an accessible local source. Other paths require an explicit scan."
+msgstr "Automatische analyse niet beschikbaar: selecteer een toegankelijke lokale bron. Andere paden vereisen een uitdrukkelijke analyse."
+
+msgctxt "ui"
+msgid "Scan local source: {}"
+msgstr "Lokale bron analyseren: {}"
+
+msgctxt "ui"
+msgid "Resize folders and storage sources. Arrows adjust; Enter resets."
+msgstr "Mappen en opslagbronnen schalen. Pijlen passen aan; Enter herstelt."
+
+msgctxt "rust"
+msgid "Capacity unavailable"
+msgstr "Capaciteit niet beschikbaar"
+
+msgctxt "rust"
+msgid "Total {} · Used {} · Free {} · Available {}"
+msgstr "Totaal {} · Gebruikt {} · Vrij {} · Beschikbaar {}"
+
+msgctxt "rust"
+msgid "Usage unavailable"
+msgstr "Gebruik niet beschikbaar"
+
+msgctxt "rust"
+msgid "{} % used"
+msgstr "{} % gebruikt"
+
+msgctxt "rust"
+msgid "Storage source changed or became unavailable. Refresh sources and select it again."
+msgstr "De opslagbron is gewijzigd of niet meer beschikbaar. Vernieuw de bronnen en selecteer deze opnieuw."
+
+msgctxt "rust"
+msgid "All matched files"
+msgstr "Alle overeenkomende bestanden"
+
+msgctxt "rust"
+msgid "Analysis worker stopped"
+msgstr "Analysewerker gestopt"
+
+msgctxt "rust"
+msgid "Incomplete coverage"
+msgstr "Onvolledige dekking"
+
+msgctxt "rust"
+msgid "No extension"
+msgstr "Geen extensie"
+
+msgctxt "rust"
+msgid "Searching retained entries…"
+msgstr "Bewaarde items doorzoeken…"
+
+msgctxt "ui"
+msgid "Extension"
+msgstr "Extensie"
+
+msgctxt "ui"
+msgid "Maximum bytes"
+msgstr "Maximum bytes"
+
+msgctxt "ui"
+msgid "Minimum bytes"
+msgstr "Minimum bytes"
+
+msgctxt "ui"
+msgid "Name contains"
+msgstr "Naam bevat"
+
+msgctxt "ui"
+msgid "Path contains"
+msgstr "Pad bevat"
+
+msgctxt "ui"
+msgid "Relative path glob"
+msgstr "Glob voor relatief pad"
+
+msgctxt "ui"
+msgid "Search"
+msgstr "Zoeken"
+
+msgctxt "ui"
+msgid "Search / statistics"
+msgstr "Zoeken / Statistieken"
+
+msgctxt "ui"
+msgid "Show"
+msgstr "Tonen"
+
+msgctxt "ui"
+msgid "Statistics"
+msgstr "Statistieken"
+
+msgctxt "rust"
+msgid "Some values are unavailable"
+msgstr "Sommige waarden zijn niet beschikbaar"
+
+msgctxt "rust"
+msgid "Exact groups: {} · bytes read: {} · hardlink aliases: {} · errors: {}."
+msgstr "Exacte groepen: {} · gelezen bytes: {} · hardlinkaliassen: {} · fouten: {}."
+
+msgctxt "ui"
+msgid "Find exact duplicates (reads files)"
+msgstr "Exacte duplicaten zoeken (leest bestanden)"
+
+msgctxt "ui"
+msgid "Read-only. No files will be deleted."
+msgstr "Alleen lezen. Er worden geen bestanden verwijderd."
+
+msgctxt "ui"
+msgid "Italiano"
+msgstr "Italiano"
+
+msgctxt "ui"
+msgid "Nederlands"
+msgstr "Nederlands"
+
+msgctxt "rust"
+msgid "1 KiB–<1 MiB"
+msgstr "1 KiB–<1 MiB"
+
+msgctxt "rust"
+msgid "1 MiB–<1 GiB"
+msgstr "1 MiB–<1 GiB"
+
+msgctxt "rust"
+msgid "1–1023 bytes"
+msgstr "1–1023 bytes"
+
+msgctxt "rust"
+msgid "Access denied. Check operating-system permissions."
+msgstr "Toegang geweigerd. Controleer de systeemmachtigingen."
+
+msgctxt "rust"
+msgid "At least 1 GiB"
+msgstr "Minstens 1 GiB"
+
+msgctxt "rust"
+msgid "Cancellation requested. A system or network read may take time to return."
+msgstr "Annulering aangevraagd. Een systeem- of netwerklezing kan enige tijd nodig hebben om te eindigen."
+
+msgctxt "rust"
+msgid "Cancelled. Only finished groups are shown."
+msgstr "Geannuleerd. Alleen volledig gecontroleerde groepen worden getoond."
+
+msgctxt "rust"
+msgid "Cancelled. Only observed matches are shown."
+msgstr "Geannuleerd. Alleen reeds waargenomen resultaten worden getoond."
+
+msgctxt "rust"
+msgid "Counts · known logical sizes per path. Unknown file sizes: {}. Hardlinks count as paths."
+msgstr "Aantallen · bekende logische groottes per pad. Onbekende bestandsgroottes: {}. Harde koppelingen tellen per pad."
+
+msgctxt "rust"
+msgid "Empty files"
+msgstr "Lege bestanden"
+
+msgctxt "rust"
+msgid "Extensions: largest 32 · bars: known bytes"
+msgstr "Extensies: de 32 grootste · balken: bekende bytes"
+
+msgctxt "rust"
+msgid "File identity is unavailable on this storage."
+msgstr "De bestandsidentiteit is niet beschikbaar op deze opslag."
+
+msgctxt "rust"
+msgid "File no longer accessible. Check the path or network connection."
+msgstr "Bestand niet meer toegankelijk. Controleer het pad of de netwerkverbinding."
+
+msgctxt "rust"
+msgid "Group {} · copy {} ·"
+msgstr "Groep {} · kopie {} ·"
+
+msgctxt "rust"
+msgid "Group {} · independent copies: {} · SHA-256: {} · byte-for-byte verified."
+msgstr "Groep {} · onafhankelijke kopieën: {} · SHA-256: {} · gelijkheid byte voor byte gecontroleerd."
+
+msgctxt "rust"
+msgid "Hardlink alias"
+msgstr "Alias van harde koppeling"
+
+msgctxt "rust"
+msgid "Invalid filter: check the glob and the limit of 4096 bytes per field."
+msgstr "Ongeldig filter: controleer het globpatroon en de limiet van 4096 bytes per veld."
+
+msgctxt "rust"
+msgid "Invalid filter: minimum size must not exceed maximum size."
+msgstr "Ongeldig filter: de minimumgrootte mag de maximumgrootte niet overschrijden."
+
+msgctxt "rust"
+msgid "Invalid filter: sizes must be whole bytes from 0 to 18446744073709551615."
+msgstr "Ongeldig filter: groottes moeten gehele bytes van 0 tot 18446744073709551615 zijn."
+
+msgctxt "rust"
+msgid "Matches: {} · retained results: {} · omitted inventory entries: {} · unknown dates: {}. Logical file sizes per path."
+msgstr "Resultaten: {} · bewaard: {} · overgeslagen inventarisitems: {} · onbekende datums: {}. Logische groottes per pad."
+
+msgctxt "rust"
+msgid "Network read failed. Check the connection and retry."
+msgstr "Netwerklezing mislukt. Controleer de verbinding en probeer opnieuw."
+
+msgctxt "rust"
+msgid "No exact duplicate group in the examined files."
+msgstr "Geen groep exacte duplicaten in de onderzochte bestanden."
+
+msgctxt "rust"
+msgid "No matching retained entry."
+msgstr "Geen overeenkomend bewaard item."
+
+msgctxt "rust"
+msgid "Non-Unicode extension"
+msgstr "Niet-Unicode-extensie"
+
+msgctxt "rust"
+msgid "Other extension groups: {} (included in totals)"
+msgstr "Overige extensiegroepen: {} (inbegrepen in totalen)"
+
+msgctxt "rust"
+msgid "Read budget or file-size limit reached. Results are incomplete."
+msgstr "Leesbudget of maximale bestandsgrootte bereikt. Resultaten zijn onvolledig."
+
+msgctxt "rust"
+msgid "Read failed or file changed. Rescan before retrying."
+msgstr "Lezen mislukt of bestand gewijzigd. Analyseer opnieuw voordat u het nogmaals probeert."
+
+msgctxt "rust"
+msgid "Reading candidate files…"
+msgstr "Kandidaatbestanden worden gelezen…"
+
+msgctxt "rust"
+msgid "Reading contents: {} bytes · {} files hashed"
+msgstr "Inhoud gelezen: {} bytes · {} bestanden gehasht"
+
+msgctxt "rust"
+msgid "Retained entries: {} · omitted: {}. Filters never rescan the source."
+msgstr "Bewaarde items: {} · overgeslagen: {}. Filters analyseren de bron nooit opnieuw."
+
+msgctxt "rust"
+msgid "Retained inventory"
+msgstr "Bewaarde inventaris"
+
+msgctxt "rust"
+msgid "Rows {}–{} of {}"
+msgstr "Rijen {}–{} van {}"
+
+msgctxt "rust"
+msgid "SHA-256 candidates are compared byte for byte. Hardlink aliases are the same file."
+msgstr "SHA-256-kandidaten worden byte voor byte vergeleken. Aliassen van harde koppelingen zijn hetzelfde bestand."
+
+msgctxt "rust"
+msgid "Size classes · bars: file counts"
+msgstr "Grootteklassen · balken: aantallen bestanden"
+
+msgctxt "rust"
+msgid "Unknown size"
+msgstr "Onbekende grootte"
+
+msgctxt "rust"
+msgid "Waiting for the previous read to finish. Reopen Search / statistics afterwards."
+msgstr "Wachten op de vorige lezing. Open Zoeken / statistieken daarna opnieuw."
+
+msgctxt "ui"
+msgid "Analysis source"
+msgstr "Analysebron"
+
+msgctxt "ui"
+msgid "Analysis status and coverage"
+msgstr "Analysestatus en dekking"
+
+msgctxt "ui"
+msgid "Case sensitive"
+msgstr "Hoofdlettergevoelig"
+
+msgctxt "ui"
+msgid "Path"
+msgstr "Pad"
+
+msgctxt "ui"
+msgid "Read errors"
+msgstr "Leesfouten"
+
+msgctxt "ui"
+msgid "Size: largest first"
+msgstr "Grootte: grootste eerst"
+
+msgctxt "ui"
+msgid "Size: smallest first"
+msgstr "Grootte: kleinste eerst"

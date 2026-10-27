@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "public_signatures_required": true,
+  "product_name": "Bunny and Size",
+  "publisher_subject": null,
+  "certificate_sha256": null,
+  "state": "signpath-declined-signed-route-closed",
+  "unsigned_public_authorization_required": true,
+  "unsigned_public_publisher_verified": false,
+  "decision": "Owner decision 2026-10-26; unsigned route requires separate artifact-bound authorization"
+}

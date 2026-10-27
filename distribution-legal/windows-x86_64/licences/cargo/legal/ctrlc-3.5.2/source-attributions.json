@@ -1,0 +1,10 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "// Copyright (c) 2015 CtrlC developers",
+    "// Copyright (c) 2017 CtrlC developers",
+    "// Copyright (c) 2023 CtrlC developers",
+    "Copyright 2017 CtrlC developers"
+  ],
+  "spdx_lines": []
+}

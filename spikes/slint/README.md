@@ -2,7 +2,7 @@
 
 # Prototype de faisabilité Slint
 
-Workspace expérimental séparé pour évaluer Slint 1.18.1 sans imposer ses dépendances à la CLI. Le prototype desktop utilise maintenant `sortsize-core` : scan en lecture seule sur un worker, progression, annulation et arbre de dossiers et tableau des enfants synchronisés, tris et proportions de taille logique. Le [guide GUI](../../docs/GUI.md) décrit son utilisation et ses limites. Aucun accès SAF ni inventaire SQLite n'est implémenté.
+Workspace expérimental séparé pour évaluer Slint 1.18.1 sans imposer ses dépendances à la CLI. Le prototype desktop utilise maintenant `sortsize-core` : scan en lecture seule sur un worker, progression, annulation et arbre de dossiers et tableau des enfants synchronisés, tris et proportions de taille logique. Le guide GUI [référence interne] décrit son utilisation et ses limites. Aucun accès SAF ni inventaire SQLite n'est implémenté.
 
 ## Desktop
 
@@ -51,7 +51,7 @@ La Treemap Squarified des tailles logiques observées s’affiche au-dessus du
 tableau : zoom dossier, retour parent, inspection fichier et clavier synchronisés
 sans nouveau scan. Limite de 256 surfaces avec groupes Autres et omissions
 explicites ; zéros/inconnus sans aire inventée.
-[Utilisation et limites](../../docs/GUI.md#v02--treemap-interactive-9-view-002--view-008),
+Utilisation et limites [référence interne],
 preuves Ubuntu [référence interne],
 recette Windows non exécutée [référence interne].
 Slint reste épinglé à 1.18.1, sans dépendance supplémentaire.

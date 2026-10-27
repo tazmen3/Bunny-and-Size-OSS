@@ -1,0 +1,9 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "// Most tests in here are based on [1], which is: Copyright © 2016 Ingo Bürk",
+    "Copyright 2019 x11rb Contributers",
+    "pub const COPYRIGHT: Self = Self(61);"
+  ],
+  "spdx_lines": []
+}

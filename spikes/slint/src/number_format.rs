@@ -8,7 +8,7 @@ pub(crate) fn integer(value: u128) -> String {
     }
     let separator = match Context::current().language {
         Language::French => '\u{202f}',
-        Language::German | Language::Spanish => '.',
+        Language::German | Language::Spanish | Language::Italian | Language::Dutch => '.',
         Language::Portuguese => '\u{a0}',
         Language::English => ',',
     };
@@ -54,6 +54,8 @@ mod tests {
     fn full_range_grouping_decimals_and_no_global_locale_mutation() {
         for (language, grouped, fractional) in [
             (Language::English, "18,446,744,073,709,551,615", "1,234.5"),
+            (Language::Italian, "18.446.744.073.709.551.615", "1.234,5"),
+            (Language::Dutch, "18.446.744.073.709.551.615", "1.234,5"),
             (Language::German, "18.446.744.073.709.551.615", "1.234,5"),
             (Language::Spanish, "18.446.744.073.709.551.615", "1.234,5"),
             (

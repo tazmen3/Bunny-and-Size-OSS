@@ -1,0 +1,15 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "// Copyright 2017 the Resvg Authors",
+    "// Copyright 2018 the Resvg Authors",
+    "// Copyright 2019 the Resvg Authors",
+    "// Copyright 2020 the Resvg Authors",
+    "// Copyright 2022 the Resvg Authors",
+    "// Copyright 2023 the Resvg Authors",
+    "Copyright 2017 the Resvg Authors"
+  ],
+  "spdx_lines": [
+    "// SPDX-License-Identifier: Apache-2.0 OR MIT"
+  ]
+}

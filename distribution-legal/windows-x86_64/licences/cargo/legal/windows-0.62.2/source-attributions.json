@@ -1,0 +1,32 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "Copyright (c) Microsoft Corporation.",
+    "Copyright: Copyright::<Identity, OFFSET>,",
+    "pub Copyright: unsafe extern \"system\" fn(*mut core::ffi::c_void, *mut *mut core::ffi::c_void) -> windows_core::HRESULT,",
+    "pub Copyright: unsafe extern \"system\" fn(*mut core::ffi::c_void, *mut windows_core::PWSTR) -> windows_core::HRESULT,",
+    "pub byCopyright: [u8; 4],",
+    "pub const ACM_MPEG_COPYRIGHT: u32 = 2u32;",
+    "pub const DISPID_FEED_Copyright: u32 = 16411u32;",
+    "pub const MCI_INFO_COPYRIGHT: i32 = 8192i32;",
+    "pub const MCI_SEQ_STATUS_COPYRIGHT: i32 = 16396i32;",
+    "pub const NAME_GenericObj_Copyright: windows_core::PCWSTR = windows_core::w!(\"Copyright\");",
+    "pub const PIDMSI_COPYRIGHT: i32 = 11i32;",
+    "pub const PKEY_Copyright: super::super::Foundation::PROPERTYKEY = super::super::Foundation::PROPERTYKEY { fmtid: windows_core::GUID::from_u128(0x64440492_4c8b_11d1_8b70_080036b11a03), pid: 11 };",
+    "pub const PropertyTagCopyright: u32 = 33432u32;",
+    "pub const PropertyTagThumbnailCopyRight: u32 = 20539u32;",
+    "pub const TMT_COPYRIGHT: THEME_PROPERTY_SYMBOL_ID = THEME_PROPERTY_SYMBOL_ID(605u32);",
+    "pub const WPD_MEDIA_COPYRIGHT: super::super::Foundation::PROPERTYKEY = super::super::Foundation::PROPERTYKEY { fmtid: windows_core::GUID::from_u128(0x2ed8ba05_0ad3_42dc_b0d0_bc95ac396ac8), pid: 4 };",
+    "pub const g_wszWMCopyright: windows_core::PCWSTR = windows_core::w!(\"Copyright\");",
+    "pub const g_wszWMDMProviderCopyright: windows_core::PCWSTR = windows_core::w!(\"WMDM/ProviderCopyright\");",
+    "pub const g_wszWMProviderCopyright: windows_core::PCWSTR = windows_core::w!(\"WM/ProviderCopyright\");",
+    "pub const wszCMM_PROP_COPYRIGHT: windows_core::PCWSTR = windows_core::w!(\"Copyright\");",
+    "pub pszCopyright: windows_core::PWSTR,",
+    "pub szCopyright: [i8; 128],",
+    "pub szCopyright: [i8; 80],",
+    "pub szCopyright: [u16; 80],",
+    "unsafe extern \"system\" fn Copyright<Identity: IFeed_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, copyright: *mut *mut core::ffi::c_void) -> windows_core::HRESULT {",
+    "unsafe extern \"system\" fn Copyright<Identity: IXFeed_Impl, const OFFSET: isize>(this: *mut core::ffi::c_void, ppszcopyright: *mut windows_core::PWSTR) -> windows_core::HRESULT {"
+  ],
+  "spdx_lines": []
+}

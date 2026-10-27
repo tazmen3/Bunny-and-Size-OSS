@@ -7,6 +7,17 @@ use std::path::{Component, Path};
 /// since the original scan. Like traversal, this is not an atomic FS snapshot;
 /// a concurrent rename/replacement after validation remains a native I/O race.
 pub fn validate_directory_scope(root: &Path, target: &Path) -> Result<(), ScanFailure> {
+    // canonicalize(UNC share) may return only its prefix, whereas the parent
+    // of a file at that share has a trailing root separator. Align these two
+    // native spellings before strip_prefix; never normalize drive-relative C:.
+    #[cfg(windows)]
+    let normalized_root = normalize_share_root(root);
+    #[cfg(windows)]
+    let root = normalized_root.as_deref().unwrap_or(root);
+    #[cfg(windows)]
+    let normalized_target = normalize_share_root(target);
+    #[cfg(windows)]
+    let target = normalized_target.as_deref().unwrap_or(target);
     if !root.is_absolute() {
         return Err(ScanFailure::InvalidRoot(root.into()));
     }
@@ -28,6 +39,21 @@ pub fn validate_directory_scope(root: &Path, target: &Path) -> Result<(), ScanFa
         check(&path)?;
     }
     Ok(())
+}
+
+#[cfg(windows)]
+fn normalize_share_root(path: &Path) -> Option<std::path::PathBuf> {
+    use std::path::Prefix;
+    let mut components = path.components();
+    if let Some(Component::Prefix(prefix)) = components.next()
+        && matches!(prefix.kind(), Prefix::UNC(..) | Prefix::VerbatimUNC(..))
+        && components.next().is_none()
+    {
+        let mut native = path.as_os_str().to_owned();
+        native.push("\\");
+        return Some(native.into());
+    }
+    None
 }
 fn check(path: &Path) -> Result<(), ScanFailure> {
     let metadata = std::fs::symlink_metadata(path).map_err(|error| ScanFailure::RootIo {
@@ -95,6 +121,28 @@ mod tests {
 #[cfg(all(test, windows))]
 mod windows_tests {
     use super::*;
+    #[test]
+    fn share_root_spellings_align_without_accepting_drive_relative_paths() {
+        for (bare, rooted) in [
+            (r"\\server\share", r"\\server\share\"),
+            (r"\\?\UNC\server\été 日本語", r"\\?\UNC\server\été 日本語\"),
+        ] {
+            let normalized = normalize_share_root(Path::new(bare))
+                .unwrap_or_else(|| std::path::PathBuf::from(bare));
+            assert!(normalized.is_absolute());
+            assert_eq!(
+                Path::new(rooted).strip_prefix(&normalized).unwrap(),
+                Path::new("")
+            );
+            assert_eq!(
+                normalized.join("child").strip_prefix(&normalized).unwrap(),
+                Path::new("child")
+            );
+        }
+        for unchanged in [r"C:", r"\\?\C:", r"C:\", r"\\server\share\child"] {
+            assert!(normalize_share_root(Path::new(unchanged)).is_none());
+        }
+    }
     #[test]
     fn a_replaced_junction_above_the_original_root_is_rejected() {
         let fixture = tempfile::TempDir::new().unwrap();

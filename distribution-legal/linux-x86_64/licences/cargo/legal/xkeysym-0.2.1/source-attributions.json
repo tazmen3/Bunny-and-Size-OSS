@@ -1,0 +1,18 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "# Copyright 2022-2023 John Nunley",
+    "* Copyright © 2009 Dan Nicholson",
+    "// Copyright 2022-2023 John Nunley",
+    "Copyright (c) 2022-2023 John Nunley",
+    "Copyright 2022-2023 John Nunley",
+    "pub const copyright: Keysym = Keysym(key::copyright);",
+    "pub const copyright: RawKeysym = 0xa9;",
+    "pub const phonographcopyright: Keysym = Keysym(key::phonographcopyright);",
+    "pub const phonographcopyright: RawKeysym = 0xafb;"
+  ],
+  "spdx_lines": [
+    "# SPDX-License-Identifier: MIT OR Apache-2.0 OR Zlib",
+    "// SPDX-License-Identifier: MIT OR Apache-2.0 OR Zlib"
+  ]
+}

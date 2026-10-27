@@ -1,0 +1,12 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "# Copyright © SixtyFPS GmbH <info@slint.dev>",
+    "// Copyright © SixtyFPS GmbH <info@slint.dev>",
+    "Copyright (c) <year> <copyright holders>"
+  ],
+  "spdx_lines": [
+    "# SPDX-License-Identifier: MIT OR Apache-2.0",
+    "// SPDX-License-Identifier: MIT OR Apache-2.0"
+  ]
+}

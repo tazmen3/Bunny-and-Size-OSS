@@ -1,0 +1,11 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "// Copyright 2023 John Nunley",
+    "Copyright (C) 2004, 2006 The Linux Foundation and its contributors.",
+    "Copyright (c) 2023 John Nunley"
+  ],
+  "spdx_lines": [
+    "// SPDX-License-Identifier: MIT OR Apache-2.0 OR Zlib"
+  ]
+}

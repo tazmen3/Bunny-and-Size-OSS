@@ -1,0 +1,11 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "# Copyright 2011-2015 The Rust Project Developers. See the COPYRIGHT",
+    "// Copyright 2012-2018 The Rust Project Developers. See the COPYRIGHT",
+    "Copyright (c) 2019 Manish Goregaokar",
+    "Copyright 2021 The Unicode-rs Developers",
+    "preamble = '''// Copyright 2012-2018 The Rust Project Developers. See the COPYRIGHT"
+  ],
+  "spdx_lines": []
+}

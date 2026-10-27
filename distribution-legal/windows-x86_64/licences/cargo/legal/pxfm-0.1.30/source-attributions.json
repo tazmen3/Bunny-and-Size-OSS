@@ -1,0 +1,13 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "* // Copyright (c) Radzivon Bartoshyk 4/2025. All rights reserved.",
+    "* // Copyright (c) Radzivon Bartoshyk 6/2025. All rights reserved.",
+    "* // Copyright (c) Radzivon Bartoshyk 7/2025. All rights reserved.",
+    "* // Copyright (c) Radzivon Bartoshyk 8/2025. All rights reserved.",
+    "* // Copyright (c) Radzivon Bartoshyk 9/2025. All rights reserved.",
+    "Copyright (c) Radzivon Bartoshyk. All rights reserved.",
+    "Copyright 2024 Radzivon Bartoshyk"
+  ],
+  "spdx_lines": []
+}

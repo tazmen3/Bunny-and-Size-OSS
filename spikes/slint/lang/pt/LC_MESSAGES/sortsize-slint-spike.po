@@ -446,8 +446,8 @@ msgid "Invalid preferences or unsupported version; using defaults."
 msgstr "Preferências inválidas ou versão não suportada; são usados os valores predefinidos."
 
 msgctxt "ui"
-msgid "LOCAL SOURCE"
-msgstr "ORIGEM LOCAL"
+msgid "SOURCE"
+msgstr "ORIGEM"
 
 msgctxt "ui"
 msgid "LOGICAL SIZE"
@@ -1182,3 +1182,259 @@ msgstr "{} % utilizado"
 msgctxt "rust"
 msgid "Storage source changed or became unavailable. Refresh sources and select it again."
 msgstr "A origem de armazenamento mudou ou ficou indisponível. Atualize as origens e selecione-a novamente."
+
+msgctxt "rust"
+msgid "All matched files"
+msgstr "Todos os ficheiros correspondentes"
+
+msgctxt "rust"
+msgid "Analysis worker stopped"
+msgstr "A análise foi interrompida"
+
+msgctxt "rust"
+msgid "Incomplete coverage"
+msgstr "Cobertura incompleta"
+
+msgctxt "rust"
+msgid "No extension"
+msgstr "Sem extensão"
+
+msgctxt "rust"
+msgid "Searching retained entries…"
+msgstr "A pesquisar nas entradas retidas…"
+
+msgctxt "ui"
+msgid "Extension"
+msgstr "Extensão"
+
+msgctxt "ui"
+msgid "Maximum bytes"
+msgstr "Máximo de bytes"
+
+msgctxt "ui"
+msgid "Minimum bytes"
+msgstr "Mínimo de bytes"
+
+msgctxt "ui"
+msgid "Name contains"
+msgstr "O nome contém"
+
+msgctxt "ui"
+msgid "Path contains"
+msgstr "O caminho contém"
+
+msgctxt "ui"
+msgid "Relative path glob"
+msgstr "Padrão glob do caminho relativo"
+
+msgctxt "ui"
+msgid "Search"
+msgstr "Pesquisar"
+
+msgctxt "ui"
+msgid "Search / statistics"
+msgstr "Pesquisa / estatísticas"
+
+msgctxt "ui"
+msgid "Show"
+msgstr "Mostrar"
+
+msgctxt "ui"
+msgid "Statistics"
+msgstr "Estatísticas"
+
+msgctxt "rust"
+msgid "Some values are unavailable"
+msgstr "Alguns valores estão indisponíveis"
+
+msgctxt "rust"
+msgid "Exact groups: {} · bytes read: {} · hardlink aliases: {} · errors: {}."
+msgstr "Grupos exatos: {} · bytes lidos: {} · aliases de ligações físicas: {} · erros: {}."
+
+msgctxt "ui"
+msgid "Find exact duplicates (reads files)"
+msgstr "Procurar duplicados exatos (lê ficheiros)"
+
+msgctxt "ui"
+msgid "Read-only. No files will be deleted."
+msgstr "Só de leitura. Nenhum ficheiro será eliminado."
+
+msgctxt "ui"
+msgid "Italiano"
+msgstr "Italiano"
+
+msgctxt "ui"
+msgid "Nederlands"
+msgstr "Nederlands"
+
+msgctxt "rust"
+msgid "1 KiB–<1 MiB"
+msgstr "1 KiB–<1 MiB"
+
+msgctxt "rust"
+msgid "1 MiB–<1 GiB"
+msgstr "1 MiB–<1 GiB"
+
+msgctxt "rust"
+msgid "1–1023 bytes"
+msgstr "1–1023 bytes"
+
+msgctxt "rust"
+msgid "Access denied. Check operating-system permissions."
+msgstr "Acesso negado. Verifique as permissões do sistema."
+
+msgctxt "rust"
+msgid "At least 1 GiB"
+msgstr "Pelo menos 1 GiB"
+
+msgctxt "rust"
+msgid "Cancellation requested. A system or network read may take time to return."
+msgstr "Cancelamento pedido. Uma leitura do sistema ou da rede pode demorar a terminar."
+
+msgctxt "rust"
+msgid "Cancelled. Only finished groups are shown."
+msgstr "Cancelado. Apenas são apresentados os grupos verificados."
+
+msgctxt "rust"
+msgid "Cancelled. Only observed matches are shown."
+msgstr "Cancelado. Apenas são apresentados os resultados já observados."
+
+msgctxt "rust"
+msgid "Counts · known logical sizes per path. Unknown file sizes: {}. Hardlinks count as paths."
+msgstr "Contagens · tamanhos lógicos conhecidos por caminho. Tamanhos desconhecidos: {}. As ligações físicas contam por caminho."
+
+msgctxt "rust"
+msgid "Empty files"
+msgstr "Ficheiros vazios"
+
+msgctxt "rust"
+msgid "Extensions: largest 32 · bars: known bytes"
+msgstr "Extensões: as 32 maiores · barras: bytes conhecidos"
+
+msgctxt "rust"
+msgid "File identity is unavailable on this storage."
+msgstr "A identidade do ficheiro não está disponível neste armazenamento."
+
+msgctxt "rust"
+msgid "File no longer accessible. Check the path or network connection."
+msgstr "O ficheiro já não está acessível. Verifique o caminho ou a ligação de rede."
+
+msgctxt "rust"
+msgid "Group {} · copy {} ·"
+msgstr "Grupo {} · cópia {} ·"
+
+msgctxt "rust"
+msgid "Group {} · independent copies: {} · SHA-256: {} · byte-for-byte verified."
+msgstr "Grupo {} · cópias independentes: {} · SHA-256: {} · igualdade verificada byte a byte."
+
+msgctxt "rust"
+msgid "Hardlink alias"
+msgstr "Alias de ligação física"
+
+msgctxt "rust"
+msgid "Invalid filter: check the glob and the limit of 4096 bytes per field."
+msgstr "Filtro inválido: verifique o padrão glob e o limite de 4096 bytes por campo."
+
+msgctxt "rust"
+msgid "Invalid filter: minimum size must not exceed maximum size."
+msgstr "Filtro inválido: o tamanho mínimo não pode exceder o máximo."
+
+msgctxt "rust"
+msgid "Invalid filter: sizes must be whole bytes from 0 to 18446744073709551615."
+msgstr "Filtro inválido: os tamanhos devem ser bytes inteiros de 0 a 18446744073709551615."
+
+msgctxt "rust"
+msgid "Matches: {} · retained results: {} · omitted inventory entries: {} · unknown dates: {}. Logical file sizes per path."
+msgstr "Resultados: {} · retidos: {} · entradas de inventário omitidas: {} · datas desconhecidas: {}. Tamanhos lógicos por caminho."
+
+msgctxt "rust"
+msgid "Network read failed. Check the connection and retry."
+msgstr "Falha de leitura da rede. Verifique a ligação e tente novamente."
+
+msgctxt "rust"
+msgid "No exact duplicate group in the examined files."
+msgstr "Nenhum grupo de duplicados exatos nos ficheiros examinados."
+
+msgctxt "rust"
+msgid "No matching retained entry."
+msgstr "Nenhuma entrada retida corresponde."
+
+msgctxt "rust"
+msgid "Non-Unicode extension"
+msgstr "Extensão não Unicode"
+
+msgctxt "rust"
+msgid "Other extension groups: {} (included in totals)"
+msgstr "Outros grupos de extensões: {} (incluídos nos totais)"
+
+msgctxt "rust"
+msgid "Read budget or file-size limit reached. Results are incomplete."
+msgstr "Orçamento de leitura ou tamanho máximo atingido. Resultados incompletos."
+
+msgctxt "rust"
+msgid "Read failed or file changed. Rescan before retrying."
+msgstr "Falha de leitura ou ficheiro alterado. Volte a analisar antes de tentar novamente."
+
+msgctxt "rust"
+msgid "Reading candidate files…"
+msgstr "A ler ficheiros candidatos…"
+
+msgctxt "rust"
+msgid "Reading contents: {} bytes · {} files hashed"
+msgstr "Conteúdo lido: {} bytes · {} ficheiros com hash"
+
+msgctxt "rust"
+msgid "Retained entries: {} · omitted: {}. Filters never rescan the source."
+msgstr "Entradas retidas: {} · omitidas: {}. Os filtros nunca voltam a analisar a origem."
+
+msgctxt "rust"
+msgid "Retained inventory"
+msgstr "Inventário retido"
+
+msgctxt "rust"
+msgid "Rows {}–{} of {}"
+msgstr "Linhas {}–{} de {}"
+
+msgctxt "rust"
+msgid "SHA-256 candidates are compared byte for byte. Hardlink aliases are the same file."
+msgstr "Os candidatos SHA-256 são comparados byte a byte. Os aliases de ligações físicas são o mesmo ficheiro."
+
+msgctxt "rust"
+msgid "Size classes · bars: file counts"
+msgstr "Classes de tamanho · barras: número de ficheiros"
+
+msgctxt "rust"
+msgid "Unknown size"
+msgstr "Tamanho desconhecido"
+
+msgctxt "rust"
+msgid "Waiting for the previous read to finish. Reopen Search / statistics afterwards."
+msgstr "A aguardar a leitura anterior. Depois volte a abrir Pesquisa / estatísticas."
+
+msgctxt "ui"
+msgid "Analysis source"
+msgstr "Origem da análise"
+
+msgctxt "ui"
+msgid "Analysis status and coverage"
+msgstr "Estado e cobertura da análise"
+
+msgctxt "ui"
+msgid "Case sensitive"
+msgstr "Distinguir maiúsculas"
+
+msgctxt "ui"
+msgid "Path"
+msgstr "Caminho"
+
+msgctxt "ui"
+msgid "Read errors"
+msgstr "Erros de leitura"
+
+msgctxt "ui"
+msgid "Size: largest first"
+msgstr "Tamanho: maior primeiro"
+
+msgctxt "ui"
+msgid "Size: smallest first"
+msgstr "Tamanho: menor primeiro"

@@ -1,0 +1,12 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "//   Copyright © 2002 Keith Packard",
+    "//   Copyright © 2013 Michael Stapelberg",
+    "// Most tests in here are based on [1], which is: Copyright © 2016 Ingo Bürk",
+    "// The original file has Copyright (C) 2001-2002 Bart Massey and Jamey Sharp and is licensed under",
+    "// applies. The exact situation is a bit unclear (libxcb's COPYING file has \"Copyright (C)",
+    "Copyright 2019 x11rb Contributers"
+  ],
+  "spdx_lines": []
+}

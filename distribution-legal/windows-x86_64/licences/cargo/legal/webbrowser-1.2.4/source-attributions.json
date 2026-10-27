@@ -1,0 +1,9 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "Copyright (c) 2015-2022 Amod Malviya"
+  ],
+  "spdx_lines": [
+    "`SPDX-License-Identifier: Apache-2.0 OR MIT`"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "//   Copyright © [YEAR] W3C® (MIT, ERCIM, Keio, Beihang).\"",
+    "// Copyright © 2018 W3C® (MIT, ERCIM, Keio, Beihang)",
+    "// Copyright © 2023 World Wide Web Consortium, (Massachusetts Institute of",
+    "Copyright (c) 2023 Kirill Chibisov",
+    "Copyright 2023 Kirill Chibisov"
+  ],
+  "spdx_lines": [
+    "// SPDX-License-Identifier: MIT OR Apache-2.0 OR Zlib"
+  ]
+}

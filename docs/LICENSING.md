@@ -1,7 +1,11 @@
-# Licences / Licensing
+# Licences
 
-Code Bunny and Size : GPL-3.0-only, texte intégral dans [LICENSE](../LICENSE). Les composants tiers conservent leurs titulaires et licences ; chaque archive contient THIRD_PARTY_NOTICES.txt et les textes intégraux dans licences/. Les sources complètes correspondantes sont disponibles comme assets de la release.
+Code Bunny and Size : **GPL-3.0-only**, texte intégral dans [LICENSE](../LICENSE).
+Visuels adaptés : **CC BY-SA 4.0**, Louis Lejuez / TazmenWorld ; conditions et adaptations incorporées
+détaillées dans [BRANDING.md](../BRANDING.md) et [CREDITS.md](../CREDITS.md).
+Le portrait personnel et l’original réservé sont exclus.
 
-Bunny and Size code: GPL-3.0-only, full text in [LICENSE](../LICENSE). Third-party components retain their owners and licenses; each archive contains THIRD_PARTY_NOTICES.txt and full license texts in licences/. Complete corresponding sources are release assets.
-
-Visuels adaptés approuvés / Approved adapted artwork: CC BY-SA 4.0, Louis Lejuez / TazmenWorld. Voir / see [BRANDING.md](../BRANDING.md), [CREDITS.md](../CREDITS.md) et / and [le texte CC intégral / full CC text](../assets/branding/CC-BY-SA-4.0.txt). Portrait personnel et original réservé exclus / Personal portrait and reserved original excluded. Aucune garantie / No warranty.
+Les textes et avis tiers audités sont conservés dans `distribution-legal/linux-x86_64/` et
+`distribution-legal/windows-x86_64/`, et dans les archives binaires.
+Les sources Cargo vendoriées conservent leurs textes originaux ; les compléments légaux sont fournis.
+Les licences alternatives des tiers ne changent pas la voie GPL retenue. Aucune garantie.

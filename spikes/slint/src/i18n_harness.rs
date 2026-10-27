@@ -408,6 +408,8 @@ pub fn run_b2(
         Language::French => "fr_FR",
         Language::German => "de_DE",
         Language::Spanish => "es_ES",
+        Language::Italian => "it_IT",
+        Language::Dutch => "nl_NL",
         Language::Portuguese => "pt_BR", // documented pt-PT fallback, injected
     };
     let start = Instant::now();

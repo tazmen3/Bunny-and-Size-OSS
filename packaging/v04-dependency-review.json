@@ -1,0 +1,7 @@
+{
+  "lock_sha256": {
+    "Cargo.lock": "a5c2d2d0a4aee41330196de83cda26811bb1a2af310ab2a2853c75e5020a8cc6",
+    "spikes/slint/Cargo.lock": "b0db1fe79f0ffdaa3d45f82157cc787250f6cf200253f03eae574ad8cc74bf9b"
+  },
+  "basis": "V0.3 legal corpus plus exact V0.4 RustCrypto dependency review in docs/v0.4/DEPENDENCIES.json; test-only serde_json already locked; no license change; RC.1 changes internal package versions only; every external lock entry is byte-equivalent in parsed TOML"
+}

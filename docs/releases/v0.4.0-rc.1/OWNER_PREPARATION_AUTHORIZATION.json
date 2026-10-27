@@ -1,0 +1,30 @@
+{
+  "schema": 2,
+  "approved": true,
+  "owner": "tazmen3",
+  "mode": "public-unsigned",
+  "scope": "local-package-preparation",
+  "distribution_approved": false,
+  "version": "0.4.0-rc.1",
+  "source_commit": "332cdae5da3dcebd094c3106037203891453b172",
+  "source_archive_sha256": "a5f71bdfe41292a03f92711c73878c71dbbf7be7ffa762e4170bfb54ccd6459e",
+  "built_from_commit": "e69cea52f7249ffe3310d931e67ba06990ab3b1e",
+  "build_inputs_sha256": "64ef145c532d9c11916fd9b5a83c5d76245ad3ac8154cf291f7adcbc0d64a797",
+  "qualified_binaries": {
+    "windows-x86_64": {
+      "bunny-and-size.exe": "d503d6c1f190c86039c026cb5ec1dba0062dff5b6034081dad3981bae5fd098e",
+      "bunny-and-size-cli.exe": "b2c9bf16039597a504f8461cf89147d5ed211289d427a186d81b84379486130a",
+      "sortsize.exe": "52f2ad3a77dcc1603f215bbadead4bedb9b8f71327b17ef75361c12d8aefe1b5"
+    },
+    "linux-x86_64": {
+      "bunny-and-size": "7385d088287b58fde011b38ba0c4a4b9f1b5773418164050bb891e0f7224ddc6",
+      "bunny-and-size-cli": "415741eb6887cabb7a49f81340b420e78f72f6b1bdc4ff73093216e0989e0616",
+      "sortsize": "f00e385bc179d86684ba59a39d2a1677329e91577721c15500e40c00cb2b270a"
+    }
+  },
+  "date": "2026-10-27",
+  "decision_reference": "Owner request 2026-10-27: BUNNY AND SIZE V0.4.0-RC.1 — CORRECTION DU GATE DE DISTRIBUTION; local preparation only",
+  "D1": "UNRESOLVED #139; owner accepted prerelease reservation",
+  "publication_requires": "Separate explicit human approval of final asset names, sizes and SHA-256; no merge/tag/release/OSS write authorized",
+  "decision_request_sha256": "86bfa3a44b33170e7a9b947ff8140ed89cdad390c6dbbd2feace0d07c5ed3ffb"
+}

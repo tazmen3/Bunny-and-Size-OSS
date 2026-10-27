@@ -143,6 +143,7 @@ impl Tree {
             selected: None,
             sort: 0,
             truncated: false,
+            analysis_omitted: 0,
             coverage: Coverage::Partial,
         }
     }

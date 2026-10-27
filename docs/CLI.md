@@ -20,7 +20,7 @@ cargo run -p sortsize-cli -- scan /chemin/du/dossier --max-depth 3
 cargo run -p sortsize-cli -- scan /chemin/du/dossier --workers 4
 ```
 
-Sur Windows, fournir un chemin natif tel que `C:\Users\Utilisateur\Documents`. Les chemins contenant des espaces doivent être entre guillemets. Les commandes supposent Cargo disponible dans le PATH ; un nouveau terminal peut être nécessaire après installation de rustup.
+Sur Windows, fournir un chemin natif tel que `D:\Donnees\Documents`. Les chemins contenant des espaces doivent être entre guillemets. Les commandes supposent Cargo disponible dans le PATH ; un nouveau terminal peut être nécessaire après installation de rustup.
 
 ## Build et contrôles
 

@@ -1,0 +1,10 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "# Copyright (C) 2021 and later: Unicode, Inc. and others.",
+    "Copyright © 2020-2024 Unicode, Inc."
+  ],
+  "spdx_lines": [
+    "SPDX-License-Identifier: Unicode-3.0"
+  ]
+}

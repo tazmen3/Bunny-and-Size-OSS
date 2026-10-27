@@ -42,6 +42,9 @@ impl StagedOutput {
         Ok(())
     }
     pub fn publish(self) -> io::Result<()> {
+        self.publish_checked(|| Ok(()))
+    }
+    pub fn publish_checked(self, check: impl FnOnce() -> io::Result<()>) -> io::Result<()> {
         #[cfg(test)]
         if self.failure.is_some_and(|(point, _)| point == "sync") {
             return Err(io::Error::new(io::ErrorKind::StorageFull, "sync"));
@@ -50,6 +53,7 @@ impl StagedOutput {
             .stage
             .ok_or_else(|| io::Error::other("Export sans fichier de staging"))?;
         file.as_file().sync_all()?;
+        check()?;
         #[cfg(test)]
         if self.failure.is_some_and(|(point, _)| point == "publish") {
             return Err(io::Error::new(io::ErrorKind::PermissionDenied, "publish"));

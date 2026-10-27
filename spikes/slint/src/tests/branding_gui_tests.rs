@@ -24,7 +24,7 @@ fn native_about_all_languages_at_minimum_and_preferred_sizes() {
     timer.start(TimerMode::Repeated, Duration::from_millis(200), move || {
         let window = weak.upgrade().unwrap();
         let case = phase / 2;
-        if case == 20 {
+        if case == Language::ALL.len() * 4 {
             fs::write(output.join("geometry.tsv"), &records).unwrap();
             window.hide().unwrap();
             slint::quit_event_loop().unwrap();

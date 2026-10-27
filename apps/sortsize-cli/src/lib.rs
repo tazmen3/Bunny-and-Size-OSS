@@ -8,6 +8,7 @@ use std::path::PathBuf;
 use std::process::ExitCode;
 use std::time::{Duration, Instant};
 
+mod analysis_output;
 mod delimited;
 mod entries_output;
 
@@ -25,6 +26,8 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
+    /// Search and summarize a bounded retained inventory (read-only).
+    Analyze(analysis_output::Arguments),
     /// Analyser un dossier local sans suivre les liens symboliques.
     Scan {
         path: PathBuf,
@@ -109,6 +112,10 @@ pub fn main_entry() -> ExitCode {
 }
 
 fn run(cli: Cli) -> Result<u8, Box<dyn std::error::Error>> {
+    let command = match cli.command {
+        Command::Analyze(arguments) => return analysis_output::run(arguments),
+        command => command,
+    };
     let Command::Scan {
         path,
         format,
@@ -127,7 +134,10 @@ fn run(cli: Cli) -> Result<u8, Box<dyn std::error::Error>> {
         quiet,
         progress,
         ..
-    } = cli.command;
+    } = command
+    else {
+        unreachable!()
+    };
     if scope == Scope::Entries && !matches!(format, Format::Csv | Format::Tsv) {
         return Err(io::Error::new(
             io::ErrorKind::InvalidInput,

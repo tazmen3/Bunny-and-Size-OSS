@@ -1,0 +1,26 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "# Copyright © SixtyFPS GmbH <info@slint.dev>",
+    "// Copyright © 2025 Klarälvdalens Datakonsult AB, a KDAB Group company <info@kdab.com>, author Nathan Collins <nathan.collins@kdab.com>",
+    "// Copyright © 2026 Klarälvdalens Datakonsult AB, a KDAB Group company <info@kdab.com>",
+    "// Copyright © 2026 Klarälvdalens Datakonsult AB, a KDAB Group company <info@kdab.com>, author Nathan Collins <nathan.collins@kdab.com>",
+    "// Copyright © 2026 Klarälvdalens Datakonsult AB, a KDAB Group company <info@kdab.com>, author Nicholas Turner <nicholas.turner@kdab.com>",
+    "// Copyright © Klarälvdalens Datakonsult AB, a KDAB Group company , info@kdab.com, author Robin Cramer <robin.cramer@kdab.com>",
+    "// Copyright © Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com",
+    "// Copyright © Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com, author David Faure <david.faure@kdab.com>",
+    "// Copyright © Klarälvdalens Datakonsult AB, a KDAB Group company, info@kdab.com, author Till Adam <till.adam@kdab.com>",
+    "// Copyright © SixtyFPS GmbH <info@slint.dev>",
+    "// Copyright © SixtyFPS GmbH <info@slint.dev>, Copyright © 2025 Klarälvdalens Datakonsult AB, a KDAB Group company <info@kdab.com>, author Nathan Collins <nathan.collins@kdab.com>",
+    "// Copyright © SixtyFPS GmbH <info@slint.dev>, Copyright © 2026 Klarälvdalens Datakonsult AB, a KDAB Group company <info@kdab.com>, author Nathan Collins <nathan.collins@kdab.com>",
+    "<program>  Copyright (C) <year>  <name of author>",
+    "Copyright (C) <year>  <name of author>",
+    "Copyright (c) <year> <copyright holders>",
+    "Copyright © 2007 Free Software Foundation, Inc. <http://fsf.org/>",
+    "﻿// Copyright © SixtyFPS GmbH <info@slint.dev>"
+  ],
+  "spdx_lines": [
+    "# SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0",
+    "// SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0"
+  ]
+}

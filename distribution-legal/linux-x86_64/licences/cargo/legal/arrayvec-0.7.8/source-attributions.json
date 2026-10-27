@@ -1,0 +1,8 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "// Copyright 2012-2016 The Rust Project Developers. See the COPYRIGHT",
+    "Copyright (c) Ulrik Sverdrup \"bluss\" 2015-2023"
+  ],
+  "spdx_lines": []
+}

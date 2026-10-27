@@ -33,6 +33,8 @@ pub(crate) fn register(window: &SortSizeWindow, controller: &Rc<RefCell<Controll
             3 => LanguagePreference::Explicit(Language::German),
             4 => LanguagePreference::Explicit(Language::Spanish),
             5 => LanguagePreference::Explicit(Language::Portuguese),
+            6 => LanguagePreference::Explicit(Language::Italian),
+            7 => LanguagePreference::Explicit(Language::Dutch),
             _ => return,
         };
         let Some(state) = state.upgrade() else { return };
@@ -134,6 +136,7 @@ impl Controller {
         }
     }
     pub(crate) fn show_language(&self, window: &SortSizeWindow) {
+        self.analysis.retranslate(self.presentation);
         let _scope = self.presentation.enter();
         window.set_language_choice(match self.preferences.language {
             LanguagePreference::Automatic => 0,
@@ -142,6 +145,8 @@ impl Controller {
             LanguagePreference::Explicit(Language::German) => 3,
             LanguagePreference::Explicit(Language::Spanish) => 4,
             LanguagePreference::Explicit(Language::Portuguese) => 5,
+            LanguagePreference::Explicit(Language::Italian) => 6,
+            LanguagePreference::Explicit(Language::Dutch) => 7,
         });
         window.set_detected_language(self.system_locale.as_deref().unwrap_or("—").into());
         window.set_effective_language(
@@ -189,6 +194,8 @@ impl Controller {
                 Language::German => 2,
                 Language::Spanish => 3,
                 Language::Portuguese => 4,
+                Language::Italian => 5,
+                Language::Dutch => 6,
             });
         }
         // Creating another component may reinstall the bundle. Restore its

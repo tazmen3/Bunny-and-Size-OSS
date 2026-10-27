@@ -1,5 +1,4 @@
-# Bunny and Size v0.3.0-rc.1
+# Bunny and Size v0.4.0-rc.1
 
-Documentation courante / Current documentation: [v0.3.0-rc.1](releases/v0.3.0-rc.1/PROVENANCE.json).
-
-Les documents datés précédents restent historiques / Earlier dated documents retain their historical scope.
+Documentation courante : [consulter](../docs/releases/v0.4.0-rc.1/PUBLICATION.json).
+Les documents datés antérieurs restent historiques.

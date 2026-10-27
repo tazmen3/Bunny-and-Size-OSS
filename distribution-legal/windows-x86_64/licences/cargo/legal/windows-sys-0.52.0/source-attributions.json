@@ -1,0 +1,23 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "Copyright (c) Microsoft Corporation.",
+    "pub const ACM_MPEG_COPYRIGHT: u32 = 2u32;",
+    "pub const MCI_INFO_COPYRIGHT: i32 = 8192i32;",
+    "pub const MCI_SEQ_STATUS_COPYRIGHT: i32 = 16396i32;",
+    "pub const NAME_GenericObj_Copyright: ::windows_sys::core::PCWSTR = ::windows_sys::core::w!(\"Copyright\");",
+    "pub const PIDMSI_COPYRIGHT: i32 = 11i32;",
+    "pub const PropertyTagCopyright: u32 = 33432u32;",
+    "pub const PropertyTagThumbnailCopyRight: u32 = 20539u32;",
+    "pub const TMT_COPYRIGHT: THEME_PROPERTY_SYMBOL_ID = 605u32;",
+    "pub const WPD_MEDIA_COPYRIGHT: super::super::UI::Shell::PropertiesSystem::PROPERTYKEY = super::super::UI::Shell::PropertiesSystem::PROPERTYKEY { fmtid: ::windows_sys::core::GUID::from_u128(0x2ed8ba05_0ad3_42dc_b0d0_bc95ac396ac8), pid: 4 };",
+    "pub const g_wszWMCopyright: ::windows_sys::core::PCWSTR = ::windows_sys::core::w!(\"Copyright\");",
+    "pub const g_wszWMProviderCopyright: ::windows_sys::core::PCWSTR = ::windows_sys::core::w!(\"WM/ProviderCopyright\");",
+    "pub const wszCMM_PROP_COPYRIGHT: ::windows_sys::core::PCWSTR = ::windows_sys::core::w!(\"Copyright\");",
+    "pub pszCopyright: ::windows_sys::core::PWSTR,",
+    "pub szCopyright: [u16; 80],",
+    "pub szCopyright: [u8; 128],",
+    "pub szCopyright: [u8; 80],"
+  ],
+  "spdx_lines": []
+}

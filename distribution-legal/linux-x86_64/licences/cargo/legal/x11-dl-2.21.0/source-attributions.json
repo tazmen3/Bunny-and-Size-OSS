@@ -1,0 +1,9 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "pub const XA_COPYRIGHT: Atom = 61;",
+    "pub const XK_copyright: c_uint = 0x0a9;",
+    "pub const XK_phonographcopyright: c_uint = 0xafb;"
+  ],
+  "spdx_lines": []
+}

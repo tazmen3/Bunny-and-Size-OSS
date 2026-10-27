@@ -1,0 +1,9 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "// Copyright (c) 2017 Gilad Naaman",
+    "// Copyright (c) 2020 Gilad Naaman, Ralf Jung",
+    "Copyright (c) 2017 Gilad Naaman"
+  ],
+  "spdx_lines": []
+}

@@ -1,0 +1,5 @@
+Contributeurs du code original, tels que consignés par Git (pas une attribution exclusive des droits) :
+Codex
+Louis Lejuez
+tazmen3
+Les composants tiers conservent leurs propres copyrights et licences.

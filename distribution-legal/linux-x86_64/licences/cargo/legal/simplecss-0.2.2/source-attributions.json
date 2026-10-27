@@ -1,0 +1,11 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "// Copyright 2016 the SimpleCSS Authors",
+    "// Copyright 2019 the SimpleCSS Authors",
+    "Copyright (c) 2018 Reizner Evgeniy"
+  ],
+  "spdx_lines": [
+    "// SPDX-License-Identifier: Apache-2.0 OR MIT"
+  ]
+}

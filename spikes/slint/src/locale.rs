@@ -1,7 +1,7 @@
 //! Language policy for presentation. No scan, path, timestamp or export state.
-//! Five complete product catalogs; Portuguese deliberately uses pt-PT.
+//! Seven complete product catalogs; Portuguese deliberately uses pt-PT.
 
-/// Product message languages; source English and four bundled catalogs.
+/// Product message languages; source English and six bundled catalogs.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Language {
     English,
@@ -10,14 +10,18 @@ pub enum Language {
     Spanish,
     /// Initial Portuguese catalog: European Portuguese (pt-PT).
     Portuguese,
+    Italian,
+    Dutch,
 }
 impl Language {
-    pub const ALL: [Self; 5] = [
+    pub const ALL: [Self; 7] = [
         Self::English,
         Self::French,
         Self::German,
         Self::Spanish,
         Self::Portuguese,
+        Self::Italian,
+        Self::Dutch,
     ];
     pub const fn as_str(self) -> &'static str {
         match self {
@@ -26,6 +30,8 @@ impl Language {
             Self::German => "de",
             Self::Spanish => "es",
             Self::Portuguese => "pt",
+            Self::Italian => "it",
+            Self::Dutch => "nl",
         }
     }
 }
@@ -67,7 +73,7 @@ impl LanguagePreference {
     }
 }
 
-/// Recognize the five base languages, preserving no formatting policy.
+/// Recognize the seven base languages, preserving no formatting policy.
 /// Accept POSIX encoding/modifier suffixes and common BCP-47 regional spellings.
 /// All Portuguese regions deliberately resolve to the single pt-PT catalog.
 pub fn normalize(locale: &str) -> Option<Language> {
@@ -191,6 +197,8 @@ mod tests {
             ("pt_PT", Language::Portuguese),
             ("pt-BR", Language::Portuguese),
             ("pt_BR", Language::Portuguese),
+            ("it_IT.UTF-8", Language::Italian),
+            ("nl-NL", Language::Dutch),
             ("en_US", Language::English),
             ("de_DE", Language::German),
             ("es_ES", Language::Spanish),
@@ -204,7 +212,7 @@ mod tests {
             "C",
             "C.UTF-8",
             "POSIX",
-            "it_IT",
+            "ja_JP",
             "zh-Hant-TW",
             "fr-???",
             "en--US",

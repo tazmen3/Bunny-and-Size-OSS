@@ -1,0 +1,11 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "Copyright (c) 2017 Frommi",
+    "Copyright (c) 2017-2024 oyvindln",
+    "Copyright (c) 2020 Frommi",
+    "Copyright 2010-2014 Rich Geldreich and Tenacious Software LLC",
+    "Copyright 2013-2014 RAD Game Tools and Valve Software"
+  ],
+  "spdx_lines": []
+}

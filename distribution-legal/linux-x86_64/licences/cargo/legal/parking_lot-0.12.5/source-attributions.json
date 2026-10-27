@@ -1,0 +1,8 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "// Copyright 2016 Amanieu d'Antras",
+    "Copyright (c) 2016 The Rust Project Developers"
+  ],
+  "spdx_lines": []
+}

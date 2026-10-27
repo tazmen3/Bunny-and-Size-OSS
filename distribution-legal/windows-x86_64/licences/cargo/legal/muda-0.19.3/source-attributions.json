@@ -1,0 +1,17 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "// Copyright 2014-2021 The winit contributors",
+    "// Copyright 2021-2022 Tauri Programme within The Commons Conservancy",
+    "// Copyright 2022-2022 Tauri Programme within The Commons Conservancy",
+    "Copyright (c) 2022-2022 Tauri Programme within The Commons Conservancy",
+    "const NSAboutPanelOptionCopyright: &str = \"Copyright\";",
+    "pub copyright: Option<String>,",
+    "pub fn copyright<S: Into<String>>(mut self, copyright: Option<S>) -> Self {"
+  ],
+  "spdx_lines": [
+    "// SPDX-License-Identifier: Apache-2.0",
+    "// SPDX-License-Identifier: Apache-2.inner",
+    "// SPDX-License-Identifier: MIT"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "// Copyright 2013 The Servo Project Developers. See the LICENSE",
+    "Copyright 2013 The Servo Project Developers.",
+    "Copyright 2014 Austin Bonander",
+    "Copyright 2016 Manuel Reinhardt",
+    "Copyright 2019 YesLogic Pty. Ltd."
+  ],
+  "spdx_lines": []
+}

@@ -7,6 +7,7 @@ pub mod i18n_harness;
 pub mod measure;
 
 mod allocation_label;
+mod analysis_controller;
 mod date_label;
 mod directory_controller;
 mod directory_worker;
@@ -42,6 +43,7 @@ slint::include_modules!();
 
 #[derive(Default)]
 struct Controller {
+    analysis: analysis_controller::Panel,
     presentation: presentation::Context,
     language_activation: Option<locale::Activation>,
     system_locale: Option<String>,
@@ -140,6 +142,7 @@ impl Controller {
     fn update_units(&mut self, window: &SortSizeWindow) {
         let _presentation = self.presentation.enter();
         let units = self.preferences.units;
+        self.analysis.set_units(units, self.presentation);
         if let Some(original) = &mut self.directory.original {
             original.set_units(units);
         }
@@ -285,6 +288,7 @@ impl Controller {
         window: &SortSizeWindow,
         preflight: Option<directory_worker::Preflight>,
     ) {
+        self.analysis.invalidate();
         let _presentation = self.presentation.enter();
         if self.task.is_some() || window.get_choosing_folder() || !window.get_scan_enabled() {
             return;
@@ -480,6 +484,7 @@ impl Controller {
     }
 
     fn poll(&mut self, window: &SortSizeWindow) {
+        self.analysis.poll(self.presentation);
         let _presentation = self.presentation.enter();
         #[cfg(any(target_os = "linux", windows))]
         if let Some(success) = self
@@ -696,6 +701,7 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
         system_locale: sys_locale::get_locale(),
         ..Controller::default()
     }));
+    analysis_controller::connect(window, &controller);
     controller.borrow().show_preferences(window);
     controller.borrow().show_language(window);
     language_controller::register(window, &controller);
@@ -1057,7 +1063,11 @@ pub fn run() -> Result<(), slint::PlatformError> {
         }
     });
     let weak_legal = legal.as_weak();
+    let weak_controller = Rc::downgrade(&controller);
     window.window().on_close_requested(move || {
+        if let Some(controller) = weak_controller.upgrade() {
+            controller.borrow_mut().analysis.invalidate();
+        }
         if let Some(legal) = weak_legal.upgrade() {
             let _ = legal.hide();
         }
@@ -1111,6 +1121,7 @@ pub fn run() -> Result<(), slint::PlatformError> {
     });
     let result = window.run();
     timer.stop();
+    controller.borrow_mut().analysis.invalidate();
     controller.borrow_mut().task = None;
     controller.borrow_mut().scan_worker = None;
     controller.borrow_mut().owner_task = None;
@@ -1139,6 +1150,7 @@ pub fn android_main(app: slint::android::AndroidApp) {
 
 #[cfg(test)]
 mod tests {
+    mod analysis_gui_tests;
     mod branding_gui_tests;
     mod display_gui_tests;
     mod i18n_gui_tests;

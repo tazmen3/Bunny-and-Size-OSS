@@ -1,6 +1,131 @@
 use super::*;
 use crate::locale::{Language, LanguagePreference};
 
+// Keep the observed renderer untouched by reference renders for the ENTIRE
+// sequence. A full render between frames resets its partial-rendering cache and
+// can hide an accumulating invalidation fault (the older oracle below does so).
+#[test]
+fn footer_seven_languages_preserves_cache_until_all_observations_are_recorded() {
+    let adapter = MinimalSoftwareWindow::new(RepaintBufferType::ReusedBuffer);
+    slint::platform::set_platform(Box::new(TestPlatform(adapter.clone()))).unwrap();
+    let (window, controller) = new_session(Default::default(), Some("fr_FR".into())).unwrap();
+    let fixture = TempDir::new().unwrap();
+    fs::write(fixture.path().join("oracle.txt"), [1; 1024]).unwrap();
+    window.set_scan_path(fixture.path().to_str().unwrap().into());
+    window.invoke_start_scan();
+    wait(&window, &controller);
+    window.invoke_set_column(3, false);
+    window.show().unwrap();
+    let (width, height) = (1600, 1000);
+    adapter.set_size(slint::PhysicalSize::new(width, height));
+    let mut pixels = vec![slint::Rgb8Pixel::default(); (width * height) as usize];
+    adapter.draw_if_needed(|r| {
+        r.render(&mut pixels, width as usize);
+    });
+    let footer = (width * (height - 85)) as usize..pixels.len();
+    let choices = [1, 6, 7, 3, 4, 5, 2];
+    let nouns = [
+        "", "file", "fichier", "Datei", "archivo", "ficheiro", "file", "bestand",
+    ];
+    let mut records = Vec::new();
+    for panel in [true, false, true, false] {
+        window.set_preferences_open(panel);
+        for (position, &choice) in choices.iter().enumerate() {
+            // Two publications before the next frame, including IT/NL.
+            window.invoke_set_language(choices[(position + 1) % choices.len()]);
+            window.invoke_set_language(choice);
+            let semantic = window.get_summary();
+            assert!(semantic.contains(nouns[choice as usize]), "{semantic}");
+            slint::platform::update_timers_and_animations();
+            assert!(adapter.draw_if_needed(|r| {
+                r.render(&mut pixels, width as usize);
+            }));
+            records.push((panel, choice, semantic, pixels[footer.clone()].to_vec()));
+        }
+    }
+    // Only now reset the cache to construct independent full-render references.
+    let mut discriminating = 0;
+    for (index, (panel, choice, semantic, observed)) in records.iter().enumerate() {
+        window.set_preferences_open(*panel);
+        window.invoke_set_language(*choice);
+        assert_eq!(&window.get_summary(), semantic, "replay state differs");
+        slint::platform::update_timers_and_animations();
+        assert!(adapter.draw_if_needed(|r| {
+            r.set_repaint_buffer_type(RepaintBufferType::NewBuffer);
+            r.render(&mut pixels, width as usize);
+        }));
+        assert_eq!(
+            &pixels[footer.clone()],
+            observed,
+            "D1 replay {index}, language {choice}"
+        );
+        if index > 0 && records[index - 1].3 != pixels[footer.clone()] {
+            discriminating += 1;
+        }
+    }
+    assert_eq!(records.len(), 28);
+    assert!(discriminating >= 20, "old-language pixels must be rejected");
+    window.hide().unwrap();
+}
+
+// D1: getters can be correct while a retained framebuffer still contains the
+// previous language. Compare the incremental pixels with a full render of the
+// SAME state and geometry, after recording the incremental result first.
+#[test]
+fn footer_incremental_pixels_match_full_render_after_language_transactions() {
+    let adapter = MinimalSoftwareWindow::new(RepaintBufferType::ReusedBuffer);
+    slint::platform::set_platform(Box::new(TestPlatform(adapter.clone()))).unwrap();
+    let (window, controller) = new_session(Default::default(), Some("fr_FR".into())).unwrap();
+    let fixture = TempDir::new().unwrap();
+    fs::write(fixture.path().join("oracle.txt"), [1; 1024]).unwrap();
+    window.set_scan_path(fixture.path().to_str().unwrap().into());
+    window.invoke_start_scan();
+    wait(&window, &controller);
+    window.show().unwrap();
+    let (width, height) = (1600, 1000);
+    adapter.set_size(slint::PhysicalSize::new(width, height));
+    let mut pixels = vec![slint::Rgb8Pixel::default(); (width * height) as usize];
+    adapter.draw_if_needed(|r| {
+        r.render(&mut pixels, width as usize);
+    });
+    let mut discriminating_transitions = 0;
+    for panel in [true, false, true, false] {
+        window.set_preferences_open(panel);
+        for index in [1, 3, 4, 5, 2, 1, 2] {
+            let before = pixels.clone();
+            window.invoke_set_language(index);
+            let semantic = window.get_summary();
+            let noun = ["", "file", "fichier", "Datei", "archivo", "ficheiro"][index as usize];
+            assert!(
+                semantic.contains(noun),
+                "wrong semantic language: {semantic}"
+            );
+            slint::platform::update_timers_and_animations();
+            assert!(adapter.draw_if_needed(|r| {
+                r.render(&mut pixels, width as usize);
+                let mut reference = vec![slint::Rgb8Pixel::default(); pixels.len()];
+                r.set_repaint_buffer_type(RepaintBufferType::NewBuffer);
+                r.render(&mut reference, width as usize);
+                // Footer only: animated/focused widgets elsewhere are excluded.
+                let footer = (width * (height - 85)) as usize..pixels.len();
+                if before[footer.clone()] != reference[footer.clone()] {
+                    discriminating_transitions += 1;
+                }
+                assert_eq!(
+                    pixels[footer.clone()],
+                    reference[footer],
+                    "D1: semantic={semantic}, language={index}, preferences={panel}"
+                );
+                r.set_repaint_buffer_type(RepaintBufferType::ReusedBuffer);
+            }));
+        }
+    }
+    // Negative control: retaining the old pixels must fail this oracle even
+    // though all semantic getters already expose the new language.
+    assert!(discriminating_transitions >= 20);
+    window.hide().unwrap();
+}
+
 // Multi-window tests need a distinct adapter per component; sharing a single
 // MinimalSoftwareWindow makes constructing a bare window replace the first
 // window's adapter state (including its viewport).

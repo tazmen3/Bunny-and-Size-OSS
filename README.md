@@ -1,42 +1,55 @@
-# Bunny and Size
+# Bunny and Size — v0.4.0-rc.1
 
-![Bunny and Size — TazmenWorld](assets/branding/readme-banner.svg)
+Analyse locale de l’espace disque, en lecture seule, sous licence **GPL-3.0-only**.
+Prerelease publique d’évaluation publiée avec l’autorisation du propriétaire du **27 octobre 2026**.
 
-**v0.3.0-rc.1 — première RC publique / first public RC**, 26 octobre 2026 / 26 October 2026.
-[Téléchargements et sources correspondantes / Downloads and corresponding sources](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.3.0-rc.1).
-Version d'évaluation, avec réserves connues. / Evaluation prerelease with known reservations.
+**[Téléchargements et notes de release](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.4.0-rc.1)** · [Guide V0.4](docs/v0.4/USAGE.md) · [Licences](docs/LICENSING.md) · [Sécurité](SECURITY.md)
 
-Analyse locale du stockage en lecture seule : arbre/tableau, Treemap, Top 100, analyse progressive et annulation, exploration complémentaire des dossiers, préférences persistantes et interface en cinq langues (EN/FR/DE/ES/PT-PT). CLI : exports de résumés JSON/CSV/TSV et d'entrées CSV/TSV. Aucune suppression ni télémétrie.
+## Fonctions
 
-Read-only local storage analysis: tree/table, Treemap, Top 100, progressive scanning and cancellation, additional folder exploration, persistent preferences and five interface languages (EN/FR/DE/ES/PT-PT). CLI summary exports in JSON/CSV/TSV and entry exports in CSV/TSV. No deletion or telemetry.
+Recherche et filtres sur l’inventaire retenu, pagination, statistiques par extension et classe de taille,
+doublons exacts à la demande (SHA-256 puis comparaison octet par octet), Treemap, exports JSON/CSV/TSV,
+et sept langues : français, anglais, allemand, espagnol, portugais, italien et néerlandais.
+Les partages SMB doivent déjà être autorisés et accessibles par le système (UNC/lecteurs Windows, montages CIFS Linux).
+Inventaire borné, métriques inconnues explicites, annulation et résultats partiels ; aucune suppression automatique.
+Les fonctions locales sont utilisables hors ligne, sans compte ni télémétrie par défaut.
 
-- [Notes de publication / Release notes](docs/releases/v0.3.0-rc.1/PUBLIC_RELEASE_NOTES.md)
-- [Installation Ubuntu et Windows / User guide](docs/releases/v0.3.0-rc.1/USER_GUIDE.md)
-- [Limitations connues / Known limitations](docs/releases/v0.3.0-rc.1/PUBLIC_LIMITATIONS.md)
-- [Clarifications des textes embarqués / Archive wording](docs/releases/v0.3.0-rc.1/RELEASE_CLARIFICATIONS.md)
-- [SHA-256 des quatre archives / Archive checksums](docs/releases/v0.3.0-rc.1/SHA256SUMS)
-- [Provenance](PROVENANCE.json) · [Compilation / Building](docs/BUILDING.md) · [Crédits / Credits](CREDITS.md)
+## Installation
 
-Ubuntu 24.04 x86_64 : extraire toute l'archive Linux et lancer `./bunny-and-size` (X11/XWayland, prérequis dans le guide). Windows 11 x64 : extraire tout le ZIP et lancer `bunny-and-size.exe` ; [Microsoft Visual C++ Redistributable x64 v14](https://aka.ms/vc14/vc_redist.x64.exe) requis. Pas de MSI/DEB ; aucun Rust requis à l'exécution.
+Télécharger l’archive Linux x86_64 ou Windows x64 et l’extraire intégralement.
+Lancer `bunny-and-size` sous Linux, `bunny-and-size.exe` sous Windows ; CLI `bunny-and-size-cli` et alias `sortsize`.
+Consulter les prérequis dans [le guide](docs/v0.4/USAGE.md) et les documents du paquet.
+Windows requiert le runtime officiel Microsoft Visual C++ Redistributable x64 v14.
+Rust n’est pas nécessaire pour exécuter les binaires. Les SHA-256 sont dans [SHA256SUMS](SHA256SUMS).
 
-Ubuntu 24.04 x86_64: fully extract the Linux archive and run `./bunny-and-size` (X11/XWayland; see the guide for prerequisites). Windows 11 x64: fully extract the ZIP and run `bunny-and-size.exe`; official Microsoft Visual C++ Redistributable x64 v14 required. No MSI/DEB installer or Rust runtime requirement.
+## Réserves acceptées
 
-## Code signing policy / Politique de signature du code
+- **D1 #139 reste UNRESOLVED** : le pied d’interface peut garder les pixels de la langue précédente.
+- **Windows sans signature Authenticode, éditeur non vérifié.** SmartScreen peut avertir ou bloquer ; certains postes administrés peuvent interdire l’exécution.
+- Accessibilité humaine, certaines configurations DPI/multi-écrans et redimensionnement libre non entièrement qualifiés.
+- SMB physique non testé sur le PC de qualification ; les validations Linux et Windows VM conservent leur portée.
+- Parcours physique de téléchargement Windows avec Mark of the Web / SmartScreen : **NOT_RUN**. Un contrôle en VM ne vaut pas qualification physique.
+- Android et Wayland natif non qualifiés pour cette livraison. Cette RC n’est pas une version stable.
 
-**26 octobre 2026 :** candidature SignPath Foundation **en préparation**, non approuvée ; **signature Windows non active**. Les trois exécutables Windows publics de la v0.3.0-rc.1 sont **non signés** et peuvent afficher `Unknown publisher` / SmartScreen. Aucune ancienne archive n'est modifiée.
+Conserver Defender, SmartScreen et les politiques de sécurité actifs. Les empreintes SHA-256 ne constituent pas une signature numérique.
+Lire les [notes complètes](docs/releases/v0.4.0-rc.1/RELEASE_NOTES.md) et [WINDOWS_SECURITY.md](docs/release/v0.4/WINDOWS_SECURITY.md).
 
-**26 October 2026:** SignPath Foundation application **being prepared**, not approved; **Windows signing is not active**. The current v0.3.0-rc.1 Windows executables remain **unsigned**. No existing release artifact is changed.
+## Sources, provenance et licences
 
-[**Code signing policy — conditions, rôles, confidentialité et vérification / status, roles, privacy and verification**](CODE_SIGNING.md)
+L’archive `Bunny-and-Size-v0.4.0-rc.1-source.tar.gz` de la release est la source correspondante de référence,
+avec dépendances Cargo verrouillées et vendoriées, recettes hors ligne et textes légaux par plateforme.
+Le présent dépôt reprend ces fichiers publics approuvés, sans historique privé ni preuves de qualification.
+Les **26 998 entrées de compilation sont identiques** ; les adaptations de documentation publique sont décrites dans
+[PUBLICATION.json](docs/releases/v0.4.0-rc.1/PUBLICATION.json) et [SOURCE_FILES.json](SOURCE_FILES.json).
+Les métadonnées originales de l’archive sont conservées dans `docs/releases/v0.4.0-rc.1/source-metadata/`.
+Pour reconstruire les binaires distribués, utiliser l’archive correspondante et [la recette](docs/BUILDING.md).
+Les archives GitHub automatiques ne remplacent pas l’asset source correspondant.
 
-**D1 Windows reste non corrigé :** après certains changements de langue, le pied peut garder temporairement l'ancienne langue ; un redimensionnement manuel a rétabli l'affichage dans les cas observés. Données cohérentes dans ces scénarios, investigation en cours. Binaires non signés, avertissement SmartScreen possible. Accessibilité humaine exhaustive, multi-écran, Wayland natif et Android non qualifiés ; CI GitHub Actions volontairement désactivée.
+Les indicateurs embarqués `public_release=false` / `distribution_approved=false` décrivent la préparation.
+La publication est autorisée séparément par une décision propriétaire externe schema 3 portant sur les sept assets finaux ;
+ils restent immuables. Le gate natif Windows a retourné **AUTHORIZED FOR PUBLICATION**.
 
-**Windows D1 remains unfixed:** after some language changes the footer may temporarily retain the old language; manual resizing restored it in observed cases. Data remained consistent in those scenarios; investigation continues. Unsigned binaries may trigger SmartScreen. Exhaustive human accessibility, multiple monitors, native Wayland and Android are unqualified; GitHub Actions CI is intentionally disabled.
-
-Code **GPL-3.0-only**, sans garantie / no warranty. Visuels adaptés approuvés / approved adapted artwork: **CC BY-SA 4.0**, **Louis Lejuez / TazmenWorld**. Voir / see [BRANDING.md](BRANDING.md), [CREDITS.md](CREDITS.md) et / and [LICENSE](LICENSE). Le portrait et l'original réservé ne sont pas distribués / The portrait and reserved original artwork are not distributed. Les tiers conservent leurs licences / Third parties retain their own licenses.
-
-Les quatre archives originales proviennent du gel `addf68704f26ef02559dd56b2e9b75b168fd0752` et restent inchangées. Les paquets source complets (dépendances Cargo et recettes hors ligne) accompagnent les binaires ; les ZIP/tar source automatiques GitHub ne les remplacent pas. L'instantané Git public sélectionne les fichiers approuvés de ces mêmes sources. Aucun historique Git privé n'est importé. Les tests privés ajoutés après le gel ne sont pas inclus. V0.4 est la prochaine étape de développement fonctionnel.
-
-The four original archives originate from freeze `addf68704f26ef02559dd56b2e9b75b168fd0752` and remain unchanged. Dependency-complete source bundles with offline recipes accompany the binaries; GitHub's automatic source ZIP/tar downloads do not replace them. The public Git snapshot selects approved files from those same sources. Private Git history and later private tests are not imported. V0.4 is the next functional development stage.
-
-Les releases [v0.2.0-rc.1](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.2.0-rc.1) et [v0.1.0](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.1.0) et leurs tags restent historiques. Leurs documents conservent leur portée d'origine. / Earlier releases, tags and documents retain their historical scope.
+Code : [GPL-3.0-only](LICENSE). Visuels adaptés : **CC BY-SA 4.0**, attribution **Louis Lejuez / TazmenWorld**,
+selon [BRANDING.md](BRANDING.md), [CREDITS.md](CREDITS.md) et [le texte CC](assets/branding/CC-BY-SA-4.0.txt).
+Les composants tiers conservent leurs licences et avis ; voir `distribution-legal/`. Aucune garantie.
+Les versions et tags antérieurs conservent leur portée historique.

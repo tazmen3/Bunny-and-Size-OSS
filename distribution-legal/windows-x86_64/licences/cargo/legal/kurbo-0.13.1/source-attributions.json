@@ -1,0 +1,18 @@
+{
+  "note": "Conservative verbatim source-line collection, including examples/tests; not a legal determination",
+  "copyright_lines": [
+    "// Copyright 2018 the Kurbo Authors",
+    "// Copyright 2019 the Kurbo Authors",
+    "// Copyright 2020 the Kurbo Authors",
+    "// Copyright 2021 the Kurbo Authors",
+    "// Copyright 2022 the Kurbo Authors",
+    "// Copyright 2023 the Kurbo Authors",
+    "// Copyright 2024 the Kurbo Authors",
+    "// Copyright 2025 the Kurbo Authors",
+    "// Copyright 2026 the Kurbo Authors",
+    "Copyright (c) 2018 Raph Levien"
+  ],
+  "spdx_lines": [
+    "// SPDX-License-Identifier: Apache-2.0 OR MIT"
+  ]
+}
