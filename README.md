@@ -1,24 +1,32 @@
-# Bunny and Size 0.5.0-rc.2
+# Bunny and Size
 
-Bunny and Size analyse le stockage local sur Ubuntu et Windows. Consultez les
-dossiers, les fichiers volumineux et les doublons. Retrouvez une mesure
-enregistrée même si sa source est indisponible.
+Bunny and Size analyzes local storage on Ubuntu and Windows. Explore folder sizes, find large or duplicate files, and reopen saved scans offline.
 
-## Installation
+## Download v0.5.0-rc.2
 
-Téléchargez l’archive Ubuntu x86_64 ou Windows x64 depuis la [préversion d’évaluation](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.5.0-rc.2).
-Vérifiez son empreinte dans `SHA256SUMS` et extrayez tous les fichiers.
-Sous Ubuntu 24.04, ouvrez `bunny-and-size` dans une session X11 ou XWayland.
-Sous Windows 11, ouvrez `bunny-and-size.exe` avec le runtime VC++ x64 installé.
+This is an evaluation prerelease.
 
-La CLI standard est `bunny-and-size-cli`, avec l’alias `sortsize`.
-`bunny-and-size-inventory-cli` ajoute les commandes d’inventaire.
+| Platform | Download |
+| --- | --- |
+| Ubuntu 24.04 (x86_64) | [Ubuntu archive (.tar.gz)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.2/Bunny-and-Size-v0.5.0-rc.2-ubuntu-x86_64.tar.gz) |
+| Windows 11 (x64) | [Windows archive (.zip)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.2/Bunny-and-Size-v0.5.0-rc.2-windows-x86_64.zip) |
+| Source code | [Source archive (.tar.gz)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.2/Bunny-and-Size-v0.5.0-rc.2-source.tar.gz) |
 
-[Notes de version et limites](docs/releases/v0.5.0-rc.2/RELEASE_NOTES.md) ·
-[Distribution Windows](CODE_SIGNING.md) · [Compilation](docs/BUILDING.md)
+[SHA-256 checksums](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.2/SHA256SUMS?v=668a66ef) · [Build provenance](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.2/PROVENANCE.json?v=fb1e8485) · [Archived release notes (French)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.2/RELEASE_NOTES.md)
 
-## Licences
+[English release notes and known limitations](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.5.0-rc.2)
 
-Le code original est sous [Apache-2.0](LICENSE). Les visuels adaptés
-restent sous CC BY-SA 4.0. Slint est distribué en binaire sous Royalty-free 2.0.
-Les composants tiers conservent leurs propres licences. [Licences et références](docs/LICENSING.md)
+## Run the app
+
+Extract the entire archive before launching the app.
+
+- **Ubuntu**. Run `./bunny-and-size` from the extracted folder in an X11 or XWayland session.
+- **Windows**. Open `bunny-and-size.exe` from the extracted folder. The app requires the x64 Visual C++ runtime. [Microsoft Visual C++ Redistributable](https://aka.ms/vc14/vc_redist.x64.exe)
+
+The standard CLI is `bunny-and-size-cli`, also available as `sortsize`. Use `bunny-and-size-inventory-cli` for inventory commands.
+
+[Windows distribution details](CODE_SIGNING.md) · [Build from source](docs/BUILDING.md)
+
+## Licenses
+
+The original code is licensed under Apache-2.0. The adapted artwork is licensed under CC BY-SA 4.0. The desktop binaries use Slint under its Royalty-free 2.0 license. Third-party components retain their own licenses. [Apache-2.0 license](LICENSE) · [Third-party licenses and attribution](docs/LICENSING.md)
