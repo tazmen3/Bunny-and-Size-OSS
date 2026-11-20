@@ -100,6 +100,7 @@ impl Host {
             if started.is_ok() {
                 self.disconnect.native = Some(rx);
                 self.disconnect.reconnect_source = Some(source.clone());
+                window.set_smb_reconnect_busy(true);
                 controller
                     .sources
                     .set_connection_state(&source.path, ConnectionState::Checking);
@@ -204,6 +205,7 @@ impl Host {
     ) {
         controller.source_operations.release();
         self.disconnect.reconnect_source = None;
+        window.set_smb_reconnect_busy(false);
         if let Some(dialog) = &controller.source_dialog {
             dialog.set_busy(false);
         }
@@ -570,6 +572,7 @@ impl Host {
         window.set_smb_server_visible(false);
         window.set_smb_server_context(false);
         window.set_smb_share_rows(ModelRc::default());
+        window.set_smb_disconnected_share_rows(ModelRc::default());
         window.set_cache_visible(false);
         window.set_top_visible(false);
         window.set_scan_path(controller.path_input.select(PathBuf::new()).into());
@@ -608,13 +611,17 @@ impl Host {
             .sources
             .set_registered(&controller.registry.entries);
         controller.show_sources(window);
-        self.server.exclusions = controller
+        let exclusions = controller
             .registry
             .entries
             .iter()
             .filter(|source| source.disconnected)
             .map(|source| source.path.clone())
-            .collect();
+            .collect::<Vec<_>>();
+        if self.server.exclusions != exclusions {
+            self.server.exclusions = exclusions;
+            self.server.invalidate_share_rows();
+        }
         self.server
             .selected
             .iter_mut()
@@ -849,7 +856,7 @@ pub(super) fn connect(
             (weak.upgrade(), main.upgrade(), control.upgrade())
         {
             let mut host = host.borrow_mut();
-            if token != host.server.token {
+            if token != host.server.share_rows_token {
                 return;
             }
             let Some(path) = usize::try_from(index)
@@ -867,6 +874,48 @@ pub(super) fn connect(
                 disconnected: false,
             };
             host.source_context(&window, &mut controller.borrow_mut(), source, reconnect);
+        }
+    });
+    let weak = Rc::downgrade(host);
+    let main = window.as_weak();
+    let control = Rc::downgrade(controller);
+    window.on_smb_disconnected_share_reconnect(move |token, index| {
+        if let (Some(host), Some(window), Some(controller)) =
+            (weak.upgrade(), main.upgrade(), control.upgrade())
+        {
+            let mut host = host.borrow_mut();
+            if !window.get_smb_server_visible() || token != host.server.share_rows_token {
+                return;
+            }
+            let Some(path) = usize::try_from(index)
+                .ok()
+                .and_then(|i| host.server.disconnected_shares().nth(i))
+            else {
+                return;
+            };
+            let mut controller = controller.borrow_mut();
+            let _scope = controller.presentation.enter();
+            if controller.registry.disconnected_parent(path).is_some() {
+                show_parent_reconnect_required(&window, &controller);
+                return;
+            }
+            // Discovery can use a different spelling from the persisted key.
+            // Use the registered Source so success clears the exact exclusion.
+            if let Some(source) = controller
+                .registry
+                .entries
+                .iter()
+                .filter(|source| {
+                    source.kind == Kind::Smb
+                        && source.disconnected
+                        && source_registry::covers(&source.path, path)
+                        && source_registry::covers(path, &source.path)
+                })
+                .min_by_key(|source| source.path != *path)
+                .cloned()
+            {
+                host.source_context(&window, &mut controller, source, true);
+            }
         }
     });
 }

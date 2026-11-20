@@ -1,6 +1,6 @@
 [package]
 name = "sortsize-slint-spike"
-version = "0.5.0-rc.2"
+version = "0.5.0-rc.3"
 edition = "2024"
 rust-version = "1.99"
 publish = false
@@ -13,6 +13,8 @@ resolver = "3"
 # Slint upstream #13568, backported to the locked 1.18.1 backend. See vendor/README.md.
 [patch.crates-io]
 i-slint-backend-winit = { path = "../../vendor/i-slint-backend-winit-1.18.1" }
+# Track text properties even after the shaping cache evicts their layout (#139).
+i-slint-core = { path = "../../vendor/i-slint-core-1.18.1" }
 
 [lib]
 crate-type = ["rlib", "cdylib"]

@@ -17,6 +17,7 @@ fn explicit_duplicate_cli_streams_members_and_marks_transport_quota() {
     let t = tempfile::tempdir().unwrap();
     let root = t.path().join("source");
     std::fs::create_dir(&root).unwrap();
+    std::fs::create_dir(root.join("directory-without-logical-size")).unwrap();
     for i in 0..40 {
         std::fs::write(root.join(format!("日本語-long-empty-file-{i:04}")), b"").unwrap();
     }
@@ -76,6 +77,16 @@ fn explicit_duplicate_cli_streams_members_and_marks_transport_quota() {
     assert_eq!(lines.len(), 43);
     assert_eq!(lines.first().unwrap()["content_requested"], true);
     assert_eq!(lines.last().unwrap()["complete"], true);
+    let filtered = command().args(["--max-bytes", "0"]).output().unwrap();
+    assert!(
+        filtered.status.success(),
+        "{}",
+        String::from_utf8_lossy(&filtered.stdout)
+            .lines()
+            .last()
+            .unwrap_or_default()
+    );
+    assert_eq!(filtered.stdout, out.stdout);
     let out = command().args(["--output-bytes", "4096"]).output().unwrap();
     assert_eq!(out.status.code(), Some(2));
     assert!(out.stdout.len() <= 4096);

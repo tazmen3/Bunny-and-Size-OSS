@@ -1,0 +1,5 @@
+# Preserve Cargo vendor checksums and exact translation keys.
+cargo-vendor/** -text
+spikes/slint/src/legal-notice-en.txt text eol=lf
+spikes/slint/src/catalog_generated.rs text eol=lf
+spikes/slint/ui/rust-messages.slint text eol=lf

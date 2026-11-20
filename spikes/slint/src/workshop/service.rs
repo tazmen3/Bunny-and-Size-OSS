@@ -187,6 +187,8 @@ pub(super) struct Lane {
     pub smb_open: Option<(u64, usize)>,
     pub smb_open_path: Option<(u64, PathBuf)>,
     pub smb_retained: Vec<super::smb_server::Share>,
+    #[cfg(test)]
+    pub smb_native_fixture: Option<(PathBuf, PathBuf)>,
     pub smb_cancel: bool,
     /// None shows the virtual server; Some selects a particular share reader.
     pub smb_view: Option<PathBuf>,
@@ -362,7 +364,7 @@ impl Lane {
         self.refresh_certified_readiness();
     }
 
-    pub fn acquisition_in_progress(&self) -> bool {
+    pub(super) fn has_acquisition_intent(&self) -> bool {
         self.writer_running
             || self.start.is_some()
             || self.preparing_source.is_some()
@@ -372,6 +374,10 @@ impl Lane {
                 .as_ref()
                 .is_some_and(|batch| batch.running)
             || self.fast_save_cancel.is_some()
+    }
+
+    pub fn acquisition_in_progress(&self) -> bool {
+        self.has_acquisition_intent()
             || self.phase.is_some_and(|(epoch, phase, _)| {
                 epoch == self.source_epoch
                     && matches!(
@@ -724,6 +730,16 @@ impl Service {
     ) -> Result<(), String> {
         let mut request =
             super::smb_server::Request::new(epoch, server, shares, discovery_uncertain, options)?;
+        #[cfg(test)]
+        if let Some((path, native)) = self.lane.lock().unwrap().smb_native_fixture.as_ref()
+            && let Some(share) = request
+                .snapshot
+                .shares
+                .iter_mut()
+                .find(|share| &share.path == path)
+        {
+            share.native_root = Some(native.clone());
+        }
         for share in &request.snapshot.shares {
             if let Some(native) = &share.native_root {
                 self.bind_source(share.path.clone(), native.clone());

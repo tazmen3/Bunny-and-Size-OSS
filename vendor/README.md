@@ -1,7 +1,7 @@
 # Backend Slint 1.18.1 — correctif #94
 
 Copie **complète** de la crate publiée `i-slint-backend-winit` 1.18.1, sans
-modification du cache Cargo. Les autres crates Slint restent en 1.18.1 ; Winit
+modification du cache Cargo. Toutes les crates Slint restent en 1.18.1. Winit
 0.30.13 et softbuffer 0.4.8 restent verrouillés. Le workspace GUI applique
 `[patch.crates-io]` par chemin relatif, utilisable depuis un clone propre.
 
@@ -48,3 +48,19 @@ le retour réussi de `softbuffer::present_with_damage`, sans E/S ni télémétri
 La feature n'est pas activée dans les builds habituels. La provenance originale
 et le correctif Windows #94 sont conservés ; les nouvelles empreintes et le
 patch distinct sont vérifiés par `scripts/verify_redraw_vendor.py`.
+
+## Slint Core 1.18.1 — invalidation du texte #139
+
+Le workspace GUI utilise également une copie de la crate publiée
+[`i-slint-core` 1.18.1](https://static.crates.io/crates/i-slint-core/i-slint-core-1.18.1.crate).
+Le [correctif](text-invalidation-139.patch) conserve les dépendances directes
+du rendu partiel au texte et à la couleur des liens lorsque l’entrée de mise
+en forme quitte son cache. Les lectures précèdent l’emprunt du contexte de
+police, car une liaison réévaluée peut demander à nouveau la mise en page.
+Le correctif laisse le cache, les limites et la présentation intacts.
+
+[Provenance et empreintes](core-provenance.json). Les notices et les trois
+licences de la crate sont conservées. L’application desktop utilise
+LicenseRef-Slint-Royalty-free-2.0 avec l’attribution visible AboutSlint.
+`python scripts/verify_redraw_vendor.py --core-archive CHEMIN.crate` vérifie
+les deux copies et compare également les octets d’origine de Slint Core.

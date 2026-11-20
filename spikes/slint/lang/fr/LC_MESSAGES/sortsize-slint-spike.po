@@ -706,6 +706,10 @@ msgid "Units"
 msgstr "Unités"
 
 msgctxt "ui"
+msgid "Size unit system"
+msgstr "Système d’unités de taille"
+
+msgctxt "ui"
 msgid "Units for displayed sizes"
 msgstr "Unités des tailles affichées"
 
@@ -3440,3 +3444,39 @@ msgstr "Afficher dans le gestionnaire de fichiers"
 msgctxt "ui"
 msgid "Logical size of scanned files · {}"
 msgstr "Taille logique des fichiers analysés · {}"
+
+msgctxt "rust"
+msgid "Looking for shares on this server…"
+msgstr "Recherche des partages sur ce serveur…"
+
+msgctxt "rust"
+msgid "Share discovery is limited or uncertain."
+msgstr "La découverte des partages est limitée ou incertaine."
+
+msgctxt "rust"
+msgid "Visible shares: {}"
+msgstr "Partages visibles : {}"
+
+msgctxt "rust"
+msgid "Shares disconnected in Bunny: {}"
+msgstr "Partages déconnectés dans Bunny : {}"
+
+msgctxt "rust"
+msgid "Current scan"
+msgstr "Analyse en cours"
+
+msgctxt "rust"
+msgid "Last scan"
+msgstr "Dernière analyse"
+
+msgctxt "rust"
+msgid "Saved measures"
+msgstr "Mesures enregistrées"
+
+msgctxt "ui"
+msgid "Disconnected in Bunny"
+msgstr "Déconnectés dans Bunny"
+
+msgctxt "ui"
+msgid "Reconnect {}"
+msgstr "Reconnecter {}"

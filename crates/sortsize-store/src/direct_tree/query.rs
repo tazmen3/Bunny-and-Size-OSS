@@ -272,6 +272,9 @@ impl PageQuery {
             return Ok(true);
         }
         let started = Instant::now();
+        // The tree cannot change during this turn. Adjacent observations often
+        // share a parent, so rebuild its native path only when it changes.
+        let mut last_parent = None;
         for _ in 0..256 {
             if cancel.is_cancelled() {
                 return Err(Error::Contract("direct query cancelled"));
@@ -295,7 +298,13 @@ impl PageQuery {
                     self.done = true;
                     break;
                 }
-                let row = tree.row(EntryId(self.next_id))?;
+                let id = EntryId(self.next_id);
+                let parent = tree.parent(id)?.ok_or_else(super::invalid_entry)?;
+                let path = match &mut last_parent {
+                    Some((previous, path)) if *previous == parent => path,
+                    slot => &slot.insert((parent, tree.path(parent)?)).1,
+                };
+                let row = tree.read_row(id, path)?;
                 self.next_id += 1;
                 row
             };

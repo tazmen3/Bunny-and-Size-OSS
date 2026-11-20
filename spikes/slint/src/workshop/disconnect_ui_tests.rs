@@ -23,6 +23,9 @@ struct Fixture {
 }
 impl Fixture {
     fn new(sources: &[Source]) -> Self {
+        Self::with_exclusions(sources, &[])
+    }
+    fn with_exclusions(sources: &[Source], excluded: &[Source]) -> Self {
         slint::platform::set_platform(Box::new(IndependentWindows)).unwrap();
         let temp = TempDir::new().unwrap();
         let config = temp.path().join("sources-policy");
@@ -33,6 +36,9 @@ impl Fixture {
             c.registry = source_registry::Registry::open(config.clone());
             for source in sources {
                 c.registry.add(source.clone()).unwrap();
+            }
+            for source in excluded {
+                c.registry.disconnect(source.clone()).unwrap();
             }
             let entries = c.registry.entries.clone();
             c.sources.set_registered(&entries);
@@ -121,6 +127,29 @@ impl Fixture {
                 start.elapsed() < Duration::from_secs(5),
                 "native result not published"
             );
+            std::thread::sleep(Duration::from_millis(2));
+        }
+    }
+    fn discover_smb_shares(&self, server: &Source, shares: &[Source]) {
+        {
+            let mut host = self.host.borrow_mut();
+            host.select_smb_server(&self.window, server.path.clone());
+            host.server.discovery_fixture =
+                Some(shares.iter().map(|source| source.path.clone()).collect());
+        }
+        self.window.invoke_smb_server_discover();
+        self.wait_smb_discovery();
+    }
+    fn wait_smb_discovery(&self) {
+        let deadline = Instant::now() + Duration::from_secs(5);
+        loop {
+            let mut host = self.host.borrow_mut();
+            host.poll_smb_server(&self.window, false);
+            if !host.server.operations.busy() {
+                return;
+            }
+            assert!(Instant::now() < deadline, "SMB discovery not published");
+            drop(host);
             std::thread::sleep(Duration::from_millis(2));
         }
     }
@@ -720,6 +749,11 @@ fn active_nas_tree_hides_disabled_share_and_remaps_context_actions() {
         host.select_smb_server(&fixture.window, server.path.clone());
         host.server.shares = vec![tv.path.clone(), photos.path.clone()];
         host.server.selected = vec![true, true];
+        host.server.memory = sortsize_core::resources::Governor::global().reserve(
+            sortsize_core::resources::Category::Publications,
+            64 * 1024,
+            None,
+        );
         host.server.dirty = true;
         host.poll_smb_server(&fixture.window, true);
     }
@@ -727,6 +761,12 @@ fn active_nas_tree_hides_disabled_share_and_remaps_context_actions() {
     let dialog = fixture.open(&tv);
     dialog.invoke_accepted(dialog.get_request_token(), false);
     assert_eq!(fixture.window.get_smb_share_rows().row_count(), 1);
+    let summary = fixture.window.get_smb_server_summary();
+    assert!(summary.contains("Visible shares: 1"), "{summary}");
+    assert!(
+        summary.contains("Shares disconnected in Bunny: 1"),
+        "{summary}"
+    );
     assert_eq!(
         fixture
             .window
@@ -771,6 +811,220 @@ fn active_nas_tree_hides_disabled_share_and_remaps_context_actions() {
     let host = fixture.host.borrow();
     let lane = host.service.lane.lock().unwrap();
     assert!(lane.start.is_none() && lane.smb_begin.is_none() && !lane.retry);
+}
+
+#[test]
+fn nas_disconnected_rows_reconnect_only_the_displayed_share_without_scanning() {
+    let server = Source::new(3, r"\\example.invalid\".into(), "NAS", None).unwrap();
+    let shares = [
+        "bouquins",
+        "home",
+        "homes",
+        "PlexMediaServer",
+        "TV",
+        "video",
+    ]
+    .map(share);
+    let homes = &shares[2];
+    let tv = &shares[4];
+    let tv_alias = share("tv");
+    let absent = share("not-discovered");
+    let fixture = Fixture::with_exclusions(
+        std::slice::from_ref(&server),
+        &[homes.clone(), tv_alias.clone(), absent.clone()],
+    );
+    fixture.save();
+    let initial_policy = std::fs::read(&fixture.config).unwrap();
+    let calls = Arc::new(Mutex::new(Vec::new()));
+    let observed = calls.clone();
+    fixture.host.borrow_mut().disconnect.reconnect_provider = Some(Arc::new(move |source, _| {
+        let mut paths = observed.lock().unwrap();
+        paths.push(source.path.clone());
+        if paths.len() == 1 {
+            Err(ConnectionState::AccessDenied)
+        } else {
+            Ok(())
+        }
+    }));
+
+    let visible = || fixture.window.get_smb_share_rows().row_count();
+    let disconnected = || {
+        fixture
+            .window
+            .get_smb_disconnected_share_rows()
+            .iter()
+            .map(|row| row.name.to_string())
+            .collect::<Vec<_>>()
+    };
+    let reconnect = |token, index| {
+        fixture
+            .window
+            .invoke_smb_disconnected_share_reconnect(token, index);
+    };
+    let token = || fixture.window.get_smb_disconnected_share_token();
+
+    fixture.discover_smb_shares(&server, &shares);
+    assert_eq!(visible(), 4);
+    assert_eq!(disconnected(), ["homes", "TV"]);
+    assert!(calls.lock().unwrap().is_empty());
+    fixture.idle();
+
+    let first_token = token();
+    reconnect(first_token, -1);
+    reconnect(first_token, 2);
+    fixture.window.set_smb_server_visible(false);
+    reconnect(first_token, 1);
+    fixture.window.set_smb_server_visible(true);
+    assert!(fixture.host.borrow().disconnect.native.is_none());
+    reconnect(first_token, 1);
+    fixture.wait_native();
+    assert_eq!(*calls.lock().unwrap(), [tv_alias.path.clone()]);
+    assert!(fixture.window.get_errors().contains("Access denied"));
+    assert_eq!(visible(), 4);
+    assert_eq!(disconnected(), ["homes", "TV"]);
+    assert_eq!(std::fs::read(&fixture.config).unwrap(), initial_policy);
+    fixture.idle();
+
+    let mut reversed = shares.clone();
+    reversed.reverse();
+    fixture.discover_smb_shares(&server, &reversed);
+    assert_eq!(disconnected(), ["TV", "homes"]);
+    assert_ne!(token(), first_token);
+    // The old TV button had index one. In the new projection that index is homes.
+    reconnect(first_token, 1);
+    assert!(fixture.host.borrow().disconnect.native.is_none());
+    assert_eq!(calls.lock().unwrap().len(), 1);
+
+    fixture.window.invoke_start_scan();
+    fixture.wait_smb_discovery();
+    let dialog = fixture
+        .host
+        .borrow()
+        .server
+        .dialog
+        .as_ref()
+        .unwrap()
+        .clone_strong();
+    assert_eq!(dialog.get_selected_count(), 4);
+    let paths: Vec<_> = dialog.get_shares().iter().map(|row| row.path).collect();
+    assert_eq!(paths.len(), 4);
+    assert!(!paths.contains(&label(&homes.path).into()));
+    assert!(!paths.contains(&label(&tv.path).into()));
+    dialog.invoke_cancel(dialog.get_token());
+    fixture.wait_smb_discovery();
+    fixture.idle();
+
+    let tv_token = token();
+    reconnect(tv_token, 0);
+    fixture.wait_native();
+    fixture.save();
+    assert_eq!(visible(), 5);
+    assert_eq!(disconnected(), ["homes"]);
+    assert!(
+        fixture
+            .window
+            .get_smb_share_rows()
+            .iter()
+            .any(|row| { row.name == "TV" && row.state == "Unknown" && row.size == "—" })
+    );
+    let restored = source_registry::Registry::open(fixture.config.clone());
+    assert!(!restored.is_disconnected(&tv.path));
+    assert!(restored.is_disconnected(&homes.path));
+    assert!(restored.is_disconnected(&absent.path));
+    assert_eq!(calls.lock().unwrap().len(), 2);
+    fixture.idle();
+
+    // After restoring TV, index zero now belongs to homes.
+    assert_ne!(token(), tv_token);
+    reconnect(tv_token, 0);
+    assert!(fixture.host.borrow().disconnect.native.is_none());
+    assert_eq!(calls.lock().unwrap().len(), 2);
+    reconnect(token(), 0);
+    fixture.wait_native();
+    fixture.save();
+    assert_eq!(visible(), 6);
+    assert!(disconnected().is_empty());
+    assert_eq!(
+        *calls.lock().unwrap(),
+        [
+            tv_alias.path.clone(),
+            tv_alias.path.clone(),
+            homes.path.clone()
+        ]
+    );
+    let restored = source_registry::Registry::open(fixture.config.clone());
+    assert!(!restored.is_disconnected(&homes.path));
+    assert!(restored.is_disconnected(&absent.path));
+    assert!(fixture.host.borrow().service.smb_snapshot().is_none());
+    fixture.idle();
+}
+
+#[test]
+fn nas_disconnected_row_cannot_clear_an_exclusion_under_a_disconnected_parent() {
+    let server = Source::new(3, r"\\example.invalid\".into(), "NAS", None).unwrap();
+    let tv = share("TV");
+    let photos = share("Photos");
+    let fixture =
+        Fixture::with_exclusions(&[server.clone(), photos.clone()], std::slice::from_ref(&tv));
+    fixture.discover_smb_shares(&server, &[tv.clone(), photos.clone()]);
+    assert!(fixture.visible(&photos));
+    let token = fixture.window.get_smb_disconnected_share_token();
+    assert_eq!(
+        fixture.window.get_smb_disconnected_share_rows().row_count(),
+        1
+    );
+
+    let (entered, started) = mpsc::sync_channel(1);
+    let (release, held) = mpsc::sync_channel(1);
+    let held = Mutex::new(held);
+    fixture.host.borrow_mut().disconnect.reconnect_provider = Some(Arc::new(move |source, _| {
+        entered.send(source.path.clone()).unwrap();
+        held.lock()
+            .unwrap()
+            .recv_timeout(Duration::from_secs(5))
+            .unwrap();
+        Ok(())
+    }));
+    fixture
+        .window
+        .invoke_smb_disconnected_share_reconnect(token, 0);
+    assert_eq!(
+        started.recv_timeout(Duration::from_secs(5)).unwrap(),
+        tv.path
+    );
+    // Revoke the parent after the worker starts, before publishing native success.
+    fixture
+        .controller
+        .borrow_mut()
+        .registry
+        .disconnect(server.clone())
+        .unwrap();
+    fixture
+        .host
+        .borrow()
+        .service
+        .disconnect_sources(std::slice::from_ref(&server.path));
+    release.send(()).unwrap();
+    fixture.wait_native();
+    fixture.save();
+    assert!(
+        fixture
+            .window
+            .get_errors()
+            .contains("Reconnect the server first")
+    );
+    assert!(fixture.host.borrow().service.source_disconnected(&tv.path));
+    assert!(!fixture.visible(&photos));
+    assert_eq!(fixture.window.get_smb_share_rows().row_count(), 0);
+    fixture.window.invoke_smb_disconnected_share_reconnect(
+        fixture.window.get_smb_disconnected_share_token(),
+        0,
+    );
+    assert!(fixture.host.borrow().disconnect.native.is_none());
+    let restored = source_registry::Registry::open(fixture.config.clone());
+    assert!(restored.find(&tv.path).unwrap().disconnected);
+    assert!(restored.find(&server.path).unwrap().disconnected);
+    fixture.idle();
 }
 
 #[test]

@@ -706,6 +706,10 @@ msgid "Units"
 msgstr "Einheiten"
 
 msgctxt "ui"
+msgid "Size unit system"
+msgstr "Einheitensystem für Größen"
+
+msgctxt "ui"
 msgid "Units for displayed sizes"
 msgstr "Einheiten der angezeigten Größen"
 
@@ -3440,3 +3444,39 @@ msgstr "In der Dateiverwaltung anzeigen"
 msgctxt "ui"
 msgid "Logical size of scanned files · {}"
 msgstr "Logische Größe der gescannten Dateien · {}"
+
+msgctxt "rust"
+msgid "Looking for shares on this server…"
+msgstr "Freigaben auf diesem Server werden gesucht…"
+
+msgctxt "rust"
+msgid "Share discovery is limited or uncertain."
+msgstr "Die Freigabenerkennung ist eingeschränkt oder unsicher."
+
+msgctxt "rust"
+msgid "Visible shares: {}"
+msgstr "Sichtbare Freigaben: {}"
+
+msgctxt "rust"
+msgid "Shares disconnected in Bunny: {}"
+msgstr "In Bunny getrennte Freigaben: {}"
+
+msgctxt "rust"
+msgid "Current scan"
+msgstr "Laufender Scan"
+
+msgctxt "rust"
+msgid "Last scan"
+msgstr "Letzter Scan"
+
+msgctxt "rust"
+msgid "Saved measures"
+msgstr "Gespeicherte Messungen"
+
+msgctxt "ui"
+msgid "Disconnected in Bunny"
+msgstr "In Bunny getrennt"
+
+msgctxt "ui"
+msgid "Reconnect {}"
+msgstr "{} erneut verbinden"

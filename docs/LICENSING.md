@@ -1,6 +1,6 @@
 # Licences
 
-Le code original de Bunny and Size 0.5.0-rc.2 est sous [Apache-2.0](../LICENSE).
+Le code original de Bunny and Size 0.5.0-rc.3 est sous [Apache-2.0](../LICENSE).
 Les visuels adaptés de Louis Lejuez / TazmenWorld restent sous CC BY-SA 4.0,
 avec les attributions dans [Branding](../BRANDING.md) et [Crédits](../CREDITS.md).
 

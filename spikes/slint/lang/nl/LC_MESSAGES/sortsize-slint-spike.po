@@ -706,6 +706,10 @@ msgid "Units"
 msgstr "Eenheden"
 
 msgctxt "ui"
+msgid "Size unit system"
+msgstr "Eenhedenstelsel voor groottes"
+
+msgctxt "ui"
 msgid "Units for displayed sizes"
 msgstr "Eenheden voor weergegeven groottes"
 
@@ -3440,3 +3444,39 @@ msgstr "Tonen in bestandsbeheer"
 msgctxt "ui"
 msgid "Logical size of scanned files · {}"
 msgstr "Logische grootte van de gescande bestanden · {}"
+
+msgctxt "rust"
+msgid "Looking for shares on this server…"
+msgstr "Zoeken naar gedeelde mappen op deze server…"
+
+msgctxt "rust"
+msgid "Share discovery is limited or uncertain."
+msgstr "De detectie van gedeelde mappen is beperkt of onzeker."
+
+msgctxt "rust"
+msgid "Visible shares: {}"
+msgstr "Zichtbare gedeelde mappen: {}"
+
+msgctxt "rust"
+msgid "Shares disconnected in Bunny: {}"
+msgstr "Gedeelde mappen losgekoppeld in Bunny: {}"
+
+msgctxt "rust"
+msgid "Current scan"
+msgstr "Huidige scan"
+
+msgctxt "rust"
+msgid "Last scan"
+msgstr "Laatste scan"
+
+msgctxt "rust"
+msgid "Saved measures"
+msgstr "Opgeslagen metingen"
+
+msgctxt "ui"
+msgid "Disconnected in Bunny"
+msgstr "Losgekoppeld in Bunny"
+
+msgctxt "ui"
+msgid "Reconnect {}"
+msgstr "{} opnieuw verbinden"

@@ -1,0 +1,13 @@
+--- a/i-slint-core-1.18.1/textlayout/sharedparley.rs
++++ b/i-slint-core-1.18.1/textlayout/sharedparley.rs
+@@ -104,6 +104,10 @@
+     f: impl FnOnce(&Layout) -> R,
+ ) -> Option<R> {
+     let ctx = crate::window::WindowInner::from_pub(window).try_context()?;
++    // Keep outer layout/rendering dependencies even if a shaping entry is evicted.
++    // Read before borrowing font_context: lazy text bindings may re-enter layout.
++    let _ = text.text();
++    let _ = text.link_color();
+     let mut font_ctx = ctx.font_context().borrow_mut();
+ 
+     let text_wrap = layout_builder.text_wrap;

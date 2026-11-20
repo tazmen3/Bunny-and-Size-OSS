@@ -359,6 +359,7 @@ export component NetworkDisconnectWindow inherits Window {
 
 export struct SmbShareChoice { name: string, path: string, selected: bool, disconnected: bool }
 export struct SmbShareRow { name: string, path: string, size: string, files: string, directories: string, state: string, selected: bool, disconnected: bool }
+export struct SmbDisconnectedShareRow { name: string, path: string }
 
 // Shared by storage cards and individual shares. Capture the publication token
 // at menu opening so an asynchronous model replacement cannot retarget an action.
@@ -1498,7 +1499,12 @@ export component SortSizeWindow inherits Window {
     private property<float> sidebar-limit:540;
     changed width => { root.narrow-view = root.width < 960px; root.sidebar-limit=root.width/1px*0.45; }
     private property <bool> compact-view: false;
-    changed height => { root.compact-view = root.dense || root.height < 680px; }
+    private property <length> automatic-treemap-height: 190px;
+    changed height => {
+        root.compact-view = root.dense || root.height < 680px;
+        // Keep room for the wrapped summary and file rows on shorter windows.
+        root.automatic-treemap-height = clamp(root.height / 5, 80px, 190px);
+    }
     changed dense => { root.compact-view = root.dense || root.height < 680px; }
     in-out property <bool> preferences-open: false;
     in property <[string]> column-labels: [@tr("ui" => "Name (always visible)"), @tr("ui" => "Logical size"), @tr("ui" => "Allocated size"), @tr("ui" => "Owner"), @tr("ui" => "Folder share"), @tr("ui" => "Recursive files"), @tr("ui" => "Recursive folders"), @tr("ui" => "Type / status"), @tr("ui" => "Last modified"), @tr("ui" => "Last accessed"), @tr("ui" => "Full path")];
@@ -1554,9 +1560,13 @@ export component SortSizeWindow inherits Window {
     in property <string> smb-server-title;
     in property <string> smb-server-summary;
     in property <[SmbShareRow]> smb-share-rows;
+    in property <[SmbDisconnectedShareRow]> smb-disconnected-share-rows;
+    in property <int> smb-disconnected-share-token;
+    in property <bool> smb-reconnect-busy;
     in property <int> smb-server-token;
     callback smb-share-open(int, int);
     callback smb-share-context-action(int, int, bool);
+    callback smb-disconnected-share-reconnect(int, int);
     callback smb-server-home();
     callback smb-server-discover();
     in property <bool> storage-loading: false;
@@ -2413,16 +2423,44 @@ export component SortSizeWindow inherits Window {
                             Button { text: @tr("ui" => "Find shares"); enabled: !root.busy; clicked => { root.smb-server-discover(); } }
                             Rectangle { horizontal-stretch: 1; }
                         }
-                        ListView {
+                        smb-catalog := ScrollView {
                             min-height: 80px; vertical-stretch: 1;
-                            for share[index] in root.smb-share-rows: VerticalLayout {
-                                padding: 5px; spacing: 3px;
-                                Button { text: share.name; accessible-label: share.name + ", " + share.path; clicked => { root.smb-share-open(root.smb-server-token, index); } }
-                                Text { text: share.path; color: WorkshopTheme.ink; font-size: 11px; overflow: elide; }
-                                Text { text: share.size + " · " + share.files + " · " + share.directories + " · " + share.state; color: WorkshopTheme.ink; font-size: 12px; wrap: word-wrap; }
+                            horizontal-scrollbar-policy: always-off;
+                            content-height: smb-rows.preferred-height;
+                            smb-rows := VerticalLayout {
+                                width: max(0px, smb-catalog.visible-width - root.scrollbar-gutter);
+                                height: self.preferred-height; alignment: start;
+                                for share[index] in root.smb-share-rows: VerticalLayout {
+                                    padding: 5px; spacing: 3px;
+                                    Button { text: share.name; accessible-label: share.name + ", " + share.path; clicked => { root.smb-share-open(root.smb-server-token, index); } }
+                                    Text { text: share.path; color: WorkshopTheme.ink; font-size: 11px; overflow: elide; }
+                                    Text { text: share.size + " · " + share.files + " · " + share.directories + " · " + share.state; color: WorkshopTheme.ink; font-size: 12px; wrap: word-wrap; }
+                                }
+                                if root.smb-disconnected-share-rows.length > 0: VerticalLayout {
+                                    padding: 5px; spacing: 5px;
+                                    Text {
+                                        text: @tr("ui" => "Disconnected in Bunny");
+                                        color: WorkshopTheme.ink; font-weight: 600;
+                                    }
+                                    for share[index] in root.smb-disconnected-share-rows: HorizontalLayout {
+                                        spacing: 8px;
+                                        VerticalLayout {
+                                            horizontal-stretch: 1;
+                                            Text { text: share.name; color: WorkshopTheme.ink; overflow: elide; }
+                                            Text { text: share.path; color: WorkshopTheme.ink; font-size: 11px; overflow: elide; }
+                                        }
+                                        Button {
+                                            text: @tr("ui" => "Reconnect");
+                                            accessible-label: @tr("ui" => "Reconnect {}", share.name);
+                                            horizontal-stretch: 0;
+                                            enabled: !root.smb-reconnect-busy;
+                                            clicked => { root.smb-disconnected-share-reconnect(root.smb-disconnected-share-token, index); }
+                                        }
+                                    }
+                                }
                             }
                         }
-                        if root.smb-share-rows.length == 0: Text { text: @tr("ui" => "No shares discovered yet. Find shares or choose Scan to prepare an operation."); color: WorkshopTheme.ink; wrap: word-wrap; }
+                        if root.smb-share-rows.length == 0 && root.smb-disconnected-share-rows.length == 0: Text { text: @tr("ui" => "No shares discovered yet. Find shares or choose Scan to prepare an operation."); color: WorkshopTheme.ink; wrap: word-wrap; }
                     }
                     empty-panel := VerticalLayout {
                         visible: root.search-visible && root.empty-mode > 0 && !root.smb-server-visible;
@@ -3137,7 +3175,7 @@ export component SortSizeWindow inherits Window {
                             visible: !root.compact-view || root.treemap-expanded;
                             min-height: root.compact-view && !root.treemap-expanded ? 0px : 80px;
                             preferred-height: !self.visible ? 0px : root.treemap-height-choice > 0
-                                ? root.treemap-height-choice * 1px : root.compact-view ? 80px : 190px;
+                                ? root.treemap-height-choice * 1px : root.compact-view ? 80px : root.automatic-treemap-height;
                             max-height: root.treemap-height-choice > 0 || root.compact-view ? self.preferred-height : 230px;
                             vertical-stretch: 0; background: WorkshopTheme.alternate; clip: true;
                             accessible-role: groupbox; accessible-label: @tr("ui" => "Treemap of observed logical sizes");
@@ -3955,7 +3993,7 @@ export component SortSizeWindow inherits Window {
                 ComboBox {
                     model: [@tr("ui" => "Binary (KiB, MiB, GiB)"), @tr("ui" => "Decimal (kB, MB, GB)")];
                     current-index: root.decimal-units ? 1 : 0;
-                    accessible-label: @tr("ui" => "Units for displayed sizes");
+                    accessible-label: @tr("ui" => "Size unit system");
                     accessible-description: root.accessibility-description-values ? self.current-value : "";
                     selected(value) => { root.set-units(self.current-index == 1); }
                 }

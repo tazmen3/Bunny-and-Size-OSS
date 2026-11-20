@@ -1925,6 +1925,16 @@ pub fn run() -> Result<(), slint::PlatformError> {
     let preferences = display_preferences::Preferences::default();
     let (window, controller) = new_session(preferences, sys_locale::get_locale())?;
     #[cfg(any(target_os = "linux", windows))]
+    if let Some(path) = source_registry::config_path() {
+        // The workshop seeds its display and acquisition exclusions on connect.
+        let mut state = controller.borrow_mut();
+        state.registry = source_registry::Registry::open(path);
+        let entries = state.registry.entries.clone();
+        if !entries.is_empty() {
+            state.sources.set_registered(&entries);
+        }
+    }
+    #[cfg(any(target_os = "linux", windows))]
     let workshop = workshop::connect(&window, &controller)
         .map_err(|e| slint::PlatformError::Other(e.to_string()))?;
     let _presentation = controller.borrow().presentation.enter();
@@ -1990,15 +2000,6 @@ pub fn run() -> Result<(), slint::PlatformError> {
             state.restored_selection = Some(selection);
         }
         state.selection_store = auto_analysis::SelectionStore::start(path).ok();
-    }
-    #[cfg(any(target_os = "linux", windows))]
-    if let Some(path) = source_registry::config_path() {
-        let mut state = controller.borrow_mut();
-        state.registry = source_registry::Registry::open(path);
-        let entries = state.registry.entries.clone();
-        if !entries.is_empty() {
-            state.sources.set_registered(&entries);
-        }
     }
     #[cfg(any(target_os = "linux", windows))]
     controller.borrow_mut().refresh_sources(&window, false);

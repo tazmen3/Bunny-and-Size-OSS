@@ -1,13 +1,15 @@
 //! Opt-in V0.5 stored-query operations. The historical scanner stays independent.
 use crate::inventory_view::View;
 use clap::{Args, ValueEnum};
-use sortsize_core::{CancellationToken, analysis::SearchQuery, inventory_contract::GenerationId};
+use sortsize_core::{
+    CancellationToken, InventoryKind, analysis::SearchQuery, inventory_contract::GenerationId,
+};
 use std::{io::Write, path::PathBuf};
 #[derive(Clone, ValueEnum)]
 enum Operation {
     Statistics,
     Export,
-    /// Lecture de contenu explicitement demandée, résultats JSONL sur stdout.
+    /// Lecture explicite des fichiers réguliers, résultats JSONL sur stdout.
     Duplicates,
 }
 #[derive(Args)]
@@ -73,6 +75,7 @@ pub(crate) fn run(a: Arguments) -> Result<u8, Box<dyn std::error::Error>> {
         path: a.path_contains,
         extension: a.extension,
         glob: a.glob,
+        kind: matches!(a.operation, Operation::Duplicates).then_some(InventoryKind::File),
         min_bytes: a.min_bytes,
         max_bytes: a.max_bytes,
         case_sensitive: a.case_sensitive,

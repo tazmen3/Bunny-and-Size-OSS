@@ -1812,8 +1812,6 @@ dependencies = [
 [[package]]
 name = "i-slint-core"
 version = "1.18.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ed2ea15059d70bc31b1a8b1eb4c34f2c5df04cb7e53f36179b43c0261231d646"
 dependencies = [
  "accesskit",
  "bitflags 2.13.2",
@@ -4009,7 +4007,7 @@ dependencies = [
 
 [[package]]
 name = "sortsize-core"
-version = "0.5.0-rc.2"
+version = "0.5.0-rc.3"
 dependencies = [
  "globset",
  "libc",
@@ -4022,7 +4020,7 @@ dependencies = [
 
 [[package]]
 name = "sortsize-owner-resolution"
-version = "0.5.0-rc.2"
+version = "0.5.0-rc.3"
 dependencies = [
  "libc",
  "sortsize-core",
@@ -4031,7 +4029,7 @@ dependencies = [
 
 [[package]]
 name = "sortsize-slint-spike"
-version = "0.5.0-rc.2"
+version = "0.5.0-rc.3"
 dependencies = [
  "i-slint-backend-winit",
  "raw-window-handle",
@@ -4049,7 +4047,7 @@ dependencies = [
 
 [[package]]
 name = "sortsize-store"
-version = "0.5.0-rc.2"
+version = "0.5.0-rc.3"
 dependencies = [
  "libsqlite3-sys",
  "rusqlite",

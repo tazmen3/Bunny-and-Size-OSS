@@ -2,19 +2,17 @@
 
 Bunny and Size analyzes local storage on Ubuntu and Windows. Explore folder sizes, find large or duplicate files, and reopen saved scans offline.
 
-## Download v0.5.0-rc.2
+## Download v0.5.0-rc.3
 
 This is an evaluation prerelease.
 
 | Platform | Download |
 | --- | --- |
-| Ubuntu 24.04 (x86_64) | [Ubuntu archive (.tar.gz)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.2/Bunny-and-Size-v0.5.0-rc.2-ubuntu-x86_64.tar.gz) |
-| Windows 11 (x64) | [Windows archive (.zip)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.2/Bunny-and-Size-v0.5.0-rc.2-windows-x86_64.zip) |
-| Source code | [Source archive (.tar.gz)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.2/Bunny-and-Size-v0.5.0-rc.2-source.tar.gz) |
+| Windows 11 (x64) | [Windows archive (.zip)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/Bunny-and-Size-v0.5.0-rc.3-windows-x86_64.zip) |
+| Ubuntu 24.04 (x86_64) | [Ubuntu archive (.tar.gz)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/Bunny-and-Size-v0.5.0-rc.3-ubuntu-x86_64.tar.gz) |
+| Source code | [Source archive (.tar.gz)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/Bunny-and-Size-v0.5.0-rc.3-source.tar.gz) |
 
-[SHA-256 checksums](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.2/SHA256SUMS?v=668a66ef) · [Build provenance](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.2/PROVENANCE.json?v=fb1e8485) · [Archived release notes (French)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.2/RELEASE_NOTES.md)
-
-[English release notes and known limitations](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.5.0-rc.2)
+[Release notes](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.5.0-rc.3) · [SHA-256 checksums](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/SHA256SUMS) · [Build provenance](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/PROVENANCE.json)
 
 ## Run the app
 

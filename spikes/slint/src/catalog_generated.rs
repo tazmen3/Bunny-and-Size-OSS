@@ -1027,6 +1027,17 @@ pub(crate) fn translation(language: &str, context: &str, source: &str) -> Option
         ) => {
             "Diese Messung teilt den Speicher mit anderen Datensätzen. Einzelnes Löschen ist nicht möglich."
         }
+        ("de", "rust", "Looking for shares on this server…") => {
+            "Freigaben auf diesem Server werden gesucht…"
+        }
+        ("de", "rust", "Share discovery is limited or uncertain.") => {
+            "Die Freigabenerkennung ist eingeschränkt oder unsicher."
+        }
+        ("de", "rust", "Visible shares: {}") => "Sichtbare Freigaben: {}",
+        ("de", "rust", "Shares disconnected in Bunny: {}") => "In Bunny getrennte Freigaben: {}",
+        ("de", "rust", "Current scan") => "Laufender Scan",
+        ("de", "rust", "Last scan") => "Letzter Scan",
+        ("de", "rust", "Saved measures") => "Gespeicherte Messungen",
         ("es", "rust", " Independent of the limited inventory.") => {
             " Independiente del inventario limitado."
         }
@@ -2049,6 +2060,19 @@ pub(crate) fn translation(language: &str, context: &str, source: &str) -> Option
         ) => {
             "Esta medición comparte almacenamiento con otros registros. La eliminación individual no está disponible."
         }
+        ("es", "rust", "Looking for shares on this server…") => {
+            "Buscando recursos compartidos en este servidor…"
+        }
+        ("es", "rust", "Share discovery is limited or uncertain.") => {
+            "La detección de recursos compartidos es limitada o incierta."
+        }
+        ("es", "rust", "Visible shares: {}") => "Recursos compartidos visibles: {}",
+        ("es", "rust", "Shares disconnected in Bunny: {}") => {
+            "Recursos compartidos desconectados en Bunny: {}"
+        }
+        ("es", "rust", "Current scan") => "Análisis en curso",
+        ("es", "rust", "Last scan") => "Último análisis",
+        ("es", "rust", "Saved measures") => "Mediciones guardadas",
         ("fr", "rust", " Independent of the limited inventory.") => {
             " Indépendant de l’inventaire limité."
         }
@@ -3079,6 +3103,19 @@ pub(crate) fn translation(language: &str, context: &str, source: &str) -> Option
         ) => {
             "Cette mesure partage son stockage avec d’autres relevés. La suppression individuelle est indisponible."
         }
+        ("fr", "rust", "Looking for shares on this server…") => {
+            "Recherche des partages sur ce serveur…"
+        }
+        ("fr", "rust", "Share discovery is limited or uncertain.") => {
+            "La découverte des partages est limitée ou incertaine."
+        }
+        ("fr", "rust", "Visible shares: {}") => "Partages visibles : {}",
+        ("fr", "rust", "Shares disconnected in Bunny: {}") => {
+            "Partages déconnectés dans Bunny : {}"
+        }
+        ("fr", "rust", "Current scan") => "Analyse en cours",
+        ("fr", "rust", "Last scan") => "Dernière analyse",
+        ("fr", "rust", "Saved measures") => "Mesures enregistrées",
         ("it", "rust", " Independent of the limited inventory.") => {
             " Indipendente dall’inventario limitato."
         }
@@ -4109,6 +4146,19 @@ pub(crate) fn translation(language: &str, context: &str, source: &str) -> Option
         ) => {
             "Questa misura condivide l’archivio con altre registrazioni. L’eliminazione singola non è disponibile."
         }
+        ("it", "rust", "Looking for shares on this server…") => {
+            "Ricerca delle condivisioni su questo server…"
+        }
+        ("it", "rust", "Share discovery is limited or uncertain.") => {
+            "Il rilevamento delle condivisioni è limitato o incerto."
+        }
+        ("it", "rust", "Visible shares: {}") => "Condivisioni visibili: {}",
+        ("it", "rust", "Shares disconnected in Bunny: {}") => {
+            "Condivisioni disconnesse in Bunny: {}"
+        }
+        ("it", "rust", "Current scan") => "Analisi in corso",
+        ("it", "rust", "Last scan") => "Ultima analisi",
+        ("it", "rust", "Saved measures") => "Misurazioni salvate",
         ("nl", "rust", " Independent of the limited inventory.") => {
             " Onafhankelijk van de beperkte inventaris."
         }
@@ -5121,6 +5171,19 @@ pub(crate) fn translation(language: &str, context: &str, source: &str) -> Option
         ) => {
             "Deze meting deelt opslag met andere records. Afzonderlijk verwijderen is niet beschikbaar."
         }
+        ("nl", "rust", "Looking for shares on this server…") => {
+            "Zoeken naar gedeelde mappen op deze server…"
+        }
+        ("nl", "rust", "Share discovery is limited or uncertain.") => {
+            "De detectie van gedeelde mappen is beperkt of onzeker."
+        }
+        ("nl", "rust", "Visible shares: {}") => "Zichtbare gedeelde mappen: {}",
+        ("nl", "rust", "Shares disconnected in Bunny: {}") => {
+            "Gedeelde mappen losgekoppeld in Bunny: {}"
+        }
+        ("nl", "rust", "Current scan") => "Huidige scan",
+        ("nl", "rust", "Last scan") => "Laatste scan",
+        ("nl", "rust", "Saved measures") => "Opgeslagen metingen",
         ("pt", "rust", " Independent of the limited inventory.") => {
             " Independente do inventário limitado."
         }
@@ -6135,6 +6198,17 @@ pub(crate) fn translation(language: &str, context: &str, source: &str) -> Option
         ) => {
             "Esta medição partilha o armazenamento com outros registos. A eliminação individual está indisponível."
         }
+        ("pt", "rust", "Looking for shares on this server…") => {
+            "A procurar partilhas neste servidor…"
+        }
+        ("pt", "rust", "Share discovery is limited or uncertain.") => {
+            "A descoberta de partilhas é limitada ou incerta."
+        }
+        ("pt", "rust", "Visible shares: {}") => "Partilhas visíveis: {}",
+        ("pt", "rust", "Shares disconnected in Bunny: {}") => "Partilhas desligadas no Bunny: {}",
+        ("pt", "rust", "Current scan") => "Análise em curso",
+        ("pt", "rust", "Last scan") => "Última análise",
+        ("pt", "rust", "Saved measures") => "Medições guardadas",
         _ => return None,
     })
 }

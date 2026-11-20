@@ -869,6 +869,10 @@ msgid "Decimal (kB, MB, GB)"
 msgstr "⟦Decimal (kB, MB, GB) ········⟧"
 
 msgctxt "ui"
+msgid "Size unit system"
+msgstr "⟦Size unit system ······⟧"
+
+msgctxt "ui"
 msgid "Units for displayed sizes"
 msgstr "⟦Units for displayed sizes ··········⟧"
 

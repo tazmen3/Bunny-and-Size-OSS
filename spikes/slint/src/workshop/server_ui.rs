@@ -1,6 +1,6 @@
-//! UI intents for a virtual server. Only confirmation grants a frozen batch.
+//! A virtual server grants acquisition for an activated share or a confirmed batch.
 use super::*;
-use crate::{SmbServerScanWindow, SmbShareChoice, SmbShareRow};
+use crate::{SmbDisconnectedShareRow, SmbServerScanWindow, SmbShareChoice, SmbShareRow};
 
 #[derive(Default)]
 pub(super) struct State {
@@ -14,12 +14,13 @@ pub(super) struct State {
     pub(super) operations: crate::source_dialog::Operations,
     pub(super) dialog: Option<SmbServerScanWindow>,
     pub(super) token: i32,
+    pub(super) share_rows_token: i32,
     error: Option<String>,
     pub(super) dirty: bool,
     last: Option<smb_server::Snapshot>,
     pub(super) memory: Option<sortsize_core::resources::Reservation>,
     #[cfg(test)]
-    discovery_fixture: Option<Vec<PathBuf>>,
+    pub(super) discovery_fixture: Option<Vec<PathBuf>>,
 }
 
 impl State {
@@ -36,6 +37,17 @@ impl State {
             .nth(index)
             .map(|(i, _)| i)
     }
+
+    pub(super) fn disconnected_shares(&self) -> impl Iterator<Item = &PathBuf> {
+        self.shares.iter().filter(|path| self.excluded(path))
+    }
+
+    pub(super) fn invalidate_share_rows(&mut self) {
+        self.share_rows_token = self
+            .share_rows_token
+            .checked_add(1)
+            .expect("share rows token exhausted");
+    }
 }
 
 impl Host {
@@ -48,9 +60,11 @@ impl Host {
             self.server.shares.clear();
             self.server.selected.clear();
             self.server.memory = None;
+            self.server.uncertain = false;
             self.server.last = None;
             self.server.error = None;
             self.server.root = Some(root.clone());
+            self.server.invalidate_share_rows();
             self.server.token = self
                 .server
                 .token
@@ -345,20 +359,20 @@ impl Host {
         window: &SortSizeWindow,
         controller: &mut Controller,
         shares: Vec<PathBuf>,
-    ) {
+    ) -> bool {
         let Some(server) = self.server.root.clone() else {
-            return;
+            return false;
         };
         if controller.registry.is_disconnected(&server) {
             window.set_errors(tr!("This source is disconnected. Open + Add a source > Disconnected sources and click Reconnect before scanning.").into());
-            return;
+            return false;
         }
         let shares = shares
             .into_iter()
             .filter(|path| !controller.registry.is_disconnected(path))
             .collect::<Vec<_>>();
         if shares.is_empty() {
-            return;
+            return false;
         }
         let epoch = self.epoch();
         let options = sortsize_store::scheduler::CollectionOptions {
@@ -377,7 +391,7 @@ impl Host {
             options,
         ) {
             window.set_errors(error.into());
-            return;
+            return false;
         }
         controller.pending_auto = None;
         controller.restored_selection = None;
@@ -400,6 +414,21 @@ impl Host {
         window.set_errors("".into());
         window.set_scan_source(label(&server).into());
         self.poll_smb_server(window, true);
+        true
+    }
+
+    fn start_smb_share(
+        &mut self,
+        window: &SortSizeWindow,
+        controller: &mut Controller,
+        path: &Path,
+    ) -> bool {
+        if !self.begin_smb_operation(window, controller, vec![path.to_owned()]) {
+            return false;
+        }
+        let epoch = self.epoch();
+        self.service.view_smb_share(epoch, 0);
+        true
     }
 
     pub(super) fn begin_single_smb_share(
@@ -414,9 +443,7 @@ impl Host {
         {
             return false;
         }
-        self.begin_smb_operation(window, controller, vec![path.to_owned()]);
-        let epoch = self.epoch();
-        self.service.view_smb_share(epoch, 0);
+        self.start_smb_share(window, controller, path);
         true
     }
 
@@ -442,7 +469,7 @@ impl Host {
             .as_ref()
             .and_then(|s| s.shares.iter().position(|share| share.path == path));
         let epoch = self.epoch();
-        // Opening a retained share is an explicit view request, never a scan.
+        // Reuse the displayed inventory whenever it can be opened.
         self.requested = Some(path.clone());
         self.current = None;
         self.pending = None;
@@ -460,21 +487,30 @@ impl Host {
         window.set_has_next_detail_page(false);
         window.set_has_previous_detail_page(false);
         window.set_errors("".into());
-        if !stored_index.is_some_and(|i| {
+        let opened = stored_index.is_some_and(|i| {
             if snapshot.as_ref().is_some_and(|s| s.running) {
                 self.service.view_smb_share(epoch, i)
             } else {
                 self.service.open_smb_share(epoch, i)
             }
-        }) && !self.service.open_smb_path(epoch, &path)
-        {
+        }) || self.service.open_smb_path(epoch, &path);
+        let can_start = !opened
+            && window.get_scan_enabled()
+            && !window.get_busy()
+            && !window.get_choosing_folder()
+            && !self.server.operations.busy()
+            && self.server.dialog.is_none()
+            // A completed SMB batch may still be finalizing its reader
+            // presentation until a page opens. Only live intentions block this click.
+            && !self.service.lane.lock().unwrap().has_acquisition_intent();
+        if opened || (can_start && self.start_smb_share(window, controller, &path)) {
+            window.set_empty_message(tr!("Preparing inventory…").into());
+        } else {
             window.set_empty_message(
                 tr!("Share not inventoried. Click Scan to analyze this share.").into(),
             );
             window
                 .set_status(tr!("Share not inventoried. Click Scan to analyze this share.").into());
-        } else {
-            window.set_empty_message(tr!("Preparing inventory…").into());
         }
         self.server.dirty = true;
     }
@@ -504,32 +540,34 @@ impl Host {
                         bytes,
                         None,
                     );
-                    self.server.shares = if memory.is_some() { shares } else { Vec::new() };
-                    self.server.memory = memory;
-                    self.server.selected = self
-                        .server
-                        .shares
-                        .iter()
-                        .map(|path| {
-                            !self
-                                .server
-                                .exclusions
-                                .iter()
-                                .any(|root| crate::source_registry::covers(root, path))
-                        })
-                        .collect();
-                    self.server.uncertain = outcome.limited || self.server.memory.is_none();
-                    self.server.error = self.server.memory.is_none().then(|| {
-                        tr!("This folder could not be expanded within the tree budget.").into()
-                    });
+                    if let Some(memory) = memory {
+                        if self.server.shares != shares {
+                            self.server.invalidate_share_rows();
+                        }
+                        self.server.selected = shares
+                            .iter()
+                            .map(|path| !self.server.excluded(path))
+                            .collect();
+                        self.server.shares = shares;
+                        self.server.memory = Some(memory);
+                        self.server.uncertain = outcome.limited;
+                        self.server.error = None;
+                    } else {
+                        self.server.selected.clear();
+                        self.server.uncertain = true;
+                        self.server.error = Some(
+                            tr!("This folder could not be expanded within the tree budget.").into(),
+                        );
+                    }
                 } else {
-                    self.server.shares.clear();
+                    // Retain the last displayed catalogue. Only a fresh discovery
+                    // can supply the choices for a new server-wide operation.
                     self.server.selected.clear();
                     self.server.uncertain = true;
                     self.server.error = Some(discovery_failure().into());
                 }
-                self.server.dirty = true;
             }
+            self.server.dirty = true;
             self.update_smb_confirmation();
         }
         if !window.get_smb_server_context() {
@@ -560,8 +598,17 @@ impl Host {
                 .map_or_else(String::new, |p| label(p))
         );
         window.set_smb_server_title(title.into());
-        window.set_smb_server_token(self.server.token);
-        let summary = if let Some(snapshot) = &snapshot {
+        let mut summary = Vec::new();
+        if self.server.operations.busy() {
+            summary.push(tr!("Looking for shares on this server…").to_owned());
+        } else if let Some(error) = &self.server.error {
+            summary.push(error.clone());
+        } else if self.server.memory.is_none() {
+            summary.push(tr!("Discover shares explicitly before browsing this server.").into());
+        } else if self.server.uncertain {
+            summary.push(tr!("Share discovery is limited or uncertain.").to_owned());
+        }
+        let scan_summary = snapshot.as_ref().map(|snapshot| {
             let totals = snapshot.totals();
             let measures = if totals.coverage == ScopeCoverage::Unknown {
                 tr!("Unknown").to_owned()
@@ -574,22 +621,18 @@ impl Host {
                     self.units,
                 )
             };
-            format!(
-                "{measures} · {}",
-                tr_format!(
-                    "Shares completed: {} / {}",
-                    crate::number_format::integer(snapshot.completed() as u128),
-                    crate::number_format::integer(snapshot.shares.len() as u128)
-                )
-            )
-        } else if self.server.operations.busy() {
-            tr_in!("ui", "Looking for shares on this server…").to_owned()
-        } else {
-            self.server.error.clone().unwrap_or_else(|| {
-                tr!("Discover shares explicitly before browsing this server.").into()
-            })
-        };
-        window.set_smb_server_summary(summary.clone().into());
+            let scan = if snapshot.running {
+                tr!("Current scan")
+            } else {
+                tr!("Last scan")
+            };
+            let completed = tr_format!(
+                "Shares completed: {} / {}",
+                crate::number_format::integer(snapshot.completed() as u128),
+                crate::number_format::integer(snapshot.shares.len() as u128)
+            );
+            format!("{scan} · {completed} · {measures}")
+        });
         let retained = self.service.retained_smb_shares();
         let rows = self
             .server
@@ -655,22 +698,10 @@ impl Host {
                             value: measured,
                             accuracy: sortsize_core::ValueAccuracy::Exact,
                         });
-                    state = format!("{state} · {} · {date}", tr_in!("ui", "Saved measures"));
-                }
-                if self
-                    .server
-                    .exclusions
-                    .iter()
-                    .any(|root| crate::source_registry::covers(root, path))
-                {
-                    state = tr!("Disconnected").into();
+                    state = format!("{state} · {} · {date}", tr!("Saved measures"));
                 }
                 SmbShareRow {
-                    disconnected: self
-                        .server
-                        .exclusions
-                        .iter()
-                        .any(|root| crate::source_registry::covers(root, path)),
+                    disconnected: false,
                     name: share_name(path).into(),
                     path: label(path).into(),
                     size: size.into(),
@@ -681,7 +712,42 @@ impl Host {
                 }
             })
             .collect::<Vec<_>>();
-        window.set_smb_share_rows(patch_model(window.get_smb_share_rows(), rows));
+        let disconnected_rows = self
+            .server
+            .disconnected_shares()
+            .map(|path| SmbDisconnectedShareRow {
+                name: share_name(path).into(),
+                path: label(path).into(),
+            })
+            .collect::<Vec<_>>();
+        if self.server.memory.is_some() {
+            let visible = crate::number_format::integer(rows.len() as u128);
+            let mut discovery = tr_format!("Visible shares: {}", visible);
+            if !disconnected_rows.is_empty() {
+                let excluded = crate::number_format::integer(disconnected_rows.len() as u128);
+                let disconnected = tr_format!("Shares disconnected in Bunny: {}", excluded);
+                discovery = format!("{discovery} · {disconnected}");
+            }
+            summary.push(discovery);
+        }
+        if let Some(scan_summary) = scan_summary {
+            summary.push(scan_summary);
+        }
+        let summary = summary.join(" · ");
+        window.set_smb_server_summary(summary.clone().into());
+        // Replace row delegates when their identities change. A button
+        // pressed before rediscovery must not activate a different share.
+        if window.get_smb_server_token() == self.server.share_rows_token {
+            window.set_smb_share_rows(patch_model(window.get_smb_share_rows(), rows));
+        } else {
+            window.set_smb_server_token(self.server.share_rows_token);
+            window.set_smb_share_rows(Rc::new(VecModel::from(rows)).into());
+        }
+        window.set_smb_disconnected_share_token(self.server.share_rows_token);
+        window.set_smb_disconnected_share_rows(patch_model(
+            window.get_smb_disconnected_share_rows(),
+            disconnected_rows,
+        ));
         if window.get_smb_server_visible() {
             window.set_status(summary.clone().into());
             window.set_summary(summary.into());
@@ -732,15 +798,23 @@ pub(super) fn connect(
     host.borrow_mut().server.controller = Rc::downgrade(controller);
     let weak = Rc::downgrade(host);
     let main = window.as_weak();
+    let control = Rc::downgrade(controller);
     window.on_smb_server_discover(move || {
-        if let (Some(host), Some(window)) = (weak.upgrade(), main.upgrade()) {
+        if let (Some(host), Some(window), Some(controller)) =
+            (weak.upgrade(), main.upgrade(), control.upgrade())
+        {
+            let _scope = controller.borrow().presentation.enter();
             host.borrow_mut().discover_smb_server(&window);
         }
     });
     let weak = Rc::downgrade(host);
     let main = window.as_weak();
+    let control = Rc::downgrade(controller);
     window.on_smb_server_home(move || {
-        if let (Some(host), Some(window)) = (weak.upgrade(), main.upgrade()) {
+        if let (Some(host), Some(window), Some(controller)) =
+            (weak.upgrade(), main.upgrade(), control.upgrade())
+        {
+            let _scope = controller.borrow().presentation.enter();
             let root = host.borrow().server.root.clone();
             if let Some(root) = root {
                 host.borrow_mut().select_smb_server(&window, root);
@@ -754,8 +828,10 @@ pub(super) fn connect(
         if let (Some(host), Some(window), Some(controller)) =
             (weak.upgrade(), main.upgrade(), control.upgrade())
         {
+            let _scope = controller.borrow().presentation.enter();
             let mut host = host.borrow_mut();
-            if token == host.server.token
+            if window.get_smb_server_visible()
+                && token == host.server.share_rows_token
                 && let Ok(index) = usize::try_from(index)
             {
                 host.open_smb_share_ui(&window, &mut controller.borrow_mut(), index);
@@ -846,6 +922,215 @@ mod tests {
         assert!(controller.borrow().task.is_none());
         assert!(controller.borrow().pending_auto.is_none());
         assert_eq!(host.borrow().service.lane.lock().unwrap().source_epoch, 0);
+    }
+
+    fn begin_fixture_batch(
+        host: &mut Host,
+        rows: Vec<(PathBuf, Result<PathBuf, &'static str>)>,
+    ) -> u64 {
+        let epoch = host.epoch();
+        let mut request = smb_server::Request::new(
+            epoch,
+            host.server.root.clone().unwrap(),
+            rows.iter().map(|(path, _)| path.clone()).collect(),
+            false,
+            Default::default(),
+        )
+        .unwrap();
+        // Keep the logical SMB paths used by the UI. At the execution boundary,
+        // give the existing worker tiny local trees and a simulated access error.
+        for (share, (_, native)) in request.snapshot.shares.iter_mut().zip(rows) {
+            match native {
+                Ok(root) => share.native_root = Some(root),
+                Err(error) => {
+                    share.native_root = None;
+                    share.phase = smb_server::SharePhase::Failed;
+                    share.error = Some(error.into());
+                }
+            }
+        }
+        let mut lane = host.service.lane.lock().unwrap();
+        lane.source_epoch = epoch;
+        lane.view_epoch = epoch;
+        lane.publication_cancel.cancel();
+        lane.publication_cancel = Default::default();
+        lane.smb_snapshot = Some(request.snapshot.clone());
+        lane.smb_begin = Some(request);
+        lane.smb_view = None;
+        lane.reader_target = Some(None);
+        epoch
+    }
+
+    fn wait_for_fixture_batch(
+        host: &Rc<RefCell<Host>>,
+        window: &SortSizeWindow,
+        epoch: u64,
+    ) -> smb_server::Snapshot {
+        let deadline = Instant::now() + Duration::from_secs(30);
+        loop {
+            let mut host = host.borrow_mut();
+            host.poll_smb_server(window, false);
+            if let Some(snapshot) = host.service.smb_snapshot()
+                && snapshot.epoch == epoch
+                && !snapshot.running
+            {
+                return snapshot;
+            }
+            assert!(Instant::now() < deadline, "fixture scan did not finish");
+            drop(host);
+            std::thread::sleep(Duration::from_millis(5));
+        }
+    }
+
+    #[test]
+    fn host_keeps_discovered_shares_during_targeted_scan_and_refresh_failure() {
+        slint::platform::set_platform(Box::new(Platform)).unwrap();
+        let (window, controller) =
+            crate::new_session(Default::default(), Some("en".into())).unwrap();
+        let context = controller.borrow().presentation;
+        let _scope = context.enter();
+        let host = super::super::connect(&window, &controller).unwrap();
+        let name = "six-shares.invalid";
+        let shares = [
+            "bouquins",
+            "home",
+            "homes",
+            "PlexMediaServer",
+            "tv",
+            "video",
+        ]
+        .map(|label| share(name, label));
+        {
+            let mut host = host.borrow_mut();
+            host.server.discovery_fixture = Some(shares.to_vec());
+            host.select_smb_server(&window, server(name));
+        }
+        window.invoke_smb_server_discover();
+        wait(&host, &window);
+        assert_eq!(window.get_smb_share_rows().row_count(), 6);
+        assert!(host.borrow().service.smb_snapshot().is_none());
+
+        let temp = tempfile::tempdir().unwrap();
+        let saved = temp.path().join("saved");
+        let targeted = temp.path().join("targeted");
+        for (path, bytes) in [(&saved, &[1; 31][..]), (&targeted, &[2; 17][..])] {
+            std::fs::create_dir(path).unwrap();
+            std::fs::write(path.join("fixture"), bytes).unwrap();
+        }
+        let epoch = begin_fixture_batch(
+            &mut host.borrow_mut(),
+            vec![
+                (shares[0].clone(), Ok(saved)),
+                (shares[3].clone(), Err("Access denied")),
+            ],
+        );
+        let first = wait_for_fixture_batch(&host, &window, epoch);
+        assert_eq!(first.shares[0].logical, Some(31));
+        let row = |name: &str| {
+            window
+                .get_smb_share_rows()
+                .iter()
+                .enumerate()
+                .find(|(_, row)| row.name.as_str() == name)
+                .unwrap_or_else(|| panic!("missing share {name}"))
+        };
+        let (_, denied) = row("PlexMediaServer");
+        assert!(denied.state.contains("Access denied"));
+        assert_eq!(denied.size.as_str(), "—");
+
+        let (index, video) = row("video");
+        assert_eq!(video.state.as_str(), "Unknown");
+        {
+            let host = host.borrow();
+            host.service.lane.lock().unwrap().smb_native_fixture =
+                Some((shares[5].clone(), targeted));
+        }
+        let old_token = window.get_smb_server_token();
+        host.borrow_mut().server.discovery_fixture = Some(shares.iter().rev().cloned().collect());
+        window.invoke_smb_server_discover();
+        wait(&host, &window);
+        let token = window.get_smb_server_token();
+        assert_ne!(token, old_token);
+        window.invoke_smb_share_open(old_token, index as i32);
+        assert!(window.get_smb_server_visible());
+        assert_eq!(host.borrow().service.smb_snapshot(), Some(first.clone()));
+        let (index, _) = row("video");
+        window.invoke_smb_share_open(token, index as i32);
+        assert!(!window.get_smb_server_visible());
+        assert_eq!(window.get_scan_path(), video.path);
+        let pending = host.borrow().service.smb_snapshot().unwrap();
+        assert_ne!(pending.epoch, first.epoch);
+        assert_eq!(pending.shares.len(), 1);
+        assert_eq!(pending.shares[0].path, shares[5]);
+        window.invoke_smb_share_open(token, index as i32);
+        assert_eq!(
+            host.borrow().service.smb_snapshot().unwrap().epoch,
+            pending.epoch
+        );
+        let targeted = wait_for_fixture_batch(&host, &window, pending.epoch);
+        assert_eq!(targeted.shares.len(), 1);
+        assert_eq!(targeted.shares[0].path, shares[5]);
+        assert_eq!(targeted.shares[0].logical, Some(17));
+        window.invoke_go_parent();
+        assert!(window.get_smb_server_visible());
+        assert_eq!(window.get_smb_share_rows().row_count(), 6);
+        // An unsuccessful observation belongs to its scan. Without a fresh
+        // observation or a saved measure, the next scan leaves this row unknown.
+        for name in ["home", "homes", "PlexMediaServer", "tv"] {
+            let (_, unknown) = row(name);
+            assert_eq!(unknown.state.as_str(), "Unknown");
+            assert_eq!(unknown.size.as_str(), "—");
+        }
+        let (_, measured) = row("bouquins");
+        assert!(measured.state.contains("Saved measures"));
+        assert_ne!(measured.size.as_str(), "—");
+        assert_eq!(row("video").1.state.as_str(), "Complete");
+        {
+            let _french = crate::presentation::Context {
+                language: crate::locale::Language::French,
+                ..context
+            }
+            .enter();
+            host.borrow_mut().poll_smb_server(&window, true);
+            assert!(row("bouquins").1.state.contains("Mesures enregistrées"));
+        }
+        host.borrow_mut().poll_smb_server(&window, true);
+        let summary = window.get_smb_server_summary();
+        assert!(summary.contains("Visible shares: 6"), "{summary}");
+        assert!(summary.contains("Last scan"), "{summary}");
+        assert!(summary.contains("Shares completed: 1 / 1"), "{summary}");
+
+        window.invoke_smb_server_discover();
+        wait(&host, &window);
+        assert_eq!(window.get_smb_share_rows().row_count(), 6);
+        assert_eq!(row("bouquins").1, measured);
+        let (index, saved) = row("bouquins");
+        window.invoke_smb_share_open(window.get_smb_server_token(), index as i32);
+        assert!(!window.get_smb_server_visible());
+        assert_eq!(window.get_scan_path(), saved.path);
+        window.invoke_go_parent();
+        assert_eq!(host.borrow().service.smb_snapshot(), Some(targeted.clone()));
+
+        window.set_busy(true);
+        let (index, tv) = row("tv");
+        window.invoke_smb_share_open(window.get_smb_server_token(), index as i32);
+        assert_eq!(window.get_scan_path(), tv.path);
+        assert_eq!(host.borrow().service.smb_snapshot(), Some(targeted));
+        window.invoke_go_parent();
+
+        assert!(
+            host.borrow_mut()
+                .server
+                .operations
+                .start(|| crate::source_dialog::Outcome::state(16))
+                .unwrap()
+        );
+        wait(&host, &window);
+        assert_eq!(window.get_smb_share_rows().row_count(), 6);
+        assert_eq!(row("bouquins").1, measured);
+        let summary = window.get_smb_server_summary();
+        assert!(summary.contains(discovery_failure()), "{summary}");
+        assert!(summary.contains("Shares completed: 1 / 1"), "{summary}");
     }
 
     #[test]

@@ -1,28 +1,11 @@
 {
-  "version": "0.5.0-rc.2",
-  "source_commit": "2fa7ffedc6c7f1cf8e9136d36e04339b691db592",
+  "version": "0.5.0-rc.3",
+  "source_commit": "12ff86485a4cd3baacee235713f52d2580bda3e5",
   "release_kind": "evaluation_prerelease",
-  "archives": [
-    {
-      "name": "Bunny-and-Size-v0.5.0-rc.2-source.tar.gz",
-      "bytes": 110616940,
-      "sha256": "c8f30930dbe317919c79f22950dbd886c2368942e38c672efbd9ea5ce90dfbde"
-    },
-    {
-      "name": "Bunny-and-Size-v0.5.0-rc.2-ubuntu-x86_64.tar.gz",
-      "bytes": 23679047,
-      "sha256": "3a0f2647870cda7e3256cbdd30d93b850023743088ed22fc6887a8787617cee5"
-    },
-    {
-      "name": "Bunny-and-Size-v0.5.0-rc.2-windows-x86_64-unsigned.zip",
-      "bytes": 20941746,
-      "sha256": "40b6a78f5d20e565660e79ad4f09cb92e611898a1cf46344401b270745fd3d35"
-    }
-  ],
   "platforms": [
-    "Ubuntu 24.04 x86_64 (X11 and XWayland)",
-    "Windows 11 x64"
+    "Windows 11 x64",
+    "Ubuntu 24.04 x86_64"
   ],
-  "windows_authenticode": "unsigned",
-  "release_approval": "external"
+  "archive_checksums": "https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/SHA256SUMS",
+  "archive_provenance": "https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/PROVENANCE.json"
 }
