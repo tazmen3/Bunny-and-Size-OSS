@@ -199,7 +199,11 @@ fn aggregate(
         follow_symlinks: false,
         exclusions: options.exclusions.clone(),
         max_depth: options.max_depth,
-        mount_policy: "cross_accessible_mounts",
+        mount_policy: if cfg!(any(target_os = "linux", windows)) {
+            "explicit_root_and_local_mounts_only"
+        } else {
+            "cross_accessible_mounts"
+        },
     };
     loop {
         if cancellation.is_cancelled() {

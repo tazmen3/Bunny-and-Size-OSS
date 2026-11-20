@@ -11,6 +11,91 @@ pub(crate) use progressive::{Projector, TreePatch};
 
 pub(crate) const MAX_VISIBLE_ROWS: usize = 2_000;
 
+/// Folder weight within the entire source, independent of the open folder/page.
+/// A partial fold can temporarily expose a child before its ancestor subtotal:
+/// omit that ratio instead of clamping it into an artificial 100 percent.
+pub(crate) fn folder_weight(
+    bytes: Option<u64>,
+    source_bytes: Option<u64>,
+    provisional: bool,
+) -> (f32, bool, slint::SharedString) {
+    match bytes.zip(source_bytes) {
+        Some((value, total)) if total > 0 && value <= total && (!provisional || value > 0) => {
+            let tenths = (u128::from(value) * 1000 + u128::from(total) / 2) / u128::from(total);
+            (
+                (value as f64 / total as f64) as f32,
+                true,
+                format!(
+                    "{}{}{}%",
+                    if provisional { "≈ " } else { "" },
+                    if value > 0 && tenths == 0 { "< " } else { "" },
+                    crate::number_format::tenths(if value > 0 && tenths == 0 { 1 } else { tenths })
+                )
+                .into(),
+            )
+        }
+        _ => (0., false, "—".into()),
+    }
+}
+
+/// Compact tree gauges compare recursive logical bytes with the immediate
+/// parent. Partial observations deliberately omit decimal precision.
+pub(crate) fn folder_tree_weight(
+    bytes: Option<u64>,
+    parent_bytes: Option<u64>,
+    provisional: bool,
+) -> (f32, bool, slint::SharedString) {
+    if !provisional {
+        return folder_weight(bytes, parent_bytes, false);
+    }
+    match bytes.zip(parent_bytes) {
+        Some((value, total)) if total > 0 && value <= total => {
+            let percent = u128::from(value) * 100 / u128::from(total);
+            (
+                (value as f64 / total as f64) as f32,
+                true,
+                if value > 0 && percent == 0 {
+                    "≈ < 1%".into()
+                } else {
+                    format!("≈ {}%", crate::number_format::integer(percent)).into()
+                },
+            )
+        }
+        _ => (0., false, "—".into()),
+    }
+}
+
+#[cfg(test)]
+mod compact_tree_weight_tests {
+    use super::*;
+
+    #[test]
+    fn targeted_tree_gauges_use_parent_without_false_partial_precision() {
+        let (_, known, text) = folder_tree_weight(Some(1), Some(3), true);
+        assert!(known);
+        assert_eq!(text, "≈ 33%");
+        assert_eq!(folder_tree_weight(Some(1), Some(1000), true).2, "≈ < 1%");
+        assert_eq!(folder_tree_weight(Some(0), Some(1000), true).2, "≈ 0%");
+        assert_eq!(
+            folder_tree_weight(Some(u64::MAX), Some(u64::MAX), true).2,
+            "≈ 100%"
+        );
+        assert_eq!(
+            folder_tree_weight(Some(1), Some(3), false).2,
+            crate::tree::folder_weight(Some(1), Some(3), false).2
+        );
+        for (child, parent) in [
+            (None, Some(4)),
+            (Some(1), None),
+            (Some(0), Some(0)),
+            (Some(5), Some(4)),
+        ] {
+            let (fraction, known, text) = folder_tree_weight(child, parent, true);
+            assert_eq!((fraction, known, text.as_str()), (0., false, "—"));
+        }
+    }
+}
+
 /// Orders are prepared on the worker, never sorted on the UI thread.
 pub(crate) struct Tree {
     nodes: Vec<Node>,
@@ -676,7 +761,11 @@ impl Tree {
                 return None;
             }
             let fraction = (bytes as f64 / total as f64).clamp(0.0, 1.0);
-            let prefix = if parent.incomplete { "≈ " } else { "" };
+            let prefix = if parent.incomplete || node.incomplete {
+                "≈ "
+            } else {
+                ""
+            };
             let label = if bytes > 0 && fraction < 0.0005 {
                 format!("{prefix}< {} %", crate::number_format::decimal(0.1))
             } else {
@@ -703,9 +792,14 @@ impl Tree {
                 let (node_id, name, directory, color, partial) = match weight.target {
                     Target::Node(i) => (
                         i as i32,
-                        self.nodes[i].name.to_string(),
+                        native_label(std::path::Path::new(
+                            self.nodes[i]
+                                .path
+                                .file_name()
+                                .unwrap_or(self.nodes[i].path.as_os_str()),
+                        )),
                         self.nodes[i].directory,
-                        i % 6,
+                        i % 8,
                         self.nodes[i].incomplete,
                     ),
                     Target::Other => (
@@ -735,8 +829,30 @@ impl Tree {
                 let x = rect.x as f32;
                 let y = rect.y as f32;
                 MapTile {
+                    band_x: (projection
+                        .weights
+                        .iter()
+                        .take_while(|w| w.target != weight.target)
+                        .map(|w| w.bytes as f64)
+                        .sum::<f64>()
+                        / projection
+                            .weights
+                            .iter()
+                            .map(|w| w.bytes as f64)
+                            .sum::<f64>()) as f32,
+                    band_w: (weight.bytes as f64
+                        / projection
+                            .weights
+                            .iter()
+                            .map(|w| w.bytes as f64)
+                            .sum::<f64>()) as f32,
                     node_id,
                     name: name.into(),
+                    path: match weight.target {
+                        Target::Node(i) => native_label(&self.nodes[i].path).into(),
+                        _ => "".into(),
+                    },
+                    partial,
                     size: size.into(),
                     directory,
                     color_index: color as i32,
@@ -948,6 +1064,19 @@ impl Tree {
             )
         })
     }
+    pub(crate) fn current_folder_summary(&self) -> String {
+        let _scope = self.presentation.enter();
+        self.selected.map_or_else(String::new, |i| {
+            let node = &self.nodes[i];
+            crate::current_folder_summary::render(
+                node.bytes,
+                node.counts.map(|c| c.recursive_files),
+                node.counts.map(|c| c.recursive_directories),
+                node.incomplete,
+                self.units,
+            )
+        })
+    }
     pub(crate) fn empty_message(&self) -> &'static str {
         let _scope = self.presentation.enter();
         if self.selected.is_none() {
@@ -991,20 +1120,36 @@ impl Tree {
     pub(crate) fn rows(&self) -> (Vec<TreeRow>, bool) {
         let _scope = self.presentation.enter();
         let visible = self.visible_directories();
+        let source_bytes = self.roots.iter().try_fold(0u64, |sum, &index| {
+            sum.checked_add(self.nodes[index].bytes?)
+        });
+        let source_provisional = self.coverage != Coverage::Complete
+            || self.truncated
+            || self.roots.iter().any(|&index| self.nodes[index].incomplete);
         let rows = visible
             .iter()
             .skip(self.offset)
             .take(MAX_VISIBLE_ROWS)
             .map(|&(index, depth)| {
                 let node = &self.nodes[index];
+                let weight_provisional = source_provisional || node.incomplete;
+                let (fraction, has_weight, proportion) =
+                    folder_weight(node.bytes, source_bytes, weight_provisional);
                 TreeRow {
                     node_id: index as i32,
                     depth: depth.min(12),
                     name: node.name.as_ref().into(),
+                    path: node.path_label(),
                     size: node.size(self.units).into(),
                     expandable: node.directory_count > 0,
                     expanded: node.expanded,
                     selected: self.selected == Some(index),
+                    focused: false,
+                    fraction,
+                    has_weight,
+                    proportion,
+                    weight_provisional,
+                    color_index: (index % 8) as i32,
                 }
             })
             .collect();
@@ -1037,6 +1182,15 @@ impl Tree {
                     directory: node.directory,
                     proportion: proportion.into(),
                     fraction,
+                    has_weight: node.bytes.is_some()
+                        && node.parent.is_some_and(|parent| {
+                            self.nodes[parent].bytes.is_some_and(|total| total > 0)
+                        }),
+                    weight_provisional: node.incomplete
+                        || node
+                            .parent
+                            .is_some_and(|parent| self.nodes[parent].incomplete),
+                    color_index: (index % 8) as i32,
                     files: node.count(|c| c.recursive_files).into(),
                     directories: node.count(|c| c.recursive_directories).into(),
                     modified: crate::date_label::format_date(
@@ -1178,6 +1332,145 @@ mod tests {
     use sortsize_core::{CancellationToken, ScanOptions, scan_inventory};
     use std::fs;
     use tempfile::TempDir;
+
+    #[test]
+    fn folder_gauges_use_the_source_total_across_navigation_and_partial_updates() {
+        let _scope = crate::presentation::Context {
+            language: crate::locale::Language::English,
+            generation: 0,
+        }
+        .enter();
+        let fixture = TempDir::new().unwrap();
+        fs::create_dir_all(fixture.path().join("large/nested")).unwrap();
+        fs::create_dir(fixture.path().join("small")).unwrap();
+        fs::write(fixture.path().join("large/nested/data"), [0; 25]).unwrap();
+        fs::write(fixture.path().join("large/data"), [0; 50]).unwrap();
+        fs::write(fixture.path().join("small/data"), [0; 25]).unwrap();
+        let mut tree = scan(fixture.path(), 100);
+        let rows = tree.rows().0;
+        let large = rows.iter().find(|row| row.name == "large").unwrap();
+        assert_eq!(large.proportion, "75.0%");
+        assert_eq!(large.fraction, 0.75);
+        assert!(large.has_weight && !large.weight_provisional);
+        let large_id = large.node_id as usize;
+        tree.select(large_id);
+        tree.toggle(large_id);
+        let nested = tree
+            .rows()
+            .0
+            .into_iter()
+            .find(|row| row.name == "nested")
+            .unwrap();
+        assert_eq!(nested.proportion, "25.0%");
+        assert_eq!(nested.fraction, 0.25);
+        assert!(nested.has_weight && !nested.weight_provisional);
+        // An interrupted acquisition uses only observed bytes and explicitly
+        // marks its recalculated proportions; it is never an acquisition gauge.
+        let root = tree.roots[0];
+        tree.coverage = Coverage::Partial;
+        tree.nodes[root].bytes = Some(50);
+        tree.nodes[large_id].bytes = Some(25);
+        let partial = tree
+            .rows()
+            .0
+            .into_iter()
+            .find(|row| row.node_id == large_id as i32)
+            .unwrap();
+        assert_eq!(partial.fraction, 0.5);
+        assert_eq!(partial.proportion, "≈ 50.0%");
+        assert!(partial.has_weight && partial.weight_provisional);
+        tree.nodes[root].bytes = None;
+        let unknown = tree
+            .rows()
+            .0
+            .into_iter()
+            .find(|row| row.node_id == large_id as i32)
+            .unwrap();
+        assert!(!unknown.has_weight);
+        assert_eq!(unknown.proportion, "—");
+        assert!(unknown.size.contains("25"));
+    }
+
+    #[test]
+    fn folder_gauges_do_not_turn_unknown_zero_or_inconsistent_totals_into_percentages() {
+        let _scope = crate::presentation::Context {
+            language: crate::locale::Language::English,
+            generation: 0,
+        }
+        .enter();
+        for (value, total) in [
+            (None, Some(10)),
+            (Some(1), None),
+            (Some(0), Some(0)),
+            (Some(0), Some(10)),
+            (Some(2), Some(1)),
+        ] {
+            let (fraction, has_weight, proportion) = folder_weight(value, total, true);
+            assert_eq!(fraction, 0.);
+            assert!(!has_weight);
+            assert_eq!(proportion, "—");
+        }
+        let (fraction, has_weight, proportion) = folder_weight(Some(0), Some(u64::MAX), false);
+        assert_eq!(fraction, 0.);
+        assert!(has_weight);
+        assert_eq!(proportion, "0.0%");
+        let (fraction, has_weight, proportion) =
+            folder_weight(Some(u64::MAX), Some(u64::MAX), false);
+        assert_eq!(fraction, 1.);
+        assert!(has_weight);
+        assert_eq!(proportion, "100.0%");
+        let (fraction, has_weight, proportion) = folder_weight(Some(1), Some(u64::MAX), false);
+        assert!(fraction > 0. && fraction < 0.0005);
+        assert!(has_weight);
+        assert_eq!(proportion, "< 0.1%");
+    }
+
+    #[test]
+    fn detail_gauges_and_mosaic_share_colors_paths_and_partial_state() {
+        let fixture = TempDir::new().unwrap();
+        fs::create_dir(fixture.path().join("folder")).unwrap();
+        fs::write(fixture.path().join("folder/data"), [0; 75]).unwrap();
+        fs::write(fixture.path().join("small"), [0; 25]).unwrap();
+        fs::write(fixture.path().join("zero"), []).unwrap();
+        let mut tree = scan(fixture.path(), 100);
+        let check = |tree: &Tree, partial: bool| {
+            let details = tree.details().0;
+            for tile in tree.treemap(800., 200.) {
+                let row = details
+                    .iter()
+                    .find(|row| row.node_id == tile.node_id)
+                    .unwrap();
+                assert_eq!(row.color_index, tile.color_index);
+                assert!(row.has_weight);
+                assert_eq!(row.weight_provisional, partial);
+                assert_eq!(tile.partial, partial);
+                assert_eq!(
+                    tile.path,
+                    native_label(
+                        &fs::canonicalize(fixture.path().join(tile.name.as_str())).unwrap()
+                    )
+                );
+            }
+            let zero = details.iter().find(|row| row.name == "zero").unwrap();
+            assert!(zero.has_weight);
+            assert_eq!(zero.fraction, 0.);
+        };
+        check(&tree, false);
+        let root = tree.roots[0];
+        tree.nodes[root].incomplete = true;
+        // Rebuild the projection through the same path used by progressive inventories.
+        let children = tree.children(root, 0).to_vec();
+        tree.nodes[root].map = Some(Arc::new(Projection::new(
+            children.iter().map(|&i| (i, tree.nodes[i].bytes, true)),
+            tree.nodes[root].bytes,
+            true,
+            false,
+        )));
+        for child in children {
+            tree.nodes[child].incomplete = true;
+        }
+        check(&tree, true);
+    }
 
     #[test]
     fn counts_display_complete_partial_unavailable_and_truncated_values() {

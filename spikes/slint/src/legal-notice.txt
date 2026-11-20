@@ -1,14 +1,9 @@
-Bunny and Size @VERSION@ — logiciel libre, GPL-3.0-only
+Bunny and Size @VERSION@. Code original : Apache-2.0.
 
-Vous pouvez modifier et redistribuer ce logiciel selon la GNU GPL version 3 uniquement. AUCUNE GARANTIE, notamment de qualité marchande ou d'adéquation à un usage particulier, dans les limites autorisées par la loi ; voir les articles 15 et 16.
+Vous pouvez utiliser, modifier et redistribuer le code original, y compris commercialement, selon Apache License 2.0. AUCUNE GARANTIE ; voir les articles 7 et 8. Le bouton « Lire la licence Apache 2.0 intégrale » et le fichier LICENSE du paquet fournissent le texte complet hors ligne. Conservez LICENSE, NOTICE et les mentions tierces applicables lors d'une redistribution.
 
-Le bouton « Lire la GPLv3 intégrale » affiche une copie complète de la licence, disponible hors ligne. Le fichier LICENSE de l'archive contient le même texte.
-
-Les mentions de droits des composants tiers sont conservées dans THIRD_PARTY_NOTICES.txt et licences/ à côté de l'exécutable. Extraits des mentions d'origine de Slint et de ses icônes Fluent :
+Les composants tiers gardent leurs licences. Slint 1.18.1 pour le bureau Windows/Linux : LicenseRef-Slint-Royalty-free-2.0, avec l'attribution Slint visible. Slint n'est pas sous Apache. Cette licence interdit aux plugins d'exposer les API Slint.
 Copyright © SixtyFPS GmbH <info@slint.dev>
-Copyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>
-Slint 1.18.1 : voie GPL-3.0-only. Icônes Fluent : MIT.
+Icônes Fluent : MIT. Copyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>
 
-AUTHORS.txt recense les contributeurs du code Bunny and Size d'après Git ; cette liste ne désigne pas de titulaire exclusif des droits. Aucun titulaire ni millésime de copyright Bunny and Size n'est déduit de ces noms.
-
-Le source correspondant est l'archive Bunny-and-Size-v@VERSION@-source de votre plateforme, fournie avec les binaires ; son nom exact et son SHA-256 figurent dans BUILDINFO.json. Lors d'une redistribution, donner aux destinataires un accès effectif au source correspondant selon la GPLv3 ; un dépôt privé inaccessible ne suffit pas.
+Lapin et adaptations : CC BY-SA 4.0, Louis Lejuez / TazmenWorld ; conservez l'attribution et partagez les visuels adaptés sous cette licence. Les visuels ne sont pas sous Apache-2.0. Voir BRANDING.md et THIRD_PARTY_NOTICES.txt dans le paquet. L'original complet et le portrait ne sont pas distribués.

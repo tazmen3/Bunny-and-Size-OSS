@@ -16,6 +16,12 @@ pub enum LocalFileId {
         volume_serial: u64,
         file_id: [u8; 16],
     },
+    /// Legacy handle identity returned by some native SMB clients. Its 64-bit
+    /// index is a separate namespace, never padded into a 128-bit FILE_ID_INFO.
+    WindowsLegacy {
+        volume: u32,
+        index: u64,
+    },
 }
 
 /// Native regular-file properties observed together. Not a physical-space total.

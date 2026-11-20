@@ -143,10 +143,10 @@ impl Status {
             Self::Listing => tr!("Additional analysis in progress…"),
             Self::Listed(sortsize_core::Coverage::Complete) => tr!("Additional analysis complete"),
             Self::Listed(sortsize_core::Coverage::Partial) => {
-                tr!("Additional analysis — partial results")
+                tr!("Additional analysis: partial results")
             }
             Self::Listed(sortsize_core::Coverage::Cancelled) => {
-                tr!("Additional analysis cancelled — partial results retained")
+                tr!("Additional analysis cancelled: partial results retained")
             }
             Self::ListingFailed => tr!("Additional analysis failed."),
             Self::Cancelling => tr!("Cancellation requested…"),
@@ -154,10 +154,10 @@ impl Status {
             Self::Failed => tr!("Scan failed."),
             Self::Completed(sortsize_core::Coverage::Complete) => tr!("Scan complete"),
             Self::Completed(sortsize_core::Coverage::Partial) => {
-                tr!("Partial scan — some entries were not traversed")
+                tr!("Partial scan: some entries were not traversed")
             }
             Self::Completed(sortsize_core::Coverage::Cancelled) => {
-                tr!("Scan cancelled — partial results retained")
+                tr!("Scan cancelled: partial results retained")
             }
         }
     }

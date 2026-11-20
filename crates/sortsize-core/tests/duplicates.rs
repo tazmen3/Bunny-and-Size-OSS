@@ -67,7 +67,7 @@ fn changed_files_budgets_and_cancellation_never_claim_complete() {
     let limited = run(
         &s,
         DuplicateOptions {
-            max_bytes_read: 1000,
+            max_bytes_read: Some(1000),
             ..Default::default()
         },
         &CancellationToken::default(),
@@ -169,20 +169,20 @@ fn matching_sha_requires_the_remaining_binary_comparison_budget() {
         let r = run(
             &s,
             DuplicateOptions {
-                max_bytes_read: budget,
+                max_bytes_read: Some(budget),
                 ..Default::default()
             },
             &CancellationToken::default(),
         );
         assert_eq!(r.files_hashed, 2, "both SHA-256 reads must finish");
-        assert!(r.bytes_read <= budget);
+        assert!(r.bytes_read <= u128::from(budget));
         if budget < 4 * length {
             assert!(r.groups.is_empty(), "a matching hash alone is insufficient");
             assert!(r.budget_limited);
             assert!(!r.complete);
         } else {
             assert_eq!(r.groups.len(), 1);
-            assert_eq!(r.bytes_read, 4 * length);
+            assert_eq!(r.bytes_read, u128::from(4 * length));
             assert!(r.complete);
             assert!(!r.budget_limited);
         }

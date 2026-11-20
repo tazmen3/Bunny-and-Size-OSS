@@ -13,8 +13,9 @@ externe n'est inventée. Attribution : **Louis Lejuez / TazmenWorld**.
 La licence permet adaptations, redistribution et usages commerciaux ; ses
 permissions sont irrévocables pour les destinataires respectant ses conditions.
 Elle n'accorde aucun droit général sur les autres créations personnelles.
-Texte intégral : `assets/branding/CC-BY-SA-4.0.txt` dans les sources,
-`licences/artwork/CC-BY-SA-4.0.txt` dans les paquets.
+Le texte intégral et la provenance figurent dans `assets/branding/` dans
+les sources et dans `distribution-legal/artwork/` dans les paquets V0.5.
+Les anciens paquets conservent leur dossier `licences/artwork/`.
 https://creativecommons.org/licenses/by-sa/4.0/
 
 L'original complet avec portrait et décor reste **tous droits réservés** dans
@@ -38,26 +39,27 @@ convertit les tailles avec Pillow 10.2.0 ; la bannière SVG compose l'icône ada
 sans portrait. Aucun appel réseau au démarrage. Les onze fichiers graphiques
 couverts sont identifiés individuellement dans PROVENANCE.json.
 
-## Intégration GPLv3
+## Code Apache-2.0 et visuels CC BY-SA 4.0
 
-Le code et LICENSE restent **GPL-3.0-only**, texte inchangé. Les fichiers
-artistiques autonomes gardent CC BY-SA 4.0, attribution, lien et indication des
-adaptations. Les adaptations incorporées (redimensionnement, rasterisation,
-conversion ICO/ressources PE et composition Slint) utilisent GPL-3.0-only comme
-licence de l'adaptateur, conformément au §3(b) CC BY-SA 4.0 et à la compatibilité
-unidirectionnelle BY-SA 4.0 vers GPLv3. Cela ne convertit pas automatiquement
-l'original ou tous les fichiers sources en GPL et n'autorise pas le chemin inverse.
-Le logiciel combiné est distribué sous GPLv3 avec sources correspondantes,
-maître adapté, scripts, bannière, attributions et textes des deux licences.
-Aucune clause propriétaire, NC, ND ou permission révocable n'est ajoutée.
-Voir `docs/ARTWORK_LICENSE_DECISION.md` pour les références officielles.
+Depuis la décision du 3 novembre 2026 (Issue #199), le code original est sous
+**Apache-2.0**. Le lapin adapté, les tailles PNG, l’ICO, la bannière et leurs
+adaptations incorporées restent **CC BY-SA 4.0**. Conserver attribution,
+lien de licence et indication des
+adaptations, ainsi que le maître et les scripts déjà fournis. Les ressources
+visuelles restent identifiables séparément du code dans les sources et notices.
+
+Le mécanisme GPLv3 de licence d’adaptateur appliqué aux anciens livrables reste
+documenté dans la décision historique du 25 octobre. Les permissions
+antérieures continuent de s’appliquer à ces livrables.
+Voir [ADR-0068](docs/ADR/0068-licence-apache-2.0.md) et
+[la décision graphique historique](docs/ARTWORK_LICENSE_DECISION.md).
 
 ## Charte
 
 Nom exact non traduit : Bunny and Size ; slug `bunny-and-size`.
 Lapin blanc/gris à cape rouge ; icône native sans texte, fond transparent.
 Bleu profond #153550, bleu #178bb0, orange #ed9635 sur les supports.
-L'interface de scan reste sobre. Les avis GPL, Slint et Fluent sont conservés.
+L'interface de scan reste sobre. Les avis Apache, CC BY-SA, Slint et Fluent sont conservés, ainsi que les avis GPL des composants tiers concernés.
 La licence ne permet pas de suggérer une approbation officielle de forks et ne
 confère pas de droits de marque ; aucune politique de marque ne retire les
 libertés accordées sur les visuels. Les limites DPI #98 restent ouvertes.

@@ -30,18 +30,12 @@ fn product_bundle_source_french_multiple_windows_and_missing_catalog() {
     let legal = LegalWindow::new().unwrap();
     assert_eq!(first.get_status(), "Choisis un dossier à analyser.");
     assert_eq!(second.get_status(), "Choisis un dossier à analyser.");
-    assert_eq!(
-        legal.get_localized_title(),
-        "Bunny and Size — À propos / Licences"
-    );
+    assert_eq!(legal.get_localized_title(), "À propos de Bunny and Size");
     activate_bundled(Language::English).unwrap();
     assert_eq!(first.get_status(), "Choose a folder to scan.");
     assert_eq!(second.get_status(), "Choose a folder to scan.");
     assert_eq!(first.get_column_labels().row_data(3).unwrap(), "Owner");
-    assert_eq!(
-        legal.get_localized_title(),
-        "Bunny and Size — About / Licenses"
-    );
+    assert_eq!(legal.get_localized_title(), "About Bunny and Size");
     activate_bundled(Language::French).unwrap();
     for (language, status, owner) in [
         (

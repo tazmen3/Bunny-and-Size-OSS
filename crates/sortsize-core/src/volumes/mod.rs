@@ -11,12 +11,23 @@ use std::{
 };
 #[cfg(target_os = "linux")]
 mod linux;
+#[cfg(target_os = "linux")]
+#[path = "smb_linux.rs"]
+pub mod smb;
+#[cfg(target_os = "linux")]
+pub use smb::disconnect as smb_disconnect;
+#[cfg(windows)]
+#[path = "smb_windows.rs"]
+pub mod smb;
+#[cfg(windows)]
+#[path = "smb_disconnect_windows.rs"]
+pub mod smb_disconnect;
 #[cfg(windows)]
 mod windows;
 #[cfg(target_os = "linux")]
 pub use linux::NativeVolumes;
 #[cfg(windows)]
-pub use windows::{NativeVolumes, unc_source};
+pub use windows::{NativeVolumes, NetworkProtocol, namespace_network_protocol, unc_source};
 
 /// Native namespace identity, not a physical disk or a persistent hardware ID.
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]

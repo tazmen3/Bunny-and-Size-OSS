@@ -342,3 +342,236 @@ fn unit_selector_keyboard_changes_preferences_through_the_actual_slint_widget() 
     assert!(window.get_decimal_units());
     window.hide().unwrap();
 }
+
+#[test]
+fn l16_preferences_keyboard_focus_does_not_escape_to_background() {
+    use slint::platform::{Key, PointerEventButton, WindowEvent};
+    let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
+    slint::platform::set_platform(Box::new(TestPlatform(adapter.clone()))).unwrap();
+    let (window, _state) = new_session(Default::default(), Some("en_US".into())).unwrap();
+    window
+        .window()
+        .set_size(slint::PhysicalSize::new(1200, 760));
+    window.set_ribbon_tab(2);
+    window.set_preferences_open(true);
+    window.show().unwrap();
+    let mut pixels = vec![slint::Rgb8Pixel::default(); 1200 * 760];
+    adapter.draw_if_needed(|r| {
+        r.render(&mut pixels, 1200);
+    });
+    for _ in 0..60 {
+        window.window().dispatch_event(WindowEvent::KeyPressed {
+            text: Key::Tab.into(),
+        });
+        window.window().dispatch_event(WindowEvent::KeyReleased {
+            text: Key::Tab.into(),
+        });
+        assert!(
+            !window.get_display_trigger_focused(),
+            "Tab escaped preferences to the background trigger"
+        );
+    }
+    window.window().dispatch_event(WindowEvent::KeyPressed {
+        text: Key::Shift.into(),
+    });
+    for _ in 0..60 {
+        window.window().dispatch_event(WindowEvent::KeyPressed {
+            text: Key::Tab.into(),
+        });
+        window.window().dispatch_event(WindowEvent::KeyReleased {
+            text: Key::Tab.into(),
+        });
+        assert!(
+            !window.get_display_trigger_focused(),
+            "Shift-Tab escaped preferences"
+        );
+    }
+    window.window().dispatch_event(WindowEvent::KeyReleased {
+        text: Key::Shift.into(),
+    });
+    let position = slint::LogicalPosition::new(
+        window.get_display_trigger_x() + 8.,
+        window.get_display_trigger_y() + 8.,
+    );
+    window.window().dispatch_event(WindowEvent::PointerPressed {
+        position,
+        button: PointerEventButton::Left,
+    });
+    window
+        .window()
+        .dispatch_event(WindowEvent::PointerReleased {
+            position,
+            button: PointerEventButton::Left,
+        });
+    assert!(
+        window.get_preferences_open(),
+        "Pointer activated the background display trigger"
+    );
+    window.window().dispatch_event(WindowEvent::KeyPressed {
+        text: Key::Escape.into(),
+    });
+    window.window().dispatch_event(WindowEvent::KeyReleased {
+        text: Key::Escape.into(),
+    });
+    assert!(!window.get_preferences_open());
+    assert!(window.get_display_trigger_focused());
+    window.hide().unwrap();
+}
+
+#[test]
+fn l16_cache_keyboard_focus_and_escape_return_to_initiator() {
+    use slint::platform::{Key, WindowEvent};
+    let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
+    slint::platform::set_platform(Box::new(TestPlatform(adapter.clone()))).unwrap();
+    let (window, _state) = new_session(Default::default(), Some("en_US".into())).unwrap();
+    window
+        .window()
+        .set_size(slint::PhysicalSize::new(1200, 760));
+    window.set_workshop_live(true);
+    window.set_ribbon_tab(1);
+    window.show().unwrap();
+    window.set_cache_visible(true);
+    let mut pixels = vec![slint::Rgb8Pixel::default(); 1200 * 760];
+    adapter.draw_if_needed(|r| {
+        r.render(&mut pixels, 1200);
+    });
+    // Saved measures now occupy the workspace, rather than a modal overlay.
+    // Tab must let users reach the ribbon without dismissing the panel.
+    let mut reached_ribbon = false;
+    for _ in 0..60 {
+        window.window().dispatch_event(WindowEvent::KeyPressed {
+            text: Key::Tab.into(),
+        });
+        window.window().dispatch_event(WindowEvent::KeyReleased {
+            text: Key::Tab.into(),
+        });
+        if window.get_cache_trigger_focused() {
+            reached_ribbon = true;
+            break;
+        }
+    }
+    assert!(
+        reached_ribbon,
+        "Tab could not reach the saved measures ribbon command"
+    );
+    assert!(
+        window.get_cache_visible(),
+        "Tab dismissed the content panel"
+    );
+
+    // Reopening gives focus to the inventory list. Escape from within the
+    // panel closes it and restores focus to the command that opened it.
+    window.set_cache_visible(false);
+    window.window().request_redraw();
+    adapter.draw_if_needed(|r| {
+        r.render(&mut pixels, 1200);
+    });
+    window.set_cache_visible(true);
+    window.window().request_redraw();
+    adapter.draw_if_needed(|r| {
+        r.render(&mut pixels, 1200);
+    });
+    assert!(!window.get_cache_trigger_focused());
+    window.window().dispatch_event(WindowEvent::KeyPressed {
+        text: Key::Escape.into(),
+    });
+    window.window().dispatch_event(WindowEvent::KeyReleased {
+        text: Key::Escape.into(),
+    });
+    assert!(!window.get_cache_visible());
+    assert!(window.get_cache_trigger_focused());
+    window.hide().unwrap();
+}
+
+#[test]
+#[ignore = "native Winit modal gestures; requires BUNNY_L16_NATIVE_OUTPUT and a display"]
+fn native_l16_modal_keyboard_pointer_and_focus_restore() {
+    use slint::platform::{Key, PointerEventButton, WindowEvent};
+    slint::BackendSelector::new()
+        .backend_name("winit".into())
+        .renderer_name("software".into())
+        .select()
+        .unwrap();
+    let output = std::path::PathBuf::from(std::env::var_os("BUNNY_L16_NATIVE_OUTPUT").unwrap());
+    fs::create_dir_all(&output).unwrap();
+    let (window, _state) = new_session(Default::default(), Some("en_US".into())).unwrap();
+    window
+        .window()
+        .set_size(slint::LogicalSize::new(1200., 760.));
+    window.show().unwrap();
+    let weak = window.as_weak();
+    let timer = Timer::default();
+    let mut stage = 0;
+    let mut gesture = 0;
+    let started = Instant::now();
+    let key = |window: &SortSizeWindow, key: Key| {
+        window
+            .window()
+            .dispatch_event(WindowEvent::KeyPressed { text: key.into() });
+        window
+            .window()
+            .dispatch_event(WindowEvent::KeyReleased { text: key.into() });
+    };
+    timer.start(TimerMode::Repeated, Duration::from_millis(25), move || {
+        assert!(started.elapsed() < Duration::from_secs(30), "native modal timeout");
+        let window = weak.upgrade().unwrap();
+        match stage {
+            0 => {
+                window.set_ribbon_tab(2);
+                window.set_preferences_open(true);
+                stage = 1;
+            }
+            1 | 3 => {
+                if gesture == 60 {
+                    window.window().dispatch_event(WindowEvent::KeyPressed { text: Key::Shift.into() });
+                }
+                key(&window, Key::Tab);
+                if stage == 1 {
+                    assert!(!window.get_display_trigger_focused(), "preferences focus escaped");
+                } else {
+                    assert!(!window.get_cache_trigger_focused(), "cache focus escaped");
+                }
+                gesture += 1;
+                if gesture == 120 {
+                    window.window().dispatch_event(WindowEvent::KeyReleased { text: Key::Shift.into() });
+                    let image = window.window().take_snapshot().unwrap();
+                    let name = if stage == 1 { "preferences.ppm" } else { "cache.ppm" };
+                    use std::io::Write;
+                    let mut file = std::io::BufWriter::new(fs::File::create(output.join(name)).unwrap());
+                    write!(file, "P6\n{} {}\n255\n", image.width(), image.height()).unwrap();
+                    for pixel in image.as_slice() { file.write_all(&[pixel.r, pixel.g, pixel.b]).unwrap(); }
+                    file.flush().unwrap();
+                    if stage == 1 {
+                        let position = slint::LogicalPosition::new(window.get_display_trigger_x() + 8., window.get_display_trigger_y() + 8.);
+                        window.window().dispatch_event(WindowEvent::PointerPressed { position, button: PointerEventButton::Left });
+                        window.window().dispatch_event(WindowEvent::PointerReleased { position, button: PointerEventButton::Left });
+                        assert!(window.get_preferences_open());
+                    }
+                    key(&window, Key::Escape);
+                    if stage == 1 {
+                        assert!(!window.get_preferences_open());
+                        assert!(window.get_display_trigger_focused());
+                    } else {
+                        assert!(!window.get_cache_visible());
+                        assert!(window.get_cache_trigger_focused());
+                    }
+                    gesture = 0;
+                    stage += 1;
+                }
+            }
+            2 => {
+                window.set_workshop_live(true);
+                window.set_ribbon_tab(1);
+                window.set_cache_visible(true);
+                stage = 3;
+            }
+            _ => {
+                fs::write(output.join("result.json"), format!("{{\"status\":\"PASS\",\"input\":\"WindowEvent key/pointer\",\"native_winit_software\":true,\"tab_gestures\":240,\"shift_tab_gestures\":120,\"escape_closures\":2,\"focus_restored\":true,\"background_pointer_blocked\":true,\"os_dpi_certified\":false,\"physical_keyboard\":false,\"screen_reader\":false,\"seconds\":{}}}\n", started.elapsed().as_secs_f64())).unwrap();
+                window.hide().unwrap();
+                slint::quit_event_loop().unwrap();
+            }
+        }
+    });
+    slint::run_event_loop().unwrap();
+    timer.stop();
+}

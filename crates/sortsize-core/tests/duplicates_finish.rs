@@ -57,7 +57,7 @@ fn exact_read_budget_includes_final_binary_comparison() {
             &snapshot,
             &selected,
             DuplicateOptions {
-                max_bytes_read: budget,
+                max_bytes_read: Some(budget),
                 ..Default::default()
             },
             &Default::default(),
@@ -66,7 +66,7 @@ fn exact_read_budget_includes_final_binary_comparison() {
         .unwrap();
         assert_eq!(report.complete, complete);
         assert_eq!(report.groups.len(), groups);
-        assert!(report.bytes_read <= budget);
+        assert!(report.bytes_read <= u128::from(budget));
         assert_eq!(report.budget_limited, !complete);
     }
 }

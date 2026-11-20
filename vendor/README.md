@@ -21,7 +21,7 @@ Deux fichiers seulement sont modifiés :
   `Success` intentionnel : `Skipped` déclencherait une nouvelle demande de redraw.
 
 Les notices et les trois licences alternatives de la crate restent intactes
-dans `LICENSES/`. SortSize utilise l'option **GPL-3.0-only**. La contribution amont
+dans `LICENSES/`. À partir de V0.5, Bunny and Size choisit **LicenseRef-Slint-Royalty-free-2.0** pour ses applications desktop Windows/Linux, avec attribution visible ; cette sélection ne relicencie pas le backend sous Apache. Les anciennes distributions utilisaient la voie GPL-3.0-only. La contribution amont
 est publiée selon les règles de contribution Slint (MIT-0), et intégrée à sa
 distribution sous les licences de Slint ; aucune notice d'origine n'est retirée.
 
@@ -41,3 +41,10 @@ comparer aussi chaque fichier publié. Aucun téléchargement implicite.
 Le packaging historique V0.1 fondé sur un audit exclusivement registry ne certifie
 pas cette dépendance locale : revalider ses notices et sa collecte des sources avant
 toute future distribution. Cette PR ne fabrique ni ne publie de Release.
+
+Le prototype ADR 0045 ajoute `preview-presentation-probe.patch`, borné et activé
+uniquement par la feature locale `bunny-presentation-probe` des bancs. Il relève
+le retour réussi de `softbuffer::present_with_damage`, sans E/S ni télémétrie.
+La feature n'est pas activée dans les builds habituels. La provenance originale
+et le correctif Windows #94 sont conservés ; les nouvelles empreintes et le
+patch distinct sont vérifiés par `scripts/verify_redraw_vendor.py`.

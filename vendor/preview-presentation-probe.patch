@@ -1,0 +1,94 @@
+diff --git a/vendor/i-slint-backend-winit-1.18.1/Cargo.toml b/vendor/i-slint-backend-winit-1.18.1/Cargo.toml
+index 1d49f6f..fe18616 100644
+--- a/vendor/i-slint-backend-winit-1.18.1/Cargo.toml
++++ b/vendor/i-slint-backend-winit-1.18.1/Cargo.toml
+@@ -36,6 +36,8 @@ features = [
+ rustdoc-args = ["--generate-link-to-definition"]
+ 
+ [features]
++# Local, bounded benchmark hook at actual software-buffer presentation.
++bunny-presentation-probe = []
+ accessibility = [
+     "dep:accesskit",
+     "dep:accesskit_winit",
+diff --git a/vendor/i-slint-backend-winit-1.18.1/lib.rs b/vendor/i-slint-backend-winit-1.18.1/lib.rs
+index 597a56d..0e9680c 100644
+--- a/vendor/i-slint-backend-winit-1.18.1/lib.rs
++++ b/vendor/i-slint-backend-winit-1.18.1/lib.rs
+@@ -68,6 +68,9 @@ pub enum EventResult {
+     PreventDefault,
+ }
+ 
++#[cfg(feature = "bunny-presentation-probe")]
++pub mod presentation_probe;
++
+ mod renderer {
+     use std::rc::Weak;
+     use std::sync::Arc;
+diff --git a/vendor/i-slint-backend-winit-1.18.1/renderer/sw.rs b/vendor/i-slint-backend-winit-1.18.1/renderer/sw.rs
+index 2f30693..b58d747 100644
+--- a/vendor/i-slint-backend-winit-1.18.1/renderer/sw.rs
++++ b/vendor/i-slint-backend-winit-1.18.1/renderer/sw.rs
+@@ -172,6 +172,8 @@ impl super::WinitCompatibleRenderer for WinitSoftwareRenderer {
+             target_buffer
+                 .present_with_damage(&damage)
+                 .map_err(|e| format!("Error presenting softbuffer buffer: {e}"))?;
++            #[cfg(feature = "bunny-presentation-probe")]
++            crate::presentation_probe::presented();
+         }
+         Ok(DrawOutcome::Success)
+     }
+diff --git a/vendor/i-slint-backend-winit-1.18.1/presentation_probe.rs b/vendor/i-slint-backend-winit-1.18.1/presentation_probe.rs
+new file mode 100644
+index 0000000..bcc8631
+--- /dev/null
++++ b/vendor/i-slint-backend-winit-1.18.1/presentation_probe.rs
+@@ -0,0 +1,48 @@
++// SPDX-License-Identifier: GPL-3.0-only
++//! Opt-in local benchmark hook. No file/network I/O and no production feature.
++//! Captures successful software-buffer submissions, not compositor/display scanout.
++use std::{cell::RefCell, time::Instant};
++#[derive(Default)]
++struct Probe {
++    start: Option<Instant>,
++    phase: u8,
++    frames: u64,
++    samples: Vec<(u8, f64, u64)>,
++}
++thread_local! { static PROBE: RefCell<Probe> = RefCell::new(Probe::default()); }
++/// Arm immediately before dispatching the measured native-window input event.
++pub fn arm() {
++    PROBE.with(|p| {
++        *p.borrow_mut() = Probe {
++            start: Some(Instant::now()),
++            samples: Vec::with_capacity(8),
++            ..Default::default()
++        }
++    });
++}
++/// Set only after the product model carrying that state has been applied.
++pub fn phase(phase: u8) {
++    PROBE.with(|p| p.borrow_mut().phase = phase);
++}
++/// Read bounded first-presentation samples: phase, milliseconds, presented frame.
++pub fn samples() -> Vec<(u8, f64, u64)> {
++    PROBE.with(|p| p.borrow().samples.clone())
++}
++/// Stop collecting samples without changing the last bounded result.
++pub fn disarm() {
++    PROBE.with(|p| p.borrow_mut().start = None);
++}
++pub(crate) fn presented() {
++    PROBE.with(|p| {
++        let mut p = p.borrow_mut();
++        if let Some(start) = p.start {
++            p.frames += 1;
++            if p.phase > 0 && p.samples.len() < 8 && !p.samples.iter().any(|s| s.0 == p.phase) {
++                let phase = p.phase;
++                let frames = p.frames;
++                p.samples
++                    .push((phase, start.elapsed().as_secs_f64() * 1000., frames));
++            }
++        }
++    });
++}

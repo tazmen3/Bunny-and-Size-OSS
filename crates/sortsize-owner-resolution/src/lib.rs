@@ -4,6 +4,10 @@
 //! may contact NSS/Active Directory servers. Never use names as authorization.
 //! Submit and poll from a background integration task: these methods do no I/O,
 //! but briefly take a mutex and can copy a bounded name. No async runtime needed.
+#[cfg(target_os = "linux")]
+mod local_linux;
+#[cfg(target_os = "linux")]
+pub use local_linux::LocalLinuxOwnerLookup;
 mod system;
 pub use system::{SystemOwnerLookup, SystemProviderConsent};
 

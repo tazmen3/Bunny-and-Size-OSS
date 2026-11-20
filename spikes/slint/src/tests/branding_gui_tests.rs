@@ -32,9 +32,9 @@ fn native_about_all_languages_at_minimum_and_preferred_sizes() {
         }
         let language = Language::ALL[case / 4];
         let (width, height) = if case % 4 < 2 {
-            (580., 400.)
+            (580., 500.)
         } else {
-            (800., 560.)
+            (800., 600.)
         };
         if phase.is_multiple_of(2) {
             crate::locale::activate_bundled(language).unwrap();
@@ -48,6 +48,8 @@ fn native_about_all_languages_at_minimum_and_preferred_sizes() {
                     .replace("@VERSION@", env!("CARGO_PKG_VERSION"))
                     .into(),
             );
+            assert!(!window.get_localized_title().contains('—'));
+            assert!(!window.get_notices().contains('—'));
             window.set_full_license(case % 2 == 1);
             let scale = window.window().scale_factor();
             window.window().set_size(slint::PhysicalSize::new(

@@ -68,6 +68,9 @@ pub enum EventResult {
     PreventDefault,
 }
 
+#[cfg(feature = "bunny-presentation-probe")]
+pub mod presentation_probe;
+
 mod renderer {
     use std::rc::Weak;
     use std::sync::Arc;

@@ -44,7 +44,7 @@ pub(crate) fn fallback(owner: MetadataValue<NativeOwnerId>) -> SharedString {
     }
 }
 
-fn display_name(name: sortsize_owner_resolution::AccountName) -> SharedString {
+pub(crate) fn display_name(name: sortsize_owner_resolution::AccountName) -> SharedString {
     let text = name.to_string_lossy();
     let mut result = String::with_capacity(text.len().min(DISPLAY_NAME_BYTES));
     let mut push = |character: char| {

@@ -183,50 +183,7 @@ pub fn search(
     {
         return Err("Analysis/result limit must be between 1 and 50000".into());
     }
-    if query
-        .min_bytes
-        .zip(query.max_bytes)
-        .is_some_and(|(a, b)| a > b)
-        || query
-            .modified_after
-            .zip(query.modified_before)
-            .is_some_and(|(a, b)| a > b)
-    {
-        return Err("Invalid inclusive range".into());
-    }
-    for s in [&query.name, &query.path, &query.extension, &query.glob]
-        .into_iter()
-        .flatten()
-    {
-        if s.len() > MAX_QUERY_BYTES {
-            return Err("Query exceeds 4096 bytes".into());
-        }
-    }
-    let glob = query
-        .glob
-        .as_ref()
-        .map(|g| {
-            globset::GlobBuilder::new(g)
-                .case_insensitive(!query.case_sensitive)
-                .literal_separator(true)
-                .build()
-                .map(|g| g.compile_matcher())
-        })
-        .transpose()
-        .map_err(|e| e.to_string())?;
-    let folded = |s: &str| {
-        if query.case_sensitive {
-            s.to_owned()
-        } else {
-            s.to_lowercase()
-        }
-    };
-    let name = query.name.as_deref().map(folded);
-    let path = query.path.as_deref().map(folded);
-    let extension = query
-        .extension
-        .as_deref()
-        .map(|s| folded(s.trim_start_matches('.')));
+    let prepared = PreparedQuery::new(query)?;
     let mut indices = Vec::new();
     let mut unknown_dates = 0;
     let mut unknown_sizes = 0;
@@ -236,70 +193,21 @@ pub fn search(
         if cancel.is_cancelled() {
             break;
         }
-        if query.kind.is_some_and(|k| k != e.kind) {
-            continue;
-        }
-        if (query.min_bytes.is_some() || query.max_bytes.is_some()) && e.logical_bytes.is_none() {
-            unknown_sizes += 1;
-            continue;
-        }
-        if query
-            .min_bytes
-            .is_some_and(|v| e.logical_bytes.is_none_or(|b| b < v))
-            || query
-                .max_bytes
-                .is_some_and(|v| e.logical_bytes.is_none_or(|b| b > v))
-        {
-            continue;
-        }
-        if query.modified_after.is_some() || query.modified_before.is_some() {
-            let Some(modified) = e.modified else {
+        match prepared.evaluate(e, root) {
+            Evaluation::Match => {}
+            Evaluation::NoMatch => continue,
+            Evaluation::UnknownSize => {
+                unknown_sizes += 1;
+                continue;
+            }
+            Evaluation::UnknownDate => {
                 unknown_dates += 1;
                 continue;
-            };
-            if query.modified_after.is_some_and(|v| modified < v)
-                || query.modified_before.is_some_and(|v| modified > v)
-            {
+            }
+            Evaluation::NativeText => {
+                unsearchable_native_text += 1;
                 continue;
             }
-        }
-        let mut matches = true;
-        for (expected, actual, equal) in [
-            (
-                &name,
-                e.path.file_name().unwrap_or(e.path.as_os_str()),
-                false,
-            ),
-            (&path, e.path.as_os_str(), false),
-            (&extension, e.path.extension().unwrap_or_default(), true),
-        ] {
-            if let Some(expected) = expected {
-                let Some(actual) = actual.to_str() else {
-                    unsearchable_native_text += 1;
-                    matches = false;
-                    break;
-                };
-                let actual = folded(actual);
-                if if equal {
-                    actual != *expected
-                } else {
-                    !actual.contains(expected)
-                } {
-                    matches = false;
-                    break;
-                }
-            }
-        }
-        if !matches {
-            continue;
-        }
-        if glob.as_ref().is_some_and(|g| {
-            !g.is_match(
-                root.and_then(|r| e.path.strip_prefix(r).ok())
-                    .unwrap_or(e.path.as_path()),
-            )
-        }) {
-            continue;
         }
         indices.push(i);
     }
@@ -330,4 +238,161 @@ pub fn search(
         cancelled: cancel.is_cancelled(),
         statistics,
     })
+}
+
+/// One compiled predicate for retained and persisted inventories. No source I/O.
+pub struct PreparedQuery {
+    query: SearchQuery,
+    glob: Option<globset::GlobMatcher>,
+    name: Option<String>,
+    path: Option<String>,
+    extension: Option<String>,
+}
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Evaluation {
+    Match,
+    NoMatch,
+    UnknownSize,
+    UnknownDate,
+    NativeText,
+}
+impl PreparedQuery {
+    pub fn new(query: &SearchQuery) -> Result<Self, String> {
+        if query
+            .min_bytes
+            .zip(query.max_bytes)
+            .is_some_and(|(a, b)| a > b)
+            || query
+                .modified_after
+                .zip(query.modified_before)
+                .is_some_and(|(a, b)| a > b)
+        {
+            return Err("Invalid inclusive range".into());
+        }
+        for s in [&query.name, &query.path, &query.extension, &query.glob]
+            .into_iter()
+            .flatten()
+        {
+            if s.len() > MAX_QUERY_BYTES {
+                return Err("Query exceeds 4096 bytes".into());
+            }
+        }
+        let glob = query
+            .glob
+            .as_ref()
+            .map(|g| {
+                globset::GlobBuilder::new(g)
+                    .case_insensitive(!query.case_sensitive)
+                    .literal_separator(true)
+                    .build()
+                    .map(|g| g.compile_matcher())
+            })
+            .transpose()
+            .map_err(|e| e.to_string())?;
+        let folded = |s: &str| {
+            if query.case_sensitive {
+                s.to_owned()
+            } else {
+                s.to_lowercase()
+            }
+        };
+        let name = query.name.as_deref().map(folded);
+        let path = query.path.as_deref().map(folded);
+        let extension = query
+            .extension
+            .as_deref()
+            .map(|s| folded(s.trim_start_matches('.')));
+        Ok(Self {
+            query: query.clone(),
+            glob,
+            name,
+            path,
+            extension,
+        })
+    }
+    pub fn evaluate(&self, e: &AnalysisEntry, root: Option<&std::path::Path>) -> Evaluation {
+        self.evaluate_path(&e.path, e.kind, e.logical_bytes, e.modified, root)
+    }
+    /// Evaluate a borrowed recorded path with the same predicate as retained
+    /// entries. Disk-backed scans can reuse their bounded path buffer.
+    pub fn evaluate_path(
+        &self,
+        entry_path: &std::path::Path,
+        kind: InventoryKind,
+        logical_bytes: Option<u64>,
+        modified: Option<SystemTime>,
+        root: Option<&std::path::Path>,
+    ) -> Evaluation {
+        let query = &self.query;
+        let (name, path, extension, glob) = (&self.name, &self.path, &self.extension, &self.glob);
+        fn folded(s: &str, case_sensitive: bool) -> std::borrow::Cow<'_, str> {
+            if case_sensitive || (s.is_ascii() && !s.bytes().any(|b| b.is_ascii_uppercase())) {
+                std::borrow::Cow::Borrowed(s)
+            } else {
+                std::borrow::Cow::Owned(s.to_lowercase())
+            }
+        }
+        if query.kind.is_some_and(|k| k != kind) {
+            return Evaluation::NoMatch;
+        }
+        if (query.min_bytes.is_some() || query.max_bytes.is_some()) && logical_bytes.is_none() {
+            return Evaluation::UnknownSize;
+        }
+        if query
+            .min_bytes
+            .is_some_and(|v| logical_bytes.is_none_or(|b| b < v))
+            || query
+                .max_bytes
+                .is_some_and(|v| logical_bytes.is_none_or(|b| b > v))
+        {
+            return Evaluation::NoMatch;
+        }
+        if query.modified_after.is_some() || query.modified_before.is_some() {
+            let Some(modified) = modified else {
+                return Evaluation::UnknownDate;
+            };
+            if query.modified_after.is_some_and(|v| modified < v)
+                || query.modified_before.is_some_and(|v| modified > v)
+            {
+                return Evaluation::NoMatch;
+            }
+        }
+        let mut matches = true;
+        for (expected, actual, equal) in [
+            (
+                name,
+                entry_path.file_name().unwrap_or(entry_path.as_os_str()),
+                false,
+            ),
+            (path, entry_path.as_os_str(), false),
+            (extension, entry_path.extension().unwrap_or_default(), true),
+        ] {
+            if let Some(expected) = expected {
+                let Some(actual) = actual.to_str() else {
+                    return Evaluation::NativeText;
+                };
+                let actual = folded(actual, query.case_sensitive);
+                if if equal {
+                    actual.as_ref() != expected.as_str()
+                } else {
+                    !actual.contains(expected)
+                } {
+                    matches = false;
+                    break;
+                }
+            }
+        }
+        if !matches {
+            return Evaluation::NoMatch;
+        }
+        if glob.as_ref().is_some_and(|g| {
+            !g.is_match(
+                root.and_then(|r| entry_path.strip_prefix(r).ok())
+                    .unwrap_or(entry_path),
+            )
+        }) {
+            return Evaluation::NoMatch;
+        }
+        Evaluation::Match
+    }
 }

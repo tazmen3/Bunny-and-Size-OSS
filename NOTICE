@@ -1,0 +1,19 @@
+Bunny and Size
+Copyright 2026 Louis Lejuez / TazmenWorld
+
+The original project code is licensed under the Apache License, Version 2.0.
+Third-party code, libraries and assets retain their own licenses and notices.
+
+The adapted rabbit artwork and its derivatives remain licensed under
+CC BY-SA 4.0, with attribution to Louis Lejuez / TazmenWorld.
+See BRANDING.md and CREDITS.md. The provenance record is
+assets/branding/PROVENANCE.json in the sources and
+distribution-legal/artwork/PROVENANCE.json in V0.5 packages.
+
+Slint retains its upstream licenses. The application uses the Slint
+Royalty-free Desktop, Mobile, and Web Applications License, version 2.0,
+subject to its attribution requirements and restrictions. The license text
+is in distribution-legal/slint/ in V0.5 packages.
+
+V0.5 packages carry THIRD_PARTY_NOTICES.txt and the license texts in
+distribution-legal/. Earlier releases retain their granted licenses.

@@ -220,3 +220,44 @@ fn invalid_native_names_remain_distinct_and_exportable() {
     assert_eq!(r.unsearchable_native_text, 1);
     assert!(!r.indices.contains(&1));
 }
+
+#[test]
+fn borrowed_predicate_keeps_unicode_lowercase_and_unknown_precedence() {
+    for (actual, expected, wanted) in [
+        ("ascii.txt", "ASC", Evaluation::Match),
+        ("ASCii.txt", "ascii", Evaluation::Match),
+        ("ǅ.TXT", "ǆ", Evaluation::Match),
+        ("İ.TXT", "i\u{307}", Evaluation::Match),
+        ("Été.TXT", "été", Evaluation::Match),
+        ("ascii.txt", "absent", Evaluation::NoMatch),
+        ("ascii.txt", "", Evaluation::Match),
+    ] {
+        let q = PreparedQuery::new(&SearchQuery {
+            name: Some(expected.into()),
+            ..Default::default()
+        })
+        .unwrap();
+        let e = entry(actual, InventoryKind::File, Some(1));
+        assert_eq!(q.evaluate(&e, None), wanted, "{actual}");
+        assert_eq!(
+            q.evaluate_path(&e.path, e.kind, e.logical_bytes, e.modified, None),
+            wanted
+        );
+    }
+    let q = PreparedQuery::new(&SearchQuery {
+        name: Some("absent".into()),
+        min_bytes: Some(1),
+        ..Default::default()
+    })
+    .unwrap();
+    assert_eq!(
+        q.evaluate_path(
+            std::path::Path::new("ascii"),
+            InventoryKind::File,
+            None,
+            None,
+            None
+        ),
+        Evaluation::UnknownSize
+    );
+}

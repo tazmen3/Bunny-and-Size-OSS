@@ -1,0 +1,2392 @@
+{
+  "version": "0.5.0-rc.2",
+  "source_commit": "2fa7ffedc6c7f1cf8e9136d36e04339b691db592",
+  "selected_git_blobs": [
+    {
+      "path": "BRANDING.md",
+      "sha256": "f24f14499e7a6d5c53fe3cd3bec01f01a556348c5c39cd975ee6bfbc836d1440",
+      "bytes": 3870
+    },
+    {
+      "path": "CREDITS.md",
+      "sha256": "8f2380f180ffdb7d6b4c8af9510e8a8c1f67a41913dcf38ede94dd8a7ad766ad",
+      "bytes": 1686
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "49b6a4c23e469d4e4d876e117a2144b36e6cb90f5b5ea7b6a5f87c223b2eaa97",
+      "bytes": 16425
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "db82f1cdbf1e328c48c16548d77b8ef99f45914256aa3348691f41e1b6bd8054",
+      "bytes": 487
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357
+    },
+    {
+      "path": "NOTICE",
+      "sha256": "4e02da67ec2717652529b6b2ac0450c42ce7e6c101a4028c8edf62fd453993a5",
+      "bytes": 920
+    },
+    {
+      "path": "apps/sortsize-cli/Cargo.toml",
+      "sha256": "e334e305409c7295e8e57766e8afc4fad0df2ba1e6478eec8c0c034fdda90608",
+      "bytes": 719
+    },
+    {
+      "path": "apps/sortsize-cli/build.rs",
+      "sha256": "7d0ccd992c03584bdb31c0cc8f24258b68063af771dd698e2b2ae458cd470fb2",
+      "bytes": 57
+    },
+    {
+      "path": "apps/sortsize-cli/src/analysis_output.rs",
+      "sha256": "215c4482b2fd7af32738a0fdb6a137adac5e1085fd8f42d863369e61473d0a5e",
+      "bytes": 10908
+    },
+    {
+      "path": "apps/sortsize-cli/src/bin/sortsize.rs",
+      "sha256": "781503c0b072c6c141bbdb49081b70e257118bed6577e9551105fe979a29d7ca",
+      "bytes": 146
+    },
+    {
+      "path": "apps/sortsize-cli/src/cache_output.rs",
+      "sha256": "04fa5a23e37251daabf36cbbbdd66d6882d637aaea3f50aed888edb4d1709c53",
+      "bytes": 23313
+    },
+    {
+      "path": "apps/sortsize-cli/src/delimited.rs",
+      "sha256": "a9779bb05c63914538202045d3528ccd48274844a394598593c2d36cf3cd764b",
+      "bytes": 12537
+    },
+    {
+      "path": "apps/sortsize-cli/src/entries_output.rs",
+      "sha256": "7eca09c50566a8ebcd09d60c4cce1efad0ab7d6ab53ce2e033b74b48ca0d702f",
+      "bytes": 5632
+    },
+    {
+      "path": "apps/sortsize-cli/src/inventory_output.rs",
+      "sha256": "960488769be4f1e1088eb83743e6f4fe3872d24fe87beb12f9c9605eacb3c99e",
+      "bytes": 7328
+    },
+    {
+      "path": "apps/sortsize-cli/src/inventory_view.rs",
+      "sha256": "fae0970f1e3e3b149efd10df83c4651f749fb4d85532efc7f0019a740e63c02d",
+      "bytes": 2783
+    },
+    {
+      "path": "apps/sortsize-cli/src/lib.rs",
+      "sha256": "b423cde19fd29e5f873686c63aeccad4ce74be169338dd8da214ddfa0cd1d082",
+      "bytes": 14571
+    },
+    {
+      "path": "apps/sortsize-cli/src/main.rs",
+      "sha256": "debac5acb5134f3f2ef8d3517995f856fe9c491216938b8448c9a0edabef319e",
+      "bytes": 71
+    },
+    {
+      "path": "apps/sortsize-cli/tests/analysis.rs",
+      "sha256": "77dd79c51fbf1c779c5f73ab0143eb0a336fd204bd570413ce051cc996a8af33",
+      "bytes": 4969
+    },
+    {
+      "path": "apps/sortsize-cli/tests/cache.rs",
+      "sha256": "2eb68178fc1e31ed3a9868453bce68d05ffaf117843b9703840e8d70a1e9bc4b",
+      "bytes": 5601
+    },
+    {
+      "path": "apps/sortsize-cli/tests/cache_legacy_a.rs",
+      "sha256": "d0629b9044f5a65570123cc0b503355ab446798c4e44ee40341b27c468f1f0ac",
+      "bytes": 10919
+    },
+    {
+      "path": "apps/sortsize-cli/tests/cli.rs",
+      "sha256": "3dcdabff2e5758cf2518eacd3fc24834398dc9d84b205af07d277705a1018266",
+      "bytes": 21163
+    },
+    {
+      "path": "apps/sortsize-cli/tests/inventory_reports.rs",
+      "sha256": "2a7106a8df100ea85be431a144ec2f5f458cd42ec98b5c151df01ba68fdb19bc",
+      "bytes": 6264
+    },
+    {
+      "path": "apps/sortsize-cli/tests/memory_modes.rs",
+      "sha256": "dac224550e87bd10c9021324ad3d81e62f90d56ff3c6fcf9de8ec100330158f9",
+      "bytes": 2906
+    },
+    {
+      "path": "assets/branding/CC-BY-SA-4.0.txt",
+      "sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5",
+      "bytes": 20138
+    },
+    {
+      "path": "assets/branding/PROVENANCE.json",
+      "sha256": "bbd4937632478f97c1950a22c57965a4fce15ba938cff0b9ae26d39f8a7487cb",
+      "bytes": 5215
+    },
+    {
+      "path": "assets/branding/bunny-and-size.ico",
+      "sha256": "b197deddb18349caf28a5e1f81cf59e0aa3e55461f236657a21c7b1f395e69cf",
+      "bytes": 87586
+    },
+    {
+      "path": "assets/branding/icons/bunny-and-size-128.png",
+      "sha256": "936ae6884e587e3f6b2296d67364e958ee07b7323e4a26c1e9e55c03858fc6c1",
+      "bytes": 22172
+    },
+    {
+      "path": "assets/branding/icons/bunny-and-size-16.png",
+      "sha256": "e57bc3467df41c134fe83f0b1e569c5b39af6296aa8fa1395cc526179cccf398",
+      "bytes": 873
+    },
+    {
+      "path": "assets/branding/icons/bunny-and-size-24.png",
+      "sha256": "700cba876a089689fbabad98bc78e77763d1b2f5164e42a7aad45d3371ea1b18",
+      "bytes": 1605
+    },
+    {
+      "path": "assets/branding/icons/bunny-and-size-256.png",
+      "sha256": "cc2aaec42db3ba9cafbc74828c8378dfaa0105f2563e533a2ff9461a3b7566d9",
+      "bytes": 70579
+    },
+    {
+      "path": "assets/branding/icons/bunny-and-size-32.png",
+      "sha256": "6a40251fca206794b51f0ea8a01bf542c84d04b21b18e798816196bc1918623f",
+      "bytes": 2494
+    },
+    {
+      "path": "assets/branding/icons/bunny-and-size-48.png",
+      "sha256": "d92e396853bd112d9d805ce8375b0377c92c0e8e476d096d142eee9f5772adeb",
+      "bytes": 4649
+    },
+    {
+      "path": "assets/branding/icons/bunny-and-size-512.png",
+      "sha256": "9746d1f5ead908517e388551be9c1b56d9008f707338d8056c7cc68693800334",
+      "bytes": 228725
+    },
+    {
+      "path": "assets/branding/icons/bunny-and-size-64.png",
+      "sha256": "af0ddb6905cc8ce7ee82fb2eb4d16ac05d89dfa8504aa30d18c835e91ebfffa1",
+      "bytes": 7284
+    },
+    {
+      "path": "assets/branding/mascot-master.png",
+      "sha256": "2f710ebdc70c27296995e38b0b09361df7c23f31a3366884796e557896ba3203",
+      "bytes": 1068611
+    },
+    {
+      "path": "assets/branding/readme-banner.svg",
+      "sha256": "a8e7717b251edf69e6940c9332421cdb95e4f008ad3251e5b1f39145851a9759",
+      "bytes": 95073
+    },
+    {
+      "path": "crates/sortsize-core/Cargo.toml",
+      "sha256": "25301c9f7a7f3e574cc72272ed98db37aae263cccc634c9bbcd34604f9e2bfc0",
+      "bytes": 1284
+    },
+    {
+      "path": "crates/sortsize-core/examples/acquisition_probe.rs",
+      "sha256": "42eac4dabc63696f9ad5be61c401fa81b1b8f5acc5bba219d16c7c510d5673ba",
+      "bytes": 1198
+    },
+    {
+      "path": "crates/sortsize-core/examples/allocation_measure.rs",
+      "sha256": "2f265ed09c10020ca1876a4cd4b06687f39b31b3b23a879fa5b1a3bd76833a83",
+      "bytes": 6072
+    },
+    {
+      "path": "crates/sortsize-core/examples/allocation_totals_measure.rs",
+      "sha256": "6a597072ada3ce8fc69a1fc82611d9384a0706b06375226076014c130d49e377",
+      "bytes": 7712
+    },
+    {
+      "path": "crates/sortsize-core/examples/analysis_measure.rs",
+      "sha256": "366cd067f5560c299b57461bb2dfef6de7307a9db48c5b4d78d2fffd53744ad3",
+      "bytes": 2378
+    },
+    {
+      "path": "crates/sortsize-core/examples/dates_measure.rs",
+      "sha256": "899f87d5404d8ac653735c9677b20546c65201c889a59e3f1c265dc5af43f12e",
+      "bytes": 4599
+    },
+    {
+      "path": "crates/sortsize-core/examples/owner_measure.rs",
+      "sha256": "d68dc36c3e4c2258f44de53b16951b88a567d68b189c922b415897acd40eeff0",
+      "bytes": 6472
+    },
+    {
+      "path": "crates/sortsize-core/examples/pool_probe.rs",
+      "sha256": "087d211d0487525d6ba414e27566fc4664cfa6a5183aa1883398847d8ee73cd3",
+      "bytes": 9243
+    },
+    {
+      "path": "crates/sortsize-core/examples/resource_probe.rs",
+      "sha256": "baf4c053ad85e875398436df0d9c69ba95352fa624d220e84a3e41dd9b720c9c",
+      "bytes": 2143
+    },
+    {
+      "path": "crates/sortsize-core/examples/smb_linux_probe.rs",
+      "sha256": "dd7a396c31b01a0e2c580e3dcefdabccc2d675dd759026ae01ab37f8a437fcc5",
+      "bytes": 2791
+    },
+    {
+      "path": "crates/sortsize-core/examples/volume_probe.rs",
+      "sha256": "18ba5017a1dff460fbece06ea112732470eb577d363472346f4a5f213619e461",
+      "bytes": 1367
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/linux.rs",
+      "sha256": "e573805d56ca9924e4dad862ece33d5b94607808f6010091f080f957b57a6d2e",
+      "bytes": 10220
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/linux/directory.rs",
+      "sha256": "bd1de466c1c1a0cbea99750f2db8c2e0a9aa1d883fc8dacde3fec7f89bb9cc1e",
+      "bytes": 10805
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/mod.rs",
+      "sha256": "c7b5082d28d21f91082e83fa59d7c6dda5eb26f9689a30354cb07ba9f1f5b96d",
+      "bytes": 29867
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/profile.rs",
+      "sha256": "12a90e824f7f127e0cf3adaa7a31cd5bf102a056742f4355ed25c5c9c30e4e74",
+      "bytes": 4416
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/tests.rs",
+      "sha256": "44737246055dfd8a3b473c4e434fd71df8f4a7f869fea58829d46cc57dafd178",
+      "bytes": 12649
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/windows.rs",
+      "sha256": "2f80004860add7868ee3ee026168e3029ce0b2399bc4952a7d8e712473107a4a",
+      "bytes": 13525
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/windows/directory.rs",
+      "sha256": "9c5669728c91d75661340b7843ad856eb8695609259883a8cab6479690a451bd",
+      "bytes": 13617
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/windows/directory_tests.rs",
+      "sha256": "7a41ea9c6872c8a6a88846405c61220ba33f61f4196e3a53655bae230d935ee9",
+      "bytes": 13980
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/windows/metadata.rs",
+      "sha256": "5b2c74eb7e726de1ecf76d228b164d614f2560cc548c6466c4c276b4cec7b22c",
+      "bytes": 4921
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/windows/metadata/tests.rs",
+      "sha256": "f4a49d04eabeb9151a264ce21f8ed606e50956a8556bd84c325c107dc05d6762",
+      "bytes": 4243
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/windows/scope.rs",
+      "sha256": "13aa432cdc8f6d8b67c531b8973db6d7dd65a6d1562d02b5693443d77da1ec09",
+      "bytes": 6638
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/windows/strict.rs",
+      "sha256": "6bfd54a687a4f4cd7fd2782858114f3aa325b99bb7ab1a74ebbcb10990f2c31a",
+      "bytes": 4692
+    },
+    {
+      "path": "crates/sortsize-core/src/acquisition/windows/strict/tests.rs",
+      "sha256": "336fdbd0f1a5f325415f89160e09946d99333e485a1af01288e0b45fa47eb11c",
+      "bytes": 2453
+    },
+    {
+      "path": "crates/sortsize-core/src/allocation.rs",
+      "sha256": "e4ba243ea81666ebc55a90ba5c1a5f3ea4c5fb99a0a788f14484595f0ab633af",
+      "bytes": 14755
+    },
+    {
+      "path": "crates/sortsize-core/src/allocation_totals.rs",
+      "sha256": "89c9eba6da1255bfab31f8af5f7dd6a3f001bd2204852a61af5760ba71e27d40",
+      "bytes": 18290
+    },
+    {
+      "path": "crates/sortsize-core/src/analysis.rs",
+      "sha256": "fd1875d2cc28695b45bb47fa144ed9460320e846bb2877ffbe9baf601f090cef",
+      "bytes": 13284
+    },
+    {
+      "path": "crates/sortsize-core/src/content.rs",
+      "sha256": "d8d0814a89755444e3226d3f281aef640bb338c168909e9c74077a7f37df0e2a",
+      "bytes": 6305
+    },
+    {
+      "path": "crates/sortsize-core/src/dates.rs",
+      "sha256": "7e2685d16458f2dcdca17559e50360330d46bef7425f1281c3386d721dc5ceee",
+      "bytes": 2967
+    },
+    {
+      "path": "crates/sortsize-core/src/directory_scope.rs",
+      "sha256": "c57f9218ace799235a4d723424e27f8a34f2a80c1a7b6e3e3b6a30189bd02b5d",
+      "bytes": 7914
+    },
+    {
+      "path": "crates/sortsize-core/src/duplicates.rs",
+      "sha256": "13d8ae90ea41ed4350c62c43eb5176a4eefb0bbe5e4e41542ece37c4f25a1c47",
+      "bytes": 19881
+    },
+    {
+      "path": "crates/sortsize-core/src/duplicates/stream.rs",
+      "sha256": "1415e1901fce2fb0140e8f0a221edd49c670982fc64475bb9f855b8fe821b930",
+      "bytes": 12894
+    },
+    {
+      "path": "crates/sortsize-core/src/entries/faults.rs",
+      "sha256": "cf015adb2dda5fb8688a50eaff1c1f29e80e8b32652aee06c082788179b60002",
+      "bytes": 977
+    },
+    {
+      "path": "crates/sortsize-core/src/entries/mod.rs",
+      "sha256": "21ee19288af95e1d1fa1a6d112d21c181ae314690bd01c404cf55a88716577c8",
+      "bytes": 12933
+    },
+    {
+      "path": "crates/sortsize-core/src/entries/row.rs",
+      "sha256": "65794f3d627c0795237ad985c80233eab3933331ebd2baf53dcaada2f7837ed3",
+      "bytes": 10594
+    },
+    {
+      "path": "crates/sortsize-core/src/entries/sort.rs",
+      "sha256": "0a5a40e9a6f330fa439b2b6127788c4a2d91cbae753f1d91221b0bf2608147aa",
+      "bytes": 7857
+    },
+    {
+      "path": "crates/sortsize-core/src/entries/tests.rs",
+      "sha256": "64e4b41908d8ea089e5ea4f2722f7a9beea34be08ca80a2345df8e804b47a5ad",
+      "bytes": 24626
+    },
+    {
+      "path": "crates/sortsize-core/src/inventory.rs",
+      "sha256": "5f7e397feea4cf10bf3f22d49e6165eae7558f23d830c70f3233cc0363dccbe1",
+      "bytes": 61835
+    },
+    {
+      "path": "crates/sortsize-core/src/inventory_contract/coverage.rs",
+      "sha256": "b9405a9ca59a466aeab0710898de220977023fbce3dbb7fdc2a1b9a159c6ebbd",
+      "bytes": 3819
+    },
+    {
+      "path": "crates/sortsize-core/src/inventory_contract/identity.rs",
+      "sha256": "5184e2b31970e00c68b7db37c82cf4e5008989af7b20839b50e13fbdf917bef1",
+      "bytes": 2281
+    },
+    {
+      "path": "crates/sortsize-core/src/inventory_contract/ingestion.rs",
+      "sha256": "73e2212aad19150d166499d1209afc6c1078c6a69e5444079e9d208c91f19f28",
+      "bytes": 4388
+    },
+    {
+      "path": "crates/sortsize-core/src/inventory_contract/mod.rs",
+      "sha256": "dba56b30550f462bb9a36e3465d156dd944bedcf6ce2e65598abf44f412e8688",
+      "bytes": 568
+    },
+    {
+      "path": "crates/sortsize-core/src/inventory_contract/resources.rs",
+      "sha256": "e9121dc5de8f75bc5ec7cc87fd9d5b1f1178096ecb69be20454161ce2ceea913",
+      "bytes": 2347
+    },
+    {
+      "path": "crates/sortsize-core/src/inventory_contract/view.rs",
+      "sha256": "c6f18fab5a41c36a6061526781f34c2d2e9bf87829d3058cec6cdd6ee5c051de",
+      "bytes": 2001
+    },
+    {
+      "path": "crates/sortsize-core/src/lib.rs",
+      "sha256": "a45c147e38e3926384255efde5bc9e9b80748a3ea97a64bb89e505677a8d10f9",
+      "bytes": 1935
+    },
+    {
+      "path": "crates/sortsize-core/src/local.rs",
+      "sha256": "b95c7b6462325c68548c368009e61fc7add2265efdc7519991d7b95e770bd858",
+      "bytes": 19168
+    },
+    {
+      "path": "crates/sortsize-core/src/local_windows_tests.rs",
+      "sha256": "931b746de2491a12b2d6b5dce9d18f9a201216f901def53626a888154b73ae4c",
+      "bytes": 7269
+    },
+    {
+      "path": "crates/sortsize-core/src/metadata.rs",
+      "sha256": "e4f8eab62d3c1b8ce49e4e713aba7232f723219cef8c13fab755554bb3abd5d0",
+      "bytes": 3221
+    },
+    {
+      "path": "crates/sortsize-core/src/model.rs",
+      "sha256": "72871e2cda98b6dcd86c189bcd0890886705b683b26f82193b4c8ffbfaa4c730",
+      "bytes": 6150
+    },
+    {
+      "path": "crates/sortsize-core/src/owner.rs",
+      "sha256": "fa87b402f132e995c82ca7c162ac7b7c74642164c9bcc8460cb65e3acb22a8e5",
+      "bytes": 8658
+    },
+    {
+      "path": "crates/sortsize-core/src/owner_profile.rs",
+      "sha256": "edf9cf2a789674d0dd192a94b702d3b587378c595a9d08a4654fb23aa9b0dcc0",
+      "bytes": 1241
+    },
+    {
+      "path": "crates/sortsize-core/src/pool.rs",
+      "sha256": "5a5b9e8440d595aba9a04e149508205209d19187123898f8a14d51409f91c827",
+      "bytes": 11780
+    },
+    {
+      "path": "crates/sortsize-core/src/resources/disk_volume.rs",
+      "sha256": "c0be5f6f88cf2e83cd105ae942e3681ef25f1d5af4b474c78e121dca6c048f48",
+      "bytes": 1866
+    },
+    {
+      "path": "crates/sortsize-core/src/resources/mod.rs",
+      "sha256": "512c20c3562527c7da718fbc2899508c4e6a967077617fc1ef5f892668886192",
+      "bytes": 30084
+    },
+    {
+      "path": "crates/sortsize-core/src/resources/tests.rs",
+      "sha256": "0eb0bb17f948e768d107f0a55d470b6165e6c4a27b5c6f7e391def3ac3747b03",
+      "bytes": 12949
+    },
+    {
+      "path": "crates/sortsize-core/src/scan.rs",
+      "sha256": "19fea4d888a68ecf149783a604ab5d4843638ecc25e88ecc4ccd9bb19a542ab9",
+      "bytes": 10821
+    },
+    {
+      "path": "crates/sortsize-core/src/top_files.rs",
+      "sha256": "49e44db566ddb59b6a44ca1e9b99879156aaecc44bc1be13f99dbc71154fcfa5",
+      "bytes": 5123
+    },
+    {
+      "path": "crates/sortsize-core/src/volumes/linux.rs",
+      "sha256": "adf0baf1b5add4837a73b745795c5a5fe654b71f9760d07fe1219ae3ec9418c5",
+      "bytes": 10828
+    },
+    {
+      "path": "crates/sortsize-core/src/volumes/mod.rs",
+      "sha256": "26461bcfa584c69cf21096ca70d9b258085af683b76176225daac32365a24e00",
+      "bytes": 9306
+    },
+    {
+      "path": "crates/sortsize-core/src/volumes/smb_disconnect_windows.rs",
+      "sha256": "6db8e23656d8d3fe7e5f96564962ee3a87f4876f1911325aa744e9b2e11416e2",
+      "bytes": 10535
+    },
+    {
+      "path": "crates/sortsize-core/src/volumes/smb_linux.rs",
+      "sha256": "a9ef0d62492b7fc3cb9e31c0d8d41f3d08a78addd012ff5ba42f226bbc3f61f1",
+      "bytes": 30733
+    },
+    {
+      "path": "crates/sortsize-core/src/volumes/smb_windows.rs",
+      "sha256": "4ef5f2e4f5b73886286d19c3c8cdda298cab9d85458c3433048b593308694b94",
+      "bytes": 30916
+    },
+    {
+      "path": "crates/sortsize-core/src/volumes/tests.rs",
+      "sha256": "2580b0b91a229a48e2f8343958d17e617a4921e4723bf18336924a05a289fdae",
+      "bytes": 5652
+    },
+    {
+      "path": "crates/sortsize-core/src/volumes/windows.rs",
+      "sha256": "324304c51e74bb5f790ad925e117292945eb439fa42955902eae5e363eadf39d",
+      "bytes": 13278
+    },
+    {
+      "path": "crates/sortsize-core/tests/allocation.rs",
+      "sha256": "03597bc22152c7668791e999fa53fa9dae5e4daed363847ba0b27269aaeec58e",
+      "bytes": 14708
+    },
+    {
+      "path": "crates/sortsize-core/tests/allocation_totals.rs",
+      "sha256": "8702a51b9b7a2aab2ef8c9e32331020c28220724c47b07c1a01ca5b2d921eee8",
+      "bytes": 20510
+    },
+    {
+      "path": "crates/sortsize-core/tests/analysis.rs",
+      "sha256": "7e4c08af99c22db58f60c8fd7d8bc64f9b43773a6554a78289eb410cdbbb3f9a",
+      "bytes": 7834
+    },
+    {
+      "path": "crates/sortsize-core/tests/concurrent.rs",
+      "sha256": "f2b94d83f9dded73a69e1103e300e366fcf6892baf182fc0fbd5d797ce3eeb00",
+      "bytes": 9434
+    },
+    {
+      "path": "crates/sortsize-core/tests/dates.rs",
+      "sha256": "7bca8cf305eddef57a52679122953e82ee1b16dfd0a4fe6505b5bb2ab4ff4332",
+      "bytes": 15758
+    },
+    {
+      "path": "crates/sortsize-core/tests/duplicate_stream.rs",
+      "sha256": "81a3cecf7a349ac4a01da9e0cb93f1159e19790345c599be2f40fad4ecf8d466",
+      "bytes": 8444
+    },
+    {
+      "path": "crates/sortsize-core/tests/duplicates.rs",
+      "sha256": "a4ce4128b22196fafabc7b3a2a749f7b73d87e7787f93f89a0cd8cbdc235d700",
+      "bytes": 6742
+    },
+    {
+      "path": "crates/sortsize-core/tests/duplicates_finish.rs",
+      "sha256": "9a7f8bbf065ed759765b075ececd5c402781c8586fb99a4c3098a1ae49509e7d",
+      "bytes": 2912
+    },
+    {
+      "path": "crates/sortsize-core/tests/inventory.rs",
+      "sha256": "2ccaa69cbdf8516f6107b1aa5830f5ad12f06942e65f04f6cd2162bcb9e18462",
+      "bytes": 15462
+    },
+    {
+      "path": "crates/sortsize-core/tests/inventory_contract.rs",
+      "sha256": "a06e6155959c6347e2164c2dd3a0fb02f4d0a586c0ae9de1efff89acdd4052aa",
+      "bytes": 14596
+    },
+    {
+      "path": "crates/sortsize-core/tests/metadata.rs",
+      "sha256": "ce521b46c2e0e572d335f78f18cd083308c30e9233963213f50580b89eb125e0",
+      "bytes": 7443
+    },
+    {
+      "path": "crates/sortsize-core/tests/owners.rs",
+      "sha256": "25d3625aef8d0ff49e7b308cd0d67f2d9a253c1b123eadf7ceee11361b1c0c74",
+      "bytes": 11528
+    },
+    {
+      "path": "crates/sortsize-core/tests/owners_and_totals.rs",
+      "sha256": "753464ee54ee86fe8f43561febd857c32094c0df5788b64c5998eb0d08b61988",
+      "bytes": 5273
+    },
+    {
+      "path": "crates/sortsize-core/tests/owners_windows.rs",
+      "sha256": "a0f3e9726f84f51f49fba4ef60212bbb510bd47733d9a29a9e93ef6f44e01b9c",
+      "bytes": 24794
+    },
+    {
+      "path": "crates/sortsize-core/tests/scanner.rs",
+      "sha256": "2ed0e3924d6a9dafbc961f61dca8086768ea509a7b2700d90fb9f79c74a729de",
+      "bytes": 9279
+    },
+    {
+      "path": "crates/sortsize-core/tests/top_files.rs",
+      "sha256": "a652bad77e52db8cc0d53f0876245141da86f577dda3f4e581d0f119d583c5fa",
+      "bytes": 12060
+    },
+    {
+      "path": "crates/sortsize-core/tests/traversal.rs",
+      "sha256": "2b74efdcb7bec51860f3d28bf4c1001cc49d981003815237827fc1f61a1f0501",
+      "bytes": 6301
+    },
+    {
+      "path": "crates/sortsize-owner-resolution/Cargo.toml",
+      "sha256": "204a014873a16485360290a6bee259db171ed268bf9e546bed3ed9aaf33f3b2e",
+      "bytes": 855
+    },
+    {
+      "path": "crates/sortsize-owner-resolution/examples/owner_resolution_measure.rs",
+      "sha256": "7b630d59e1bb70c0f5dfb91bd7402432d392f5b5520d9c68b3cbc636908d7904",
+      "bytes": 5338
+    },
+    {
+      "path": "crates/sortsize-owner-resolution/examples/support/resolution_alloc.rs",
+      "sha256": "c56cf492cc5c4284d2d2d1c234c0ffe0e5e7262ad92b126070d843ecd5bd6511",
+      "bytes": 2562
+    },
+    {
+      "path": "crates/sortsize-owner-resolution/src/lib.rs",
+      "sha256": "019617fc6e22e6ea0f50ca53629a8bae5c70f064e43f24a2fa86bcb69fc563e0",
+      "bytes": 15697
+    },
+    {
+      "path": "crates/sortsize-owner-resolution/src/local_linux.rs",
+      "sha256": "6b28914d971f2932ad69eaefe9e7cd2cf8c0513294f060d1ba08d443dae1741f",
+      "bytes": 4049
+    },
+    {
+      "path": "crates/sortsize-owner-resolution/src/system.rs",
+      "sha256": "0cca50d2a41679c883ebdd5d32a6ec4177ca3fd833e31d5ba22bf90965fc9004",
+      "bytes": 10678
+    },
+    {
+      "path": "crates/sortsize-owner-resolution/tests/owner_resolution.rs",
+      "sha256": "06de10c1b458ba5c38ab29beff2104dc809332b78f29793d20f4b556d786e24f",
+      "bytes": 15022
+    },
+    {
+      "path": "crates/sortsize-owner-resolution/tests/owner_resolution_native.rs",
+      "sha256": "b1a8a94e9567d4acae28e0be853c3c744cce89ef70b3d0c8ef9c955709cd9b7f",
+      "bytes": 10396
+    },
+    {
+      "path": "crates/sortsize-store/Cargo.toml",
+      "sha256": "c08d9fba63168663debd0b6090124e1f091955fbc553fc6932b32be65ff00272",
+      "bytes": 1062
+    },
+    {
+      "path": "crates/sortsize-store/examples/admission_probe.rs",
+      "sha256": "e9221907f2b99da74361fc83b223ec541170eadbea56509a1e72b0d3240ff692",
+      "bytes": 2901
+    },
+    {
+      "path": "crates/sortsize-store/examples/adverse_sort_qualification.rs",
+      "sha256": "c3e96ebb025be58046ff12496b2dbea73292c4327696dc7cfb85129f3bf8dca3",
+      "bytes": 12871
+    },
+    {
+      "path": "crates/sortsize-store/examples/direct_scan_probe.rs",
+      "sha256": "5630f1e5ead0f5ac31e4c4763bf5578d6fa03ca3fab4ee2145dc99d6ac38f4b5",
+      "bytes": 5121
+    },
+    {
+      "path": "crates/sortsize-store/examples/duplicates_ab_lab.rs",
+      "sha256": "14a4b3542bbeb8df840181396c31ba10ec6097b6aac75f7a247d6c09418af332",
+      "bytes": 10451
+    },
+    {
+      "path": "crates/sortsize-store/examples/external_sort_qualification.rs",
+      "sha256": "293c2230f95aea577ff27564822c97a24d27f90d18f4a1c6054384554705c304",
+      "bytes": 11540
+    },
+    {
+      "path": "crates/sortsize-store/examples/folder_duplicates_lab.rs",
+      "sha256": "b12e79ff70f20d4a5159ff4bd495da5304ff4f9c37a5e6fb8e92ef0aada4ce4f",
+      "bytes": 9000
+    },
+    {
+      "path": "crates/sortsize-store/examples/folder_profile.rs",
+      "sha256": "6a1d83df0020f1183a39cffd971200e83516be2e65421c8ff40e959945dfe511",
+      "bytes": 3361
+    },
+    {
+      "path": "crates/sortsize-store/examples/generation_a_probe.rs",
+      "sha256": "c0e92dc4c0f8ffc8c3c486cb5e6b1d7ad9682df840c721f30bc96a47443c4d6c",
+      "bytes": 41514
+    },
+    {
+      "path": "crates/sortsize-store/examples/inventory_qualification.rs",
+      "sha256": "7cc7000d7f97fbb97b883ea87cb57718c3adaefb49c6bb16221eb211ac553426",
+      "bytes": 5797
+    },
+    {
+      "path": "crates/sortsize-store/examples/l17_qualification.rs",
+      "sha256": "4e67c06ac90b949ddf8ba3187c2cbefb7f063a1f631dc9337239442fb5413a2b",
+      "bytes": 11006
+    },
+    {
+      "path": "crates/sortsize-store/examples/nas_qualification.rs",
+      "sha256": "99fb5828d4b10444240bb60a2ac3fe9d76cf12b42c29bffea3b4f9d3509120e5",
+      "bytes": 7706
+    },
+    {
+      "path": "crates/sortsize-store/examples/navigation_probe.rs",
+      "sha256": "edecf73dc32c804b1662fb99470efe3aeb2403b63e9607602f82df4205969749",
+      "bytes": 4669
+    },
+    {
+      "path": "crates/sortsize-store/examples/protected_reference_lab.rs",
+      "sha256": "6657a25c77581a3cb46a8c7a8f1b6839f40903ab220992ef749c07d115e89f8f",
+      "bytes": 16446
+    },
+    {
+      "path": "crates/sortsize-store/examples/publication_profile.rs",
+      "sha256": "5f8d6338e0e3444ec5f378331544cb796b0efe00cd6f5533c412db92f8db7a22",
+      "bytes": 6343
+    },
+    {
+      "path": "crates/sortsize-store/examples/query_progress.rs",
+      "sha256": "8b97dcd1da87ef234e2e01a5179621f019aa4e8a2f7d4b4e154993f63b705627",
+      "bytes": 5300
+    },
+    {
+      "path": "crates/sortsize-store/examples/query_qualification.rs",
+      "sha256": "6e2f0eb48453e6e6dde35361b9a0028ff269bb3b27abd4fa923a43405673af89",
+      "bytes": 4697
+    },
+    {
+      "path": "crates/sortsize-store/examples/reconcile_plan.rs",
+      "sha256": "a48296ae3fe729c1e8e5a62265a1b831faaf7d9b59483efcddbf84bfec0333d1",
+      "bytes": 9873
+    },
+    {
+      "path": "crates/sortsize-store/examples/recorded_qualification.rs",
+      "sha256": "02bc67b9f9bd904c1e842374c5369dc7423bc2b74792b2bb65b28364872de7e7",
+      "bytes": 8367
+    },
+    {
+      "path": "crates/sortsize-store/examples/recovery_probe.rs",
+      "sha256": "f5a08cbc5cea332a31d0d59b95f02a2f69ab94b9203e11703f9a9c853bc1ca9a",
+      "bytes": 5525
+    },
+    {
+      "path": "crates/sortsize-store/examples/report_qualification.rs",
+      "sha256": "d381494934963f1cd5ea32e57b5c20e9e1b7fedef0a29044084905ced837c86b",
+      "bytes": 7968
+    },
+    {
+      "path": "crates/sortsize-store/examples/scheduler_probe.rs",
+      "sha256": "1c84c04d4bc2f4d4ef4ac706d81df1b71b7081595ef4f1ee2c6a4536f4630fce",
+      "bytes": 2051
+    },
+    {
+      "path": "crates/sortsize-store/examples/single_scan_adverse.rs",
+      "sha256": "1458c3c7758e406bea4edb1ecfb9441500d4cbe46f037abc10dfe1263a0fba4a",
+      "bytes": 4657
+    },
+    {
+      "path": "crates/sortsize-store/examples/single_scan_scale.rs",
+      "sha256": "13d22065d0f85926453ed169cdc02483b7d1aee190def1b9c7701b6face63ee6",
+      "bytes": 15554
+    },
+    {
+      "path": "crates/sortsize-store/examples/smb_p1_probe.rs",
+      "sha256": "fee5e5baa952970063bb62cc8140d427c0927df10a664ac6e6eecfa16e514341",
+      "bytes": 10345
+    },
+    {
+      "path": "crates/sortsize-store/examples/sqlite_qualification.rs",
+      "sha256": "9db2594ffcaaf115d0bd4113f009665ee6ca92b58a1e914bfe7a81895d1f5dcd",
+      "bytes": 13127
+    },
+    {
+      "path": "crates/sortsize-store/examples/support/adverse.rs",
+      "sha256": "8fe112a4754f6bf76f231b8b6c94e8ca5780fde17ee6fe63b261d14560b5084e",
+      "bytes": 2146
+    },
+    {
+      "path": "crates/sortsize-store/examples/three_sources_lab.rs",
+      "sha256": "2cf853fa685f58847b019d77c4380b0131c3e393bd103cec1d3d3a597d0bfaa4",
+      "bytes": 15225
+    },
+    {
+      "path": "crates/sortsize-store/examples/workshop_order.rs",
+      "sha256": "3c406fa060b11a4bfb5195a703a89fc14c99f70e4aee7a717f15df758f6e93c1",
+      "bytes": 6196
+    },
+    {
+      "path": "crates/sortsize-store/src/codec.rs",
+      "sha256": "7b5a2174dee90072c4f6723037e91226760911f3dae6db2389bbd84877388f80",
+      "bytes": 2205
+    },
+    {
+      "path": "crates/sortsize-store/src/direct.rs",
+      "sha256": "f534120fc5ec1fbc81344973b1f0032a441fd4014f85b9fdcca4869011986be1",
+      "bytes": 14209
+    },
+    {
+      "path": "crates/sortsize-store/src/direct_save.rs",
+      "sha256": "847119bad0c11f119ecc8be239657e0ff64b2f4e5dbc6e3ac3cf7e66ba00df61",
+      "bytes": 17034
+    },
+    {
+      "path": "crates/sortsize-store/src/direct_snapshot.rs",
+      "sha256": "1f93874d529e1843df758189ab72654141d3e526f292b585531e06cb1ce3fd82",
+      "bytes": 38685
+    },
+    {
+      "path": "crates/sortsize-store/src/direct_tree.rs",
+      "sha256": "f52fab5070771af845950f966475206c52d24479f9d6f50431076e202103fab6",
+      "bytes": 34351
+    },
+    {
+      "path": "crates/sortsize-store/src/direct_tree/arena.rs",
+      "sha256": "755b4ba5811de4b8bf84f5661c64b5e2284922cf91615e220397d2d899b00163",
+      "bytes": 12677
+    },
+    {
+      "path": "crates/sortsize-store/src/direct_tree/metrics.rs",
+      "sha256": "7a37f2cb947fa7e18a23baa731ca21095d95883e967f0b2c13758c518ff1d15d",
+      "bytes": 2706
+    },
+    {
+      "path": "crates/sortsize-store/src/direct_tree/query.rs",
+      "sha256": "720030ba9ea3f15cc1f7e027ec45343bcf04b95f426f14125bb5fcb46269d843",
+      "bytes": 21415
+    },
+    {
+      "path": "crates/sortsize-store/src/direct_tree/seen.rs",
+      "sha256": "283402d250749cbe8df851d234ae0b80288ec827c429614ae22539d0b3c27504",
+      "bytes": 9218
+    },
+    {
+      "path": "crates/sortsize-store/src/direct_tree/spool.rs",
+      "sha256": "f0839b62c3e1619fabf766be8cfbe200f0675b0757d3554b0647ad5bd24e7f96",
+      "bytes": 13867
+    },
+    {
+      "path": "crates/sortsize-store/src/direct_tree/storage.rs",
+      "sha256": "1ebc9732a2b2ab1f9548d27281ddc3778162439ccb9551c69de88fe7f4a7be35",
+      "bytes": 10941
+    },
+    {
+      "path": "crates/sortsize-store/src/direct_tree/tests.rs",
+      "sha256": "d1546b3ea8ad54a8a3dfc3440dc90a77a87cae8f997a622461a9c9058e2a3f96",
+      "bytes": 20153
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/catalogue.rs",
+      "sha256": "04c617e67a00d3ee8cb168d9fed289434f74d79d8fd42fcdd424436fa061783a",
+      "bytes": 20953
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/catalogue/observation.rs",
+      "sha256": "ef93f8162e7923d0eafaa9317880db6e3cdb014cba1d44c67f60a59ca0ac3acc",
+      "bytes": 25573
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/catalogue/tests.rs",
+      "sha256": "f163e80bedff6c05c8e4c99a68eec56c773c302ea6651bb4b43e7028ba36ba07",
+      "bytes": 6711
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/differential.rs",
+      "sha256": "c3bbe831b2845d918da9ae57921efcf569df8aaf73bf37458b96176c1b6597fc",
+      "bytes": 26951
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/differential/root_sizes.rs",
+      "sha256": "dbc5b8396ab6db2900d4ff48e362100dafc76fc005cd8eb381c82755b9ac922c",
+      "bytes": 7881
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/differential/tests.rs",
+      "sha256": "9283b3400a9461c64d5568eb7e43673b03a3cc769a34e9dc767c83f898e0c0d6",
+      "bytes": 19409
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/direct_replay.rs",
+      "sha256": "46ab522dc7621ee4dc99bdfa2de59cc2a9cd548ab61a78329e10c9bdbbdef6ba",
+      "bytes": 18969
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/folder_totals.rs",
+      "sha256": "86fd5dbfc219caec27a7ef1324495fbc82a7f1facfdc8ece3814b0a21a9c8bba",
+      "bytes": 15831
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/folder_totals/tests.rs",
+      "sha256": "0076a56d9d241daaa80ea8a0d525abdc6545f792769f368faf5967272aca4edf",
+      "bytes": 18576
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/folder_tree.rs",
+      "sha256": "d48d65ce2bc7c8edc45c0a7b90dba71ab4dc8289b84c144f563e491ca6c5bd05",
+      "bytes": 11020
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/folder_tree/tests.rs",
+      "sha256": "3805c09934b26cef66d0ebe486556b77d8ee476602d84241a565d1a6d19a88fa",
+      "bytes": 14166
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a.rs",
+      "sha256": "727523b7d60425295276dd4b7aee89670ea376983937c7755d1c88f0101fca9c",
+      "bytes": 18975
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/canonical.rs",
+      "sha256": "b8cb41d94a6488d247ed8383c50743ad1f098085704771883cecc3577ce97f97",
+      "bytes": 1545
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/extraction.rs",
+      "sha256": "eb33421e8faf45b076ba18b19d7ba6e34ebfb757e008f7ad59bbe6e38f8768fd",
+      "bytes": 13043
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/model.rs",
+      "sha256": "a4d2d98a6dda55e5ab89366178217e1028b5f8c5516aaf65bddf7b7e4ccc0e9a",
+      "bytes": 17377
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/model/growth_tests.rs",
+      "sha256": "c8a3182c49d8b88ed5aba9590619c02cfb94bec5b06896ab04ec8db6fff1e546",
+      "bytes": 11896
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/pipeline.rs",
+      "sha256": "d667b0d8768cee9bddb5d6a6855911c620fabc81ff9f9bea632d1a3063670c99",
+      "bytes": 7745
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/publication_batch.rs",
+      "sha256": "e07613d19eae5be61637dfb35ad1308406bd4f6f7373e1310033d5f7bd07e6ca",
+      "bytes": 1412
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/repository.rs",
+      "sha256": "5196042838e5cba5337805e5cadd214465a6636f41eefd86e339722fad1105ed",
+      "bytes": 63033
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/repository/admission.rs",
+      "sha256": "5cde90d1b0fc3a67cae1548458f79e51aab007eb3dcb673b38f85b43816d08af",
+      "bytes": 13535
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/repository/adoption_migrations.sql",
+      "sha256": "e320a128c5b6119869d79d11e85fb8fe7927c410103b4a8ee08366db4649f757",
+      "bytes": 2908
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/repository/adoption_retry.rs",
+      "sha256": "84694f64aa79ab3cf33d5173e3effebd6e342384a22679b18aa19c7859b2b8ec",
+      "bytes": 13438
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/repository/adoption_retry/tests.rs",
+      "sha256": "5e67613a87fdc7047ce0007ae5c395d674928441a6f879666eb99ca9618808aa",
+      "bytes": 13779
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/repository/metadata_tests.rs",
+      "sha256": "b8b11e14008f06e300da5c1bad4cdd6add2c2f1a1577e6777f7acd77ae07ac13",
+      "bytes": 7369
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/repository/policy.rs",
+      "sha256": "40e0200dd96b6859f10067cc715da4f4c1ca9899a96141369c7b120662811969",
+      "bytes": 46688
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/repository/publication_budget_tests.rs",
+      "sha256": "5fdb67da6e65336a58927e4bb48fe101b921d0b6537c04a995b0f0b4f1deeb1e",
+      "bytes": 2205
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/repository/publication_reader_tests.rs",
+      "sha256": "5c440b739fbf2e7eee1cc1d4afcb84e392fc65f914321ef5f3e808a5fa8e4571",
+      "bytes": 11142
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/repository/reclaim_tests.rs",
+      "sha256": "dbde5cff21a7487706c5f3266af47e2720381aeacb82dd10ca0662ec0cae4f7b",
+      "bytes": 7470
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/repository/recovery.rs",
+      "sha256": "4e504e9e6af2a87570c55c173de7aafcc5a58161ea4befba189c1d6d866a66f1",
+      "bytes": 10822
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/repository/write_json_tests.rs",
+      "sha256": "0e988f211c0334f9573502bbc667822ba314665e41b3337cf7fe1883834aad13",
+      "bytes": 5377
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/search.rs",
+      "sha256": "c3246df76ff308d5a2bb83969f1b0f667a2b8ed333d72bd9630c5f6338d5d35b",
+      "bytes": 13455
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/search_tests.rs",
+      "sha256": "c7655028aacc8fa7f6a30c243347a0e169423c0db6e933e43e1553c59c43901e",
+      "bytes": 14337
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/storage_tests.rs",
+      "sha256": "5d8db48ed09aa82b0900d37228ba538af149fc0eb17e5c3047148c48990e81ed",
+      "bytes": 25560
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/generation_a/tests.rs",
+      "sha256": "41e4070e76adfc2c87064f741aa9ad5bd2cf0a1ff9729d4d5b7aae0625a360a0",
+      "bytes": 18783
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/lifecycle.rs",
+      "sha256": "b94fe60c87295723666a35f6c4b50985862b242bf79a51d91ad61b5cb9b12de6",
+      "bytes": 30495
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/lifecycle/tests.rs",
+      "sha256": "38e1fb452f9e9ccefd69122efcc13d9016c1fa76a1ca33abf0f06c7512eb0a7f",
+      "bytes": 14326
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/live_preview.rs",
+      "sha256": "2f5969d85c0b9400c4639e5f978268ecf342e55320fc34db22eac0e65669dbb9",
+      "bytes": 24925
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/live_preview/tests.rs",
+      "sha256": "a4155bd1aca1b2d0151f381663c50ece939aee348308abc72cdb3201481eec48",
+      "bytes": 32478
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/memory_tests.rs",
+      "sha256": "6f00fd035deb9965e25b7ea51081ffcdc3c2434f96e7d09642de263dac92ac25",
+      "bytes": 2899
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/mod.rs",
+      "sha256": "29925c24f593e310bd1d9f7c9b4fd67b7f90d9c9feb3de3ad59e291dd0f7e41c",
+      "bytes": 74150
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/navigation.rs",
+      "sha256": "e94c6db92523c49008a4b510c000f407f9cff80f14068ce4687b3bd390916307",
+      "bytes": 17236
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/ordered.rs",
+      "sha256": "24bb1fa1ef072cb64346b9e5d77e8ac06124b3cf86408fff4e27bbcbb2e52652",
+      "bytes": 31562
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/owner.rs",
+      "sha256": "f2acf9d43ecddb6175b3f32033486358a81fb2681a2cbadb002ba79fadd8e509",
+      "bytes": 14930
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/owner/tests.rs",
+      "sha256": "c23f12d2ac88008ecafaf24d0fcb2070ca59e0fd0b63926d5d1c9f0c9ecd2392",
+      "bytes": 9152
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/parity_tests.rs",
+      "sha256": "f2b644c5d7d30fc393bcff2b248d545788fb99e8d877730f6681415aff85e13e",
+      "bytes": 21147
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/placement.rs",
+      "sha256": "325c60f206a8996a94bb3ad568d3d92bee1dc8c4964f3bb3558d2e93f86dbcec",
+      "bytes": 22522
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/preview.rs",
+      "sha256": "e589db4f7e2ba66b2a2423628fa29fd72dc0a83f917581e5e50060c24b315936",
+      "bytes": 9345
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/preview/tests.rs",
+      "sha256": "20856fc2e4669dd2fa572ff4830840bef453d9b03d813a3022b5762e7150faae",
+      "bytes": 9506
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/properties.rs",
+      "sha256": "3ee59dd79e0468ee573adc2d6a962778debdd02768190c55e4635657fcc6013a",
+      "bytes": 10744
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries.rs",
+      "sha256": "3efffb2c8741d36a34d2308e36e3a6c9119b38463d9bfe36c3a05242a9eeed44",
+      "bytes": 47964
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/duplicates.rs",
+      "sha256": "f3384e61bfcd36e0bfb099fb1424e1611e822e2c9980e5dd599c7f78f6d2dabc",
+      "bytes": 86522
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/duplicates/ab_tests.rs",
+      "sha256": "5dbc0c7161efb48f9fae6eea1388fa65cf7d90796ae0763d5eea17e28acc0352",
+      "bytes": 62563
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/duplicates/current.rs",
+      "sha256": "6aa7dd89c12a40697553f41693b28d8f7b3614230f80037d60b211623da79ef5",
+      "bytes": 31651
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/duplicates/current/qualification.rs",
+      "sha256": "c2dcf67888f9d3adbfd4354157175dc83e897025b4939e699b52de14045f1890",
+      "bytes": 33544
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/duplicates/folders.rs",
+      "sha256": "f0d76cf4465659ae64630c47217454fc90807bb2990ae7bcf26bac8953749af9",
+      "bytes": 39938
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/duplicates/folders/tests.rs",
+      "sha256": "6caa7eb38c20f8034232bd66db5986b1929d73e9cb8c6e3b2faacb50c78610c6",
+      "bytes": 44706
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/duplicates/selection.rs",
+      "sha256": "3f56a044908bcfe1c4ec42a4cfc7ed5a4cf07f7426175be5aa933a90500c3b6f",
+      "bytes": 24490
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/duplicates/tests.rs",
+      "sha256": "c77da3d7f5c4ac754d95c9b8ac07f23db7a71ec13111f30313547c8642d856d8",
+      "bytes": 10798
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/empty_entries.rs",
+      "sha256": "c63972f1109fc851383e674b318ad88658350b60800659f35b6d762feb44e3a1",
+      "bytes": 21362
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/empty_entries/tests.rs",
+      "sha256": "9649f6ddd1b5ec3faca26429862da51e55ccfc9af1f36d557df239cd5082de15",
+      "bytes": 9602
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/ordering.rs",
+      "sha256": "a0936b42b14bd27498ef9d41a33eec60449dd679c2fb2115f77e9c162157e686",
+      "bytes": 19813
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/paths.rs",
+      "sha256": "e43e42a670872027040ea98efd5d85251510d2984fae489d2ec5e0c066e0ba8c",
+      "bytes": 6048
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/reference_view.rs",
+      "sha256": "cdcb2890b5fcd08594013e054659d0be26f5438dacedd23e247da263dce2bb3b",
+      "bytes": 17915
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/reports.rs",
+      "sha256": "da617ead202c5b694b30e26f3a7112159a886185a67b60a4d8d07598cb551f5a",
+      "bytes": 13684
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/sequence.rs",
+      "sha256": "b76ac6d529be9622b1619f4626762c6900e0e0e9bf3a33e9f5ee9a76b4d491d2",
+      "bytes": 7554
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/tests.rs",
+      "sha256": "268e97b869c89a83c1e1d02c5636bf50961cad6b7da5d3a06a3e8681e79bd96f",
+      "bytes": 33297
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/workspace.rs",
+      "sha256": "4492cacff5944f9e852dac773ffb3727f18ecf3f963883d8b6aeeb94dde56b4b",
+      "bytes": 29260
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/workspace/adaptive.rs",
+      "sha256": "711e5045f6208b358cffe973ec5241235c4d4036d27247325a5a3339356d6ee3",
+      "bytes": 10796
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/workspace/adaptive/owned.rs",
+      "sha256": "cb992da1ccd30ee8f7bcd44e57ff8898a5e89b9ac0407c635e699eb2388616cc",
+      "bytes": 4433
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/workspace/vfs.rs",
+      "sha256": "f6b3018aa3b4d527f40f75e299abca07aa9f78a466f96b3d15a61e42b2a768ac",
+      "bytes": 29139
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/queries/workspace/vfs/tests.rs",
+      "sha256": "56334b72f359c84d08ad7dc1ba46fc968b0aa20241df83baab77d7813a869c63",
+      "bytes": 28673
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/reconcile_plan_tests.rs",
+      "sha256": "4c5cd72b45fb3412c8339f657a85092817b08476ccb639fe3aefec7ab2d94f10",
+      "bytes": 3289
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/recovery.rs",
+      "sha256": "6b6f30c34508e5ce5ee39003f0ca11e6d4cd6b3f415f576d1b7810edd7c7a97e",
+      "bytes": 5157
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/recovery/tests.rs",
+      "sha256": "7d47c7a87c72f590e4cddf7ab7deb1d6ba8d039790392aa361d50246b64d0408",
+      "bytes": 12311
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/scheduling.rs",
+      "sha256": "80ce205b2cdd6118fcc150fc481762ffe9555488a6e2775f27cc84c7a522a225",
+      "bytes": 7036
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/schema.sql",
+      "sha256": "3a49d56399e8e13274d161169f407274ab930c0bae3a0d4cd4af9ef61297bb9b",
+      "bytes": 2911
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/snapshot_io.rs",
+      "sha256": "0fcee21eb9773caf68cc75ef594af446b16a95c0c88e252e4d7d51c95e26d517",
+      "bytes": 1996
+    },
+    {
+      "path": "crates/sortsize-store/src/inventory/tests.rs",
+      "sha256": "3baa3500b8f4a54dadddf7e2891ef90eb9f1bf72120346c427de42dab82dac91",
+      "bytes": 25282
+    },
+    {
+      "path": "crates/sortsize-store/src/lib.rs",
+      "sha256": "49d91fc711aa96cb039d663a3f88c023dbbda905af45810222913f19349bce4e",
+      "bytes": 1883
+    },
+    {
+      "path": "crates/sortsize-store/src/qualification.sql",
+      "sha256": "40dfe2f8a2488c6b71be872cca93f4577d12499ca1617bdff9d4034febfaa4fd",
+      "bytes": 1211
+    },
+    {
+      "path": "crates/sortsize-store/src/scan_metrics.rs",
+      "sha256": "e212b8c4ad4b6ada2c265161d8704576488fab0209a960968550cdb0907191cb",
+      "bytes": 7661
+    },
+    {
+      "path": "crates/sortsize-store/src/scan_trace.rs",
+      "sha256": "6362331d48b31ffc41fd1992c0a59d66dacddd7f84d94ea4f8a833d38b90dc08",
+      "bytes": 15184
+    },
+    {
+      "path": "crates/sortsize-store/src/scheduler/active.rs",
+      "sha256": "239572bc10971213c95e0d2c79a06efb444b662cc4cc0c7863365f416886463a",
+      "bytes": 1473
+    },
+    {
+      "path": "crates/sortsize-store/src/scheduler/direct.rs",
+      "sha256": "58375caf0a41c139f88f6b9e597982d96e7a692f6da06faabb49df3f45fffa0b",
+      "bytes": 32832
+    },
+    {
+      "path": "crates/sortsize-store/src/scheduler/folder_freshness_tests.rs",
+      "sha256": "319760c2ce98b292847ff3226209bd1ffa99fe66a9387fb9104a3fd6420db41d",
+      "bytes": 5687
+    },
+    {
+      "path": "crates/sortsize-store/src/scheduler/metrics.rs",
+      "sha256": "21065126c4c99bf0d19c9bb0ad394fbb35383f55226b13a65b5bf8023331ee34",
+      "bytes": 11430
+    },
+    {
+      "path": "crates/sortsize-store/src/scheduler/mod.rs",
+      "sha256": "4ca480877c2e0e9b8f9240c86530296e2eb888e54e608684137587d665a023f2",
+      "bytes": 64531
+    },
+    {
+      "path": "crates/sortsize-store/src/scheduler/recovery.rs",
+      "sha256": "5e71fafa230e4903c1e463226d12a231767455491ec2c3a9c50d28f696190416",
+      "bytes": 26520
+    },
+    {
+      "path": "crates/sortsize-store/src/scheduler/tests.rs",
+      "sha256": "0752064370364dee8a49f496fffc8d4e40d525e639a33a1636636fa7727fc3f2",
+      "bytes": 54650
+    },
+    {
+      "path": "crates/sortsize-store/src/scheduler/trace.rs",
+      "sha256": "44859adc2fd7fb462924f6b04da8eb8705ed9cb440aeffd340fac77dc4f9d20f",
+      "bytes": 16141
+    },
+    {
+      "path": "crates/sortsize-store/tests/architecture_a.rs",
+      "sha256": "15996cc3002b8be21a4aae04cbf17cbf0e4f6c9778e345638844c4467016b5a0",
+      "bytes": 21129
+    },
+    {
+      "path": "crates/sortsize-store/tests/architecture_a_policy.rs",
+      "sha256": "5e34f01b3cce17d23ef38dbb8213815448207c260ab1fa0827c46bb28b058841",
+      "bytes": 23501
+    },
+    {
+      "path": "crates/sortsize-store/tests/content_limits.rs",
+      "sha256": "550ca8ff4428d0eeab881a1e15cc9994b609c8390efed75a267ba6fca3579a33",
+      "bytes": 9584
+    },
+    {
+      "path": "crates/sortsize-store/tests/current_folder_adversarial.rs",
+      "sha256": "cff2e8bbd5790bf9a8651ef2831b1714f4ee82ee0dd09726bb5aa83eb608ee13",
+      "bytes": 33383
+    },
+    {
+      "path": "crates/sortsize-store/tests/derived_quotas.rs",
+      "sha256": "c1ff383f980ff5442fb2084aebc3c73cbb3e251ae7012b7dee4e0cfaf5eec5ee",
+      "bytes": 14238
+    },
+    {
+      "path": "crates/sortsize-store/tests/duplicates.rs",
+      "sha256": "dd139078b5c7914025c15a04c1aafaa28a6ce52dbd3618aa772895cef235d60d",
+      "bytes": 10647
+    },
+    {
+      "path": "crates/sortsize-store/tests/empty_entries_qualification.rs",
+      "sha256": "e7a4b13222d3290c63f03139ff31747abbe908a78c858913f93de4430f9e3b61",
+      "bytes": 5811
+    },
+    {
+      "path": "crates/sortsize-store/tests/folder_memory.rs",
+      "sha256": "b845d03ef82f1ee255fc89cba19f90c10a9ca6c96b1efc221517601a71e2f84a",
+      "bytes": 3018
+    },
+    {
+      "path": "crates/sortsize-store/tests/general_reference_views.rs",
+      "sha256": "73aadb15dc479c03ea1ddf6d8da082fd37edb4ae49c8eee2b36028e7ad9ab940",
+      "bytes": 18176
+    },
+    {
+      "path": "crates/sortsize-store/tests/linux_store_placement.rs",
+      "sha256": "3cfff801aa11a574a73bf435e8b1c45ad343845409ab1f03a64ff8a240f7d83d",
+      "bytes": 4544
+    },
+    {
+      "path": "crates/sortsize-store/tests/navigation.rs",
+      "sha256": "a5576741747144775a3851509117aae4a9774ec17a210534d3775b385c02e409",
+      "bytes": 11022
+    },
+    {
+      "path": "crates/sortsize-store/tests/qualification.rs",
+      "sha256": "310f8945cbb5dcd1a2d1c6bb31629f5b775e0a9c39a6bc638602665ce4352cbc",
+      "bytes": 10121
+    },
+    {
+      "path": "crates/sortsize-store/tests/reports.rs",
+      "sha256": "88ec563549f49097d3bede1b784d3c01df5d405e05c9f62668a9822579c469c3",
+      "bytes": 9290
+    },
+    {
+      "path": "crates/sortsize-store/tests/source_attachment.rs",
+      "sha256": "caed14a25c1759fb2053b86b3919837d578fe326aaa039732a9ef81fa3789d9c",
+      "bytes": 5275
+    },
+    {
+      "path": "crates/sortsize-store/tests/stack_integration.rs",
+      "sha256": "c6046012f486a98eb0dd71cbf9ab190c82fee2d1ced6b2b217f357f600224a49",
+      "bytes": 7062
+    },
+    {
+      "path": "crates/sortsize-store/tests/windows_acquisition_attachment.rs",
+      "sha256": "8b3efadc7e76ed37af44d5f2797e21c88cb42f84ca7b19b1eb3ea4d18cc43b63",
+      "bytes": 11761
+    },
+    {
+      "path": "crates/sortsize-store/tests/windows_store_placement.rs",
+      "sha256": "b49b8354c7d5324bdcac40f76e0755f6690e1dc2355aeddaaa8e7446c126c124",
+      "bytes": 12184
+    },
+    {
+      "path": "crates/sortsize-store/tests/workshop_properties.rs",
+      "sha256": "46518339990e75a8ddd8e8a8ab37d5d06794d458d14804bdb017b6b8ca180451",
+      "bytes": 3959
+    },
+    {
+      "path": "packaging/linux/bunny-and-size.desktop",
+      "sha256": "38c0ff9c61a540024c44d682e6f4f65ee7c8d6f3b0b2b576f0cc98a10da36e55",
+      "bytes": 429
+    },
+    {
+      "path": "packaging/windows/version-resource.rs",
+      "sha256": "36ed29c36ed69b04c2c34e873ceb841b508633885f64f02245706ba05cc8809f",
+      "bytes": 3951
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "sha256": "2ad6f15416572b4836585087f1d4abc53b8fa2dbd616f8dacfaa587ed6714228",
+      "bytes": 86
+    },
+    {
+      "path": "scripts/build_branding.py",
+      "sha256": "393b6b7303846ce6036853e5c0d09af3054eb28a2fadc1a0df4a0a942422ffa8",
+      "bytes": 1656
+    },
+    {
+      "path": "scripts/verify_artwork_rights.py",
+      "sha256": "dfe2bad1f6a00a7922b620922bdfe41806157583d91d25f161998f5f7be768ae",
+      "bytes": 2361
+    },
+    {
+      "path": "scripts/verify_redraw_vendor.py",
+      "sha256": "df5077c64f79a96ed1ba993c0db318fb0833d921b429fe553d73825addcc7292",
+      "bytes": 1900
+    },
+    {
+      "path": "spikes/slint/Cargo.lock",
+      "sha256": "520e675a2d72de1d91a5a2f99cd2273c928d8c6c60e730f9fe7d99d4e88d3830",
+      "bytes": 139686
+    },
+    {
+      "path": "spikes/slint/Cargo.toml",
+      "sha256": "0c247b0e7863366c11dd64169a2a613df60c4428f0c36261fbf2cdf59749043e",
+      "bytes": 4305
+    },
+    {
+      "path": "spikes/slint/README.md",
+      "sha256": "6d3eea8a21cebfde2bc7c1dcfa770c01252c4f281fb66158555471b605d126d8",
+      "bytes": 4210
+    },
+    {
+      "path": "spikes/slint/build.rs",
+      "sha256": "ffd04fb03fcbe3aa8da2f295561d9e546b868a338a4ba7f647e0fce9980657af",
+      "bytes": 2547
+    },
+    {
+      "path": "spikes/slint/lang/de/LC_MESSAGES/sortsize-slint-spike.po",
+      "sha256": "b62f274f27d37c46b1b4d87e3a07d0050d2ca09bc10469e4f6711fed5264c69b",
+      "bytes": 100517
+    },
+    {
+      "path": "spikes/slint/lang/es/LC_MESSAGES/sortsize-slint-spike.po",
+      "sha256": "1c12a7738c25fba6655ed1ab01e16f88d4f8d18f1e868bc0bccb179aadba8ed3",
+      "bytes": 100182
+    },
+    {
+      "path": "spikes/slint/lang/fr/LC_MESSAGES/sortsize-slint-spike.po",
+      "sha256": "ff55fd6ca09be957346e098bf0959dbaff18c182ad5498179c9b408dac5a7328",
+      "bytes": 101241
+    },
+    {
+      "path": "spikes/slint/lang/it/LC_MESSAGES/sortsize-slint-spike.po",
+      "sha256": "220082f50b9663c8d205d2cf3a22859c84e98b0afac5d8e554d252dd4922bfeb",
+      "bytes": 99721
+    },
+    {
+      "path": "spikes/slint/lang/nl/LC_MESSAGES/sortsize-slint-spike.po",
+      "sha256": "9eb988bb34cab0d59a7eba7d93805ae97bc5219506d46f874fda27e9860e677d",
+      "bytes": 98419
+    },
+    {
+      "path": "spikes/slint/lang/pt/LC_MESSAGES/sortsize-slint-spike.po",
+      "sha256": "1d7ec263cd8edbb2327e83c6ebe9a1d25debbe3acb4dbc25b4a11ffafe9a3f00",
+      "bytes": 99805
+    },
+    {
+      "path": "spikes/slint/lang/sortsize-slint-spike.pot",
+      "sha256": "ad08b4a7f76b52d02d41276d28141b52c64991c0b476644c8e4b1a011951af4b",
+      "bytes": 102646
+    },
+    {
+      "path": "spikes/slint/src/allocation_label.rs",
+      "sha256": "949eca323495013bac1f49dcac9760725ecffd55c55ae7ba536b4888c059ccde",
+      "bytes": 2872
+    },
+    {
+      "path": "spikes/slint/src/analysis_controller.rs",
+      "sha256": "7e55a16fcdbb4671674daae61fe3b66cfa447a1ac3212610c982329d47396975",
+      "bytes": 40488
+    },
+    {
+      "path": "spikes/slint/src/auto_analysis.rs",
+      "sha256": "8dc052dfbecfba9d57543915de8882a8425d46409e8d1e119feb1e0842175c64",
+      "bytes": 18091
+    },
+    {
+      "path": "spikes/slint/src/bin/cache-qualify.rs",
+      "sha256": "f565ff19bd6c52fe04e06924a2174e91796e587733391e085a2d1b79bde9a59e",
+      "bytes": 204
+    },
+    {
+      "path": "spikes/slint/src/bin/cached-a-qualify.rs",
+      "sha256": "eba276883d8bf26fe23f2352c8a49b73d103389561e0fb74e9b903f370f8e6e9",
+      "bytes": 632
+    },
+    {
+      "path": "spikes/slint/src/bin/i18n-harness.rs",
+      "sha256": "cd50e11f300a982b0ae6cc3fb01e9aa965f6f120e12254f0acad8277b833b684",
+      "bytes": 1152
+    },
+    {
+      "path": "spikes/slint/src/bin/l16-qualify.rs",
+      "sha256": "64bf17667914143bf87b24764676e28435958e649d3a7397ac288ff7f2adf2a4",
+      "bytes": 222
+    },
+    {
+      "path": "spikes/slint/src/bin/measure.rs",
+      "sha256": "91969c5292263032a4c43ff1d5b7147a97485588f53d7f3a2714a770293259b0",
+      "bytes": 97
+    },
+    {
+      "path": "spikes/slint/src/bin/preview-qualify.rs",
+      "sha256": "3e42527e364a95180e5119ab9b373a1e99ce77edd1d9403234670c726ca22fd6",
+      "bytes": 601
+    },
+    {
+      "path": "spikes/slint/src/bin/search-qualify.rs",
+      "sha256": "c2f82192092f26bb000de79e66cb0ab6a79e8dfd28399447afe9c11624d1a812",
+      "bytes": 281
+    },
+    {
+      "path": "spikes/slint/src/bin/workshop-preview.rs",
+      "sha256": "bafaf5fd1d8bff9928f2b32454c16b263de019876e32940d8dc4f1278efbc6c2",
+      "bytes": 391
+    },
+    {
+      "path": "spikes/slint/src/bin/workshop-qualify.rs",
+      "sha256": "43b9ece42e3355523a50e182a897d096908cfe1d8f76b6f31843b92c8d866360",
+      "bytes": 283
+    },
+    {
+      "path": "spikes/slint/src/catalog_generated.rs",
+      "sha256": "1f228fe0cbcbffe4e6bb2a461686d354b1b88bb9a0bd71ceb913f42497ce09f3",
+      "bytes": 366310
+    },
+    {
+      "path": "spikes/slint/src/current_folder_summary.rs",
+      "sha256": "6875e2d4d933db6a9a2fa1de72e1af83dbf3fbc7283db3bc6fae9fe0db80e159",
+      "bytes": 4803
+    },
+    {
+      "path": "spikes/slint/src/date_label.rs",
+      "sha256": "894b93cdd3057c43d6f67fe14e9e4824c99a5190f65aa736ccffcc40f2359887",
+      "bytes": 6233
+    },
+    {
+      "path": "spikes/slint/src/directory_controller.rs",
+      "sha256": "1874d8828bfa150f2dd9ab6e0f74f61d71ce553806ace21808a767c4db253e2e",
+      "bytes": 19046
+    },
+    {
+      "path": "spikes/slint/src/directory_worker.rs",
+      "sha256": "e9d442f69f2e901345c77451952cade00b2464135d307ad9113368932baa2469",
+      "bytes": 16840
+    },
+    {
+      "path": "spikes/slint/src/display_preferences.rs",
+      "sha256": "6ce4f090727e024ea1486a1706d15921659c3aa7ae95ee7a634d7362cd98a441",
+      "bytes": 32063
+    },
+    {
+      "path": "spikes/slint/src/folder_picker.rs",
+      "sha256": "ced58f7609f79ea047ee548cf3fff4f821a4b7c676a7e77f0cf3dc13903a695a",
+      "bytes": 904
+    },
+    {
+      "path": "spikes/slint/src/hover.rs",
+      "sha256": "9a9ce9ee72e2fe2d173042b2e21633682225de8b2778ce31bbb7b1c8f61e3e79",
+      "bytes": 4894
+    },
+    {
+      "path": "spikes/slint/src/i18n_harness.rs",
+      "sha256": "824cb762afc60835a5d31d3df39e917b61f22e3072f5bd0011c92fefbef7b083",
+      "bytes": 28973
+    },
+    {
+      "path": "spikes/slint/src/language_controller.rs",
+      "sha256": "24ae0788010e8106648d50da89731f34cf2567153d23b8adc1e5b816f382131e",
+      "bytes": 12335
+    },
+    {
+      "path": "spikes/slint/src/legal-notice-en.txt",
+      "sha256": "008d50572a67cf5c58a191bddab65ee54432eafff9e7f01f03f8070fb47647ff",
+      "bytes": 1108
+    },
+    {
+      "path": "spikes/slint/src/legal-notice.txt",
+      "sha256": "869dd388982a3c9ce533aebcb12ca8bd1c8fcdebbbf79dc2b92c707c072dade0",
+      "bytes": 1157
+    },
+    {
+      "path": "spikes/slint/src/lib.rs",
+      "sha256": "f0374a3202029a1d7c02190903517403a72ed46057f6e5cfc7de2871a68c5968",
+      "bytes": 108112
+    },
+    {
+      "path": "spikes/slint/src/locale.rs",
+      "sha256": "40094beaffdee27229b8e41d720c770e47369977ea577355cb7b6e30ecb13328",
+      "bytes": 9387
+    },
+    {
+      "path": "spikes/slint/src/main.rs",
+      "sha256": "be9f7aba6dfba1ae464b206a36d96cdcc85ee804ba29ba0d422404977e5d636f",
+      "bytes": 150
+    },
+    {
+      "path": "spikes/slint/src/measure.rs",
+      "sha256": "2f2d3db9638f59af5a5dc5bbbcb168d8243498da240b740e6d9ae02852dce5f6",
+      "bytes": 24420
+    },
+    {
+      "path": "spikes/slint/src/measure/allocations.rs",
+      "sha256": "0f06cdefca8adbb3bd1fc3b84b5c3cebef8a308c0f7c13c2b0e61659eae516f5",
+      "bytes": 2693
+    },
+    {
+      "path": "spikes/slint/src/measure/date_bench.rs",
+      "sha256": "d7772813133c2037109708067cb00c6ba0eb9c75532b7718b1e83b0c614fe093",
+      "bytes": 6309
+    },
+    {
+      "path": "spikes/slint/src/measure/display_bench.rs",
+      "sha256": "7f51e6cdd876404047b88c0c61a3414cd09eec49439dcd8af54b6b586f5b3291",
+      "bytes": 5279
+    },
+    {
+      "path": "spikes/slint/src/measure/loop_trace.rs",
+      "sha256": "d1436d5357d84a305fba5e27fba4af8251ae903f1badc9d488dba4c227310820",
+      "bytes": 7306
+    },
+    {
+      "path": "spikes/slint/src/measure/volume_bench.rs",
+      "sha256": "fc2cfccc2a4cb29992b9ef3f99de5e48115d2b0987efa715320e907eb56fe655",
+      "bytes": 7649
+    },
+    {
+      "path": "spikes/slint/src/measure/windows.rs",
+      "sha256": "92b45ca573cf7bc4274a03a0130e72f4dab36bcb56b19a4b634eff9fed8676a4",
+      "bytes": 6081
+    },
+    {
+      "path": "spikes/slint/src/measure/windows_memory.rs",
+      "sha256": "f53671e4d78d520c4674f49bded090f09930c0e8d9ef563d186ddee1c4c758ed",
+      "bytes": 2955
+    },
+    {
+      "path": "spikes/slint/src/number_format.rs",
+      "sha256": "7430a0cb0111e110fdf251c3265539afa454aa678e62a69ccb2f5f7ddabc3362",
+      "bytes": 2899
+    },
+    {
+      "path": "spikes/slint/src/owner_controller.rs",
+      "sha256": "b37b06ab1204adb5372ae3dadbd9945b221be4db2a3bccb86674374b3bd5ed34",
+      "bytes": 7468
+    },
+    {
+      "path": "spikes/slint/src/owner_view.rs",
+      "sha256": "3d4f86008a661ad76cf7a53fc0cfb8ce69bc593a8d9eafff993c75f07c90d571",
+      "bytes": 15943
+    },
+    {
+      "path": "spikes/slint/src/owner_view/tests.rs",
+      "sha256": "238a383c33b91b0cbaa5c6689e063754e11ee9742ddbe66d71f13bdb9392de23",
+      "bytes": 12239
+    },
+    {
+      "path": "spikes/slint/src/path_input.rs",
+      "sha256": "c3f9bf2646a3ad5f7ecdeaf7e16e756255c0e367fb5ad20b241af52b359d1f59",
+      "bytes": 2283
+    },
+    {
+      "path": "spikes/slint/src/preferences_store.rs",
+      "sha256": "9768aebf436f9223343b41f9d33d6a603cb3e623a5a03400d3cae8243e98024d",
+      "bytes": 19568
+    },
+    {
+      "path": "spikes/slint/src/presentation.rs",
+      "sha256": "557559d595ffc4f83a45938bbef7c5ea72f86e92d65b0838b40086aca83e84bf",
+      "bytes": 10509
+    },
+    {
+      "path": "spikes/slint/src/source_dialog.rs",
+      "sha256": "80a3b616cbef61d34a558ac6496631e516baf952667d7012310dccbacc1fdf60",
+      "bytes": 8152
+    },
+    {
+      "path": "spikes/slint/src/source_registry.rs",
+      "sha256": "4f55a2c5ea3c88cff9c16c56da8f67f5d0d2cc9c28db481e2e003368fa4f7e53",
+      "bytes": 63347
+    },
+    {
+      "path": "spikes/slint/src/tests/analysis_gui_tests.rs",
+      "sha256": "3b28f0dd3a00c174bd176d6bbd1b268dfe6e0ed618b3d386a02bb5b759dcfbcd",
+      "bytes": 22002
+    },
+    {
+      "path": "spikes/slint/src/tests/branding_gui_tests.rs",
+      "sha256": "43adcd1f66879bb9d2268a34d8619dc418b3030c681324333c2079dc5cf8e924",
+      "bytes": 3527
+    },
+    {
+      "path": "spikes/slint/src/tests/display_gui_tests.rs",
+      "sha256": "1dbf8f7784d623cc64c775d2ce90c073d21ddbe1a023ab8c305011503dc1beac",
+      "bytes": 23195
+    },
+    {
+      "path": "spikes/slint/src/tests/gauge_gui_tests.rs",
+      "sha256": "2760d6b25e58f4c3da03f956b8f0151afba6147761237495d09a4023d079f5ee",
+      "bytes": 8870
+    },
+    {
+      "path": "spikes/slint/src/tests/hover_callback_tests.rs",
+      "sha256": "e1142af3536eec50d2f6f45642188aa8f074c28f54f0f9f1b044d498f29de73f",
+      "bytes": 2027
+    },
+    {
+      "path": "spikes/slint/src/tests/hover_gui_tests.rs",
+      "sha256": "9d6494dfe2b9c89ce0d7f0fe020c7f8635a7934010a5f1b0bdc5fb30aa00e7d5",
+      "bytes": 11460
+    },
+    {
+      "path": "spikes/slint/src/tests/i18n_gui_tests.rs",
+      "sha256": "095b43a7452f0364a23aece65069498c813f25c12c137acd64c20e6f326b27cb",
+      "bytes": 10050
+    },
+    {
+      "path": "spikes/slint/src/tests/language_gui_tests.rs",
+      "sha256": "e71446f1dcbb956d3cde431c64a3484b21a67e1679622e974a2273cde4d4569a",
+      "bytes": 40664
+    },
+    {
+      "path": "spikes/slint/src/tests/ondemand_gui_tests.rs",
+      "sha256": "d8483d619de819b4ce79b2f3bfcdb78ea60ed0fb1217534954c53306f55ecc57",
+      "bytes": 22286
+    },
+    {
+      "path": "spikes/slint/src/tests/owner_gui_tests.rs",
+      "sha256": "8afa233169125813f357e673686626c86e854cc00855714fc0625c01d78a6e8f",
+      "bytes": 11193
+    },
+    {
+      "path": "spikes/slint/src/tests/progressive_gui_tests.rs",
+      "sha256": "c0b8b6249234bf5f2c1a99014e28bdb9d00a6919bf61fe391bff7b5cb92ff801",
+      "bytes": 9407
+    },
+    {
+      "path": "spikes/slint/src/tests/size_units_gui_tests.rs",
+      "sha256": "8618801ea3ec29863309150ba0c38eff20b6b85b6bc0f079f71bd378b050ce47",
+      "bytes": 4373
+    },
+    {
+      "path": "spikes/slint/src/tests/smb_server_gui_tests.rs",
+      "sha256": "47bc61d006a03d885fff13eb4787d8b1624e584806bee201c2217e780e51a883",
+      "bytes": 8806
+    },
+    {
+      "path": "spikes/slint/src/tests/source_gui_tests.rs",
+      "sha256": "352a84bdd382184842d193ddf42627752dc6b2ba641480b8b4a52e267bcd3087",
+      "bytes": 23171
+    },
+    {
+      "path": "spikes/slint/src/tests/temporal_gui_tests.rs",
+      "sha256": "1f60c250b28b9f6bbf521a269803dd7ec2f1f6814d4f8cbde293ad1c89a428f1",
+      "bytes": 10961
+    },
+    {
+      "path": "spikes/slint/src/tests/toolbar_gui_tests.rs",
+      "sha256": "b4f704f41b6558547e8c59f05c7abe830d9a447ab8756e7c42e8f1b6f0f7565b",
+      "bytes": 19430
+    },
+    {
+      "path": "spikes/slint/src/tests/ux_final_gui_tests.rs",
+      "sha256": "1564d7d2858050d2c108d1f0cace845f229dd552d55a6ce9237348ffeddc63cb",
+      "bytes": 37361
+    },
+    {
+      "path": "spikes/slint/src/tests/view_preferences_gui_tests.rs",
+      "sha256": "51aa7ef1f3cc8075d350f0b573d74567a25cf1f548791f5403023480b975e8ee",
+      "bytes": 13675
+    },
+    {
+      "path": "spikes/slint/src/tests/volume_gui_tests.rs",
+      "sha256": "9e5bcb819bfb32b5a1f05577b79b6cd22ddcc4892311bb77b0b117eb541e1225",
+      "bytes": 32345
+    },
+    {
+      "path": "spikes/slint/src/tests/windows_redraw_product.rs",
+      "sha256": "26959ce58e834a9c613615bb6b301bdc6b7f2497aea94cc779528bf1937e588a",
+      "bytes": 27496
+    },
+    {
+      "path": "spikes/slint/src/tree.rs",
+      "sha256": "1f53a0dc866b8036d74e3758751f24dc36b1d73ee7a6816c9e27fc66a02a8a7a",
+      "bytes": 79522
+    },
+    {
+      "path": "spikes/slint/src/tree/allocated_sort_tests.rs",
+      "sha256": "6ac52fc056f927824361275b2963d45866bf17539b1bf6e8ee949e2fe899f302",
+      "bytes": 11417
+    },
+    {
+      "path": "spikes/slint/src/tree/allocation_tests.rs",
+      "sha256": "091e2c418bb8e423c860eb5a009bbc6e3d3429ccadd72aa15ee3c01120cd7b5a",
+      "bytes": 12532
+    },
+    {
+      "path": "spikes/slint/src/tree/date_tests.rs",
+      "sha256": "28e7709203d82d5e5a9ee69fd30bcbaf2fadd683ef1c71b0dd3a97349d5a713f",
+      "bytes": 9558
+    },
+    {
+      "path": "spikes/slint/src/tree/progressive.rs",
+      "sha256": "8fdac3c852464c1fd95f27482c95a78b25b3be86404acc90b62047116db82038",
+      "bytes": 9269
+    },
+    {
+      "path": "spikes/slint/src/tree/temporal_sort_tests.rs",
+      "sha256": "3b8de255c1b7e27bff7a3ebea10f57d3f55d4b4655b956ec988b80c128bbb610",
+      "bytes": 11666
+    },
+    {
+      "path": "spikes/slint/src/treemap.rs",
+      "sha256": "9e25cf7528707244dfe2e4b06c490ffccbd011b5c1c0b9c8222eff4707566c5e",
+      "bytes": 13655
+    },
+    {
+      "path": "spikes/slint/src/units.rs",
+      "sha256": "b79d2e90cc36d3219cbef11d50d644161f823857f66ac34978e9663804a06733",
+      "bytes": 6844
+    },
+    {
+      "path": "spikes/slint/src/volume_view.rs",
+      "sha256": "ef8ebfb3b5e7b7760e2037abefc31514d942225ba7a58670632efdc636a56958",
+      "bytes": 25850
+    },
+    {
+      "path": "spikes/slint/src/window_placement.rs",
+      "sha256": "2b7e21a6df2ef630e6a2e10245c4a69391fa7f7567742e69b2c107a3d75ee718",
+      "bytes": 5967
+    },
+    {
+      "path": "spikes/slint/src/windows_context_menu.rs",
+      "sha256": "653c9d127359d352d61c58eee52f72dcc14c469adf2abd3d3d2592a288a95f90",
+      "bytes": 19936
+    },
+    {
+      "path": "spikes/slint/src/windows_context_menu/operations.rs",
+      "sha256": "ea79ffd1a0e426729907f868468dc2665ecd3da276f7c4e5b8513f6704d68e9e",
+      "bytes": 8239
+    },
+    {
+      "path": "spikes/slint/src/worker.rs",
+      "sha256": "158a35c4aa6637b3814412303f833d734a7d2827cd10907d48df8f2700d948a7",
+      "bytes": 29405
+    },
+    {
+      "path": "spikes/slint/src/workshop/auto_analysis_tests.rs",
+      "sha256": "47a341d2ee4b4e219fb716bf9450db251b74c720940ed30bd92e2007864ab162",
+      "bytes": 97748
+    },
+    {
+      "path": "spikes/slint/src/workshop/auto_inventory.rs",
+      "sha256": "bf5ab960994f635736173aed7508247612e9d9642a49d85ef1b043a08ae31765",
+      "bytes": 18605
+    },
+    {
+      "path": "spikes/slint/src/workshop/cache.rs",
+      "sha256": "17d2bd8682f703ab5af44ff3e7a8be1b925e79ca3f049e339fa132ca4f031151",
+      "bytes": 65428
+    },
+    {
+      "path": "spikes/slint/src/workshop/cache/deletion.rs",
+      "sha256": "98e115d58c363cc9db97dc1b65719503d3e3ba716a4385290b626d1c6a233c02",
+      "bytes": 4307
+    },
+    {
+      "path": "spikes/slint/src/workshop/cache/history.rs",
+      "sha256": "8cdbfdacd84c9b9424a40c285a7982c13250f9a1dc8fe2d9824eca43ebb34471",
+      "bytes": 10863
+    },
+    {
+      "path": "spikes/slint/src/workshop/cache_qualification.rs",
+      "sha256": "de4a4da18493369247405bc92ab5a18f07dc442dec880c0c3089ac3c02aa2c26",
+      "bytes": 6016
+    },
+    {
+      "path": "spikes/slint/src/workshop/cached_a_qualification.rs",
+      "sha256": "fc0b1e4ba92862aa5094e9e723534019775a45d2814f25f119f6fb70d6639f34",
+      "bytes": 30554
+    },
+    {
+      "path": "spikes/slint/src/workshop/compact_tree_tests.rs",
+      "sha256": "733f97156b88d84ff0a495b89c98bbf75bdea2715f91ad1619f642d981b28051",
+      "bytes": 17498
+    },
+    {
+      "path": "spikes/slint/src/workshop/direct.rs",
+      "sha256": "928672df8f8fa733a7deac8bf81646dc902b1f606eac40cf721ace8fa153aeaa",
+      "bytes": 74845
+    },
+    {
+      "path": "spikes/slint/src/workshop/direct/branches.rs",
+      "sha256": "c83aa4fd60b8c45f5db809f589bc90f07c83094a8e7110a9bba870d1c7d85a43",
+      "bytes": 6284
+    },
+    {
+      "path": "spikes/slint/src/workshop/direct/query.rs",
+      "sha256": "b6144129a92b1060ea9bde9210a94c78343c71c8a105e2c3b9de0f57f6c87238",
+      "bytes": 19993
+    },
+    {
+      "path": "spikes/slint/src/workshop/direct/reload.rs",
+      "sha256": "749bbc64ea6f62365cf8a5edc66f9b3cc2ce675932501370534b1ead825b8c99",
+      "bytes": 5466
+    },
+    {
+      "path": "spikes/slint/src/workshop/disconnect.rs",
+      "sha256": "02848712488b30cd536d4a240a794c25e3efdad042ab1634685622a25ffae55f",
+      "bytes": 34898
+    },
+    {
+      "path": "spikes/slint/src/workshop/disconnect_tests.rs",
+      "sha256": "427d3e1f6792b1913b209329991432432c392f966547bf1d646eeb40de8e97c6",
+      "bytes": 30500
+    },
+    {
+      "path": "spikes/slint/src/workshop/disconnect_ui_tests.rs",
+      "sha256": "9f1e8785a062c259e6f246fd4cc78680dd7fee975c0b9b941e2f3671500d2f6a",
+      "bytes": 53752
+    },
+    {
+      "path": "spikes/slint/src/workshop/duplicate_ui.rs",
+      "sha256": "13b2e9c77fbd44e514a1bc0370eace692dd5a10748d5a35290254a4a4e52458b",
+      "bytes": 99936
+    },
+    {
+      "path": "spikes/slint/src/workshop/duplicates.rs",
+      "sha256": "ebcf80454366899a94e73fc46daf23473ad21aa1b4f37b80e820995cacb4e75a",
+      "bytes": 149691
+    },
+    {
+      "path": "spikes/slint/src/workshop/empty_analysis.rs",
+      "sha256": "4fb021d6c562f40f36e284423541590568cb37ed4c5b8bad7cfd6f479c963412",
+      "bytes": 21466
+    },
+    {
+      "path": "spikes/slint/src/workshop/finish_qualification.rs",
+      "sha256": "e85f36a4d7966f379925b1cdf99d62eee1e657eead99668bfab6052e60f31c9e",
+      "bytes": 8523
+    },
+    {
+      "path": "spikes/slint/src/workshop/folder_tree.rs",
+      "sha256": "21822e58fbca805490db3913e3ece82c1dc0b8c6d253cfe319ebf5c2cb26c464",
+      "bytes": 26742
+    },
+    {
+      "path": "spikes/slint/src/workshop/mod.rs",
+      "sha256": "29c4c88fdda420bca0324521badd6f5276481105886edc183a7bdd6270c98c3e",
+      "bytes": 106577
+    },
+    {
+      "path": "spikes/slint/src/workshop/native_duplicate_priority_test.rs",
+      "sha256": "3257e29beb92a0a795c9b20c425d8f25bf21b7c7d0223d76e8376fdb13e839c1",
+      "bytes": 12775
+    },
+    {
+      "path": "spikes/slint/src/workshop/navigation_tests.rs",
+      "sha256": "0751af8ac1f0fd8469a3c530a0b16b257f0b81e94b4560c05ba4bd7a7e9d4f94",
+      "bytes": 28223
+    },
+    {
+      "path": "spikes/slint/src/workshop/owners.rs",
+      "sha256": "9d8f57e85542c4afdf545d870f966090b16b5e20c96424e6fcab8f9893aad102",
+      "bytes": 5474
+    },
+    {
+      "path": "spikes/slint/src/workshop/preview_qualification.rs",
+      "sha256": "244a257cfc84307f2898323e9dd54130ae73119bbb5c626850223443fa852308",
+      "bytes": 8954
+    },
+    {
+      "path": "spikes/slint/src/workshop/progress_tests.rs",
+      "sha256": "fcd290f4f04ea8b30e0ae6b2b75d54e93f565159fb709caeece243c724c2dfde",
+      "bytes": 10756
+    },
+    {
+      "path": "spikes/slint/src/workshop/qualification.rs",
+      "sha256": "18848df3cc058b463a2617e6c44dff76dcb0e98d0b786b0c1643b082ad634219",
+      "bytes": 9488
+    },
+    {
+      "path": "spikes/slint/src/workshop/reader.rs",
+      "sha256": "ed0eeba3e28823bf0305d5448e4b8c7c4ad3e68acf12c764a14581e00fdc6448",
+      "bytes": 18915
+    },
+    {
+      "path": "spikes/slint/src/workshop/scan_p1.rs",
+      "sha256": "592835e2381964028461aa9c29ed709ab9857134dd68d1372b4fe5ea16fa54e3",
+      "bytes": 18959
+    },
+    {
+      "path": "spikes/slint/src/workshop/scan_p1/progress_trace.rs",
+      "sha256": "75a7b9aa2b8a46bb7542c9c78fd10aa765069b552a604cd5bd35009573f42985",
+      "bytes": 20480
+    },
+    {
+      "path": "spikes/slint/src/workshop/scan_p3.rs",
+      "sha256": "d5d29cdbfc7e625a1987f5286064c3a2096903d0ceaeb8b4ce2efb9e633ebcb1",
+      "bytes": 736
+    },
+    {
+      "path": "spikes/slint/src/workshop/search.rs",
+      "sha256": "c7cb5e5f2ea0a8146257384108358024302e5866c1f494840ad7f3d46b977388",
+      "bytes": 42947
+    },
+    {
+      "path": "spikes/slint/src/workshop/search_qualification.rs",
+      "sha256": "b85391f2bbc4ce7be67ec7c6696864fb42abb1de3c08d6e0a3205fe33728b2df",
+      "bytes": 8009
+    },
+    {
+      "path": "spikes/slint/src/workshop/server_ui.rs",
+      "sha256": "04132a2d0b9991274a92ff05557b35b065055289d45d8809fb867ecb4fdd453e",
+      "bytes": 34774
+    },
+    {
+      "path": "spikes/slint/src/workshop/service.rs",
+      "sha256": "d8149425c237504f381addf79927bf9d87b04962bf88ce512953170c933876ea",
+      "bytes": 251430
+    },
+    {
+      "path": "spikes/slint/src/workshop/service_tests.rs",
+      "sha256": "830860d31661748239ae583cb3055cfe98cd03410866a8fa627d9566e6698824",
+      "bytes": 135042
+    },
+    {
+      "path": "spikes/slint/src/workshop/size_sort_ui_tests.rs",
+      "sha256": "d66d249f512d70d53300b8e64cb47ffb1bf2faf25f403346662a98d20b281c7e",
+      "bytes": 10409
+    },
+    {
+      "path": "spikes/slint/src/workshop/smb_server.rs",
+      "sha256": "50a301120faad8d7f9577b20ecfca0165828150fcdf13d38a4d1715b2f37d0ae",
+      "bytes": 40005
+    },
+    {
+      "path": "spikes/slint/src/workshop/tests.rs",
+      "sha256": "caa454cd6f4657c0d151bdecb386af80de2cf487c2ae34cf2142dca127ca178b",
+      "bytes": 142284
+    },
+    {
+      "path": "spikes/slint/src/workshop/windows_owners.rs",
+      "sha256": "23d40d97620f0e369bfe2649a07ad21044f833855b40b62b9c694c1a4c941216",
+      "bytes": 21709
+    },
+    {
+      "path": "spikes/slint/tests/add_source_dialog.rs",
+      "sha256": "8938e7b2f11d1c11d62b79b5e6dd6694e15aa8e58f9b682e391d1cb2054fd1a6",
+      "bytes": 14114
+    },
+    {
+      "path": "spikes/slint/tests/compact_sources.rs",
+      "sha256": "bd5e052478b2805c8c268be27e8658488c57de974b69e159712c2b98a49338e9",
+      "bytes": 10740
+    },
+    {
+      "path": "spikes/slint/tests/duplicate_folder_groups.rs",
+      "sha256": "caf81a71b1af06ae07325e52e9a72940800d030421d87e6f8a4bd51666596706",
+      "bytes": 13569
+    },
+    {
+      "path": "spikes/slint/tests/fixtures/i18n/i18n_pilot.slint",
+      "sha256": "22ee11207ba38ffb0b3cce87c660b91b26bb214f6cfe5758adaddba20899e444",
+      "bytes": 627
+    },
+    {
+      "path": "spikes/slint/tests/fixtures/i18n/l16-pseudo.po",
+      "sha256": "bbd025c1617113546274f991a09a15ec78f28789d0cc99f3e26ca4f466b69265",
+      "bytes": 58274
+    },
+    {
+      "path": "spikes/slint/tests/fixtures/i18n/lang/fr/LC_MESSAGES/sortsize-slint-spike.po",
+      "sha256": "19531a83fda39c8b0ab45dbc6ac132da65fb0c26ebe87624d6265aa93138a510",
+      "bytes": 567
+    },
+    {
+      "path": "spikes/slint/tests/fixtures/i18n/pilot.pot",
+      "sha256": "e33a562d6605885a48f7d3c3f957877dd15c408d03f05e0f286659541458ee57",
+      "bytes": 868
+    },
+    {
+      "path": "spikes/slint/tests/fixtures/preferences/display-v1.conf",
+      "sha256": "2d969586b06e966a9088e7f2efd5ada356cc0011ace7b0be029f2d83c613040f",
+      "bytes": 40
+    },
+    {
+      "path": "spikes/slint/tests/i18n_pilot.rs",
+      "sha256": "f8a4e3b3208ac4e091d3bfc555fd688476d403d7b6ec499193183069e4e91346",
+      "bytes": 4238
+    },
+    {
+      "path": "spikes/slint/tests/i18n_product.rs",
+      "sha256": "bc731d13cffbab462f0b558951a46ae67729c6ffa3e509154c905f373e0c68a8",
+      "bytes": 2713
+    },
+    {
+      "path": "spikes/slint/tests/network_disconnect_dialog.rs",
+      "sha256": "2a2f785c04482e82b264c14297a050a2cec218d3c803cb83f6abf2f4f3a9c4d9",
+      "bytes": 4077
+    },
+    {
+      "path": "spikes/slint/tests/network_source_menu.rs",
+      "sha256": "7f8ff919f59cb4e7fbb712b8ba6336ca37d29120086d737eeeb305c5cc28893a",
+      "bytes": 6273
+    },
+    {
+      "path": "spikes/slint/tests/smb_server_dialog.rs",
+      "sha256": "1ccce5fd56a625a5ddccb13bbd13db63f5c8eb89bb5d690be94494d3bdfb2eb6",
+      "bytes": 5639
+    },
+    {
+      "path": "spikes/slint/tests/ubuntu_source_dialog.rs",
+      "sha256": "732a19f993d87675f3553179690b4c97e925442b6d90410781059beb6dfd934f",
+      "bytes": 5929
+    },
+    {
+      "path": "spikes/slint/tests/view_header.rs",
+      "sha256": "9f3ef6cbcc79e80f75f1407c231ece84c92e3f2b59ead9c9109c54ff897fe4f2",
+      "bytes": 6318
+    },
+    {
+      "path": "spikes/slint/tests/windows_redraw.rs",
+      "sha256": "3c247f810843a92ebc9024ad3aaa615dc34d386b6385f6f723f2dd694061a384",
+      "bytes": 6879
+    },
+    {
+      "path": "spikes/slint/ui/icons/ribbon-down.svg",
+      "sha256": "b7e57476f13ec04d9a356e5e3d7febf1eeee7c5e54e6983cadf11e8f88d6359a",
+      "bytes": 232
+    },
+    {
+      "path": "spikes/slint/ui/icons/ribbon-right.svg",
+      "sha256": "a30588f46883b0b3aa08bb562dd5d10fc893ca818606262ab5b1448a10f17844",
+      "bytes": 232
+    },
+    {
+      "path": "spikes/slint/ui/main.slint",
+      "sha256": "4b756c46f3b11bfb2c5d76e4662145d0ff291e68610e28be13665c360afcbf8c",
+      "bytes": 303422
+    },
+    {
+      "path": "spikes/slint/ui/rust-messages.slint",
+      "sha256": "9b90ecb628f63d776ea3ff3243d42e3319dd140bf47a701ef23637ad0be016b7",
+      "bytes": 42601
+    },
+    {
+      "path": "vendor/.gitattributes",
+      "sha256": "9229b57ab6d93285aa23c252f5cd9f936a61ece509190fd3b1a073038d075b33",
+      "bytes": 169
+    },
+    {
+      "path": "vendor/README.md",
+      "sha256": "b0a61302724baba114b264c212fe804f7b66f9f26ffa9e6a7ecbac419da3f0d7",
+      "bytes": 3370
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/.cargo_vcs_info.json",
+      "sha256": "621a8b277600987be0ef456d62e48b4e8a26444fd0225b351539bd4866f1fda7",
+      "bytes": 117
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/Cargo.lock",
+      "sha256": "ea8da489ecb4da60be5b29a6adc047851a41a9482efd5d0b6345b0d6a8f5ba58",
+      "bytes": 146276
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/Cargo.toml",
+      "sha256": "e6618ef8f07f3e33ba37e2976da6257aec63562566fd29a22072921267372296",
+      "bytes": 9734
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/Cargo.toml.orig",
+      "sha256": "f7e30e9a6462999142173799b3d6ba8bef25b14075e5b37d3e5ec2a1a06cc3cf",
+      "bytes": 7960
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/LICENSES/GPL-3.0-only.txt",
+      "sha256": "b6a8bf63ae2c95b0aa256ee774680d7bd18f21f457da75466f7610b3b16acc4e",
+      "bytes": 34670
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/LICENSES/LicenseRef-Slint-Royalty-free-2.0.md",
+      "sha256": "5167f5056e850419106ab6265efbdca7cba4d99c849d1445ca0bbf6a1e2315fe",
+      "bytes": 3620
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/LICENSES/LicenseRef-Slint-Software-3.0.md",
+      "sha256": "a235744b92f4453fe18e081e54f29468a6a9db6a44e9a8f6364a48001ba4f10f",
+      "bytes": 9187
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/README.md",
+      "sha256": "33ab6ce2a78c00ebac23f795f7429ec54daad0b0073f8223b86cde80d2693d7a",
+      "bytes": 2137
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/accesskit.rs",
+      "sha256": "51bd1a5cd163f70957e2a0856a9b7cba7eb725ae38c371306dd4ac21c08b0cda",
+      "bytes": 40586
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/build.rs",
+      "sha256": "ea6cfce0f3ed5d21a8cf29a1697df579d219424c1c77413c3889014c996678e3",
+      "bytes": 1289
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/clipboard.rs",
+      "sha256": "236bb8f20aee7760a5ef6945057a0d72a6d2b77309edd8cbdb82595581fad9b1",
+      "bytes": 4874
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/drag_resize_window.rs",
+      "sha256": "95ca38a1eae32eaaa6a2d6064554263392793ce3eea85c5dcce7e8ebbdc4eaea",
+      "bytes": 3116
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/event_loop.rs",
+      "sha256": "07d94cfca3b5174082ff033a3f376a1b9f93ba2a6f8c8b5f628af55ad6c4bf79",
+      "bytes": 14303
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/frame_throttle.rs",
+      "sha256": "18ada83382ebd694c108fe25afa7fa50901f6411d257cd9811b3533b253993f5",
+      "bytes": 2957
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/frame_throttle/apple_display_link.rs",
+      "sha256": "6b8a4dd77a94e7e8103207f86c2f99f7056201142c0faa6d0d2ebcb59f5adc68",
+      "bytes": 6863
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/ios.rs",
+      "sha256": "db09a90b1dc64100b4a780f10520e41bc609a5e86793eb087df9a93e4b4f23bd",
+      "bytes": 809
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/ios/clipboard.rs",
+      "sha256": "d6772ebbe89af95c3983ff829640527ede60ec5a9d58a3b126431088432682d4",
+      "bytes": 923
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/ios/color_scheme.rs",
+      "sha256": "111b95ef4d8dfac2ff49881f8d5f5f28b4f7a5b72af21b612d87ee764281db6c",
+      "bytes": 1619
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/ios/font_size.rs",
+      "sha256": "6098a074843e246590de06b2010b2a7e9555e8b4520c2bbb8841796301e40930",
+      "bytes": 1692
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/ios/keyboard_animator.rs",
+      "sha256": "518e8fde2212f9db92bf5f905c3ae98f2bff1729680c4dcd98a72db6c3b48deb",
+      "bytes": 5144
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/ios/scene.rs",
+      "sha256": "c278ca3c241ac048edb4486419944899b823a525ad06d6419b6029bc64eba85e",
+      "bytes": 6945
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/ios/trait_observer.rs",
+      "sha256": "1e457704a553db847a0a51c5c4af7fc642f99e98ef41662792bfee60568e104c",
+      "bytes": 2087
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/ios/virtual_keyboard.rs",
+      "sha256": "d0350f3788fc73f95f6c922fc3e6f10b83fa8c782a34b710d1070a12fd8e6e4f",
+      "bytes": 5056
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/lib.rs",
+      "sha256": "64a20a1ebc3c4a38e4d0faf582ec1cafc8025ee31dd2adc2ed8daa9523cfa43f",
+      "bytes": 58835
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/macos.rs",
+      "sha256": "edc06fd902fb2b5c3f6cf15b3bf66f0fce9e6a06ab954dfd3d23462eadd4e495",
+      "bytes": 2029
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/muda.rs",
+      "sha256": "92be1f3d8a88bcbaba57848a1fc9b0dbfd75c71da04fb5544640d64dfa798c3b",
+      "bytes": 16955
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/presentation_probe.rs",
+      "sha256": "ad76625c1adf25b290071a4a55789324264ae9d10cdbdedbf2cb80c7678b3ce0",
+      "bytes": 1678
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/renderer/femtovg.rs",
+      "sha256": "74eae88944ae3880dc4081d01a2fdf465d889c34e8713f74115e8fde7e49975e",
+      "bytes": 12556
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/renderer/femtovg/glcontext.rs",
+      "sha256": "db91d902e9fbe4ebbf20ba34a679db9d23dc39d566374f87ff53e942e7a949ac",
+      "bytes": 9114
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/renderer/femtovg/glprobe.rs",
+      "sha256": "3b981a2fd77b4657c4e1e3645ccf920fb0a3af992191435bd99ebe563278c268",
+      "bytes": 4759
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/renderer/skia.rs",
+      "sha256": "a90a30c9f8fbd64c5b25a886007121cff4ed20bb6572d203fdbbcf626916b9dd",
+      "bytes": 8455
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/renderer/sw.rs",
+      "sha256": "6687906b31f3f692d311dd951349da9d0b3aebaa4ec28adcd6f97f34717e2699",
+      "bytes": 8112
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/renderer/vello.rs",
+      "sha256": "5ad1fff87c54440fdd587553dedbeb729733e44660d338f425982d98f0abf96d",
+      "bytes": 3229
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/tests/hide_from_window_event.rs",
+      "sha256": "04bbe846d7c9f4c03d7dfdf89e21a5ec4f4b884d44678439712f0c5a8f728162",
+      "bytes": 2935
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/tests/hide_with_external_reference.rs",
+      "sha256": "90567ed5a37dd226a07107b37b6839f1f7bdb59d379bb4a017015c006facfe3d",
+      "bytes": 2250
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/tests/menubar_borrow.rs",
+      "sha256": "cd666242848b2a44750bdd7f08efa186f84c96d92d67ca686f7213ae2a92391b",
+      "bytes": 1436
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/touch_finger_id.rs",
+      "sha256": "35fc05e2d4a4f393f345a553ef6926f2205d6bec39113a28a213da6fc34ea004",
+      "bytes": 3845
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/wasm_input_helper.rs",
+      "sha256": "39aca0ae04fd9c4ccd7b2af8bbfaf7f8608b81a2b341a9c4d3009765202b21c9",
+      "bytes": 15747
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/winit_compat.rs",
+      "sha256": "40af01b306eabdc5570f819be21b4dbeed6d872e79089aa38f1fe6c232d1c037",
+      "bytes": 895
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/winitwindowadapter.rs",
+      "sha256": "67893c6edf7d09d6cfaaa3a45c7ac67202ac81dd6f58672f5bc4670a31486df5",
+      "bytes": 107258
+    },
+    {
+      "path": "vendor/i-slint-backend-winit-1.18.1/xdg_desktop_settings.rs",
+      "sha256": "5991dafd7e1af9507e1be078f4e006d14667e845fdc5f3687f04584221d5fcb1",
+      "bytes": 11342
+    },
+    {
+      "path": "vendor/preview-presentation-probe.patch",
+      "sha256": "f79f7d03612ba56a4cecaa41806b37ac14307ed962ea63f8977f40d27eec37f6",
+      "bytes": 3613
+    },
+    {
+      "path": "vendor/provenance.json",
+      "sha256": "3827581bee43cd954f86ccf3ccf834614313b48acbaf2d1012ff5a916f03ecb8",
+      "bytes": 8483
+    },
+    {
+      "path": "vendor/windows-redraw-94.patch",
+      "sha256": "7aa321ef233c66bea10fe703e85d962f2dde4b99880ca428804c258e1ec551c2",
+      "bytes": 2843
+    }
+  ],
+  "cargo_vendor": {
+    "packages": 554,
+    "files_verified": 27464
+  },
+  "enabled_feature_graph": {
+    "resolved_at": "6d2ba30ef3fb01d83e48b39d694a54f9ec7858e7",
+    "applies_to": "2fa7ffedc6c7f1cf8e9136d36e04339b691db592",
+    "lock_sha256": {
+      "Cargo.lock": "49b6a4c23e469d4e4d876e117a2144b36e6cb90f5b5ea7b6a5f87c223b2eaa97",
+      "spikes/slint/Cargo.lock": "520e675a2d72de1d91a5a2f99cd2273c928d8c6c60e730f9fe7d99d4e88d3830"
+    },
+    "package_counts": {
+      "linux": 349,
+      "windows": 297
+    }
+  }
+}

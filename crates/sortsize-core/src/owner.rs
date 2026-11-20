@@ -171,6 +171,24 @@ pub struct EntryOwner {
 }
 
 impl EntryOwner {
+    /// Read only this Windows object's security owner, without traversing a
+    /// directory or resolving an account. Call on a worker: remote I/O may block.
+    /// The final reparse point is opened itself, never its target.
+    #[cfg(windows)]
+    pub fn query_windows_path(path: &std::path::Path) -> Self {
+        use std::os::windows::fs::OpenOptionsExt;
+        use windows_sys::Win32::Storage::FileSystem::*;
+        match std::fs::OpenOptions::new()
+            .access_mode(READ_CONTROL)
+            .share_mode(FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE)
+            .custom_flags(FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OPEN_REPARSE_POINT)
+            .open(path)
+        {
+            Ok(file) => windows::collect(&file),
+            Err(error) => windows::missing(error.raw_os_error().unwrap_or(0) as u32),
+        }
+    }
+
     pub const fn not_collected() -> Self {
         Self {
             id: MetadataValue::NotCollected,

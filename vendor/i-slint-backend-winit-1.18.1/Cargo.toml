@@ -36,6 +36,8 @@ features = [
 rustdoc-args = ["--generate-link-to-definition"]
 
 [features]
+# Local, bounded benchmark hook at actual software-buffer presentation.
+bunny-presentation-probe = []
 accessibility = [
     "dep:accesskit",
     "dep:accesskit_winit",

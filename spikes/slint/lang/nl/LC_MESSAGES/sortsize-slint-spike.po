@@ -174,8 +174,8 @@ msgid "Partial folder"
 msgstr "Gedeeltelijke map"
 
 msgctxt "rust"
-msgid "Partial scan — some entries were not traversed"
-msgstr "Gedeeltelijke analyse — sommige items zijn niet doorlopen"
+msgid "Partial scan: some entries were not traversed"
+msgstr "Gedeeltelijke analyse: sommige items zijn niet doorlopen"
 
 msgctxt "rust"
 msgid "Paths not retained: no individual details available."
@@ -206,8 +206,8 @@ msgid "Scan cancelled before retaining an entry; no inventory available."
 msgstr "Analyse geannuleerd voordat een item werd bewaard; geen inventaris beschikbaar."
 
 msgctxt "rust"
-msgid "Scan cancelled — partial results retained"
-msgstr "Analyse geannuleerd — gedeeltelijke resultaten bewaard"
+msgid "Scan cancelled: partial results retained"
+msgstr "Analyse geannuleerd: gedeeltelijke resultaten bewaard"
 
 msgctxt "rust"
 msgid "Scan complete"
@@ -256,10 +256,6 @@ msgstr "Type onbekend"
 msgctxt "rust"
 msgid "Unsupported"
 msgstr "Niet ondersteund"
-
-msgctxt "ui"
-msgid "\nAllocated sort: ≥ = known bound\nProvisional ranking"
-msgstr "\nSortering toegewezen: ≥ = bekende grens\nVoorlopige ranglijst"
 
 msgctxt "ui"
 msgid "1 folder at a time"
@@ -370,10 +366,6 @@ msgid "Columns and display"
 msgstr "Kolommen en weergave"
 
 msgctxt "ui"
-msgid "Configure columns and units"
-msgstr "Kolommen en eenheden instellen"
-
-msgctxt "ui"
 msgid "Could not read preferences; using defaults."
 msgstr "Kan voorkeuren niet lezen; standaardinstellingen worden gebruikt."
 
@@ -406,10 +398,6 @@ msgid "File retained in the inventory."
 msgstr "Bestand bewaard in de inventaris."
 
 msgctxt "ui"
-msgid "Focus the Treemap"
-msgstr "Focus op de boomkaart"
-
-msgctxt "ui"
 msgid "Folder share"
 msgstr "Mapaandeel"
 
@@ -422,8 +410,8 @@ msgid "Folders scanned concurrently"
 msgstr "Gelijktijdig geanalyseerde mappen"
 
 msgctxt "ui"
-msgid "Full GPLv3 text"
-msgstr "Volledige GPLv3-tekst"
+msgid "Full Apache 2.0 license text"
+msgstr "Volledige tekst van de Apache-2.0-licentie"
 
 msgctxt "ui"
 msgid "Full entry path"
@@ -446,14 +434,6 @@ msgid "Invalid preferences or unsupported version; using defaults."
 msgstr "Ongeldige voorkeuren of niet-ondersteunde versie; standaardinstellingen worden gebruikt."
 
 msgctxt "ui"
-msgid "SOURCE"
-msgstr "BRON"
-
-msgctxt "ui"
-msgid "LOGICAL SIZE"
-msgstr "LOGISCHE GROOTTE"
-
-msgctxt "ui"
 msgid "Last accessed"
 msgstr "Laatst geopend"
 
@@ -466,16 +446,8 @@ msgid "Last modified"
 msgstr "Laatst gewijzigd"
 
 msgctxt "ui"
-msgid "Logical per path · links not followed\nAllocated: repeated hardlinks"
-msgstr "Logisch per pad · koppelingen niet gevolgd\nToegewezen: herhaalde hardlinks"
-
-msgctxt "ui"
 msgid "Logical size"
 msgstr "Logische grootte"
-
-msgctxt "ui"
-msgid "Logical sizes per path\nAllocated: per path, repeated hardlinks\nLinks not followed"
-msgstr "Logische groottes per pad\nToegewezen: per pad, herhaalde hardlinks\nKoppelingen niet gevolgd"
 
 msgctxt "ui"
 msgid "Modified newest"
@@ -578,20 +550,12 @@ msgid "Query capacities of network or unknown sources; network access possible"
 msgstr "Capaciteiten van netwerkbronnen of onbekende bronnen opvragen; netwerktoegang mogelijk"
 
 msgctxt "ui"
-msgid "Query network / unknown type"
-msgstr "Netwerk / onbekend type opvragen"
-
-msgctxt "ui"
-msgid "READ ONLY"
-msgstr "ALLEEN LEZEN"
-
-msgctxt "ui"
 msgid "Rank"
 msgstr "Nr."
 
 msgctxt "ui"
-msgid "Read the full GPLv3"
-msgstr "Volledige GPLv3 lezen"
+msgid "Read the full Apache 2.0 license"
+msgstr "Volledige Apache-2.0-licentie lezen"
 
 msgctxt "ui"
 msgid "Recursive\nfiles"
@@ -674,8 +638,8 @@ msgid "Sort: "
 msgstr "Sorteren: "
 
 msgctxt "ui"
-msgid "Bunny and Size — About / Licenses"
-msgstr "Bunny and Size — Over / Licenties"
+msgid "About Bunny and Size"
+msgstr "Over Bunny and Size"
 
 msgctxt "ui"
 msgid "Start a scan to display the Top 100."
@@ -830,18 +794,6 @@ msgstr[0] " · {n} koppelpunt, dezelfde opslag"
 msgstr[1] " · {n} koppelpunten, dezelfde opslag"
 
 msgctxt "ui"
-msgid "Bunny and Size {} — About / Licenses"
-msgstr "Bunny and Size {} — Over / Licenties"
-
-msgctxt "ui"
-msgid "Bunny and Size {} — storage analysis"
-msgstr "Bunny and Size {} — opslaganalyse"
-
-msgctxt "ui"
-msgid "Browse {}"
-msgstr "Bladeren door {}"
-
-msgctxt "ui"
 msgid "Open folder {}, {}"
 msgstr "Map openen {}, {}"
 
@@ -866,8 +818,8 @@ msgid "Show full path: {}"
 msgstr "Volledig pad tonen: {}"
 
 msgctxt "rust"
-msgid "Bunny and Size @VERSION@ — free software, GPL-3.0-only\n\nYou may modify and redistribute this software under GNU GPL version 3 only. NO WARRANTY, including merchantability or fitness for a particular purpose, to the extent permitted by law; see sections 15 and 16.\n\nThe “Read the full GPLv3” button displays a complete offline copy of the license. The LICENSE file in the archive contains the same text.\n\nThird-party copyright notices are preserved in THIRD_PARTY_NOTICES.txt and licences/ beside the executable. Excerpts from the original Slint and Fluent icon notices:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: GPL-3.0-only option. Fluent icons: MIT.\n\nAUTHORS.txt lists Bunny and Size code contributors from Git; this list does not designate an exclusive copyright holder. No Bunny and Size copyright holder or year is inferred from these names.\n\nCorresponding source is the Bunny-and-Size-v@VERSION@-source archive for your platform, supplied with the binaries; its exact name and SHA-256 appear in BUILDINFO.json. When redistributing, give recipients effective access to corresponding source under GPLv3; an inaccessible private repository is insufficient.\n"
-msgstr "Bunny and Size @VERSION@ — vrije software, GPL-3.0-only\n\nU mag deze software uitsluitend onder GNU GPL versie 3 wijzigen en verspreiden. GEEN GARANTIE, ook niet op verkoopbaarheid of geschiktheid voor een bepaald doel, voor zover wettelijk toegestaan; zie secties 15 en 16.\n\nDe knop «Volledige GPLv3 lezen» toont een volledige offlinekopie van de licentie. Het bestand LICENSE in het archief bevat dezelfde tekst.\n\nCopyrightvermeldingen van derden blijven bewaard in THIRD_PARTY_NOTICES.txt en licences/ naast het uitvoerbare bestand. Fragmenten uit de oorspronkelijke kennisgevingen van Slint en Fluent-pictogrammen:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: GPL-3.0-only-optie. Fluent-pictogrammen: MIT.\n\nAUTHORS.txt vermeldt de codebijdragers aan Bunny and Size uit Git; deze lijst wijst geen exclusieve auteursrechthebbende aan. Uit deze namen wordt geen auteursrechthebbende of copyrightjaar voor Bunny and Size afgeleid.\n\nDe bijbehorende broncode is het archief Bunny-and-Size-v@VERSION@-source voor uw platform, meegeleverd met de binaire bestanden; de exacte naam en SHA-256 staan in BUILDINFO.json. Geef ontvangers bij herdistributie daadwerkelijk toegang tot de bijbehorende broncode onder GPLv3; een ontoegankelijke privérepository volstaat niet.\n"
+msgid "Bunny and Size @VERSION@. Original code: Apache-2.0.\n\nYou may use, modify and redistribute the original code, including commercially, under Apache License 2.0. NO WARRANTY; see sections 7 and 8. The “Read the full Apache 2.0 license” button and the packaged LICENSE provide the complete offline text. Keep LICENSE, NOTICE and the applicable third-party notices when redistributing.\n\nThird-party components retain their own licenses. Slint 1.18.1 for Windows/Linux desktop: LicenseRef-Slint-Royalty-free-2.0, with the visible Slint attribution. This is not an Apache license for Slint. Plugins must not expose Slint APIs under that license.\nCopyright © SixtyFPS GmbH <info@slint.dev>\nFluent icons: MIT. Copyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\n\nRabbit artwork and its adaptations: CC BY-SA 4.0, Louis Lejuez / TazmenWorld; retain attribution and share adapted artwork under that license. Artwork is not Apache-2.0. See BRANDING.md and THIRD_PARTY_NOTICES.txt in the package. The complete original artwork and portrait are not distributed.\n"
+msgstr "Bunny and Size @VERSION@. Oorspronkelijke code: Apache-2.0.\n\nU mag de oorspronkelijke code gebruiken, wijzigen en verspreiden, ook commercieel, onder Apache License 2.0. GEEN GARANTIE; zie secties 7 en 8. De knop «Volledige Apache-2.0-licentie lezen» en het bestand LICENSE in het pakket bevatten de volledige tekst offline. Behoud bij verspreiding LICENSE, NOTICE en de toepasselijke vermeldingen van derden.\n\nComponenten van derden behouden hun eigen licenties. Slint 1.18.1 voor Windows/Linux-desktop: LicenseRef-Slint-Royalty-free-2.0, met zichtbare Slint-vermelding. Slint valt niet onder Apache. Onder deze licentie mogen plugins geen Slint-API's aanbieden.\nCopyright © SixtyFPS GmbH <info@slint.dev>\nFluent-pictogrammen: MIT. Copyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\n\nKonijnenafbeelding en bewerkingen: CC BY-SA 4.0, Louis Lejuez / TazmenWorld; behoud de naamsvermelding en deel bewerkte afbeeldingen onder die licentie. De afbeeldingen vallen niet onder Apache-2.0. Zie BRANDING.md en THIRD_PARTY_NOTICES.txt in het pakket. Het volledige origineel en het portret worden niet verspreid.\n"
 
 msgctxt "rust"
 msgid "Choose a folder to scan."
@@ -1124,12 +1076,12 @@ msgid "Additional analysis complete"
 msgstr "Aanvullende analyse voltooid"
 
 msgctxt "rust"
-msgid "Additional analysis — partial results"
-msgstr "Aanvullende analyse — gedeeltelijke resultaten"
+msgid "Additional analysis: partial results"
+msgstr "Aanvullende analyse: gedeeltelijke resultaten"
 
 msgctxt "rust"
-msgid "Additional analysis cancelled — partial results retained"
-msgstr "Aanvullende analyse geannuleerd — gedeeltelijke resultaten bewaard"
+msgid "Additional analysis cancelled: partial results retained"
+msgstr "Aanvullende analyse geannuleerd: gedeeltelijke resultaten bewaard"
 
 msgctxt "rust"
 msgid "Additional analysis failed."
@@ -1144,20 +1096,12 @@ msgid "Created, published and maintained by Louis Lejuez (@tazmen3)"
 msgstr "Gemaakt, gepubliceerd en onderhouden door Louis Lejuez (@tazmen3)"
 
 msgctxt "ui"
-msgid "Contributors: Louis Lejuez / tazmen3; assisted by Codex"
-msgstr "Bijdragers: Louis Lejuez / tazmen3; bijgestaan door Codex"
-
-msgctxt "ui"
-msgid "Code: GPL-3.0-only. Artwork: CC BY-SA 4.0 — Louis Lejuez / TazmenWorld."
-msgstr "Code: GPL-3.0-only. Beeldmateriaal: CC BY-SA 4.0 — Louis Lejuez / TazmenWorld."
+msgid "Original code: Apache-2.0. Artwork: CC BY-SA 4.0, Louis Lejuez / TazmenWorld."
+msgstr "Oorspronkelijke code: Apache-2.0. Afbeeldingen: CC BY-SA 4.0, Louis Lejuez / TazmenWorld."
 
 msgctxt "rust"
 msgid "Automatic scan unavailable: select an accessible local source. Other paths require an explicit scan."
 msgstr "Automatische analyse niet beschikbaar: selecteer een toegankelijke lokale bron. Andere paden vereisen een uitdrukkelijke analyse."
-
-msgctxt "ui"
-msgid "Scan local source: {}"
-msgstr "Lokale bron analyseren: {}"
 
 msgctxt "ui"
 msgid "Resize folders and storage sources. Arrows adjust; Enter resets."
@@ -1438,3 +1382,2061 @@ msgstr "Grootte: grootste eerst"
 msgctxt "ui"
 msgid "Size: smallest first"
 msgstr "Grootte: kleinste eerst"
+
+msgctxt "ui"
+msgid "Retained inventory: transitional view"
+msgstr "Bewaarde inventaris: tijdelijke weergave"
+
+msgctxt "ui"
+msgid "System"
+msgstr "Systeem"
+
+msgctxt "ui"
+msgid "Light"
+msgstr "Licht"
+
+msgctxt "ui"
+msgid "Dark"
+msgstr "Donker"
+
+msgctxt "ui"
+msgid "Theme"
+msgstr "Thema"
+
+msgctxt "ui"
+msgid "Compact"
+msgstr "Compact"
+
+msgctxt "ui"
+msgid "Live inventory"
+msgstr "Live-inventaris"
+
+msgctxt "ui"
+msgid "Retry"
+msgstr "Opnieuw proberen"
+
+msgctxt "ui"
+msgid "Open"
+msgstr "Openen"
+
+msgctxt "rust"
+msgid "Complete"
+msgstr "Volledig"
+
+msgctxt "rust"
+msgid "Partial"
+msgstr "Gedeeltelijk"
+
+msgctxt "rust"
+msgid "Could not start scan."
+msgstr "De analyse kon niet worden gestart."
+
+msgctxt "rust"
+msgid "Source is no longer available."
+msgstr "De bron is niet meer beschikbaar."
+
+msgctxt "rust"
+msgid "No file observed in this scope."
+msgstr "Geen bestand waargenomen binnen dit bereik."
+
+msgctxt "ui"
+msgid "Logical sizes per path · links not followed"
+msgstr "Logische groottes per pad · koppelingen niet gevolgd"
+
+msgctxt "rust"
+msgid "Logical size · current page"
+msgstr "Logische grootte · huidige pagina"
+
+msgctxt "rust"
+msgid " · Complete"
+msgstr " · Volledig"
+
+msgctxt "rust"
+msgid " · Partial"
+msgstr " · Gedeeltelijk"
+
+msgctxt "rust"
+msgid " · No match in this inventory."
+msgstr " · Geen resultaat in deze inventaris."
+
+msgctxt "rust"
+msgid " · No match observed; coverage is partial."
+msgstr " · Geen resultaat waargenomen; gedeeltelijke dekking."
+
+msgctxt "rust"
+msgid "Accounted memory:"
+msgstr "Bijgehouden geheugen:"
+
+msgctxt "rust"
+msgid "Cancelled"
+msgstr "Geannuleerd"
+
+msgctxt "rust"
+msgid "Choose a source and start an inventory first."
+msgstr "Kies eerst een bron en start een inventaris."
+
+msgctxt "rust"
+msgid "Effective entry ceiling:"
+msgstr "Effectief itemlimiet:"
+
+msgctxt "rust"
+msgid "Files"
+msgstr "Bestanden"
+
+msgctxt "rust"
+msgid "Frozen inventory, generation"
+msgstr "Bevroren inventaris, generatie"
+
+msgctxt "rust"
+msgid "Gaps (size/date/text/path/kind):"
+msgstr "Hiaten (grootte/datum/tekst/pad/type):"
+
+msgctxt "rust"
+msgid "Invalid byte count."
+msgstr "Ongeldig aantal bytes."
+
+msgctxt "rust"
+msgid "Invalid search query."
+msgstr "Ongeldige zoekopdracht."
+
+msgctxt "rust"
+msgid "Invalid size range."
+msgstr "Ongeldig groottebereik."
+
+msgctxt "rust"
+msgid "Known logical bytes"
+msgstr "Bekende logische bytes"
+
+msgctxt "rust"
+msgid "Not process RSS; byte limits always apply."
+msgstr "Niet de proces-RSS; bytelimieten blijven gelden."
+
+msgctxt "rust"
+msgid "Other extensions"
+msgstr "Andere extensies"
+
+msgctxt "rust"
+msgid "Search cancelled; the scan continues."
+msgstr "Zoeken geannuleerd; de scan gaat door."
+
+msgctxt "rust"
+msgid "Size classes (0 / <1 KiB / <1 MiB / <1 GiB / ≥1 GiB / unknown)"
+msgstr "Grootteklassen (0 / <1 KiB / <1 MiB / <1 GiB / ≥1 GiB / onbekend)"
+
+msgctxt "rust"
+msgid "Unknown sizes"
+msgstr "Onbekende groottes"
+
+msgctxt "ui"
+msgid "Unlimited count"
+msgstr "Onbeperkt aantal"
+
+msgctxt "rust"
+msgid "Unlimited count"
+msgstr "Onbeperkt aantal"
+
+msgctxt "rust"
+msgid "Waiting for the frozen inventory; cancelling search leaves the scan running."
+msgstr "Wachten op de bevroren inventaris; zoeken annuleren stopt de scan niet."
+
+msgctxt "ui"
+msgid "Automatic"
+msgstr "Automatisch"
+
+msgctxt "ui"
+msgid "Requested memory:"
+msgstr "Gevraagd geheugen:"
+
+msgctxt "ui"
+msgid "Search results"
+msgstr "Zoekresultaten"
+
+msgctxt "ui"
+msgid "Saved measures"
+msgstr "Opgeslagen metingen"
+
+msgctxt "ui"
+msgid "Open offline"
+msgstr "Offline openen"
+
+msgctxt "ui"
+msgid "Verify source"
+msgstr "Bron controleren"
+
+msgctxt "ui"
+msgid "Resume"
+msgstr "Hervatten"
+
+msgctxt "ui"
+msgid "Compare with current"
+msgstr "Met huidige vergelijken"
+
+msgctxt "ui"
+msgid "Retention: 30 days from measurement"
+msgstr "Bewaren: 30 dagen vanaf de meting"
+
+msgctxt "ui"
+msgid "Previous path"
+msgstr "Vorig pad"
+
+msgctxt "ui"
+msgid "Current path"
+msgstr "Huidig pad"
+
+msgctxt "ui"
+msgid "Metadata only. Probable moves are not content proof."
+msgstr "Alleen metagegevens. Waarschijnlijke verplaatsingen bewijzen geen inhoud."
+
+msgctxt "rust"
+msgid "Appeared"
+msgstr "Verschenen"
+
+msgctxt "rust"
+msgid "Newly observed"
+msgstr "Nieuw waargenomen"
+
+msgctxt "rust"
+msgid "Removed from path"
+msgstr "Uit pad verwijderd"
+
+msgctxt "rust"
+msgid "Replaced"
+msgstr "Vervangen"
+
+msgctxt "rust"
+msgid "Fields changed"
+msgstr "Velden gewijzigd"
+
+msgctxt "rust"
+msgid "Fields unchanged"
+msgstr "Velden ongewijzigd"
+
+msgctxt "rust"
+msgid "Not verified"
+msgstr "Niet geverifieerd"
+
+msgctxt "rust"
+msgid "Probable move"
+msgstr "Waarschijnlijke verplaatsing"
+
+msgctxt "rust"
+msgid "Interrupted acquisition"
+msgstr "Onderbroken opname"
+
+msgctxt "rust"
+msgid "Saved locally. Source not queried."
+msgstr "Lokaal opgeslagen. Bron niet bevraagd."
+
+msgctxt "rust"
+msgid "Local cache catalogue."
+msgstr "Lokale cachecatalogus."
+
+msgctxt "rust"
+msgid "Unavailable caches"
+msgstr "Niet-beschikbare caches"
+
+msgctxt "rust"
+msgid "No measured inventory selected."
+msgstr "Geen gemeten inventaris geselecteerd."
+
+msgctxt "rust"
+msgid "This measure is sealed. Verify it explicitly."
+msgstr "Deze meting is verzegeld. Controleer deze expliciet."
+
+msgctxt "rust"
+msgid "Select another inventory before forgetting this cache."
+msgstr "Selecteer een andere inventaris voordat u deze cache vergeet."
+
+msgctxt "rust"
+msgid "Wait for a measured generation before comparing."
+msgstr "Wacht op een gemeten generatie voor vergelijking."
+
+msgctxt "rust"
+msgid "Previous measure"
+msgstr "Vorige meting"
+
+msgctxt "rust"
+msgid "Current measure"
+msgstr "Huidige meting"
+
+msgctxt "rust"
+msgid "Comparable delta"
+msgstr "Vergelijkbaar verschil"
+
+msgctxt "rust"
+msgid "Preparing saved measures…"
+msgstr "Opgeslagen metingen voorbereiden…"
+
+msgctxt "rust"
+msgid "Local cache cleanup failed."
+msgstr "Opschonen van lokale cache mislukt."
+
+msgctxt "ui"
+msgid "Stop retaining"
+msgstr "Bewaren stoppen"
+
+msgctxt "rust"
+msgid "Retention disabled. Local purge waits for readers to close."
+msgstr "Bewaren uitgeschakeld. Lokale opschoning wacht tot lezers sluiten."
+
+msgctxt "ui"
+msgid "Analysis"
+msgstr "Analyse"
+
+msgctxt "ui"
+msgid "Display"
+msgstr "Weergave"
+
+msgctxt "ui"
+msgid "Extensions"
+msgstr "Uitbreidingen"
+
+msgctxt "ui"
+msgid "Help"
+msgstr "Help"
+
+msgctxt "ui"
+msgid "Folders"
+msgstr "Mappen"
+
+msgctxt "ui"
+msgid "Mosaic"
+msgstr "Mozaïek"
+
+msgctxt "ui"
+msgid "Bands"
+msgstr "Stroken"
+
+msgctxt "ui"
+msgid "Folder contents view"
+msgstr "Weergave van mapinhoud"
+
+msgctxt "ui"
+msgid "Change the view without scanning again"
+msgstr "Van weergave wisselen zonder opnieuw te scannen"
+
+msgctxt "ui"
+msgid "Collapse or reopen the folders and sources panel"
+msgstr "Het paneel met mappen en bronnen inklappen of heropenen"
+
+msgctxt "ui"
+msgid "Resize the folders and sources panel. Left and right arrows adjust; Enter resets."
+msgstr "De grootte van het paneel met mappen en bronnen wijzigen. Pijl-links en pijl-rechts passen aan; Enter herstelt."
+
+msgctxt "ui"
+msgid "Official repository"
+msgstr "Officiële repository"
+
+msgctxt "ui"
+msgid "Documentation is not published yet."
+msgstr "De documentatie is nog niet gepubliceerd."
+
+msgctxt "rust"
+msgid "Saved measure operation failed."
+msgstr "De bewerking op de opgeslagen meting is mislukt."
+
+msgctxt "ui"
+msgid "Opening recorded inventory. Integrity not verified."
+msgstr "Opgeslagen inventaris openen. Integriteit niet geverifieerd."
+
+msgctxt "ui"
+msgid "Dated preview. Integrity not verified. Checking…"
+msgstr "Gedateerd voorbeeld. Integriteit niet geverifieerd. Bezig met controleren…"
+
+msgctxt "ui"
+msgid "Integrity verified for this recorded view. Source not checked."
+msgstr "Integriteit van deze opgeslagen weergave geverifieerd. Bron niet gecontroleerd."
+
+msgctxt "ui"
+msgid "Verification failed. Preview invalidated."
+msgstr "Verificatie mislukt. Voorbeeld ongeldig verklaard."
+
+msgctxt "ui"
+msgid "Verification cancelled. Preview discarded."
+msgstr "Verificatie geannuleerd. Voorbeeld verwijderd."
+
+msgctxt "ui"
+msgid "Recorded prefix only. No completeness or current-source claim."
+msgstr "Alleen een opgeslagen deel. Geen garantie op volledigheid of de huidige toestand van de bron."
+
+msgctxt "ui"
+msgid "Listing an inventory does not certify integrity."
+msgstr "De catalogusweergave certificeert de integriteit niet."
+
+msgctxt "rust"
+msgid "Preparing the new inventory…"
+msgstr "Nieuwe inventaris voorbereiden…"
+
+msgctxt "rust"
+msgid "Checking the new inventory…"
+msgstr "Nieuwe inventaris controleren…"
+
+msgctxt "rust"
+msgid "Reopening and checking the saved inventory…"
+msgstr "Opgeslagen inventaris opnieuw openen en controleren…"
+
+msgctxt "rust"
+msgid "Ready: verified inventory"
+msgstr "Gereed: gecontroleerde inventaris"
+
+msgctxt "rust"
+msgid "Preparing the search results…"
+msgstr "Zoekresultaten voorbereiden…"
+
+msgctxt "rust"
+msgid "Searching the entire inventory…"
+msgstr "De volledige inventaris doorzoeken…"
+
+msgctxt "rust"
+msgid "A new inventory is being prepared."
+msgstr "Er wordt een nieuwe inventaris voorbereid."
+
+msgctxt "rust"
+msgid "Wait for the current acquisition to finish before verifying or resuming."
+msgstr "Wacht tot de huidige inventarisatie is voltooid voordat u controleert of hervat."
+
+msgctxt "rust"
+msgid "The working folder is unavailable. Set BUNNY_AND_SIZE_STORE_DIR to an existing local folder and restart Bunny and Size."
+msgstr "De werkmap is niet beschikbaar. Stel BUNNY_AND_SIZE_STORE_DIR in op een bestaande lokale map en start Bunny and Size opnieuw."
+
+msgctxt "ui"
+msgid "Provisional"
+msgstr "Voorlopig"
+
+msgctxt "rust"
+msgid "Loading…"
+msgstr "Laden…"
+
+msgctxt "rust"
+msgid "Unresolved SID"
+msgstr "Onopgeloste SID"
+
+msgctxt "rust"
+msgid "Load more folders"
+msgstr "Meer mappen laden"
+
+msgctxt "rust"
+msgid "Previous folders"
+msgstr "Vorige mappen"
+
+msgctxt "rust"
+msgid "Folder tree display limit reached. Collapse a branch to show more folders."
+msgstr "Weergavelimiet van de mappenboom bereikt. Klap een tak in om meer mappen te tonen."
+
+msgctxt "rust"
+msgid "This folder could not be expanded within the tree budget."
+msgstr "Deze map kon niet worden uitgeklapt binnen de beschikbare middelen voor de mappenboom."
+
+msgctxt "ui"
+msgid "Navigation"
+msgstr "Navigatie"
+
+msgctxt "ui"
+msgid "Extensions are not available yet. Local disks remain in Navigation."
+msgstr "Extensies zijn nog niet beschikbaar. Lokale schijven blijven onder Navigatie."
+
+msgctxt "ui"
+msgid "KiB"
+msgstr "KiB"
+
+msgctxt "ui"
+msgid "MiB"
+msgstr "MiB"
+
+msgctxt "ui"
+msgid "GiB"
+msgstr "GiB"
+
+msgctxt "ui"
+msgid "TiB"
+msgstr "TiB"
+
+msgctxt "ui"
+msgid "kB"
+msgstr "kB"
+
+msgctxt "ui"
+msgid "MB"
+msgstr "MB"
+
+msgctxt "ui"
+msgid "GB"
+msgstr "GB"
+
+msgctxt "ui"
+msgid "TB"
+msgstr "TB"
+
+msgctxt "ui"
+msgid "Resolve local account names"
+msgstr "Lokale accountnamen opzoeken"
+
+msgctxt "ui"
+msgid "Resolve account names from local files only; no network lookup"
+msgstr "Accountnamen alleen uit lokale bestanden opzoeken; geen netwerkopzoeking"
+
+msgctxt "ui"
+msgid "Add a source"
+msgstr "Bron toevoegen"
+
+msgctxt "ui"
+msgid "+ Add a source"
+msgstr "+ Bron toevoegen"
+
+msgctxt "ui"
+msgid "SMB share"
+msgstr "SMB-share"
+
+msgctxt "ui"
+msgid "Existing NFS mount"
+msgstr "Bestaande NFS-koppeling"
+
+msgctxt "ui"
+msgid "Local folder"
+msgstr "Lokale map"
+
+msgctxt "ui"
+msgid "Source type"
+msgstr "Brontype"
+
+msgctxt "ui"
+msgid "Native path"
+msgstr "Systeempad"
+
+msgctxt "ui"
+msgid "Checking access…"
+msgstr "Toegang controleren…"
+
+msgctxt "ui"
+msgid "Accessible. No scan has been started."
+msgstr "Toegankelijk. Er is geen analyse gestart."
+
+msgctxt "ui"
+msgid "Unavailable. You can still add this source."
+msgstr "Niet beschikbaar. U kunt deze bron toch toevoegen."
+
+msgctxt "ui"
+msgid "Access denied. Check permissions in your operating system."
+msgstr "Toegang geweigerd. Controleer de rechten in uw besturingssysteem."
+
+msgctxt "ui"
+msgid "Invalid path. Use a UNC share or an existing native mount or folder."
+msgstr "Ongeldig pad. Gebruik een UNC-share, een bestaande systeemkoppeling of map."
+
+msgctxt "ui"
+msgid "Source added. Select it and start its scan explicitly."
+msgstr "Bron toegevoegd. Selecteer deze en start de analyse expliciet."
+
+msgctxt "ui"
+msgid "Source added for this session; saving failed."
+msgstr "Bron toegevoegd voor deze sessie; opslaan mislukt."
+
+msgctxt "ui"
+msgid "Access has not been checked."
+msgstr "De toegang is niet gecontroleerd."
+
+msgctxt "ui"
+msgid "Choose an existing local folder."
+msgstr "Kies een bestaande lokale map."
+
+msgctxt "ui"
+msgid "Choose an existing system mount. The application does not mount network shares."
+msgstr "Kies een bestaande systeemkoppeling. De toepassing koppelt geen netwerkshares."
+
+msgctxt "ui"
+msgid "Display name (optional)"
+msgstr "Weergavenaam (optioneel)"
+
+msgctxt "ui"
+msgid "Adding a source never starts a scan. No password is requested or stored."
+msgstr "Een bron toevoegen start nooit een analyse. Er wordt geen wachtwoord gevraagd of opgeslagen."
+
+msgctxt "ui"
+msgid "Check access"
+msgstr "Toegang controleren"
+
+msgctxt "ui"
+msgid "Add source"
+msgstr "Bron toevoegen"
+
+msgctxt "ui"
+msgid "Query capacities"
+msgstr "Capaciteiten opvragen"
+
+msgctxt "ui"
+msgid "Select source: {}"
+msgstr "Bron selecteren: {}"
+
+msgctxt "ui"
+msgid "Looking for shares on this server…"
+msgstr "Shares op deze server zoeken…"
+
+msgctxt "ui"
+msgid "Waiting for the Windows connection…"
+msgstr "Wachten op de Windows-verbinding…"
+
+msgctxt "ui"
+msgid "Server address accepted. Search for shares or enter a full UNC share path before adding it."
+msgstr "Serveradres geaccepteerd. Zoek shares of voer een volledig UNC-sharepad in voordat u de bron toevoegt."
+
+msgctxt "ui"
+msgid "Server unavailable. Check its address and network connection, then try again."
+msgstr "Server niet beschikbaar. Controleer het adres en de netwerkverbinding en probeer opnieuw."
+
+msgctxt "ui"
+msgid "Server reachable, but no file shares could be listed. Enter the full UNC path manually."
+msgstr "Server bereikbaar, maar er konden geen bestandsshares worden vermeld. Voer het volledige UNC-pad handmatig in."
+
+msgctxt "ui"
+msgid "Authentication required. Use Connect with Windows, or establish this connection in Windows Explorer, then retry."
+msgstr "Aanmelding vereist. Gebruik Verbinden met Windows of maak deze verbinding in Windows Verkenner en probeer opnieuw."
+
+msgctxt "ui"
+msgid "Credentials rejected by Windows or the server. Check your account and try again."
+msgstr "Aanmeldgegevens geweigerd door Windows of de server. Controleer uw account en probeer opnieuw."
+
+msgctxt "ui"
+msgid "Share not found. Check its name or search the server's shares again."
+msgstr "Share niet gevonden. Controleer de naam of zoek de shares van de server opnieuw."
+
+msgctxt "ui"
+msgid "Windows connection established. No scan has been started."
+msgstr "Windows-verbinding gemaakt. Er is geen analyse gestart."
+
+msgctxt "ui"
+msgid "Operation cancelled. No scan has been started."
+msgstr "Bewerking geannuleerd. Er is geen analyse gestart."
+
+msgctxt "ui"
+msgid "Windows session conflict (1219). A connection using another account already exists. Existing connections have been kept."
+msgstr "Windows-sessieconflict (1219). Er bestaat al een verbinding met een ander account. Bestaande verbindingen zijn behouden."
+
+msgctxt "ui"
+msgid "Shares could not be listed. Enter a full UNC share path manually; connect to it in Windows Explorer if necessary, then retry."
+msgstr "De shares konden niet worden vermeld. Voer een volledig UNC-sharepad in; maak zo nodig verbinding in Windows Verkenner en probeer opnieuw."
+
+msgctxt "ui"
+msgid "Native SMB discovery and sign-in are available on Windows. Use an existing system mount on this platform."
+msgstr "SMB zoeken en aanmelden via het systeem is beschikbaar op Windows. Gebruik op dit platform een bestaande systeemkoppeling."
+
+msgctxt "ui"
+msgid "Server or share"
+msgstr "Server of share"
+
+msgctxt "ui"
+msgid "Server name, IP address or full UNC share"
+msgstr "Servernaam, IP-adres of volledige UNC-share"
+
+msgctxt "ui"
+msgid "Enter a server name or IP, then search its shares; or enter a full UNC share path."
+msgstr "Voer een servernaam of IP in en zoek de shares, of voer een volledig UNC-sharepad in."
+
+msgctxt "ui"
+msgid "Find shares"
+msgstr "Shares zoeken"
+
+msgctxt "ui"
+msgid "Connect with Windows"
+msgstr "Verbinden met Windows"
+
+msgctxt "ui"
+msgid "Shares on this server"
+msgstr "Shares op deze server"
+
+msgctxt "ui"
+msgid "Adding or connecting a source never starts a scan. Windows handles credentials; Bunny and Size does not store passwords."
+msgstr "Een bron toevoegen of verbinden start nooit een analyse. Windows beheert de aanmeldgegevens; Bunny and Size slaat geen wachtwoorden op."
+
+msgctxt "ui"
+msgid "The share list is limited. You can also enter a full UNC share path manually."
+msgstr "De sharelijst is beperkt. U kunt ook handmatig een volledig UNC-sharepad invoeren."
+
+msgctxt "ui"
+msgid "Select a share from the list, then add it. No scan has been started."
+msgstr "Selecteer een share in de lijst en voeg deze toe. Er is geen analyse gestart."
+
+msgctxt "ui"
+msgid "Share listing denied. Use Connect with Windows, then retry, or enter a full UNC share path manually."
+msgstr "Het weergeven van de shares is geweigerd. Gebruik Verbinden met Windows en probeer opnieuw, of voer handmatig een volledig UNC-sharepad in."
+
+msgctxt "ui"
+msgid "Complete SMB NAS server"
+msgstr "Volledige SMB-NAS-server"
+
+msgctxt "ui"
+msgid "Enter a server name, IP address or UNC server root, without a share."
+msgstr "Voer een servernaam, IP-adres of UNC-serverroot in, zonder share."
+
+msgctxt "ui"
+msgid "Server source ready to add, including offline. Scan its selected shares later with Scan."
+msgstr "Serverbron kan ook offline worden toegevoegd. Analyseer de gekozen shares later met Analyseren."
+
+msgctxt "ui"
+msgid "Add the server as a logical source. No share discovery or scan is required to save it."
+msgstr "Voeg de server als logische bron toe. Opslaan vereist geen sharedetectie of analyse."
+
+msgctxt "ui"
+msgid "Confirm server scan"
+msgstr "Serveranalyse bevestigen"
+
+msgctxt "ui"
+msgid "Choose the shares for this operation. New shares will not be added during the scan."
+msgstr "Kies de shares voor deze bewerking. Tijdens de analyse worden geen nieuwe shares toegevoegd."
+
+msgctxt "ui"
+msgid "A server scan may process large amounts of data. You can cancel it."
+msgstr "Een serveranalyse kan grote hoeveelheden gegevens verwerken. U kunt deze annuleren."
+
+msgctxt "ui"
+msgid "Totals are observed logical sizes, not physical NAS usage. Shares can overlap and count the same data more than once."
+msgstr "Totalen zijn waargenomen logische groottes, geen fysiek NAS-gebruik. Shares kunnen overlappen en dezelfde gegevens meermaals tellen."
+
+msgctxt "ui"
+msgid "Share discovery is limited or uncertain. The server coverage will remain partial or unknown."
+msgstr "Sharedetectie is beperkt of onzeker. De serverdekking blijft gedeeltelijk of onbekend."
+
+msgctxt "ui"
+msgid "Select all"
+msgstr "Alles selecteren"
+
+msgctxt "ui"
+msgid "Deselect all"
+msgstr "Alles deselecteren"
+
+msgctxt "ui"
+msgid "Selected shares: {}"
+msgstr "Geselecteerde shares: {}"
+
+msgctxt "ui"
+msgid "Confirm scan"
+msgstr "Analyse bevestigen"
+
+msgctxt "ui"
+msgid "Back to the NAS server"
+msgstr "Terug naar de NAS-server"
+
+msgctxt "ui"
+msgid "Observed logical totals may include overlapping shares; they do not measure physical NAS usage."
+msgstr "Waargenomen logische totalen kunnen overlappende shares bevatten; ze meten geen fysiek NAS-gebruik."
+
+msgctxt "ui"
+msgid "No shares discovered yet. Find shares or choose Scan to prepare an operation."
+msgstr "Nog geen shares gevonden. Zoek shares of kies Analyseren om een bewerking voor te bereiden."
+
+msgctxt "rust"
+msgid "Shares completed: {} / {}"
+msgstr "Voltooide shares: {} / {}"
+
+msgctxt "rust"
+msgid "Waiting"
+msgstr "Wachten"
+
+msgctxt "rust"
+msgid "Scanning"
+msgstr "Bezig met analyseren"
+
+msgctxt "rust"
+msgid "Failed"
+msgstr "Mislukt"
+
+msgctxt "rust"
+msgid "Share discovery failed. Connect with Windows, then try again."
+msgstr "Sharedetectie mislukt. Maak verbinding met Windows en probeer opnieuw."
+
+msgctxt "rust"
+msgid "Discover shares explicitly before browsing this server."
+msgstr "Zoek eerst expliciet naar shares voordat u deze server verkent."
+
+msgctxt "rust"
+msgid "Share not inventoried. Click Scan to analyze this share."
+msgstr "Share nog niet geïnventariseerd. Klik op Analyseren om deze share te analyseren."
+
+msgctxt "ui"
+msgid "Confirm disconnection"
+msgstr "Verbinding verbreken bevestigen"
+
+msgctxt "ui"
+msgid "Do you really want to disconnect the source {}?"
+msgstr "Wilt u de verbinding met bron {} echt verbreken?"
+
+msgctxt "ui"
+msgid "Known shares affected: {}. Newly discovered shares will also remain disconnected."
+msgstr "Bekende betrokken shares: {}. Later ontdekte shares blijven ook niet verbonden."
+
+msgctxt "ui"
+msgid "The current scan will be stopped and pending operations cancelled."
+msgstr "De huidige analyse wordt gestopt en wachtende bewerkingen worden geannuleerd."
+
+msgctxt "ui"
+msgid "This source will be excluded from future scans until you explicitly reconnect it. Saved inventories will be kept."
+msgstr "Deze bron wordt uitgesloten van toekomstige analyses totdat u deze uitdrukkelijk opnieuw verbindt. Opgeslagen inventarissen blijven behouden."
+
+msgctxt "ui"
+msgid "Also disconnect the network connection in Windows"
+msgstr "Ook de netwerkverbinding in Windows verbreken"
+
+msgctxt "ui"
+msgid "Windows disconnection is unavailable for this source: its effects on other connections cannot be safely limited."
+msgstr "Verbreken in Windows is niet beschikbaar voor deze bron: de gevolgen voor andere verbindingen kunnen niet veilig worden beperkt."
+
+msgctxt "ui"
+msgid "Reconnect"
+msgstr "Opnieuw verbinden"
+
+msgctxt "ui"
+msgid "Disconnect"
+msgstr "Verbinding verbreken"
+
+msgctxt "rust"
+msgid "Disconnected"
+msgstr "Verbinding verbroken"
+
+msgctxt "rust"
+msgid "This source is disconnected. Open + Add a source > Disconnected sources and click Reconnect before scanning."
+msgstr "Deze bron is losgekoppeld. Open + Bron toevoegen > Losgekoppelde bronnen en klik op Opnieuw verbinden voordat u scant."
+
+msgctxt "rust"
+msgid "Source reconnected. Click Scan to start a new analysis."
+msgstr "Bron opnieuw verbonden. Klik op Analyseren om een nieuwe analyse te starten."
+
+msgctxt "rust"
+msgid "Source disconnected. Saving this state…"
+msgstr "Bron niet verbonden. Deze status wordt opgeslagen…"
+
+msgctxt "rust"
+msgid "Source disconnected and saved. Cancellation is requested; a pending system call may finish later."
+msgstr "Bron niet verbonden en status opgeslagen. Annulering is aangevraagd; een wachtende systeemaanroep kan later eindigen."
+
+msgctxt "rust"
+msgid "Source disconnected for this session, but saving failed. Reconnect and retry before closing the application."
+msgstr "Bron voor deze sessie niet verbonden, maar opslaan is mislukt. Verbind opnieuw en probeer opnieuw voordat u de toepassing sluit."
+
+msgctxt "rust"
+msgid "Source disconnected in Bunny and Size. The Windows connection is still active."
+msgstr "Bron in Bunny and Size niet verbonden. De Windows-verbinding is nog actief."
+
+msgctxt "rust"
+msgid "Source disconnected in Bunny and Size and Windows."
+msgstr "Verbinding met de bron verbroken in Bunny and Size en Windows."
+
+msgctxt "ui"
+msgid "Disconnected"
+msgstr "Verbinding verbroken"
+
+msgctxt "rust"
+msgid "Disconnection failed. The source has not been changed."
+msgstr "Verbreken is mislukt. De bron is niet gewijzigd."
+
+msgctxt "rust"
+msgid "The source state could not be saved. It may differ after restart."
+msgstr "De status van de bron kon niet worden opgeslagen. Deze kan na opnieuw opstarten verschillen."
+
+msgctxt "rust"
+msgid "Authentication required"
+msgstr "Verificatie vereist"
+
+msgctxt "rust"
+msgid "Connection cancelled"
+msgstr "Verbinding geannuleerd"
+
+msgctxt "rust"
+msgid "Windows session conflict"
+msgstr "Conflict met Windows-sessie"
+
+msgctxt "rust"
+msgid "Connection failed"
+msgstr "Verbinding mislukt"
+
+msgctxt "rust"
+msgid "A Windows source operation is already running. Wait for it to finish, then retry."
+msgstr "Er loopt al een Windows-bewerking voor een bron. Wacht tot deze is voltooid en probeer het opnieuw."
+
+msgctxt "rust"
+msgid "Open this source in Windows File Explorer, sign in there, then click Reconnect again. Existing Windows sessions are preserved."
+msgstr "Open deze bron in Windows Verkenner, meld je daar aan en klik opnieuw op Opnieuw verbinden. Bestaande Windows-sessies blijven behouden."
+
+msgctxt "rust"
+msgid "Checking access…"
+msgstr "Toegang controleren…"
+
+msgctxt "rust"
+msgid "Disconnected deliberately"
+msgstr "Bewust losgekoppeld"
+
+msgctxt "ui"
+msgid "Waiting for the Ubuntu connection…"
+msgstr "Wachten op de Ubuntu-verbinding…"
+
+msgctxt "ui"
+msgid "Enter a server name, IP address or smb://server/, without a share."
+msgstr "Voer een servernaam, IP-adres of smb://server/ in, zonder share."
+
+msgctxt "ui"
+msgid "Invalid path. Use smb://server/share, a UNC share, or an existing native mount or folder."
+msgstr "Ongeldig pad. Gebruik smb://server/share, een UNC-share of een bestaand koppelpunt of bestaande map."
+
+msgctxt "ui"
+msgid "Server address accepted. Search for shares or enter smb://server/share before adding it."
+msgstr "Serveradres geaccepteerd. Zoek shares of voer smb://server/share in voordat u deze toevoegt."
+
+msgctxt "ui"
+msgid "Server reachable, but no file shares could be listed. Enter smb://server/share manually."
+msgstr "Server bereikbaar, maar shares konden niet worden vermeld. Voer smb://server/share handmatig in."
+
+msgctxt "ui"
+msgid "Authentication required. Use Connect with Ubuntu, sign in through the Files application, then retry."
+msgstr "Aanmelding vereist. Kies Verbinden met Ubuntu, meld u aan in Bestanden en probeer opnieuw."
+
+msgctxt "ui"
+msgid "Credentials rejected by Ubuntu or the server. Check your account and try again."
+msgstr "Aanmeldgegevens geweigerd door Ubuntu of de server. Controleer uw account en probeer opnieuw."
+
+msgctxt "ui"
+msgid "Ubuntu mount available for scanning. No scan has been started."
+msgstr "Ubuntu-koppelpunt beschikbaar voor analyse. Er is geen analyse gestart."
+
+msgctxt "ui"
+msgid "Shares could not be listed. Enter smb://server/share or an existing mount; connect in Files if needed."
+msgstr "Shares konden niet worden vermeld. Voer smb://server/share of een bestaand koppelpunt in; verbind zo nodig via Bestanden."
+
+msgctxt "ui"
+msgid "Ubuntu SMB tools are unavailable. Connect to smb://server/share in Files, then choose its mounted folder."
+msgstr "Ubuntu-SMB-hulpmiddelen ontbreken. Verbind via Bestanden met smb://server/share en kies de gekoppelde map."
+
+msgctxt "ui"
+msgid "Share listing denied. Connect with Ubuntu, then retry, or enter smb://server/share manually."
+msgstr "Sharelijst geweigerd. Verbind met Ubuntu en probeer opnieuw of voer smb://server/share handmatig in."
+
+msgctxt "ui"
+msgid "Ubuntu connection requested. Finish signing in through Files, then retry. Scanning requires an accessible mounted folder."
+msgstr "Ubuntu-verbinding aangevraagd. Rond de aanmelding in Bestanden af en probeer opnieuw. Analyse vereist een toegankelijke gekoppelde map."
+
+msgctxt "ui"
+msgid "Server name, IP address or smb://server/share"
+msgstr "Servernaam, IP-adres of smb://server/share"
+
+msgctxt "ui"
+msgid "Enter a server name, IP or smb://server/share. An existing SMB mount can also be used."
+msgstr "Voer een servernaam, IP of smb://server/share in. Een bestaand SMB-koppelpunt is ook mogelijk."
+
+msgctxt "ui"
+msgid "Connect with Ubuntu"
+msgstr "Verbinden met Ubuntu"
+
+msgctxt "ui"
+msgid "The share list is limited. You can also enter smb://server/share manually."
+msgstr "De sharelijst is beperkt. U kunt ook smb://server/share handmatig invoeren."
+
+msgctxt "ui"
+msgid "Adding or connecting a source never starts a scan. Ubuntu handles credentials; Bunny and Size does not store passwords."
+msgstr "Een bron toevoegen of verbinden start nooit een analyse. Ubuntu beheert aanmeldgegevens; Bunny and Size slaat geen wachtwoorden op."
+
+msgctxt "ui"
+msgid "Also disconnect the mount in Ubuntu"
+msgstr "Ook het koppelpunt in Ubuntu verbreken"
+
+msgctxt "ui"
+msgid "The system mount stays connected. Only an exact user mount can be safely disconnected here; other applications may use this mount."
+msgstr "Het systeemkoppelpunt blijft verbonden. Alleen een exact vastgesteld gebruikerskoppelpunt kan hier veilig worden verbroken; andere toepassingen kunnen dit gebruiken."
+
+msgctxt "rust"
+msgid "Share discovery failed. Open the server in Files, then try again or enter a known share."
+msgstr "Zoeken naar shares mislukt. Open de server in Bestanden en probeer opnieuw of voer een bekende share in."
+
+msgctxt "rust"
+msgid "A desktop source operation is already running. Wait for it to finish, then retry."
+msgstr "Er wordt al een bureaubladbewerking voor een bron uitgevoerd. Wacht tot deze klaar is en probeer opnieuw."
+
+msgctxt "rust"
+msgid "Open this source in Files, connect it there, then click Reconnect again. A usable native mount is required for scanning."
+msgstr "Open deze bron in Bestanden, verbind deze en klik opnieuw op Opnieuw verbinden. Analyse vereist een bruikbaar lokaal koppelpunt."
+
+msgctxt "rust"
+msgid "Source disconnected in Bunny and Size and Ubuntu."
+msgstr "Bronverbinding verbroken in Bunny and Size en Ubuntu."
+
+msgctxt "rust"
+msgid "Source disconnected in Bunny and Size. The Ubuntu mount is still active."
+msgstr "Bronverbinding verbroken in Bunny and Size. Het Ubuntu-koppelpunt is nog actief."
+
+msgctxt "rust"
+msgid "No accessible Ubuntu mount was found for this SMB share. Open it in Files, then click Reconnect. A successful connection does not start scanning."
+msgstr "Er is geen toegankelijke Ubuntu-koppeling gevonden voor deze SMB-share. Open deze in Bestanden en klik op Opnieuw verbinden. Een geslaagde verbinding start geen scan."
+
+msgctxt "ui"
+msgid "Source reconnected. No scan has been started."
+msgstr "Bron opnieuw verbonden. Er is geen scan gestart."
+
+msgctxt "ui"
+msgid "Disconnected sources"
+msgstr "Losgekoppelde bronnen"
+
+msgctxt "ui"
+msgid "Reconnect a source to restore it to the active lists. No scan will be started."
+msgstr "Verbind een bron opnieuw om deze weer in de actieve lijsten te tonen. Er wordt geen scan gestart."
+
+msgctxt "ui"
+msgid "No disconnected sources."
+msgstr "Geen losgekoppelde bronnen."
+
+msgctxt "ui"
+msgid "This source was disconnected. Click Reconnect to restore it. No scan will be started."
+msgstr "Deze bron is losgekoppeld. Klik op Opnieuw verbinden om deze weer te activeren. Er wordt geen scan gestart."
+
+msgctxt "ui"
+msgid "This share is unavailable because its NAS server is disconnected. Reconnect the server first; individually disconnected shares will stay disconnected."
+msgstr "Deze share is niet beschikbaar omdat de NAS-server is losgekoppeld. Verbind eerst de server opnieuw; afzonderlijk losgekoppelde shares blijven losgekoppeld."
+
+msgctxt "rust"
+msgid "This share is unavailable because its NAS server is disconnected. Reconnect the server first; individually disconnected shares will stay disconnected."
+msgstr "Deze share is niet beschikbaar omdat de NAS-server is losgekoppeld. Verbind eerst de server opnieuw; afzonderlijk losgekoppelde shares blijven losgekoppeld."
+
+msgctxt "ui"
+msgid "In one folder or drive"
+msgstr "In één map of station"
+
+msgctxt "ui"
+msgid "Between A and B"
+msgstr "Tussen A en B"
+
+msgctxt "ui"
+msgid "Duplicate search scope"
+msgstr "Zoekbereik voor duplicaten"
+
+msgctxt "ui"
+msgid "Analyze A"
+msgstr "Analyseren A"
+
+msgctxt "ui"
+msgid "Analyze B"
+msgstr "Analyseren B"
+
+msgctxt "ui"
+msgid "Find duplicates (reads files)"
+msgstr "Duplicaten zoeken (leest bestanden)"
+
+msgctxt "rust"
+msgid "At most 16 session inventories are retained for comparison. Save further inventories to use them."
+msgstr "Er worden maximaal 16 sessie-inventarissen bewaard voor vergelijking. Sla extra inventarissen op om ze te gebruiken."
+
+msgctxt "rust"
+msgid "Could not start search."
+msgstr "De zoekopdracht kon niet worden gestart."
+
+msgctxt "rust"
+msgid "Disconnected by user"
+msgstr "Door gebruiker losgekoppeld"
+
+msgctxt "rust"
+msgid "Effective duplicate budgets: {} bytes read; {} bytes per file; {} errors; {} bytes temporary state total; {} roots maximum."
+msgstr "Effectieve duplicaatlimieten: {} bytes gelezen; {} bytes per bestand; {} fouten; {} bytes tijdelijke gegevens in totaal; maximaal {} hoofdmappen."
+
+msgctxt "rust"
+msgid "Possible source aliases remain unverified. Results are incomplete."
+msgstr "Mogelijke bronaliassen zijn nog niet geverifieerd. De resultaten zijn onvolledig."
+
+msgctxt "rust"
+msgid "Verified exact"
+msgstr "Exacte gelijkheid geverifieerd"
+
+msgctxt "rust"
+msgid "Another duplicate task is still closing. Retry shortly."
+msgstr "Een andere duplicaatzoekopdracht wordt nog afgesloten. Probeer het zo opnieuw."
+
+msgctxt "rust"
+msgid "Maximum pending duplicate tasks, including cancelled tasks awaiting the system: {}."
+msgstr "Maximaal aantal wachtende duplicaatzoekopdrachten, inclusief geannuleerde opdrachten die op het systeem wachten: {}."
+
+msgctxt "rust"
+msgid "Source continuity is unverified. Current file contents can be compared, but inventory coverage and independent copies are not proven."
+msgstr "De continuïteit van de bron is niet geverifieerd. De huidige bestandsinhoud kan worden vergeleken, maar de volledigheid van de inventaris en onafhankelijke kopieën zijn niet aangetoond."
+
+msgctxt "rust"
+msgid "Group {} · location {} ·"
+msgstr "Groep {} · locatie {} ·"
+
+msgctxt "rust"
+msgid "Unverified sources: {}."
+msgstr "Niet geverifieerde bronnen: {}."
+
+msgctxt "rust"
+msgid "This source differs from its recorded inventory. Analyze it separately before comparing."
+msgstr "Deze bron wijkt af van de opgeslagen inventaris. Analyseer de bron apart voordat je vergelijkt."
+
+msgctxt "ui"
+msgid "Folder or allowed root A"
+msgstr "Map of toegestane hoofdmap A"
+
+msgctxt "ui"
+msgid "Folder or allowed root B"
+msgstr "Map of toegestane hoofdmap B"
+
+msgctxt "ui"
+msgid "Cancellation requested. A system call already in progress may delay the stop."
+msgstr "Annulering aangevraagd. Een lopende systeemaanroep kan het stoppen vertragen."
+
+msgctxt "rust"
+msgid "Cancelling…"
+msgstr "Annuleren…"
+
+msgctxt "rust"
+msgid "Inventory absent"
+msgstr "Inventaris ontbreekt"
+
+msgctxt "rust"
+msgid "Inventory available"
+msgstr "Inventaris beschikbaar"
+
+msgctxt "rust"
+msgid "Exact groups: {} · errors: {}."
+msgstr "Exacte groepen: {} · fouten: {}."
+
+msgctxt "rust"
+msgid "Verifying files…"
+msgstr "Bestanden worden gecontroleerd…"
+
+msgctxt "ui"
+msgid "Folders to compare"
+msgstr "Te vergelijken mappen"
+
+msgctxt "ui"
+msgid "Edit folders"
+msgstr "Mappen wijzigen"
+
+msgctxt "ui"
+msgid "Details"
+msgstr "Details"
+
+msgctxt "ui"
+msgid "Group"
+msgstr "Groep"
+
+msgctxt "ui"
+msgid "Side"
+msgstr "Kant"
+
+msgctxt "ui"
+msgid "File name"
+msgstr "Bestandsnaam"
+
+msgctxt "ui"
+msgid "Location"
+msgstr "Locatie"
+
+msgctxt "ui"
+msgid "Verification"
+msgstr "Verificatie"
+
+msgctxt "ui"
+msgid "Expanded"
+msgstr "Uitgeklapt"
+
+msgctxt "ui"
+msgid "Collapsed"
+msgstr "Ingeklapt"
+
+msgctxt "ui"
+msgid "Find duplicates"
+msgstr "Duplicaten zoeken"
+
+msgctxt "ui"
+msgid "Identical folders"
+msgstr "Identieke mappen"
+
+msgctxt "ui"
+msgid "Identical files"
+msgstr "Identieke bestanden"
+
+msgctxt "ui"
+msgid "Expand folder"
+msgstr "Map uitklappen"
+
+msgctxt "ui"
+msgid "Collapse folder"
+msgstr "Map inklappen"
+
+msgctxt "rust"
+msgid "Identical folders"
+msgstr "Identieke mappen"
+
+msgctxt "rust"
+msgid "{} folder groups · {} file groups."
+msgstr "{} mapgroepen · {} bestandsgroepen."
+
+msgctxt "rust"
+msgid "Some folders lack complete, fresh verification. Only verified file duplicates are retained for them."
+msgstr "Sommige mappen zijn niet volledig en actueel geverifieerd. Alleen hun geverifieerde dubbele bestanden blijven behouden."
+
+msgctxt "rust"
+msgid "Matches folder group {}"
+msgstr "Ook mapgroep {}"
+
+msgctxt "rust"
+msgid "Open folder group {}"
+msgstr "Mapgroep {} openen"
+
+msgctxt "ui"
+msgid "Choose protected reference"
+msgstr "Beveiligde referentie kiezen"
+
+msgctxt "ui"
+msgid "A protected"
+msgstr "A beveiligd"
+
+msgctxt "ui"
+msgid "B protected"
+msgstr "B beveiligd"
+
+msgctxt "ui"
+msgid "Protected reference"
+msgstr "Beveiligde referentie"
+
+msgctxt "ui"
+msgid "Select B copies…"
+msgstr "Kopieën op B kiezen…"
+
+msgctxt "ui"
+msgid "Select A copies…"
+msgstr "Kopieën op A kiezen…"
+
+msgctxt "ui"
+msgid "Select copies…"
+msgstr "Kopieën kiezen…"
+
+msgctxt "ui"
+msgid "Clear selection"
+msgstr "Selectie wissen"
+
+msgctxt "ui"
+msgid "Choose A or B to protect it. No copies are selected automatically."
+msgstr "Kies A of B om te beveiligen. Er worden geen kopieën automatisch geselecteerd."
+
+msgctxt "ui"
+msgid "Selection preview: all eligible results, including other pages"
+msgstr "Selectievoorbeeld: alle geschikte resultaten, ook op andere pagina’s"
+
+msgctxt "ui"
+msgid "Apply selection for review"
+msgstr "Selectie voor beoordeling toepassen"
+
+msgctxt "ui"
+msgid "Review"
+msgstr "Beoordelen"
+
+msgctxt "ui"
+msgid "Partly selected"
+msgstr "Deels geselecteerd"
+
+msgctxt "rust"
+msgid "Selected for review: {} files · {} folders · {} logical."
+msgstr "Geselecteerd voor beoordeling: {} bestanden · {} mappen · {} logisch."
+
+msgctxt "rust"
+msgid "Preview: {} files · {} folders · {} logical."
+msgstr "Voorbeeld: {} bestanden · {} mappen · {} logisch."
+
+msgctxt "rust"
+msgid "All eligible results in this comparison, including pages not displayed. Logical size is not recoverable space."
+msgstr "Alle geschikte resultaten van deze vergelijking, ook op niet getoonde pagina’s. Logische grootte is geen terugwinbare ruimte."
+
+msgctxt "rust"
+msgid "Choose a protected reference before selecting copies."
+msgstr "Kies een beveiligde referentie voordat je kopieën selecteert."
+
+msgctxt "rust"
+msgid "Protected reference: this location cannot be selected."
+msgstr "Beveiligde referentie: deze locatie kan niet worden geselecteerd."
+
+msgctxt "rust"
+msgid "Incomplete or insufficient verification. Compare explicitly again before selecting copies."
+msgstr "Onvolledige of onvoldoende verificatie. Vergelijk opnieuw via de expliciete actie voordat je kopieën selecteert."
+
+msgctxt "rust"
+msgid "Hardlink or source alias: this is not an independent copy."
+msgstr "Hardlink of bronalias: dit is geen onafhankelijke kopie."
+
+msgctxt "rust"
+msgid "This result lacks sufficient verified evidence for selection."
+msgstr "Dit resultaat heeft onvoldoende geverifieerd bewijs om het te selecteren."
+
+msgctxt "rust"
+msgid "Selection cleared after the protected reference changed."
+msgstr "Selectie gewist na wijziging van de beveiligde referentie."
+
+msgctxt "rust"
+msgid "Selection cleared."
+msgstr "Selectie gewist."
+
+msgctxt "rust"
+msgid "Copies selected for review. No files were changed."
+msgstr "Kopieën geselecteerd voor beoordeling. Er zijn geen bestanden gewijzigd."
+
+msgctxt "rust"
+msgid "For review on side {}: {}"
+msgstr "Voor beoordeling aan kant {}: {}"
+
+msgctxt "rust"
+msgid "Selection uses the recorded comparison evidence; compare explicitly again to refresh it."
+msgstr "De selectie gebruikt het opgeslagen vergelijkingsbewijs; vergelijk opnieuw via de expliciete actie om dit bij te werken."
+
+msgctxt "rust"
+msgid "Selection cleared because the comparison context changed."
+msgstr "Selectie gewist omdat de vergelijkingscontext is gewijzigd."
+
+msgctxt "rust"
+msgid "Comparison was cancelled or a source was disconnected. Compare explicitly again before selecting copies."
+msgstr "De vergelijking is geannuleerd of een bron is losgekoppeld. Vergelijk opnieuw via de expliciete actie voordat je kopieën selecteert."
+
+msgctxt "ui"
+msgid "Clear"
+msgstr "Wissen"
+
+msgctxt "ui"
+msgid "Between A, B and C"
+msgstr "Tussen A, B en C"
+
+msgctxt "ui"
+msgid "Folder or allowed root C"
+msgstr "Map of toegestane hoofdmap C"
+
+msgctxt "ui"
+msgid "Analyze C"
+msgstr "C analyseren"
+
+msgctxt "ui"
+msgid "C protected"
+msgstr "C beschermd"
+
+msgctxt "ui"
+msgid "Select copies outside reference…"
+msgstr "Kopieën buiten referentie selecteren…"
+
+msgctxt "ui"
+msgid "Choose A, B or C to protect it. No copies are selected automatically."
+msgstr "Kies A, B of C om te beschermen. Er worden geen kopieën automatisch geselecteerd."
+
+msgctxt "rust"
+msgid "No verified matching copy in the protected reference. This group cannot be selected with assistance."
+msgstr "Geen geverifieerde overeenkomstige kopie in de beschermde referentie. Deze groep kan niet met hulp worden geselecteerd."
+
+msgctxt "rust"
+msgid "{} files · {} locations"
+msgstr "{} bestanden · {} locaties"
+
+msgctxt "rust"
+msgid "Cancelled: partial inventory, not published"
+msgstr "Geannuleerd: gedeeltelijke inventaris, niet gepubliceerd"
+
+msgctxt "rust"
+msgid "Restart this cancelled scan with the same allocation and owner options."
+msgstr "Start deze geannuleerde analyse opnieuw met dezelfde opties voor toegewezen ruimte en eigenaar."
+
+msgctxt "rust"
+msgid "Choose an absolute folder."
+msgstr "Kies een absolute map."
+
+msgctxt "rust"
+msgid "An analysis is active. Wait for completion or cancel it."
+msgstr "Een analyse is actief. Wacht of annuleer deze."
+
+msgctxt "rust"
+msgid "Folder missing or invalid: choose an absolute folder on an available source."
+msgstr "Map ontbreekt of is ongeldig: kies een absolute map op een beschikbare bron."
+
+msgctxt "rust"
+msgid "Folders are identical or nested. Choose separate, disjoint folders."
+msgstr "Mappen zijn identiek of genest. Kies afzonderlijke mappen zonder overlap."
+
+msgctxt "rust"
+msgid "Choose two disjoint folders, on the same or different drives. Content reads start with Find duplicates."
+msgstr "Kies twee afzonderlijke mappen op hetzelfde of verschillende stations. Duplicaten zoeken begint met het lezen van inhoud."
+
+msgctxt "rust"
+msgid "Choose three disjoint folders, on the same or different drives. Content reads start with Find duplicates."
+msgstr "Kies drie afzonderlijke mappen op hetzelfde of verschillende stations. Duplicaten zoeken begint met het lezen van inhoud."
+
+msgctxt "ui"
+msgid "Search in progress…"
+msgstr "Zoeken…"
+
+msgctxt "ui"
+msgid "Folder A"
+msgstr "Map A"
+
+msgctxt "ui"
+msgid "Folder B"
+msgstr "Map B"
+
+msgctxt "ui"
+msgid "Folder C"
+msgstr "Map C"
+
+msgctxt "rust"
+msgid "Copy"
+msgstr "Kopie"
+
+msgctxt "rust"
+msgid "Protected reference"
+msgstr "Beschermde referentie"
+
+msgctxt "rust"
+msgid "Protected reference: {} · {}"
+msgstr "Beschermde referentie: {} · {}"
+
+msgctxt "rust"
+msgid "No matching location in reference folder {}"
+msgstr "Geen exemplaar in de referentiemap {}"
+
+msgctxt "rust"
+msgid "The shared disk quota refused the working folder {}. Set BUNNY_AND_SIZE_STORE_DIR to another local folder and restart Bunny and Size."
+msgstr "Het gedeelde schijfquotum heeft werkmap {} geweigerd. Stel BUNNY_AND_SIZE_STORE_DIR in op een andere lokale map en start Bunny and Size opnieuw."
+
+msgctxt "rust"
+msgid "This inventory is stored at {}. Set BUNNY_AND_SIZE_STORE_DIR to choose an existing parent of that repository and restart, or use Analyze to start a new inventory in the selected working folder."
+msgstr "Deze inventaris staat in {}. Stel BUNNY_AND_SIZE_STORE_DIR in om een bestaande bovenliggende map van die inventaris te kiezen en start opnieuw, of kies Analyseren om een nieuwe inventaris te maken in de geselecteerde werkmap."
+
+msgctxt "rust"
+msgid "The candidate has a different or uncertain scan scope. Use Analyze to start a new inventory."
+msgstr "Het scanbereik van de kandidaat is anders of onzeker. Kies Analyseren om een nieuwe inventaris te starten."
+
+msgctxt "rust"
+msgid "Scope excludes Bunny and Size's verified working folder: {}"
+msgstr "Gecontroleerde werkmap van Bunny and Size uitgesloten van het scanbereik: {}"
+
+msgctxt "ui"
+msgid "Duplicates"
+msgstr "Duplicaten"
+
+msgctxt "ui"
+msgid "Folder or drive"
+msgstr "Map of station"
+
+msgctxt "ui"
+msgid "Subfolders included"
+msgstr "Inclusief submappen"
+
+msgctxt "ui"
+msgid "Folders without files are excluded from the results."
+msgstr "Mappen zonder bestanden worden uitgesloten van de resultaten."
+
+msgctxt "rust"
+msgid "Discovering and checking files…"
+msgstr "Bestanden zoeken en controleren…"
+
+msgctxt "ui"
+msgid "Save the inventory"
+msgstr "Inventaris opslaan"
+
+msgctxt "rust"
+msgid "Scanning folders…"
+msgstr "Mappen scannen…"
+
+msgctxt "rust"
+msgid "Preparing the view…"
+msgstr "Weergave voorbereiden…"
+
+msgctxt "rust"
+msgid "{n} entry processed"
+msgid_plural "{n} entries processed"
+msgstr[0] "{n} item verwerkt"
+msgstr[1] "{n} items verwerkt"
+
+msgctxt "rust"
+msgid "Wait until the quick analysis is available before saving."
+msgstr "Wacht met opslaan tot de snelle analyse beschikbaar is."
+
+msgctxt "rust"
+msgid "Observation order"
+msgstr "Waarnemingsvolgorde"
+
+msgctxt "rust"
+msgid "Archived directory sizes may be outdated. Some duplicates may be missed. Verify the saved inventories before searching again."
+msgstr "Opgeslagen groottes kunnen verouderd zijn. Sommige duplicaten worden mogelijk gemist. Controleer de opgeslagen inventarissen voordat u opnieuw zoekt."
+
+msgctxt "ui"
+msgid "Windows could not open the menu or run the selected command for this item."
+msgstr "Windows kon het menu voor dit item niet openen of de geselecteerde opdracht niet uitvoeren."
+
+msgctxt "ui"
+msgid "Move this file to the Recycle Bin?"
+msgstr "Dit bestand naar de Prullenbak verplaatsen?"
+
+msgctxt "ui"
+msgid "Move this folder and its contents to the Recycle Bin?"
+msgstr "Deze map en de inhoud ervan naar de Prullenbak verplaatsen?"
+
+msgctxt "ui"
+msgid "Disk contents changed. Analyze again to update the table."
+msgstr "De schijfinhoud is gewijzigd. Analyseer opnieuw om de tabel bij te werken."
+
+msgctxt "ui"
+msgid "The item was recycled, but the journal could not be updated. Analyze again to update the table."
+msgstr "Het item is naar de Prullenbak verplaatst, maar het logboek kon niet worden bijgewerkt. Analyseer opnieuw om de tabel bij te werken."
+
+msgctxt "ui"
+msgid "Rename"
+msgstr "Naam wijzigen"
+
+msgctxt "ui"
+msgid "New name"
+msgstr "Nieuwe naam"
+
+msgctxt "ui"
+msgid "Could not rename this item. Check the name, whether it is already in use, and whether the original item still exists."
+msgstr "Kan de naam van dit item niet wijzigen. Controleer de naam, of die al in gebruik is en of het oorspronkelijke item nog bestaat."
+
+msgctxt "rust"
+msgid "Analysis finished"
+msgstr "Analyse voltooid"
+
+msgctxt "rust"
+msgid "Saving inventory…"
+msgstr "Inventaris opslaan…"
+
+msgctxt "rust"
+msgid "Inventory saved"
+msgstr "Inventaris opgeslagen"
+
+msgctxt "rust"
+msgid "Preparing the folder order…"
+msgstr "Mapvolgorde voorbereiden…"
+
+msgctxt "rust"
+msgid "Enter at least 128 MiB, or leave empty for automatic."
+msgstr "Voer ten minste 128 MiB in of laat leeg voor automatisch."
+
+msgctxt "ui"
+msgid "Memory limit (MiB, empty = automatic)"
+msgstr "Geheugenlimiet (MiB, leeg = automatisch)"
+
+msgctxt "ui"
+msgid "Apply memory limit"
+msgstr "Geheugenlimiet toepassen"
+
+msgctxt "ui"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "rust"
+msgid "Other observed data outside this page"
+msgstr "Overige waargenomen gegevens buiten deze pagina"
+
+msgctxt "rust"
+msgid "Comparing file contents…"
+msgstr "Bestandsinhoud vergelijken…"
+
+msgctxt "rust"
+msgid "Checking coverage…"
+msgstr "Dekking controleren…"
+
+msgctxt "rust"
+msgid "Could not search this folder."
+msgstr "Deze map kon niet worden doorzocht."
+
+msgctxt "rust"
+msgid "Observed entries: {} · selected files: {} · discovery errors: {}."
+msgstr "Waargenomen vermeldingen: {} · geselecteerde bestanden: {} · fouten bij het zoeken: {}."
+
+msgctxt "rust"
+msgid "Coverage describes the folders examined and the checks made during this search. Files can change during the search."
+msgstr "De dekking beschrijft de onderzochte mappen en de uitgevoerde controles. Bestanden kunnen tijdens het zoeken veranderen."
+
+msgctxt "rust"
+msgid "Complete coverage"
+msgstr "Volledige dekking"
+
+msgctxt "rust"
+msgid "Exact file groups: {}."
+msgstr "Groepen identieke bestanden: {}."
+
+msgctxt "ui"
+msgid "Content limits"
+msgstr "Leeslimieten"
+
+msgctxt "ui"
+msgid "These limits apply to local Windows searches for this session, including from the Folders pane. Leave a field empty for no limit."
+msgstr "Deze limieten gelden tijdens deze sessie voor lokale zoekopdrachten in Windows, ook vanuit het deelvenster Mappen. Laat een veld leeg voor geen limiet."
+
+msgctxt "ui"
+msgid "Total content read (bytes)"
+msgstr "Totaal gelezen inhoud (bytes)"
+
+msgctxt "ui"
+msgid "Maximum file size (bytes)"
+msgstr "Maximale bestandsgrootte (bytes)"
+
+msgctxt "rust"
+msgid "Enter whole numbers from 0 to {} in bytes, or leave a field empty."
+msgstr "Voer gehele getallen van 0 tot {} in bytes in of laat een veld leeg."
+
+msgctxt "rust"
+msgid "Content limits are available for local folders."
+msgstr "Leeslimieten zijn beschikbaar voor lokale mappen."
+
+msgctxt "rust"
+msgid "Hashing file contents…"
+msgstr "Hashes van bestandsinhoud berekenen…"
+
+msgctxt "rust"
+msgid "Logical size of selected files with known sizes: {} bytes."
+msgstr "Logische grootte van geselecteerde bestanden met bekende grootte: {} bytes."
+
+msgctxt "rust"
+msgid "Content bytes read (hashing and comparison): {}."
+msgstr "Gelezen inhoudsbytes (hashberekening en vergelijking): {}."
+
+msgctxt "rust"
+msgid "Insufficient temporary storage. Search quota: {} bytes."
+msgstr "Onvoldoende tijdelijke opslagruimte. Zoekquotum: {} bytes."
+
+msgctxt "rust"
+msgid "Temporary storage quota unavailable: {} bytes requested, {} bytes quota."
+msgstr "Quotum voor tijdelijke opslag niet beschikbaar: {} bytes gevraagd, quotum van {} bytes."
+
+msgctxt "rust"
+msgid "Memory budget unavailable: {} bytes required, {} bytes available, {} bytes category limit."
+msgstr "Geheugenbudget niet beschikbaar: {} bytes vereist, {} bytes beschikbaar, categorielimiet van {} bytes."
+
+msgctxt "rust"
+msgid "Total content read limit reached: {} bytes."
+msgstr "Totale leeslimiet bereikt: {} bytes."
+
+msgctxt "rust"
+msgid "Files exceeded the size limit of {} bytes."
+msgstr "Bestanden overschreden de groottelimiet van {} bytes."
+
+msgctxt "rust"
+msgid "Error limit reached: {}."
+msgstr "Foutlimiet bereikt: {}."
+
+msgctxt "rust"
+msgid "Errors during search: {}."
+msgstr "Fouten tijdens het zoeken: {}."
+
+msgctxt "rust"
+msgid "Candidate files not fully verified: {}."
+msgstr "Kandidaatbestanden die niet volledig zijn gecontroleerd: {}."
+
+msgctxt "rust"
+msgid "No limit"
+msgstr "Geen limiet"
+
+msgctxt "rust"
+msgid "{} bytes"
+msgstr "{} bytes"
+
+msgctxt "rust"
+msgid "Automatic"
+msgstr "Automatisch"
+
+msgctxt "rust"
+msgid "Choose a local temporary folder"
+msgstr "Kies een lokale tijdelijke map"
+
+msgctxt "rust"
+msgid "Content read limit: {} · file size limit: {} · error limit: {}."
+msgstr "Leeslimiet: {} · maximale bestandsgrootte: {} · foutenlimiet: {}."
+
+msgctxt "rust"
+msgid "Could not access the local temporary folder."
+msgstr "De lokale tijdelijke map is niet toegankelijk."
+
+msgctxt "rust"
+msgid "Could not access the scanned folder."
+msgstr "De te scannen map is niet toegankelijk."
+
+msgctxt "rust"
+msgid "Could not confirm access to the scanned folder."
+msgstr "Toegang tot de te scannen map kon niet worden bevestigd."
+
+msgctxt "rust"
+msgid "Free on temporary volume: {} · space kept free: {}."
+msgstr "Vrij op het tijdelijke volume: {} · vrij te houden ruimte: {}."
+
+msgctxt "rust"
+msgid "Not enough free space on the temporary volume."
+msgstr "Onvoldoende vrije ruimte op het tijdelijke volume."
+
+msgctxt "rust"
+msgid "SQLite cache: {} · discovery workers: {} · result pages reserved: {}."
+msgstr "SQLite-cache: {} · zoekthreads: {} · geheugen gereserveerd voor resultaatpagina’s: {}."
+
+msgctxt "rust"
+msgid "Search RAM budget unavailable."
+msgstr "Het RAM-budget voor de zoekopdracht is niet beschikbaar."
+
+msgctxt "rust"
+msgid "Search RAM limit: {} · reserved peak: {} · shared RAM available at admission: {}."
+msgstr "RAM-limiet voor de zoekopdracht: {} · piekreservering: {} · gedeeld RAM beschikbaar bij de start: {}."
+
+msgctxt "rust"
+msgid "Temporary folder: {}."
+msgstr "Tijdelijke map: {}."
+
+msgctxt "rust"
+msgid "Temporary quota reached."
+msgstr "Tijdelijk opslagquotum bereikt."
+
+msgctxt "rust"
+msgid "Temporary storage charged: {} · peak: {} · effective quota: {} · requested quota: {}."
+msgstr "Meegetelde tijdelijke opslag: {} · piek: {} · effectief quotum: {} · aangevraagd quotum: {}."
+
+msgctxt "rust"
+msgid "This temporary folder path is not supported. Choose another local folder."
+msgstr "Dit tijdelijke mappad wordt niet ondersteund. Kies een andere lokale map."
+
+msgctxt "ui"
+msgid "Apply limits"
+msgstr "Limieten toepassen"
+
+msgctxt "ui"
+msgid "Could not choose the temporary folder."
+msgstr "De tijdelijke map kon niet worden geselecteerd."
+
+msgctxt "ui"
+msgid "Enter positive whole numbers in MiB within range, or leave a limit blank."
+msgstr "Voer hele positieve getallen in MiB binnen het bereik in of laat een veld leeg."
+
+msgctxt "ui"
+msgid "Leave a limit blank for Automatic. Changes apply to new searches."
+msgstr "Laat een veld leeg voor Automatisch. Wijzigingen gelden voor nieuwe zoekopdrachten."
+
+msgctxt "ui"
+msgid "Local temporary folder"
+msgstr "Lokale tijdelijke map"
+
+msgctxt "ui"
+msgid "Search RAM (MiB)"
+msgstr "RAM voor zoeken (MiB)"
+
+msgctxt "ui"
+msgid "Search again from scratch"
+msgstr "Zoek opnieuw vanaf het begin"
+
+msgctxt "ui"
+msgid "Search resources"
+msgstr "Zoekbronnen"
+
+msgctxt "ui"
+msgid "Temporary quota (MiB)"
+msgstr "Tijdelijk quotum (MiB)"
+
+msgctxt "ui"
+msgid "Use system folder"
+msgstr "Systeemmap gebruiken"
+
+msgctxt "rust"
+msgid "Search RAM budget unavailable. Set at least 8 MiB or use Automatic."
+msgstr "Het RAM-budget voor de zoekopdracht is niet beschikbaar. Stel minimaal 8 MiB in of gebruik Automatisch."
+
+msgctxt "ui"
+msgid "Apply filter"
+msgstr "Filter toepassen"
+
+msgctxt "ui"
+msgid "Breakdown by parent folder"
+msgstr "Verdeling per bovenliggende map"
+
+msgctxt "ui"
+msgid "Duplicate search profile"
+msgstr "Zoekprofiel voor duplicaten"
+
+msgctxt "ui"
+msgid "Exact folder comparison includes small and empty files."
+msgstr "De exacte mapvergelijking omvat kleine en lege bestanden."
+
+msgctxt "ui"
+msgid "Exhaustive search"
+msgstr "Volledige zoekactie"
+
+msgctxt "rust"
+msgid "Exhaustive search"
+msgstr "Volledige zoekactie"
+
+msgctxt "ui"
+msgid "Filter by path"
+msgstr "Filteren op pad"
+
+msgctxt "ui"
+msgid "Find empty files"
+msgstr "Lege bestanden zoeken"
+
+msgctxt "ui"
+msgid "Find empty folders"
+msgstr "Lege mappen zoeken"
+
+msgctxt "ui"
+msgid "Folders with no direct entries. A subfolder counts as an entry."
+msgstr "Mappen zonder directe items. Een submap telt als item."
+
+msgctxt "ui"
+msgid "General search (256 KiB)"
+msgstr "Algemene zoekactie (256 KiB)"
+
+msgctxt "rust"
+msgid "General search (256 KiB)"
+msgstr "Algemene zoekactie (256 KiB)"
+
+msgctxt "ui"
+msgid "Include all small files — exhaustive search"
+msgstr "Alle kleine bestanden opnemen — volledige zoekactie"
+
+msgctxt "ui"
+msgid "Includes all small regular files from one byte."
+msgstr "Omvat alle kleine reguliere bestanden vanaf één byte."
+
+msgctxt "ui"
+msgid "Large files only (10 MiB)"
+msgstr "Alleen grote bestanden (10 MiB)"
+
+msgctxt "rust"
+msgid "Large files only (10 MiB)"
+msgstr "Alleen grote bestanden (10 MiB)"
+
+msgctxt "ui"
+msgid "Only files at or above the selected minimum are included."
+msgstr "Alleen bestanden die de gekozen minimumgrootte bereiken, worden opgenomen."
+
+msgctxt "ui"
+msgid "Optimized search (1 MiB)"
+msgstr "Geoptimaliseerde zoekactie (1 MiB)"
+
+msgctxt "rust"
+msgid "Optimized search (1 MiB)"
+msgstr "Geoptimaliseerde zoekactie (1 MiB)"
+
+msgctxt "ui"
+msgid "Parent folder"
+msgstr "Bovenliggende map"
+
+msgctxt "ui"
+msgid "Path ↑"
+msgstr "Pad ↑"
+
+msgctxt "ui"
+msgid "Path ↓"
+msgstr "Pad ↓"
+
+msgctxt "ui"
+msgid "Regular files with a logical size of zero bytes."
+msgstr "Reguliere bestanden met een logische grootte van nul bytes."
+
+msgctxt "ui"
+msgid "Sort"
+msgstr "Sorteren"
+
+msgctxt "rust"
+msgid "Matches: {} · Folders examined: {} · Entries observed: {} · Errors: {}."
+msgstr "Resultaten: {} · Onderzochte mappen: {} · Waargenomen items: {} · Fouten: {}."
+
+msgctxt "rust"
+msgid "No match on this page."
+msgstr "Geen resultaten op deze pagina."
+
+msgctxt "rust"
+msgid "Search in progress…"
+msgstr "Bezig met zoeken…"
+
+msgctxt "rust"
+msgid "Temporary storage limit reached."
+msgstr "Limiet voor tijdelijke opslag bereikt."
+
+msgctxt "rust"
+msgid "The path filter is too long."
+msgstr "Het padfilter is te lang."
+
+msgctxt "rust"
+msgid "{} · Files examined: {} · Below threshold: {} · Empty files excluded: {}."
+msgstr "{} · Onderzochte bestanden: {} · Onder de drempel: {} · Uitgesloten lege bestanden: {}."
+
+msgctxt "ui"
+msgid "Empty items…"
+msgstr "Lege items…"
+
+msgctxt "ui"
+msgid "Find empty items"
+msgstr "Lege items zoeken"
+
+msgctxt "ui"
+msgid "Top 100 files"
+msgstr "Top 100 bestanden"
+
+msgctxt "ui"
+msgid "Open in File Explorer"
+msgstr "Openen in Verkenner"
+
+msgctxt "ui"
+msgid "Show in File Explorer"
+msgstr "Weergeven in Verkenner"
+
+msgctxt "rust"
+msgid "The clicked folder can no longer be verified. Open its menu again."
+msgstr "De aangeklikte map kan niet meer worden gecontroleerd. Open het menu opnieuw."
+
+msgctxt "ui"
+msgid "Search {} queued"
+msgstr "Zoekopdracht {} in de wachtrij"
+
+msgctxt "ui"
+msgid "Search {} in progress"
+msgstr "Zoekopdracht {} wordt uitgevoerd"
+
+msgctxt "ui"
+msgid "Search {} finished"
+msgstr "Zoekopdracht {} voltooid"
+
+msgctxt "ui"
+msgid "Resize the treemap and file list. Use Up and Down arrows or Enter to reset."
+msgstr "Pas de grootte van de treemap en de bestandenlijst aan. Gebruik Pijl-omhoog en Pijl-omlaag of Enter om te herstellen."
+
+msgctxt "rust"
+msgid "Choose another retained date…"
+msgstr "Kies een andere bewaarde datum…"
+
+msgctxt "rust"
+msgid "Choose two different retained dates."
+msgstr "Kies twee verschillende bewaarde datums."
+
+msgctxt "rust"
+msgid "Date retained locally"
+msgstr "Datum lokaal bewaard"
+
+msgctxt "rust"
+msgid "Direct files and immediate folders, including their descendants."
+msgstr "Bestanden in de hoofdmap en directe submappen met hun inhoud."
+
+msgctxt "rust"
+msgid "Folder changes · logical size"
+msgstr "Wijzigingen per map · logische grootte"
+
+msgctxt "rust"
+msgid "Incomparable scope"
+msgstr "Onvergelijkbaar bereik"
+
+msgctxt "rust"
+msgid "Keep complete measures of this scope at two different times to see a trend."
+msgstr "Bewaar volledige metingen van dit bereik op twee verschillende momenten om het verloop te zien."
+
+msgctxt "rust"
+msgid "Largest entries · observed logical size"
+msgstr "Grootste items · waargenomen logische grootte"
+
+msgctxt "rust"
+msgid "Last automatic scan"
+msgstr "Laatste automatische scan"
+
+msgctxt "rust"
+msgid "Later measure"
+msgstr "Nieuwere meting"
+
+msgctxt "rust"
+msgid "Logical size over time"
+msgstr "Verloop van de logische grootte"
+
+msgctxt "rust"
+msgid "No entries with a known logical size."
+msgstr "Geen items met een bekende logische grootte."
+
+msgctxt "rust"
+msgid "No logical size changes in immediate folders."
+msgstr "Geen wijzigingen in logische grootte in de directe submappen."
+
+msgctxt "rust"
+msgid "Retained date"
+msgstr "Bewaarde datum"
+
+msgctxt "rust"
+msgid "The comparison needs two complete measures with known logical totals."
+msgstr "Voor de vergelijking zijn twee volledige metingen met bekende logische totalen nodig."
+
+msgctxt "rust"
+msgid "The two scopes could not be matched."
+msgstr "De twee bereiken konden niet aan elkaar worden gekoppeld."
+
+msgctxt "rust"
+msgid "Up to five increases and five decreases among immediate folders. Direct files also affect the total."
+msgstr "Maximaal vijf toenames en vijf afnames bij directe submappen. Bestanden in de hoofdmap tellen ook mee in het totaal."
+
+msgctxt "ui"
+msgid "Compare retained dates"
+msgstr "Bewaarde datums vergelijken"
+
+msgctxt "ui"
+msgid "Dots show complete measurements. Axis marks show gaps. Dates and recorded values are listed below."
+msgstr "Punten tonen volledige metingen. Markeringen op de as tonen gaten. Datums en gemeten waarden staan hieronder."
+
+msgctxt "ui"
+msgid "Keep another scan to compare two dates."
+msgstr "Bewaar nog een scan om twee datums te vergelijken."
+
+msgctxt "ui"
+msgid "Keep current scan as a dated measure"
+msgstr "Huidige scan bewaren als gedateerde meting"
+
+msgctxt "ui"
+msgid "Keep each scan you want in the history. A new scan replaces the automatic entry for the same location."
+msgstr "Bewaar elke scan die je in de geschiedenis wilt opnemen. Een nieuwe scan vervangt het automatische item voor dezelfde locatie."
+
+msgctxt "ui"
+msgid "Largest entries"
+msgstr "Grootste items"
+
+msgctxt "ui"
+msgid "Manage measures"
+msgstr "Metingen beheren"
+
+msgctxt "ui"
+msgid "No retained dates yet."
+msgstr "Nog geen bewaarde datums."
+
+msgctxt "ui"
+msgid "Other retained date for comparison"
+msgstr "Andere bewaarde datum voor vergelijking"
+
+msgctxt "ui"
+msgid "Show trend"
+msgstr "Verloop tonen"
+
+msgctxt "rust"
+msgid "Saved measure deleted."
+msgstr "Bewaarde meting verwijderd."
+
+msgctxt "rust"
+msgid "Saved measure deleted. Journal update failed."
+msgstr "Meting verwijderd. Bijwerken van het logboek mislukt."
+
+msgctxt "rust"
+msgid "This measure shares storage with other records and cannot be deleted separately."
+msgstr "Deze meting deelt opslag met andere records. Afzonderlijk verwijderen is niet beschikbaar."
+
+msgctxt "ui"
+msgid "Delete measure"
+msgstr "Meting verwijderen"
+
+msgctxt "ui"
+msgid "Delete selected measure…"
+msgstr "Geselecteerde meting verwijderen…"
+
+msgctxt "ui"
+msgid "Permanently delete this saved measure?"
+msgstr "Deze bewaarde meting definitief verwijderen?"
+
+msgctxt "ui"
+msgid "Scanned files are kept."
+msgstr "De gescande bestanden blijven behouden."
+
+msgctxt "ui"
+msgid "Could not show the item in the file manager."
+msgstr "Het item kon niet in bestandsbeheer worden getoond."
+
+msgctxt "ui"
+msgid "Open in File Manager"
+msgstr "Openen in bestandsbeheer"
+
+msgctxt "ui"
+msgid "Show in File Manager"
+msgstr "Tonen in bestandsbeheer"
+
+msgctxt "ui"
+msgid "Logical size of scanned files · {}"
+msgstr "Logische grootte van de gescande bestanden · {}"

@@ -51,5 +51,6 @@
     "license": "All rights reserved",
     "distribution": "Private development repository only; excluded from software and public sources"
   },
-  "embedded_adaptations_license": "GPL-3.0-only under CC BY-SA 4.0 section 3(b) and the one-way GPLv3 compatibility mechanism; standalone artwork remains CC BY-SA 4.0."
+  "embedded_adaptations_license": "CC-BY-SA-4.0; original project code Apache-2.0 from V0.5. Earlier GPL adaptation grants remain unchanged. See docs/ADR/0068-licence-apache-2.0.md.",
+  "historical_embedded_adaptations_license_before_v05": "GPL-3.0-only under CC BY-SA 4.0 section 3(b) and the one-way GPLv3 compatibility mechanism; standalone artwork remains CC BY-SA 4.0."
 }

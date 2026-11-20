@@ -232,7 +232,7 @@ fn json_v2_preserves_the_entire_legacy_shape_and_zero_vs_null_values() {
             "hardlinked_file_paths":if cfg!(unix) {Some(0u64)} else {None},
             "errors_count":0, "errors_omitted":0, "errors":[],
             "follow_symlinks":false, "exclusions":[], "max_depth":null,
-            "mount_policy":"cross_accessible_mounts"
+            "mount_policy":if cfg!(any(target_os = "linux", windows)) { "explicit_root_and_local_mounts_only" } else { "cross_accessible_mounts" }
         })
     );
 }

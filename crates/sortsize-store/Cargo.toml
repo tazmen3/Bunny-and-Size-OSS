@@ -1,0 +1,28 @@
+[package]
+name = "sortsize-store"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+description = "Magasin canonique V0.5, sans activation dans les interfaces"
+
+[features]
+# GUI tests can hold an observed batch without slowing any production build.
+test-support = []
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+sha2 = "=0.10.9"
+tempfile.workspace = true
+sortsize-core = { path = "../sortsize-core" }
+rusqlite = { version = "=0.41.0", default-features = false, features = ["bundled", "backup", "hooks", "limits"] }
+# Pin the native engine as well as the Rust wrapper (SQLite 3.54.1).
+libsqlite3-sys = { version = "=0.39.1", features = ["bundled"] }
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61.2", features = ["Win32_Storage_FileSystem", "Win32_Security_Authorization", "Win32_Security", "Win32_System_Memory", "Win32_Foundation", "Win32_System_ProcessStatus", "Win32_System_Threading"] }

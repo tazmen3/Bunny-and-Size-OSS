@@ -159,8 +159,8 @@ pub(super) fn run(a: Arguments) -> Result<u8, Box<dyn std::error::Error>> {
                 &snapshot,
                 &result,
                 sortsize_core::duplicates::DuplicateOptions {
-                    max_bytes_read: a.max_read_bytes,
-                    max_file_bytes: a.max_file_bytes,
+                    max_bytes_read: Some(a.max_read_bytes),
+                    max_file_bytes: Some(a.max_file_bytes),
                     ..Default::default()
                 },
                 &cancel,

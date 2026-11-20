@@ -64,6 +64,53 @@ fn oracle(path: &Path) -> WindowsSid {
     WindowsSid::from_bytes(unsafe { std::slice::from_raw_parts(sid.cast(), length) }).unwrap()
 }
 
+#[test]
+fn targeted_owner_reads_file_directory_system_and_missing_without_scan() {
+    let temp = tempfile::tempdir().unwrap();
+    let file = temp.path().join("propriétaire-日本語.txt");
+    fs::write(&file, b"owner fixture").unwrap();
+    let system = std::path::PathBuf::from(std::env::var_os("SystemRoot").unwrap());
+    for path in [file.as_path(), temp.path(), system.as_path()] {
+        assert_eq!(
+            EntryOwner::query_windows_path(path).id,
+            MetadataValue::Known {
+                value: NativeOwnerId::WindowsSid(oracle(path)),
+                accuracy: ValueAccuracy::Exact
+            }
+        );
+    }
+    fs::remove_file(&file).unwrap();
+    assert_eq!(
+        EntryOwner::query_windows_path(&file).id,
+        MetadataValue::Unknown
+    );
+    println!(
+        "targeted file/directory/system owner matches independent GetFileSecurityW; deleted path unavailable; no scan"
+    );
+}
+
+#[test]
+fn targeted_owner_access_denial_and_refresh_restore() {
+    let temp = tempfile::tempdir().unwrap();
+    let file = temp.path().join("owner-denied");
+    fs::write(&file, b"fixture").unwrap();
+    let before = EntryOwner::query_windows_path(&file);
+    let guard = RestoreAcl::new(&file);
+    let output = std::process::Command::new("icacls")
+        .arg(&file)
+        .args(["/deny", "*S-1-3-4:(RC)", "/Q"])
+        .output()
+        .unwrap();
+    assert!(output.status.success());
+    assert_eq!(
+        EntryOwner::query_windows_path(&file).id,
+        MetadataValue::AccessDenied
+    );
+    drop(guard);
+    assert_eq!(EntryOwner::query_windows_path(&file), before);
+    println!("targeted READ_CONTROL denial distinct; fixture ACL restored; fresh owner available");
+}
+
 fn scan(root: &Path, workers: usize, selection: OwnerSelection) -> InventoryWithOwners {
     let mut options = ScanOptions::default();
     options.concurrency.workers = workers;
@@ -489,6 +536,88 @@ fn native_denied_directory_listing_keeps_owner_and_restores_access() {
     }
     drop(guard);
     assert_eq!(fs::read_dir(blocked).unwrap().count(), 1);
+}
+
+#[test]
+fn consultation_listing_does_not_claim_child_open_permissions() {
+    use acquisition::{Guard, Policy, ScanObservation};
+    let temp = tempfile::tempdir().unwrap();
+    let file = temp.path().join("content-denied");
+    fs::write(&file, b"visible through parent listing").unwrap();
+    let restore = RestoreAcl::new(&file);
+    let guard = Guard::open(temp.path(), Policy::default())
+        .unwrap()
+        .with_scan_observation(ScanObservation::DirectoryListing);
+    let output = std::process::Command::new("icacls")
+        .arg(&file)
+        .args(["/deny", "*S-1-1-0:(RD)", "/Q"])
+        .output()
+        .unwrap();
+    assert!(output.status.success());
+    let mut list = guard.scan_directory(temp.path()).unwrap();
+    if !list.is_ntfs_batch() {
+        return;
+    }
+    let entry = list.next().unwrap().unwrap();
+    let listed = list.observe(&guard, &entry, true, false).unwrap();
+    assert_eq!(listed.length, 30);
+    assert!(listed.identity.is_some());
+    assert_eq!(list.ntfs_stats().relative_opens, 0);
+    // Directory metadata rights and file-content rights are distinct. Windows
+    // can allow attribute observation through parent rights even with an RA
+    // deny ACE; use a demonstrated content denial rather than assume otherwise.
+    assert_eq!(
+        fs::read(&file).unwrap_err().kind(),
+        std::io::ErrorKind::PermissionDenied
+    );
+    assert_eq!(
+        guard.observe_options(&file, true, false).unwrap().length,
+        30
+    );
+    assert_eq!(list.observe(&guard, &entry, true, true).unwrap().length, 30);
+    assert!(list.ntfs_stats().relative_opens > 0);
+    drop(restore);
+    assert_eq!(
+        guard.observe_options(&file, true, false).unwrap().length,
+        30
+    );
+}
+
+#[test]
+fn consultation_still_refuses_a_denied_child_directory_listing() {
+    use acquisition::{Guard, Policy, ScanObservation};
+    let temp = tempfile::tempdir().unwrap();
+    let blocked = temp.path().join("blocked");
+    fs::create_dir(&blocked).unwrap();
+    fs::write(blocked.join("hidden"), b"hidden").unwrap();
+    let restore = RestoreAcl::new(&blocked);
+    let guard = Guard::open(temp.path(), Policy::default())
+        .unwrap()
+        .with_scan_observation(ScanObservation::DirectoryListing);
+    let output = std::process::Command::new("icacls")
+        .arg(&blocked)
+        .args(["/deny", "*S-1-1-0:(RD)", "/Q"])
+        .output()
+        .unwrap();
+    assert!(output.status.success());
+    let mut list = guard.scan_directory(temp.path()).unwrap();
+    let entry = list.next().unwrap().unwrap();
+    assert!(list.observe(&guard, &entry, true, false).unwrap().directory);
+    assert!(matches!(guard.scan_directory(&blocked), Err(error)
+        if error.kind() == std::io::ErrorKind::PermissionDenied));
+    let mut callback_called = false;
+    let result = guard.scan_directory_with(&blocked, |stamp| {
+        callback_called = true;
+        assert!(stamp.directory);
+        Ok(())
+    });
+    assert!(
+        callback_called,
+        "READ_ATTRIBUTES inspection must precede the LIST_DIRECTORY request"
+    );
+    assert!(matches!(result, Err(error) if error.kind() == std::io::ErrorKind::PermissionDenied));
+    drop(restore);
+    assert!(guard.scan_directory(&blocked).is_ok());
 }
 
 #[test]

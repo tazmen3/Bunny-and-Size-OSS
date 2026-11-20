@@ -320,11 +320,11 @@ fn fifty_thousand_nodes_all_orders_two_windows_legal_and_state_survive_real_tran
             assert!(legal.get_full_license());
             assert_eq!(legal.get_license_text(), license);
             let (notice, file) = match index {
-                1 => ("free software", "File"),
-                2 => ("logiciel libre", "Fichier"),
-                3 => ("freie Software", "Datei"),
-                4 => ("software libre", "Archivo"),
-                5 => ("software livre", "Ficheiro"),
+                1 => ("Original code: Apache-2.0", "File"),
+                2 => ("Code original : Apache-2.0", "Fichier"),
+                3 => ("Originalcode: Apache-2.0", "Datei"),
+                4 => ("Código original: Apache-2.0", "Archivo"),
+                5 => ("Código original: Apache-2.0", "Ficheiro"),
                 _ => unreachable!(),
             };
             assert!(legal.get_notices().contains(notice));
@@ -647,11 +647,8 @@ fn new_session_republishes_global_bundle_and_repairs_stale_model_lengths() {
         );
         assert_eq!(first.get_status(), "Ordner zum Analysieren auswählen.");
         assert_eq!(second.get_status(), first.get_status());
-        assert_eq!(
-            legal.get_localized_title(),
-            "Bunny and Size — Über / Lizenzen"
-        );
-        assert!(legal.get_notices().contains("freie Software"));
+        assert_eq!(legal.get_localized_title(), "Über Bunny and Size");
+        assert!(legal.get_notices().contains("Originalcode: Apache-2.0"));
         assert_eq!(
             state.borrow().tree.as_ref().unwrap().raw_fingerprint(),
             before

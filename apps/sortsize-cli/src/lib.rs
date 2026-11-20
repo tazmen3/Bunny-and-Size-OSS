@@ -9,23 +9,46 @@ use std::process::ExitCode;
 use std::time::{Duration, Instant};
 
 mod analysis_output;
+#[cfg(feature = "inventory-report")]
+mod cache_output;
 mod delimited;
 mod entries_output;
+#[cfg(feature = "inventory-report")]
+mod inventory_output;
+#[cfg(feature = "inventory-report")]
+mod inventory_view;
 
 #[derive(Parser)]
 #[command(
     name = "bunny-and-size-cli",
     version,
     long_version = concat!("Bunny and Size ", env!("CARGO_PKG_VERSION")),
-    about = "Bunny and Size — analyse du stockage en lecture seule"
+    about = "Bunny and Size : analyse du stockage en lecture seule"
 )]
 struct Cli {
+    /// Profil mémoire V0.5 ; les limites en octets et disque restent actives.
+    #[cfg(feature = "inventory-report")]
+    #[arg(long, global = true, value_parser = ["auto", "50000", "250000", "1000000", "5000000", "unlimited-count"])]
+    memory_mode: Option<String>,
+    /// Reçu JSON des limites effectives sur stderr, distinct des résultats.
+    #[cfg(feature = "inventory-report")]
+    #[arg(long, global = true, requires = "memory_mode")]
+    resource_receipt: bool,
     #[command(subcommand)]
     command: Command,
 }
 
 #[derive(Subcommand)]
 enum Command {
+    /// Mesures enregistrées V0.5, conservation explicite et consultation locale.
+    #[cfg(feature = "inventory-report")]
+    Cache(cache_output::CacheArguments),
+    /// Comparaison conservative V0.5 sans acquisition source, JSONL versionné.
+    #[cfg(feature = "inventory-report")]
+    Diff(cache_output::DiffArguments),
+    /// Statistiques/export V0.5 sur inventaire figé, sans E/S source.
+    #[cfg(feature = "inventory-report")]
+    Inventory(inventory_output::Arguments),
     /// Search and summarize a bounded retained inventory (read-only).
     Analyze(analysis_output::Arguments),
     /// Analyser un dossier local sans suivre les liens symboliques.
@@ -112,7 +135,43 @@ pub fn main_entry() -> ExitCode {
 }
 
 fn run(cli: Cli) -> Result<u8, Box<dyn std::error::Error>> {
+    #[cfg(feature = "inventory-report")]
+    if let Some(key) = cli.memory_mode.as_deref() {
+        if !matches!(
+            cli.command,
+            Command::Cache(_) | Command::Diff(_) | Command::Inventory(_)
+        ) {
+            return Err(
+                "--memory-mode est réservé aux commandes V0.5 cache, diff et inventory".into(),
+            );
+        }
+        let mode = sortsize_core::inventory_contract::MemoryMode::from_key(key)
+            .ok_or("profil mémoire inconnu")?;
+        let governor = sortsize_core::resources::Governor::global();
+        governor.configure(mode, sortsize_core::resources::native_memory());
+        if cli.resource_receipt {
+            let limits = governor.usage().limits;
+            eprintln!(
+                "{}",
+                serde_json::json!({
+                    "record": "resource-limits", "schema": 1,
+                    "requested_mode": key, "effective_mode": limits.requested.key(),
+                    "entry_limit": limits.entries, "byte_limit": limits.bytes,
+                    "category_byte_limits": limits.categories,
+                    "fallback_memory_reading": limits.fallback,
+                    "disk_policy": "min(16GiB,free/4,free-512MiB)",
+                    "unlimited_count_does_not_disable_byte_or_disk_limits": true,
+                })
+            );
+        }
+    }
     let command = match cli.command {
+        #[cfg(feature = "inventory-report")]
+        Command::Inventory(arguments) => return inventory_output::run(arguments),
+        #[cfg(feature = "inventory-report")]
+        Command::Cache(arguments) => return cache_output::cache(arguments),
+        #[cfg(feature = "inventory-report")]
+        Command::Diff(arguments) => return cache_output::diff(arguments),
         Command::Analyze(arguments) => return analysis_output::run(arguments),
         command => command,
     };

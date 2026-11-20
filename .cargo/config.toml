@@ -1,6 +1,6 @@
 [source.crates-io]
-replace-with="distribution-vendor"
-[source.distribution-vendor]
+replace-with="review-vendor"
+[source.review-vendor]
 directory="cargo-vendor"
 [net]
 offline=true

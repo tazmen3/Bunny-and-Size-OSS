@@ -215,8 +215,10 @@ impl Controller {
         let _scope = self.presentation.enter();
         self.show_language(window);
         self.show_preferences(window);
-        window.set_status(self.status.render().into());
-        window.set_errors(self.diagnostic.render().into());
+        if !window.get_workshop_live() {
+            window.set_status(self.status.render().into());
+            window.set_errors(self.diagnostic.render().into());
+        }
         window.set_owner_status(self.owner_status.render().into());
         if let Some(original) = &mut self.directory.original {
             original.prepare_presentation(self.presentation);
@@ -230,6 +232,7 @@ impl Controller {
             window.set_top_rows(patch(window.get_top_rows(), ranking.top_rows.clone()));
             window.set_top_note(ranking.top_note.clone().into());
             window.set_selection_summary(tree.selection_summary().into());
+            window.set_current_folder_summary(tree.current_folder_summary().into());
             window.set_empty_message(tree.empty_message().into());
             let first = tree.offset(false) + 1;
             window.set_tree_page(
@@ -270,6 +273,12 @@ impl Controller {
         }
         #[cfg(any(target_os = "linux", windows))]
         {
+            if let Some(dialog) = &self.source_dialog {
+                let shares = dialog.get_shares();
+                if shares.row_count() > 0 {
+                    shares.set_row_data(0, dialog.get_share_placeholder());
+                }
+            }
             window.set_storage_status(self.sources.status().into());
             if let Some(prepared) = &self.sources.current {
                 window.set_volumes(patch(

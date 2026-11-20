@@ -6,6 +6,19 @@ fn main() {
     }
     use std::{env, fs, path::PathBuf, process::Command};
     let version = env::var("CARGO_PKG_VERSION").expect("Cargo package version");
+    println!("cargo:rerun-if-env-changed=BUNNY_AND_SIZE_SOURCE_COMMIT");
+    // The delivery build supplies the full commit of its clean checkout.
+    let commit_resource = match env::var("BUNNY_AND_SIZE_SOURCE_COMMIT") {
+        Ok(commit) => {
+            assert!(
+                commit.len() == 40 && commit.bytes().all(|byte| byte.is_ascii_hexdigit()),
+                "BUNNY_AND_SIZE_SOURCE_COMMIT must be a full Git SHA-1"
+            );
+            format!(r#"   VALUE "Comments", "Git commit {commit}\0""#)
+        }
+        Err(env::VarError::NotPresent) => String::new(),
+        Err(error) => panic!("BUNNY_AND_SIZE_SOURCE_COMMIT: {error}"),
+    };
     let numeric = format!("{},{},{},{}", env::var("CARGO_PKG_VERSION_MAJOR").unwrap(),
         env::var("CARGO_PKG_VERSION_MINOR").unwrap(), env::var("CARGO_PKG_VERSION_PATCH").unwrap(),
         version.rsplit_once("rc.").map_or("0", |(_, n)| n));
@@ -40,7 +53,8 @@ BEGIN
    VALUE "OriginalFilename", "{filename}\0"
    VALUE "InternalName", "{internal}\0"
    VALUE "ProductVersion", "{version}\0"
-   VALUE "LegalCopyright", "Bunny and Size contributors; GPL-3.0-only\0"
+{commit_resource}
+   VALUE "LegalCopyright", "Bunny and Size contributors; Apache-2.0; third-party licenses apply\0"
   END
  END
  BLOCK "VarFileInfo"

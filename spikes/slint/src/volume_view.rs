@@ -2,7 +2,9 @@
 use crate::VolumeRow;
 use sortsize_core::{MetadataValue, volumes::*};
 use std::{
+    collections::HashMap,
     io,
+    path::{Path, PathBuf},
     sync::{
         Arc,
         mpsc::{self, Receiver, TryRecvError},
@@ -15,6 +17,36 @@ pub(crate) const FAILED: &str = "Discovery failed. Try Refresh.";
 pub(crate) const READY: &str = "Point-in-time measurements · capacities cannot be summed";
 pub(crate) const MAX_ROWS: usize = 256;
 type Discover = Arc<dyn Fn(DiscoveryOptions) -> io::Result<VolumeDiscovery> + Send + Sync>;
+/// Session observations only: never persisted as an authorization or restored
+/// as evidence of access after restarting Windows.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum ConnectionState {
+    Checking,
+    Available,
+    #[cfg_attr(not(windows), allow(dead_code))]
+    AuthenticationRequired,
+    Unavailable,
+    AccessDenied,
+    #[cfg_attr(not(windows), allow(dead_code))]
+    Cancelled,
+    #[cfg_attr(not(windows), allow(dead_code))]
+    SessionConflict,
+    Failed,
+}
+impl ConnectionState {
+    pub(crate) fn text(self) -> &'static str {
+        match self {
+            Self::Checking => tr!("Checking access…"),
+            Self::Available => tr!("Available"),
+            Self::AuthenticationRequired => tr!("Authentication required"),
+            Self::Unavailable => tr!("Unavailable"),
+            Self::AccessDenied => tr!("Access denied"),
+            Self::Cancelled => tr!("Connection cancelled"),
+            Self::SessionConflict => tr!("Windows session conflict"),
+            Self::Failed => tr!("Connection failed"),
+        }
+    }
+}
 struct Job {
     generation: u64,
     receiver: Receiver<Result<Prepared, ()>>,
@@ -31,6 +63,7 @@ impl Prepared {
             .map(|volume| {
                 let mut row = row(volume);
                 row.summary = summary(volume, units).into();
+                row.compact_summary = compact_summary(volume, units).into();
                 row
             })
             .collect()
@@ -47,6 +80,8 @@ pub(crate) struct Sources {
     generation: u64,
     active: Option<Job>,
     queued: Option<DiscoveryOptions>,
+    registered: Vec<crate::source_registry::Source>,
+    connections: HashMap<PathBuf, ConnectionState>,
     pub current: Option<Prepared>,
     pub error: bool,
 }
@@ -62,9 +97,75 @@ impl Sources {
             generation: 0,
             active: None,
             queued: None,
+            registered: Vec::new(),
+            connections: HashMap::new(),
             current: None,
             error: false,
         }
+    }
+    pub(crate) fn set_connection_state(&mut self, path: &Path, state: ConnectionState) {
+        // Only visible/registered sources can create observations, keeping the
+        // session map bounded by the same source limits as the visible model.
+        let known = self.registered.iter().any(|source| source.path == path)
+            || self.current.as_ref().is_some_and(|current| {
+                current
+                    .discovery
+                    .volumes
+                    .iter()
+                    .any(|volume| volume.mounts.iter().any(|mount| mount.path == path))
+            });
+        if known
+            && (self.connections.len() < MAX_ROWS + crate::source_registry::MAX_SOURCES
+                || self.connections.contains_key(path))
+        {
+            self.connections.insert(path.to_owned(), state);
+        }
+    }
+    pub(crate) fn apply_connection_state(&self, path: &Path, row: &mut VolumeRow) {
+        if let Some(state) = self.connections.get(path).copied() {
+            row.reconnect_busy = state == ConnectionState::Checking;
+            row.reconnect_needed = state != ConnectionState::Available;
+            if !row.disconnected {
+                row.state = state.text().into();
+            }
+            // A successful access check does not collect capacities. Previous
+            // point-in-time capacity text may remain, but no stale live gauge.
+            if state != ConnectionState::Available {
+                row.has_usage = false;
+            }
+        }
+        if row.disconnected {
+            row.reconnect_needed = true;
+            row.has_usage = false;
+        }
+    }
+    /// Merge bookmarks without native queries, content access or scan intents.
+    pub(crate) fn set_registered(&mut self, entries: &[crate::source_registry::Source]) {
+        self.registered = entries.to_vec();
+        if self.current.is_none() {
+            self.current = Some(Prepared::new(VolumeDiscovery {
+                volumes: Vec::new(),
+                enumeration_time: Default::default(),
+                capacity_time: Default::default(),
+                capacity_calls: 0,
+            }));
+        }
+        if let Some(current) = &mut self.current {
+            crate::source_registry::merge(&mut current.discovery, &self.registered);
+        }
+        self.retain_connections();
+    }
+    fn retain_connections(&mut self) {
+        self.connections.retain(|path, _| {
+            self.registered.iter().any(|source| &source.path == path)
+                || self.current.as_ref().is_some_and(|current| {
+                    current
+                        .discovery
+                        .volumes
+                        .iter()
+                        .any(|volume| volume.mounts.iter().any(|mount| &mount.path == path))
+                })
+        });
     }
     /// Revalidate native identity and exact mount on the scan worker. A stale
     /// Linux mountpoint may remain a readable directory after unmounting.
@@ -90,6 +191,10 @@ impl Sources {
         self.active.is_some()
     }
     pub fn refresh(&mut self, options: DiscoveryOptions) {
+        // A newer explicit native measurement supersedes an old connection
+        // observation. Keep only an operation that is currently in flight.
+        self.connections
+            .retain(|_, state| *state == ConnectionState::Checking);
         self.generation = self.generation.wrapping_add(1);
         self.error = false;
         if self.active.is_some() {
@@ -136,8 +241,12 @@ impl Sources {
         self.active = None;
         if current {
             match result {
-                Ok(result) => {
+                Ok(mut result) => {
+                    self.connections
+                        .retain(|_, state| *state == ConnectionState::Checking);
+                    crate::source_registry::merge(&mut result.discovery, &self.registered);
                     self.current = Some(result);
+                    self.retain_connections();
                     self.error = false;
                 }
                 Err(_) => self.error = true,
@@ -227,6 +336,15 @@ fn summary(volume: &Volume, units: crate::units::Units) -> String {
         size(volume.capacity.available, units)
     )
 }
+fn compact_summary(volume: &Volume, units: crate::units::Units) -> String {
+    if volume.availability != VolumeAvailability::Available {
+        return String::new();
+    }
+    match volume.capacity.total {
+        MetadataValue::Known { value, .. } => units.format(value),
+        _ => String::new(),
+    }
+}
 fn display(value: &std::ffi::OsStr) -> String {
     // Human display only. Escape controls; native identity/path stays in core.
     value
@@ -276,7 +394,15 @@ fn row(volume: &Volume) -> VolumeRow {
         String::new()
     };
     VolumeRow {
+        network: volume.kind == SourceKind::Remote,
+        disconnected: false,
         name: format!("{name} · {path}").into(),
+        display_name: name.into(),
+        path: path.into(),
+        compact_summary: compact_summary(volume, crate::units::Units::Binary).into(),
+        reconnect_needed: volume.kind == SourceKind::Remote
+            && volume.availability != VolumeAvailability::Available,
+        reconnect_busy: false,
         summary: summary(volume, crate::units::Units::Binary).into(),
         state: format!("{kind} · {availability}{aliases}").into(),
         fraction: usage.map_or(0., |u| u.0),
@@ -288,7 +414,7 @@ fn row(volume: &Volume) -> VolumeRow {
             .map(|u| tr_format!("{} % used", crate::number_format::decimal(u.2)))
             .unwrap_or_else(|| tr!("Usage unavailable").into())
             .into(),
-        selectable: volume.availability == VolumeAvailability::Available,
+        selectable: !volume.mounts.is_empty(),
     }
 }
 #[cfg(test)]
@@ -308,6 +434,70 @@ mod tests {
             capacity_time: Duration::ZERO,
             capacity_calls: 0,
         }
+    }
+    #[test]
+    fn connection_observations_are_not_restored_and_new_native_results_supersede_them() {
+        let source = crate::source_registry::Source {
+            kind: crate::source_registry::Kind::Smb,
+            path: std::env::temp_dir().join("synthetic-source-no-access"),
+            label: "NAS".into(),
+            disconnected: false,
+        };
+        let mut original = result();
+        crate::source_registry::merge(&mut original, std::slice::from_ref(&source));
+        let mut measured = original.volumes[0].clone();
+        measured.availability = VolumeAvailability::Unavailable;
+        let mut sources = Sources::with_provider(Arc::new(move |_| {
+            Ok(VolumeDiscovery {
+                volumes: vec![measured.clone()],
+                ..result()
+            })
+        }));
+        sources.set_registered(std::slice::from_ref(&source));
+        let row = sources
+            .current
+            .as_ref()
+            .unwrap()
+            .rows_for(crate::units::Units::Binary)[0]
+            .clone();
+        assert_eq!(
+            sources.current.as_ref().unwrap().discovery.volumes[0].availability,
+            VolumeAvailability::NotProbed
+        );
+        assert!(row.state.contains(tr!("Not queried")));
+        assert!(row.reconnect_needed);
+        assert!(row.compact_summary.is_empty());
+        assert!(!row.has_usage);
+        sources.set_connection_state(&source.path, ConnectionState::Available);
+        sources.refresh(DiscoveryOptions::default());
+        // An old positive observation must not mask a later native failure.
+        sources.set_connection_state(&source.path, ConnectionState::Available);
+        let start = Instant::now();
+        while sources.loading() {
+            sources.poll();
+            assert!(start.elapsed() < Duration::from_secs(5));
+            std::thread::yield_now();
+        }
+        let mut row = sources
+            .current
+            .as_ref()
+            .unwrap()
+            .rows_for(crate::units::Units::Binary)[0]
+            .clone();
+        sources.apply_connection_state(&source.path, &mut row);
+        assert_eq!(
+            sources.current.as_ref().unwrap().discovery.volumes[0].availability,
+            VolumeAvailability::Unavailable
+        );
+        assert!(row.state.contains(tr!("Unavailable")));
+        assert!(row.reconnect_needed);
+        let mut restarted = Sources::with_provider(Arc::new(|_| Ok(result())));
+        restarted.set_registered(std::slice::from_ref(&source));
+        assert!(restarted.connections.is_empty());
+        assert_eq!(
+            restarted.current.as_ref().unwrap().discovery.volumes[0].availability,
+            VolumeAvailability::NotProbed
+        );
     }
     #[test]
     fn fallback_path_identity_cannot_authorize_a_retargeted_virtual_drive() {
@@ -334,6 +524,83 @@ mod tests {
         }));
         assert!(!sources.scan_preflight(&volume, &volume.mounts[0])());
         assert!(!can_auto_scan(&volume));
+    }
+    #[test]
+    fn disconnect_hides_rows_immediately_and_in_flight_discovery_cannot_restore_them() {
+        let temp = tempfile::tempdir().unwrap();
+        let mut source = crate::source_registry::Source {
+            kind: crate::source_registry::Kind::Smb,
+            path: temp.path().join("offline-share"),
+            label: "NAS".into(),
+            disconnected: false,
+        };
+        let mut measured = result();
+        crate::source_registry::merge(&mut measured, std::slice::from_ref(&source));
+        let volumes = measured.volumes;
+        let gate = Arc::new((Mutex::new(false), Condvar::new()));
+        let calls = Arc::new(AtomicUsize::new(0));
+        let worker_gate = gate.clone();
+        let worker_calls = calls.clone();
+        let mut sources = Sources::with_provider(Arc::new(move |_| {
+            worker_calls.fetch_add(1, Ordering::SeqCst);
+            let _guard = worker_gate
+                .1
+                .wait_while(worker_gate.0.lock().unwrap(), |ready| !*ready)
+                .unwrap();
+            Ok(VolumeDiscovery {
+                volumes: volumes.clone(),
+                ..result()
+            })
+        }));
+        sources.set_registered(std::slice::from_ref(&source));
+        assert_eq!(sources.current.as_ref().unwrap().discovery.volumes.len(), 1);
+        sources.refresh(DiscoveryOptions::default());
+        source.disconnected = true;
+        sources.set_registered(std::slice::from_ref(&source));
+        assert!(
+            sources
+                .current
+                .as_ref()
+                .unwrap()
+                .discovery
+                .volumes
+                .is_empty()
+        );
+        *gate.0.lock().unwrap() = true;
+        gate.1.notify_all();
+        for _ in 0..2 {
+            let start = Instant::now();
+            while sources.loading() {
+                sources.poll();
+                assert!(start.elapsed() < Duration::from_secs(5));
+                std::thread::yield_now();
+            }
+            assert!(
+                sources
+                    .current
+                    .as_ref()
+                    .unwrap()
+                    .discovery
+                    .volumes
+                    .is_empty()
+            );
+            sources.refresh(DiscoveryOptions::default());
+        }
+        let start = Instant::now();
+        while sources.loading() {
+            sources.poll();
+            assert!(start.elapsed() < Duration::from_secs(5));
+            std::thread::yield_now();
+        }
+        let before_reconnect = calls.load(Ordering::SeqCst);
+        source.disconnected = false;
+        sources.set_registered(std::slice::from_ref(&source));
+        assert!(!sources.loading());
+        assert_eq!(calls.load(Ordering::SeqCst), before_reconnect);
+        let restored = &sources.current.as_ref().unwrap().discovery.volumes[0];
+        assert_eq!(restored.mounts[0].path, source.path);
+        assert_eq!(restored.availability, VolumeAvailability::NotProbed);
+        assert!(!can_auto_scan(restored));
     }
     #[test]
     fn refresh_coalesces_rejects_late_result_and_drop_does_not_wait() {

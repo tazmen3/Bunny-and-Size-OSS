@@ -11,6 +11,59 @@ use windows_sys::Win32::{
 };
 const MAX_WIDE: usize = 65_536;
 pub struct NativeVolumes;
+
+/// Protocol evidence from the existing native namespace, never a server probe.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum NetworkProtocol {
+    Smb,
+    Nfs,
+    Unknown,
+}
+
+/// Inspect only the UNC spelling or local DOS-device registration. An opaque
+/// MUP mapping does not prove SMB or NFS and remains conservatively unknown.
+pub fn namespace_network_protocol(path: &Path) -> io::Result<NetworkProtocol> {
+    use std::path::{Component, Prefix};
+    let Some(Component::Prefix(prefix)) = path.components().next() else {
+        return Err(io::ErrorKind::InvalidInput.into());
+    };
+    let drive = match prefix.kind() {
+        Prefix::UNC(..) | Prefix::VerbatimUNC(..) => {
+            // Reuse the syntax-only UNC validator; this performs no I/O.
+            unc_source(path)?;
+            return Ok(NetworkProtocol::Smb);
+        }
+        Prefix::Disk(drive) | Prefix::VerbatimDisk(drive) => drive,
+        _ => return Err(io::ErrorKind::Unsupported.into()),
+    };
+    let name = [u16::from(drive), b':' as u16, 0];
+    let mut target = vec![0u16; MAX_WIDE];
+    // SAFETY: terminated local device name and correctly sized writable buffer.
+    let length =
+        unsafe { QueryDosDeviceW(name.as_ptr(), target.as_mut_ptr(), target.len() as u32) };
+    if length == 0 {
+        return Err(io::Error::last_os_error());
+    }
+    target.truncate(length as usize);
+    Ok(registered_protocol(&target))
+}
+
+fn registered_protocol(target: &[u16]) -> NetworkProtocol {
+    let starts_with = |prefix: &str| {
+        target.starts_with(
+            &std::ffi::OsStr::new(prefix)
+                .encode_wide()
+                .collect::<Vec<_>>(),
+        )
+    };
+    if starts_with("\\Device\\NfsRdr\\") {
+        NetworkProtocol::Nfs
+    } else if starts_with("\\Device\\LanmanRedirector\\") {
+        NetworkProtocol::Smb
+    } else {
+        NetworkProtocol::Unknown
+    }
+}
 fn wide(path: &std::ffi::OsStr) -> io::Result<Vec<u16>> {
     let mut value: Vec<_> = path.encode_wide().collect();
     if value.contains(&0) {
@@ -244,6 +297,31 @@ pub fn unc_source(path: &Path) -> io::Result<Volume> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn native_redirector_registration_proves_only_its_known_protocol() {
+        let units = |value: &str| {
+            std::ffi::OsStr::new(value)
+                .encode_wide()
+                .collect::<Vec<_>>()
+        };
+        for (target, expected) in [
+            (r"\Device\NfsRdr\;N:lab\server\export", NetworkProtocol::Nfs),
+            (
+                r"\Device\LanmanRedirector\;S:lab\server\share",
+                NetworkProtocol::Smb,
+            ),
+            (r"\Device\Mup\server\share", NetworkProtocol::Unknown),
+            (r"\Device\HarddiskVolume3", NetworkProtocol::Unknown),
+            (r"\Device\NfsRdrOther\export", NetworkProtocol::Unknown),
+            (r"\??\C:\local", NetworkProtocol::Unknown),
+        ] {
+            assert_eq!(registered_protocol(&units(target)), expected);
+        }
+        assert_eq!(
+            namespace_network_protocol(Path::new(r"\\offline.invalid\share")).unwrap(),
+            NetworkProtocol::Smb
+        );
+    }
     #[test]
     fn drive_types_letters_multisz_and_unpaired_utf16() {
         assert_eq!(kind(4), SourceKind::Remote);

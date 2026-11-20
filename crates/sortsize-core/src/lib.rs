@@ -1,5 +1,6 @@
 //! Read-only scanning engine. OS acquisition is isolated in the local adapter.
 
+pub mod acquisition;
 mod allocation;
 mod allocation_totals;
 pub mod analysis;
@@ -9,6 +10,7 @@ mod directory_scope;
 pub mod duplicates;
 pub mod entries;
 mod inventory;
+pub mod inventory_contract;
 pub use directory_scope::validate_directory_scope;
 mod local;
 mod metadata;
@@ -53,3 +55,5 @@ pub use scan::{ScanFailure, scan};
 /// Desktop volume discovery; never substitutes POSIX mounts for Android SAF.
 #[cfg(any(target_os = "linux", windows))]
 pub mod volumes;
+
+pub mod resources;

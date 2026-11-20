@@ -1,0 +1,1815 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: qps-ploc\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "ui"
+msgid "Bunny and Size — About / Licenses"
+msgstr "⟦Bunny and Size — About / Licenses ··············⟧"
+
+msgctxt "ui"
+msgid "Bunny and Size {} — About / Licenses"
+msgstr "⟦Bunny and Size {} — About / Licenses ···············⟧"
+
+msgctxt "ui"
+msgid "Created, published and maintained by Louis Lejuez (@tazmen3)"
+msgstr "⟦Created, published and maintained by Louis Lejuez (@tazmen3) ························⟧"
+
+msgctxt "ui"
+msgid "Contributors: Louis Lejuez / tazmen3; assisted by Codex"
+msgstr "⟦Contributors: Louis Lejuez / tazmen3; assisted by Codex ······················⟧"
+
+msgctxt "ui"
+msgid "Code: GPL-3.0-only. Artwork: CC BY-SA 4.0 — Louis Lejuez / TazmenWorld."
+msgstr "⟦Code: GPL-3.0-only. Artwork: CC BY-SA 4.0 — Louis Lejuez / TazmenWorld. ·····························⟧"
+
+msgctxt "ui"
+msgid "Notices and rights"
+msgstr "⟦Notices and rights ········⟧"
+
+msgctxt "ui"
+msgid "Read the full GPLv3"
+msgstr "⟦Read the full GPLv3 ········⟧"
+
+msgctxt "ui"
+msgid "Full GPLv3 text"
+msgstr "⟦Full GPLv3 text ······⟧"
+
+msgctxt "ui"
+msgid "Notices, rights and warranty disclaimer"
+msgstr "⟦Notices, rights and warranty disclaimer ················⟧"
+
+msgctxt "ui"
+msgid "Search / statistics"
+msgstr "⟦Search / statistics ········⟧"
+
+msgctxt "ui"
+msgid "Analysis source"
+msgstr "⟦Analysis source ······⟧"
+
+msgctxt "ui"
+msgid "Name contains"
+msgstr "⟦Name contains ······⟧"
+
+msgctxt "ui"
+msgid "Path contains"
+msgstr "⟦Path contains ······⟧"
+
+msgctxt "ui"
+msgid "Extension"
+msgstr "⟦Extension ····⟧"
+
+msgctxt "ui"
+msgid "Relative path glob"
+msgstr "⟦Relative path glob ········⟧"
+
+msgctxt "ui"
+msgid "Minimum bytes"
+msgstr "⟦Minimum bytes ······⟧"
+
+msgctxt "ui"
+msgid "Maximum bytes"
+msgstr "⟦Maximum bytes ······⟧"
+
+msgctxt "ui"
+msgid "Case sensitive"
+msgstr "⟦Case sensitive ······⟧"
+
+msgctxt "ui"
+msgid "Path"
+msgstr "⟦Path ··⟧"
+
+msgctxt "ui"
+msgid "Size: smallest first"
+msgstr "⟦Size: smallest first ········⟧"
+
+msgctxt "ui"
+msgid "Size: largest first"
+msgstr "⟦Size: largest first ········⟧"
+
+msgctxt "ui"
+msgid "Search"
+msgstr "⟦Search ···⟧"
+
+msgctxt "ui"
+msgid "Cancel"
+msgstr "⟦Cancel ···⟧"
+
+msgctxt "ui"
+msgid "Statistics"
+msgstr "⟦Statistics ····⟧"
+
+msgctxt "ui"
+msgid "Read errors"
+msgstr "⟦Read errors ·····⟧"
+
+msgctxt "ui"
+msgid "Find exact duplicates (reads files)"
+msgstr "⟦Find exact duplicates (reads files) ··············⟧"
+
+msgctxt "ui"
+msgid "Read-only. No files will be deleted."
+msgstr "⟦Read-only. No files will be deleted. ···············⟧"
+
+msgctxt "ui"
+msgid "Analysis status and coverage"
+msgstr "⟦Analysis status and coverage ············⟧"
+
+msgctxt "ui"
+msgid "Previous"
+msgstr "⟦Previous ····⟧"
+
+msgctxt "ui"
+msgid "Next"
+msgstr "⟦Next ··⟧"
+
+msgctxt "ui"
+msgid "Show"
+msgstr "⟦Show ··⟧"
+
+msgctxt "ui"
+msgid "Open folder {}, {}"
+msgstr "⟦Open folder {}, {} ········⟧"
+
+msgctxt "ui"
+msgid "Inspect file {}, {}"
+msgstr "⟦Inspect file {}, {} ········⟧"
+
+msgctxt "ui"
+msgid "Group {}, {}"
+msgstr "⟦Group {}, {} ·····⟧"
+
+msgctxt "ui"
+msgid "Bunny and Size {} — storage analysis"
+msgstr "⟦Bunny and Size {} — storage analysis ···············⟧"
+
+msgctxt "ui"
+msgid "Name (always visible)"
+msgstr "⟦Name (always visible) ·········⟧"
+
+msgctxt "ui"
+msgid "Logical size"
+msgstr "⟦Logical size ·····⟧"
+
+msgctxt "ui"
+msgid "Allocated size"
+msgstr "⟦Allocated size ······⟧"
+
+msgctxt "ui"
+msgid "Owner"
+msgstr "⟦Owner ··⟧"
+
+msgctxt "ui"
+msgid "Folder share"
+msgstr "⟦Folder share ·····⟧"
+
+msgctxt "ui"
+msgid "Recursive files"
+msgstr "⟦Recursive files ······⟧"
+
+msgctxt "ui"
+msgid "Recursive folders"
+msgstr "⟦Recursive folders ·······⟧"
+
+msgctxt "ui"
+msgid "Type / status"
+msgstr "⟦Type / status ······⟧"
+
+msgctxt "ui"
+msgid "Last modified"
+msgstr "⟦Last modified ······⟧"
+
+msgctxt "ui"
+msgid "Last accessed"
+msgstr "⟦Last accessed ······⟧"
+
+msgctxt "ui"
+msgid "Full path"
+msgstr "⟦Full path ····⟧"
+
+msgctxt "ui"
+msgid "Saving…"
+msgstr "⟦Saving… ···⟧"
+
+msgctxt "ui"
+msgid "Preferences saved."
+msgstr "⟦Preferences saved. ········⟧"
+
+msgctxt "ui"
+msgid "Could not save; preferences kept for this session."
+msgstr "⟦Could not save; preferences kept for this session. ····················⟧"
+
+msgctxt "ui"
+msgid "Invalid preferences or unsupported version; using defaults."
+msgstr "⟦Invalid preferences or unsupported version; using defaults. ························⟧"
+
+msgctxt "ui"
+msgid "Could not read preferences; using defaults."
+msgstr "⟦Could not read preferences; using defaults. ··················⟧"
+
+msgctxt "ui"
+msgid "Saving unavailable for this session."
+msgstr "⟦Saving unavailable for this session. ···············⟧"
+
+msgctxt "ui"
+msgid "User directory unavailable; session preferences."
+msgstr "⟦User directory unavailable; session preferences. ····················⟧"
+
+msgctxt "ui"
+msgid "Choose a folder to scan."
+msgstr "⟦Choose a folder to scan. ··········⟧"
+
+msgctxt "ui"
+msgid "No inventory"
+msgstr "⟦No inventory ·····⟧"
+
+msgctxt "ui"
+msgid "Start a scan to explore a folder."
+msgstr "⟦Start a scan to explore a folder. ··············⟧"
+
+msgctxt "ui"
+msgid "Last accessed (UTC)"
+msgstr "⟦Last accessed (UTC) ········⟧"
+
+msgctxt "ui"
+msgid "Start a scan to display the Top 100."
+msgstr "⟦Start a scan to display the Top 100. ···············⟧"
+
+msgctxt "ui"
+msgid "Start a scan to display the Treemap."
+msgstr "⟦Start a scan to display the Treemap. ···············⟧"
+
+msgctxt "ui"
+msgid "Storage analysis"
+msgstr "⟦Storage analysis ·······⟧"
+
+msgctxt "ui"
+msgid "READ ONLY"
+msgstr "⟦READ ONLY ····⟧"
+
+msgctxt "ui"
+msgid "Folders"
+msgstr "⟦Folders ···⟧"
+
+msgctxt "ui"
+msgid "Collapse or reopen the folders and sources panel"
+msgstr "⟦Collapse or reopen the folders and sources panel ····················⟧"
+
+msgctxt "ui"
+msgid "Explorer"
+msgstr "⟦Explorer ····⟧"
+
+msgctxt "ui"
+msgid "Analysis"
+msgstr "⟦Analysis ····⟧"
+
+msgctxt "ui"
+msgid "Display"
+msgstr "⟦Display ···⟧"
+
+msgctxt "ui"
+msgid "Extensions"
+msgstr "⟦Extensions ····⟧"
+
+msgctxt "ui"
+msgid "Help"
+msgstr "⟦Help ··⟧"
+
+msgctxt "ui"
+msgid "Top 100"
+msgstr "⟦Top 100 ···⟧"
+
+msgctxt "ui"
+msgid "Saved measures"
+msgstr "⟦Saved measures ······⟧"
+
+msgctxt "ui"
+msgid "Live inventory"
+msgstr "⟦Live inventory ······⟧"
+
+msgctxt "ui"
+msgid "Retained inventory — transitional view"
+msgstr "⟦Retained inventory — transitional view ················⟧"
+
+msgctxt "ui"
+msgid "Columns and display"
+msgstr "⟦Columns and display ········⟧"
+
+msgctxt "ui"
+msgid "System"
+msgstr "⟦System ···⟧"
+
+msgctxt "ui"
+msgid "Light"
+msgstr "⟦Light ··⟧"
+
+msgctxt "ui"
+msgid "Dark"
+msgstr "⟦Dark ··⟧"
+
+msgctxt "ui"
+msgid "Theme"
+msgstr "⟦Theme ··⟧"
+
+msgctxt "ui"
+msgid "Compact"
+msgstr "⟦Compact ···⟧"
+
+msgctxt "ui"
+msgid "Extensions are not available yet. Local disks remain in Explorer."
+msgstr "⟦Extensions are not available yet. Local disks remain in Explorer. ··························⟧"
+
+msgctxt "ui"
+msgid "About / Licenses"
+msgstr "⟦About / Licenses ·······⟧"
+
+msgctxt "ui"
+msgid "Official repository"
+msgstr "⟦Official repository ········⟧"
+
+msgctxt "ui"
+msgid "Documentation is not published yet."
+msgstr "⟦Documentation is not published yet. ··············⟧"
+
+msgctxt "ui"
+msgid "Requested memory:"
+msgstr "⟦Requested memory: ·······⟧"
+
+msgctxt "ui"
+msgid "Automatic"
+msgstr "⟦Automatic ····⟧"
+
+msgctxt "ui"
+msgid "Unlimited count"
+msgstr "⟦Unlimited count ······⟧"
+
+msgctxt "ui"
+msgid "Path of the folder to scan"
+msgstr "⟦Path of the folder to scan ···········⟧"
+
+msgctxt "ui"
+msgid "Folder to scan"
+msgstr "⟦Folder to scan ······⟧"
+
+msgctxt "ui"
+msgid "Browse…"
+msgstr "⟦Browse… ···⟧"
+
+msgctxt "ui"
+msgid "Choose a folder to scan"
+msgstr "⟦Choose a folder to scan ··········⟧"
+
+msgctxt "ui"
+msgid "1 folder at a time"
+msgstr "⟦1 folder at a time ········⟧"
+
+msgctxt "ui"
+msgid "2 folders in parallel"
+msgstr "⟦2 folders in parallel ·········⟧"
+
+msgctxt "ui"
+msgid "4 folders in parallel"
+msgstr "⟦4 folders in parallel ·········⟧"
+
+msgctxt "ui"
+msgid "8 folders in parallel"
+msgstr "⟦8 folders in parallel ·········⟧"
+
+msgctxt "ui"
+msgid "Folders scanned concurrently"
+msgstr "⟦Folders scanned concurrently ············⟧"
+
+msgctxt "ui"
+msgid "Scan"
+msgstr "⟦Scan ··⟧"
+
+msgctxt "ui"
+msgid "Cancelling…"
+msgstr "⟦Cancelling… ·····⟧"
+
+msgctxt "ui"
+msgid "Cancel the scan or owner resolution"
+msgstr "⟦Cancel the scan or owner resolution ··············⟧"
+
+msgctxt "ui"
+msgid "Tree / Treemap"
+msgstr "⟦Tree / Treemap ······⟧"
+
+msgctxt "ui"
+msgid "Switch between Top 100 and browsing"
+msgstr "⟦Switch between Top 100 and browsing ··············⟧"
+
+msgctxt "ui"
+msgid "Treemap"
+msgstr "⟦Treemap ···⟧"
+
+msgctxt "ui"
+msgid "↑ Parent"
+msgstr "⟦↑ Parent ····⟧"
+
+msgctxt "ui"
+msgid "Go to the parent folder"
+msgstr "⟦Go to the parent folder ··········⟧"
+
+msgctxt "ui"
+msgid "Load folder contents"
+msgstr "⟦Load folder contents ········⟧"
+
+msgctxt "ui"
+msgid "Collect allocated sizes"
+msgstr "⟦Collect allocated sizes ··········⟧"
+
+msgctxt "ui"
+msgid "Collect allocated sizes during the next scan"
+msgstr "⟦Collect allocated sizes during the next scan ··················⟧"
+
+msgctxt "ui"
+msgid "Owners"
+msgstr "⟦Owners ···⟧"
+
+msgctxt "ui"
+msgid "Show or hide owner collection and resolution options"
+msgstr "⟦Show or hide owner collection and resolution options ·····················⟧"
+
+msgctxt "ui"
+msgid "Current folder"
+msgstr "⟦Current folder ······⟧"
+
+msgctxt "ui"
+msgid "Path of the current folder"
+msgstr "⟦Path of the current folder ···········⟧"
+
+msgctxt "ui"
+msgid "Collect owners"
+msgstr "⟦Collect owners ······⟧"
+
+msgctxt "ui"
+msgid "Collect native owners during the next scan"
+msgstr "⟦Collect native owners during the next scan ·················⟧"
+
+msgctxt "ui"
+msgid "Resolve names (NSS / AD: network possible)"
+msgstr "⟦Resolve names (NSS / AD: network possible) ·················⟧"
+
+msgctxt "ui"
+msgid "Explicitly allow name resolution; NSS or Active Directory may access the network"
+msgstr "⟦Explicitly allow name resolution; NSS or Active Directory may access the network ································⟧"
+
+msgctxt "ui"
+msgid "Stop resolution"
+msgstr "⟦Stop resolution ······⟧"
+
+msgctxt "ui"
+msgid "FOLDERS"
+msgstr "⟦FOLDERS ···⟧"
+
+msgctxt "ui"
+msgid "LOGICAL SIZE"
+msgstr "⟦LOGICAL SIZE ·····⟧"
+
+msgctxt "ui"
+msgid "Collapse {}"
+msgstr "⟦Collapse {} ·····⟧"
+
+msgctxt "ui"
+msgid "Expand {}"
+msgstr "⟦Expand {} ····⟧"
+
+msgctxt "ui"
+msgid "Browse {}"
+msgstr "⟦Browse {} ····⟧"
+
+msgctxt "ui"
+msgid "Previous page of folders"
+msgstr "⟦Previous page of folders ··········⟧"
+
+msgctxt "ui"
+msgid "Next page of folders"
+msgstr "⟦Next page of folders ········⟧"
+
+msgctxt "ui"
+msgid "Resize folders and storage sources. Arrows adjust; Enter resets."
+msgstr "⟦Resize folders and storage sources. Arrows adjust; Enter resets. ··························⟧"
+
+msgctxt "ui"
+msgid "STORAGE SOURCES"
+msgstr "⟦STORAGE SOURCES ······⟧"
+
+msgctxt "ui"
+msgid "Refresh"
+msgstr "⟦Refresh ···⟧"
+
+msgctxt "ui"
+msgid "Scan local source: {}"
+msgstr "⟦Scan local source: {} ·········⟧"
+
+msgctxt "ui"
+msgid "Query network / unknown type"
+msgstr "⟦Query network / unknown type ············⟧"
+
+msgctxt "ui"
+msgid "Query capacities of network or unknown sources; network access possible"
+msgstr "⟦Query capacities of network or unknown sources; network access possible ·····························⟧"
+
+msgctxt "ui"
+msgid "SOURCE"
+msgstr "⟦SOURCE ···⟧"
+
+msgctxt "ui"
+msgid "Logical sizes per path · links not followed"
+msgstr "⟦Logical sizes per path · links not followed ··················⟧"
+
+msgctxt "ui"
+msgid "Logical per path · links not followed\nAllocated: repeated hardlinks"
+msgstr "⟦Logical per path · links not followed\nAllocated: repeated hardlinks ···························⟧"
+
+msgctxt "ui"
+msgid "Logical sizes per path\nAllocated: per path, repeated hardlinks\nLinks not followed"
+msgstr "⟦Logical sizes per path\nAllocated: per path, repeated hardlinks\nLinks not followed ·································⟧"
+
+msgctxt "ui"
+msgid "\nAllocated sort: ≥ = known bound\nProvisional ranking"
+msgstr "⟦\nAllocated sort: ≥ = known bound\nProvisional ranking ·····················⟧"
+
+msgctxt "ui"
+msgid "Resize the folders and sources panel. Left and right arrows adjust; Enter resets."
+msgstr "⟦Resize the folders and sources panel. Left and right arrows adjust; Enter resets. ·································⟧"
+
+msgctxt "ui"
+msgid "Search results"
+msgstr "⟦Search results ······⟧"
+
+msgctxt "ui"
+msgid "Reveal in table"
+msgstr "⟦Reveal in table ······⟧"
+
+msgctxt "ui"
+msgid "FOLDER CONTENTS · "
+msgstr "⟦FOLDER CONTENTS ·  ········⟧"
+
+msgctxt "ui"
+msgid "Observation order"
+msgstr "⟦Observation order ·······⟧"
+
+msgctxt "ui"
+msgid "Sort: "
+msgstr "⟦Sort:  ···⟧"
+
+msgctxt "ui"
+msgid "Size ↓"
+msgstr "⟦Size ↓ ···⟧"
+
+msgctxt "ui"
+msgid "Size ↑"
+msgstr "⟦Size ↑ ···⟧"
+
+msgctxt "ui"
+msgid "Name ↑"
+msgstr "⟦Name ↑ ···⟧"
+
+msgctxt "ui"
+msgid "Name ↓"
+msgstr "⟦Name ↓ ···⟧"
+
+msgctxt "ui"
+msgid "Allocated ↓"
+msgstr "⟦Allocated ↓ ·····⟧"
+
+msgctxt "ui"
+msgid "Allocated ↑"
+msgstr "⟦Allocated ↑ ·····⟧"
+
+msgctxt "ui"
+msgid "Owner ↑"
+msgstr "⟦Owner ↑ ···⟧"
+
+msgctxt "ui"
+msgid "Owner ↓"
+msgstr "⟦Owner ↓ ···⟧"
+
+msgctxt "ui"
+msgid "Modified newest"
+msgstr "⟦Modified newest ······⟧"
+
+msgctxt "ui"
+msgid "Modified oldest"
+msgstr "⟦Modified oldest ······⟧"
+
+msgctxt "ui"
+msgid "Accessed newest"
+msgstr "⟦Accessed newest ······⟧"
+
+msgctxt "ui"
+msgid "Accessed oldest"
+msgstr "⟦Accessed oldest ······⟧"
+
+msgctxt "ui"
+msgid "Mosaic"
+msgstr "⟦Mosaic ···⟧"
+
+msgctxt "ui"
+msgid "Bands"
+msgstr "⟦Bands ··⟧"
+
+msgctxt "ui"
+msgid "Folder contents view"
+msgstr "⟦Folder contents view ········⟧"
+
+msgctxt "ui"
+msgid "Change the view without scanning again"
+msgstr "⟦Change the view without scanning again ················⟧"
+
+msgctxt "ui"
+msgid "No folder selected"
+msgstr "⟦No folder selected ········⟧"
+
+msgctxt "ui"
+msgid "TREEMAP · LOGICAL SIZE"
+msgstr "⟦TREEMAP · LOGICAL SIZE ·········⟧"
+
+msgctxt "ui"
+msgid "Arrows · Enter · Backspace"
+msgstr "⟦Arrows · Enter · Backspace ···········⟧"
+
+msgctxt "ui"
+msgid "Treemap of observed logical sizes"
+msgstr "⟦Treemap of observed logical sizes ··············⟧"
+
+msgctxt "ui"
+msgid "No measured area"
+msgstr "⟦No measured area ·······⟧"
+
+msgctxt "ui"
+msgid "Name"
+msgstr "⟦Name ··⟧"
+
+msgctxt "ui"
+msgid "Size"
+msgstr "⟦Size ··⟧"
+
+msgctxt "ui"
+msgid "Allocated / Per path"
+msgstr "⟦Allocated / Per path ········⟧"
+
+msgctxt "ui"
+msgid "Sort owners; apply names available at this time"
+msgstr "⟦Sort owners; apply names available at this time ···················⟧"
+
+msgctxt "ui"
+msgid "Recursive\nfiles"
+msgstr "⟦Recursive\nfiles ······⟧"
+
+msgctxt "ui"
+msgid "Recursive\nfolders"
+msgstr "⟦Recursive\nfolders ·······⟧"
+
+msgctxt "ui"
+msgid "; sort newest to oldest, then reverse"
+msgstr "⟦; sort newest to oldest, then reverse ···············⟧"
+
+msgctxt "ui"
+msgid "; according to system policy; sort newest to oldest, then reverse"
+msgstr "⟦; according to system policy; sort newest to oldest, then reverse ··························⟧"
+
+msgctxt "ui"
+msgid "Open {}"
+msgstr "⟦Open {} ···⟧"
+
+msgctxt "ui"
+msgid "Show path of {}"
+msgstr "⟦Show path of {} ······⟧"
+
+msgctxt "ui"
+msgid "Owner of {}: {}"
+msgstr "⟦Owner of {}: {} ······⟧"
+
+msgctxt "ui"
+msgid "Show full path: {}"
+msgstr "⟦Show full path: {} ········⟧"
+
+msgctxt "ui"
+msgid "Select a path to read it in full"
+msgstr "⟦Select a path to read it in full ·············⟧"
+
+msgctxt "ui"
+msgid "Full entry path"
+msgstr "⟦Full entry path ······⟧"
+
+msgctxt "ui"
+msgid "TOP 100 · LARGEST FILES"
+msgstr "⟦TOP 100 · LARGEST FILES ··········⟧"
+
+msgctxt "ui"
+msgid "Rank"
+msgstr "⟦Rank ··⟧"
+
+msgctxt "ui"
+msgid "Top 100, rank {}, {}"
+msgstr "⟦Top 100, rank {}, {} ········⟧"
+
+msgctxt "ui"
+msgid "Top 100, no file selected"
+msgstr "⟦Top 100, no file selected ··········⟧"
+
+msgctxt "ui"
+msgid "No file observed in this scope."
+msgstr "⟦No file observed in this scope. ·············⟧"
+
+msgctxt "ui"
+msgid "↑ ↓ · Home / End: select · Enter: reveal in table"
+msgstr "⟦↑ ↓ · Home / End: select · Enter: reveal in table ····················⟧"
+
+msgctxt "ui"
+msgid "Full native path of the ranked file, non-Unicode units escaped"
+msgstr "⟦Full native path of the ranked file, non-Unicode units escaped ·························⟧"
+
+msgctxt "ui"
+msgid "Select a file."
+msgstr "⟦Select a file. ······⟧"
+
+msgctxt "ui"
+msgid "File retained in the inventory."
+msgstr "⟦File retained in the inventory. ·············⟧"
+
+msgctxt "ui"
+msgid "Path absent from retained inventory; no node to reveal."
+msgstr "⟦Path absent from retained inventory; no node to reveal. ······················⟧"
+
+msgctxt "ui"
+msgid "Retry"
+msgstr "⟦Retry ··⟧"
+
+msgctxt "ui"
+msgid "Open"
+msgstr "⟦Open ··⟧"
+
+msgctxt "ui"
+msgid "Close"
+msgstr "⟦Close ··⟧"
+
+msgctxt "ui"
+msgid "Keep this inventory"
+msgstr "⟦Keep this inventory ········⟧"
+
+msgctxt "ui"
+msgid "Open offline"
+msgstr "⟦Open offline ·····⟧"
+
+msgctxt "ui"
+msgid "Verify source"
+msgstr "⟦Verify source ······⟧"
+
+msgctxt "ui"
+msgid "Stop retaining"
+msgstr "⟦Stop retaining ······⟧"
+
+msgctxt "ui"
+msgid "Resume"
+msgstr "⟦Resume ···⟧"
+
+msgctxt "ui"
+msgid "Compare with current"
+msgstr "⟦Compare with current ········⟧"
+
+msgctxt "ui"
+msgid "Forget selected local cache"
+msgstr "⟦Forget selected local cache ···········⟧"
+
+msgctxt "ui"
+msgid "Forget"
+msgstr "⟦Forget ···⟧"
+
+msgctxt "ui"
+msgid "Retention: 30 days from measurement"
+msgstr "⟦Retention: 30 days from measurement ··············⟧"
+
+msgctxt "ui"
+msgid "Previous path"
+msgstr "⟦Previous path ······⟧"
+
+msgctxt "ui"
+msgid "Current path"
+msgstr "⟦Current path ·····⟧"
+
+msgctxt "ui"
+msgid "Metadata only. Probable moves are not content proof."
+msgstr "⟦Metadata only. Probable moves are not content proof. ·····················⟧"
+
+msgctxt "ui"
+msgid "The name stays visible. The active sort is preserved."
+msgstr "⟦The name stays visible. The active sort is preserved. ······················⟧"
+
+msgctxt "ui"
+msgid "Language"
+msgstr "⟦Language ····⟧"
+
+msgctxt "ui"
+msgid "Automatic (system)"
+msgstr "⟦Automatic (system) ········⟧"
+
+msgctxt "ui"
+msgid "English"
+msgstr "⟦English ···⟧"
+
+msgctxt "ui"
+msgid "Français"
+msgstr "⟦Français ····⟧"
+
+msgctxt "ui"
+msgid "Deutsch"
+msgstr "⟦Deutsch ···⟧"
+
+msgctxt "ui"
+msgid "Español"
+msgstr "⟦Español ···⟧"
+
+msgctxt "ui"
+msgid "Português (Portugal)"
+msgstr "⟦Português (Portugal) ········⟧"
+
+msgctxt "ui"
+msgid "Italiano"
+msgstr "⟦Italiano ····⟧"
+
+msgctxt "ui"
+msgid "Nederlands"
+msgstr "⟦Nederlands ····⟧"
+
+msgctxt "ui"
+msgid "Interface language"
+msgstr "⟦Interface language ········⟧"
+
+msgctxt "ui"
+msgid "Detected system locale: {}"
+msgstr "⟦Detected system locale: {} ···········⟧"
+
+msgctxt "ui"
+msgid "Active language: {}"
+msgstr "⟦Active language: {} ········⟧"
+
+msgctxt "ui"
+msgid "Could not activate the language; previous language retained."
+msgstr "⟦Could not activate the language; previous language retained. ························⟧"
+
+msgctxt "ui"
+msgid "Requested catalog ({}) unavailable; using English. Saved preference retained."
+msgstr "⟦Requested catalog ({}) unavailable; using English. Saved preference retained. ·······························⟧"
+
+msgctxt "ui"
+msgid "Units"
+msgstr "⟦Units ··⟧"
+
+msgctxt "ui"
+msgid "Binary (KiB, MiB, GiB)"
+msgstr "⟦Binary (KiB, MiB, GiB) ·········⟧"
+
+msgctxt "ui"
+msgid "Decimal (kB, MB, GB)"
+msgstr "⟦Decimal (kB, MB, GB) ········⟧"
+
+msgctxt "ui"
+msgid "Units for displayed sizes"
+msgstr "⟦Units for displayed sizes ··········⟧"
+
+msgctxt "ui"
+msgid "Reset display"
+msgstr "⟦Reset display ······⟧"
+
+msgctxt "rust"
+msgid " Independent of the limited inventory."
+msgstr "⟦ Independent of the limited inventory. ················⟧"
+
+msgctxt "rust"
+msgid " Limited inventory; omissions indicated, without individual paths."
+msgstr "⟦ Limited inventory; omissions indicated, without individual paths. ···························⟧"
+
+msgctxt "rust"
+msgid " Logical sizes per path, not recoverable space."
+msgstr "⟦ Logical sizes per path, not recoverable space. ···················⟧"
+
+msgctxt "rust"
+msgid " No representable positive size; see the table."
+msgstr "⟦ No representable positive size; see the table. ···················⟧"
+
+msgctxt "rust"
+msgid " Path budget reached."
+msgstr "⟦ Path budget reached. ·········⟧"
+
+msgctxt "rust"
+msgid " · limited inventory"
+msgstr "⟦ · limited inventory ········⟧"
+
+msgctxt "rust"
+msgid " · partial scan"
+msgstr "⟦ · partial scan ······⟧"
+
+msgctxt "rust"
+msgid "Access denied"
+msgstr "⟦Access denied ······⟧"
+
+msgctxt "rust"
+msgid "Allocations, dates and inventory are inconsistent: different entry counts"
+msgstr "⟦Allocations, dates and inventory are inconsistent: different entry counts ······························⟧"
+
+msgctxt "rust"
+msgid "Android prototype: SAF/MediaStore selection is not yet integrated."
+msgstr "⟦Android prototype: SAF/MediaStore selection is not yet integrated. ···························⟧"
+
+msgctxt "rust"
+msgid "Available"
+msgstr "⟦Available ····⟧"
+
+msgctxt "rust"
+msgid "Cancellation requested…"
+msgstr "⟦Cancellation requested… ··········⟧"
+
+msgctxt "rust"
+msgid "Choose a folder to scan"
+msgstr "⟦Choose a folder to scan ··········⟧"
+
+msgctxt "rust"
+msgid "Could not open the picker: {}"
+msgstr "⟦Could not open the picker: {} ············⟧"
+
+msgctxt "rust"
+msgid "Could not start the scan."
+msgstr "⟦Could not start the scan. ··········⟧"
+
+msgctxt "rust"
+msgid "Dates and inventory are inconsistent: different entry counts"
+msgstr "⟦Dates and inventory are inconsistent: different entry counts ························⟧"
+
+msgctxt "rust"
+msgid "Discovering…"
+msgstr "⟦Discovering… ·····⟧"
+
+msgctxt "rust"
+msgid "Discovery failed. Try Refresh."
+msgstr "⟦Discovery failed. Try Refresh. ············⟧"
+
+msgctxt "rust"
+msgid "Display limited to 256 sources · capacities cannot be summed"
+msgstr "⟦Display limited to 256 sources · capacities cannot be summed ························⟧"
+
+msgctxt "rust"
+msgid "Enter the path of a folder to scan."
+msgstr "⟦Enter the path of a folder to scan. ··············⟧"
+
+msgctxt "rust"
+msgid "File"
+msgstr "⟦File ··⟧"
+
+msgctxt "rust"
+msgid "Folder"
+msgstr "⟦Folder ···⟧"
+
+msgctxt "rust"
+msgid "Global ranking of the scanned scope."
+msgstr "⟦Global ranking of the scanned scope. ···············⟧"
+
+msgctxt "rust"
+msgid "Inconsistent aggregates: proportions unavailable."
+msgstr "⟦Inconsistent aggregates: proportions unavailable. ····················⟧"
+
+msgctxt "rust"
+msgid "Individual entries available in the table."
+msgstr "⟦Individual entries available in the table. ·················⟧"
+
+msgctxt "rust"
+msgid "Local"
+msgstr "⟦Local ··⟧"
+
+msgctxt "rust"
+msgid "Logical sizes · click: folder / file inspection."
+msgstr "⟦Logical sizes · click: folder / file inspection. ····················⟧"
+
+msgctxt "rust"
+msgid "Network"
+msgstr "⟦Network ···⟧"
+
+msgctxt "rust"
+msgid "No accessible entry; the scan is partial."
+msgstr "⟦No accessible entry; the scan is partial. ·················⟧"
+
+msgctxt "rust"
+msgid "No accessible entry; this folder scan is partial."
+msgstr "⟦No accessible entry; this folder scan is partial. ····················⟧"
+
+msgctxt "rust"
+msgid "No entry retained for this folder; the inventory is limited."
+msgstr "⟦No entry retained for this folder; the inventory is limited. ························⟧"
+
+msgctxt "rust"
+msgid "No entry retained in the scanned scope."
+msgstr "⟦No entry retained in the scanned scope. ················⟧"
+
+msgctxt "rust"
+msgid "No inventory available for this folder."
+msgstr "⟦No inventory available for this folder. ················⟧"
+
+msgctxt "rust"
+msgid "No inventory available."
+msgstr "⟦No inventory available. ··········⟧"
+
+msgctxt "rust"
+msgid "No ranking available: scan failed."
+msgstr "⟦No ranking available: scan failed. ··············⟧"
+
+msgctxt "rust"
+msgid "No storage source visible."
+msgstr "⟦No storage source visible. ···········⟧"
+
+msgctxt "rust"
+msgid "Not collected"
+msgstr "⟦Not collected ······⟧"
+
+msgctxt "rust"
+msgid "Not queried"
+msgstr "⟦Not queried ·····⟧"
+
+msgctxt "rust"
+msgid "Omitted from inventory"
+msgstr "⟦Omitted from inventory ·········⟧"
+
+msgctxt "rust"
+msgid "Optical"
+msgstr "⟦Optical ···⟧"
+
+msgctxt "rust"
+msgid "Owners and inventory are inconsistent"
+msgstr "⟦Owners and inventory are inconsistent ···············⟧"
+
+msgctxt "rust"
+msgid "Partial / cancelled scan: ranking of actually observed files only."
+msgstr "⟦Partial / cancelled scan: ranking of actually observed files only. ···························⟧"
+
+msgctxt "rust"
+msgid "Partial folder"
+msgstr "⟦Partial folder ······⟧"
+
+msgctxt "rust"
+msgid "Partial scan — some entries were not traversed"
+msgstr "⟦Partial scan — some entries were not traversed ···················⟧"
+
+msgctxt "rust"
+msgid "Paths not retained: no individual details available."
+msgstr "⟦Paths not retained: no individual details available. ·····················⟧"
+
+msgctxt "rust"
+msgid "Point-in-time measurements · capacities cannot be summed"
+msgstr "⟦Point-in-time measurements · capacities cannot be summed ·······················⟧"
+
+msgctxt "rust"
+msgid "Preparing inventory…"
+msgstr "⟦Preparing inventory… ········⟧"
+
+msgctxt "rust"
+msgid "Processing stopped unexpectedly. You can restart the scan."
+msgstr "⟦Processing stopped unexpectedly. You can restart the scan. ························⟧"
+
+msgctxt "rust"
+msgid "Proportions of observed bytes only; incomplete coverage."
+msgstr "⟦Proportions of observed bytes only; incomplete coverage. ·······················⟧"
+
+msgctxt "rust"
+msgid "Removable"
+msgstr "⟦Removable ····⟧"
+
+msgctxt "rust"
+msgid "Scan cancelled before retaining an entry; no inventory available."
+msgstr "⟦Scan cancelled before retaining an entry; no inventory available. ··························⟧"
+
+msgctxt "rust"
+msgid "Scan cancelled — partial results retained"
+msgstr "⟦Scan cancelled — partial results retained ·················⟧"
+
+msgctxt "rust"
+msgid "Scan complete"
+msgstr "⟦Scan complete ······⟧"
+
+msgctxt "rust"
+msgid "Scan failed."
+msgstr "⟦Scan failed. ·····⟧"
+
+msgctxt "rust"
+msgid "Scan in progress…"
+msgstr "⟦Scan in progress… ·······⟧"
+
+msgctxt "rust"
+msgid "Skipped link"
+msgstr "⟦Skipped link ·····⟧"
+
+msgctxt "rust"
+msgid "Skipped special entry"
+msgstr "⟦Skipped special entry ·········⟧"
+
+msgctxt "rust"
+msgid "The picker stopped without a result. Try again or enter the path manually."
+msgstr "⟦The picker stopped without a result. Try again or enter the path manually. ······························⟧"
+
+msgctxt "rust"
+msgid "This folder is empty within the scanned scope."
+msgstr "⟦This folder is empty within the scanned scope. ···················⟧"
+
+msgctxt "rust"
+msgid "Unavailable"
+msgstr "⟦Unavailable ·····⟧"
+
+msgctxt "rust"
+msgid "Unknown"
+msgstr "⟦Unknown ···⟧"
+
+msgctxt "rust"
+msgid "Unknown availability"
+msgstr "⟦Unknown availability ········⟧"
+
+msgctxt "rust"
+msgid "Unknown type"
+msgstr "⟦Unknown type ·····⟧"
+
+msgctxt "rust"
+msgid "Unsupported"
+msgstr "⟦Unsupported ·····⟧"
+
+msgctxt "rust"
+msgid "{n} file"
+msgid_plural "{n} files"
+msgstr[0] "⟦{n} file ····⟧"
+msgstr[1] "⟦{n} files ····⟧"
+
+msgctxt "rust"
+msgid "{n} folder"
+msgid_plural "{n} folders"
+msgstr[0] "⟦{n} folder ····⟧"
+msgstr[1] "⟦{n} folders ·····⟧"
+
+msgctxt "rust"
+msgid "{n} error"
+msgid_plural "{n} errors"
+msgstr[0] "⟦{n} error ····⟧"
+msgstr[1] "⟦{n} errors ····⟧"
+
+msgctxt "rust"
+msgid "{n} byte"
+msgid_plural "{n} bytes"
+msgstr[0] "⟦{n} byte ····⟧"
+msgstr[1] "⟦{n} bytes ····⟧"
+
+msgctxt "rust"
+msgid "{n} skipped link"
+msgid_plural "{n} skipped links"
+msgstr[0] "⟦{n} skipped link ·······⟧"
+msgstr[1] "⟦{n} skipped links ·······⟧"
+
+msgctxt "rust"
+msgid "{n} concurrent folder"
+msgid_plural "{n} concurrent folders"
+msgstr[0] "⟦{n} concurrent folder ·········⟧"
+msgstr[1] "⟦{n} concurrent folders ·········⟧"
+
+msgctxt "rust"
+msgid "{n} additional detail omitted"
+msgid_plural "{n} additional details omitted"
+msgstr[0] "⟦{n} additional detail omitted ············⟧"
+msgstr[1] "⟦{n} additional details omitted ············⟧"
+
+msgctxt "rust"
+msgid "Others ({n} entry)"
+msgid_plural "Others ({n} entries)"
+msgstr[0] "⟦Others ({n} entry) ········⟧"
+msgstr[1] "⟦Others ({n} entries) ········⟧"
+
+msgctxt "rust"
+msgid " Others: {n} grouped entry, available in the table."
+msgid_plural " Others: {n} grouped entries, available in the table."
+msgstr[0] "⟦ Others: {n} grouped entry, available in the table. ·····················⟧"
+msgstr[1] "⟦ Others: {n} grouped entries, available in the table. ······················⟧"
+
+msgctxt "rust"
+msgid " {n} zero size without area."
+msgid_plural " {n} zero sizes without area."
+msgstr[0] "⟦ {n} zero size without area. ············⟧"
+msgstr[1] "⟦ {n} zero sizes without area. ············⟧"
+
+msgctxt "rust"
+msgid " {n} unknown / unmeasured size, without area."
+msgid_plural " {n} unknown / unmeasured sizes, without area."
+msgstr[0] "⟦ {n} unknown / unmeasured size, without area. ··················⟧"
+msgstr[1] "⟦ {n} unknown / unmeasured sizes, without area. ···················⟧"
+
+msgctxt "rust"
+msgid " · {n} mount, same storage"
+msgid_plural " · {n} mounts, same storage"
+msgstr[0] "⟦ · {n} mount, same storage ···········⟧"
+msgstr[1] "⟦ · {n} mounts, same storage ···········⟧"
+
+msgctxt "rust"
+msgid "Bunny and Size @VERSION@ — free software, GPL-3.0-only\n\nYou may modify and redistribute this software under GNU GPL version 3 only. NO WARRANTY, including merchantability or fitness for a particular purpose, to the extent permitted by law; see sections 15 and 16.\n\nThe “Read the full GPLv3” button displays a complete offline copy of the license. The LICENSE file in the archive contains the same text.\n\nThird-party copyright notices are preserved in THIRD_PARTY_NOTICES.txt and licences/ beside the executable. Excerpts from the original Slint and Fluent icon notices:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: GPL-3.0-only option. Fluent icons: MIT.\n\nAUTHORS.txt lists Bunny and Size code contributors from Git; this list does not designate an exclusive copyright holder. No Bunny and Size copyright holder or year is inferred from these names.\n\nCorresponding source is the Bunny-and-Size-v@VERSION@-source archive for your platform, supplied with the binaries; its exact name and SHA-256 appear in BUILDINFO.json. When redistributing, give recipients effective access to corresponding source under GPLv3; an inaccessible private repository is insufficient.\n"
+msgstr "⟦Bunny and Size @VERSION@ — free software, GPL-3.0-only\n\nYou may modify and redistribute this software under GNU GPL version 3 only. NO WARRANTY, including merchantability or fitness for a particular purpose, to the extent permitted by law; see sections 15 and 16.\n\nThe “Read the full GPLv3” button displays a complete offline copy of the license. The LICENSE file in the archive contains the same text.\n\nThird-party copyright notices are preserved in THIRD_PARTY_NOTICES.txt and licences/ beside the executable. Excerpts from the original Slint and Fluent icon notices:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: GPL-3.0-only option. Fluent icons: MIT.\n\nAUTHORS.txt lists Bunny and Size code contributors from Git; this list does not designate an exclusive copyright holder. No Bunny and Size copyright holder or year is inferred from these names.\n\nCorresponding source is the Bunny-and-Size-v@VERSION@-source archive for your platform, supplied with the binaries; its exact name and SHA-256 appear in BUILDINFO.json. When redistributing, give recipients effective access to corresponding source under GPLv3; an inaccessible private repository is insufficient.\n ································································································································································································································································································································································································································································································································⟧"
+
+msgctxt "rust"
+msgid "Choose a folder to scan."
+msgstr "⟦Choose a folder to scan. ··········⟧"
+
+msgctxt "rust"
+msgid "Could not access {}: {}"
+msgstr "⟦Could not access {}: {} ··········⟧"
+
+msgctxt "rust"
+msgid "The root {} must be a real folder, not a symbolic link"
+msgstr "⟦The root {} must be a real folder, not a symbolic link ······················⟧"
+
+msgctxt "rust"
+msgid "Invalid scan options. Check worker count and traversal limits."
+msgstr "⟦Invalid scan options. Check worker count and traversal limits. ·························⟧"
+
+msgctxt "rust"
+msgid "Could not start a worker: {}"
+msgstr "⟦Could not start a worker: {} ············⟧"
+
+msgctxt "rust"
+msgid "Observation stream failed: {}"
+msgstr "⟦Observation stream failed: {} ············⟧"
+
+msgctxt "rust"
+msgid "An acquisition worker stopped unexpectedly"
+msgstr "⟦An acquisition worker stopped unexpectedly ·················⟧"
+
+msgctxt "rust"
+msgid "The sum of sizes exceeds the capacity of a 64-bit integer"
+msgstr "⟦The sum of sizes exceeds the capacity of a 64-bit integer ·······················⟧"
+
+msgctxt "rust"
+msgid "Limited inventory: {}, {} (limits: {}, {} of native paths). Scan totals are preserved."
+msgstr "⟦Limited inventory: {}, {} (limits: {}, {} of native paths). Scan totals are preserved. ···································⟧"
+
+msgctxt "rust"
+msgid "Scanner policy: {}. Rules: {}."
+msgstr "⟦Scanner policy: {}. Rules: {}. ············⟧"
+
+msgctxt "rust"
+msgid "Traversal budget reached: {}. Their descendants are not counted. Sizes are lower bounds. Limits: {} and {} of pending native paths."
+msgstr "⟦Traversal budget reached: {}. Their descendants are not counted. Sizes are lower bounds. Limits: {} and {} of pending native paths. ·····················································⟧"
+
+msgctxt "rust"
+msgid " Limited ranking: {} (maximum {} native bytes per file)."
+msgstr "⟦ Limited ranking: {} (maximum {} native bytes per file). ·······················⟧"
+
+msgctxt "rust"
+msgid "{} · direct files: {} · direct subfolders: {}\nrecursive files: {} · recursive subfolders: {} · {}{}{}"
+msgstr "⟦{} · direct files: {} · direct subfolders: {}\nrecursive files: {} · recursive subfolders: {} · {}{}{} ·········································⟧"
+
+msgctxt "rust"
+msgid "A native path requires {}; the transmission budget is {}"
+msgstr "⟦A native path requires {}; the transmission budget is {} ·······················⟧"
+
+msgctxt "rust"
+msgid "{n} retained entry"
+msgid_plural "{n} retained entries"
+msgstr[0] "⟦{n} retained entry ········⟧"
+msgstr[1] "⟦{n} retained entries ········⟧"
+
+msgctxt "rust"
+msgid "{n} entry not displayed"
+msgid_plural "{n} entries not displayed"
+msgstr[0] "⟦{n} entry not displayed ··········⟧"
+msgstr[1] "⟦{n} entries not displayed ··········⟧"
+
+msgctxt "rust"
+msgid "{n} entry"
+msgid_plural "{n} entries"
+msgstr[0] "⟦{n} entry ····⟧"
+msgstr[1] "⟦{n} entries ·····⟧"
+
+msgctxt "rust"
+msgid "{n} excluded entry"
+msgid_plural "{n} excluded entries"
+msgstr[0] "⟦{n} excluded entry ········⟧"
+msgstr[1] "⟦{n} excluded entries ········⟧"
+
+msgctxt "rust"
+msgid "{n} observed folder not traversed"
+msgid_plural "{n} observed folders not traversed"
+msgstr[0] "⟦{n} observed folder not traversed ··············⟧"
+msgstr[1] "⟦{n} observed folders not traversed ··············⟧"
+
+msgctxt "rust"
+msgid "{n} oversized path omitted"
+msgid_plural "{n} oversized paths omitted"
+msgstr[0] "⟦{n} oversized path omitted ···········⟧"
+msgstr[1] "⟦{n} oversized paths omitted ···········⟧"
+
+msgctxt "rust"
+msgid "Resolution unavailable; native identifiers retained."
+msgstr "⟦Resolution unavailable; native identifiers retained. ·····················⟧"
+
+msgctxt "rust"
+msgid "Resolving page names…"
+msgstr "⟦Resolving page names… ·········⟧"
+
+msgctxt "rust"
+msgid "Resolution suspended: waiting for previous provider or service unavailable."
+msgstr "⟦Resolution suspended: waiting for previous provider or service unavailable. ······························⟧"
+
+msgctxt "rust"
+msgid "Page names updated; native identifiers retained as fallback."
+msgstr "⟦Page names updated; native identifiers retained as fallback. ························⟧"
+
+msgctxt "rust"
+msgid "Name resolution: {n} identity remaining on this page."
+msgid_plural "Name resolution: {n} identities remaining on this page."
+msgstr[0] "⟦Name resolution: {n} identity remaining on this page. ······················⟧"
+msgstr[1] "⟦Name resolution: {n} identities remaining on this page. ······················⟧"
+
+msgctxt "capacity"
+msgid "Unknown"
+msgstr "⟦Unknown ···⟧"
+
+msgctxt "capacity"
+msgid "Unsupported"
+msgstr "⟦Unsupported ·····⟧"
+
+msgctxt "rust"
+msgid "Jan"
+msgstr "⟦Jan ··⟧"
+
+msgctxt "rust"
+msgid "Feb"
+msgstr "⟦Feb ··⟧"
+
+msgctxt "rust"
+msgid "Mar"
+msgstr "⟦Mar ··⟧"
+
+msgctxt "rust"
+msgid "Apr"
+msgstr "⟦Apr ··⟧"
+
+msgctxt "rust"
+msgid "May"
+msgstr "⟦May ··⟧"
+
+msgctxt "rust"
+msgid "Jun"
+msgstr "⟦Jun ··⟧"
+
+msgctxt "rust"
+msgid "Jul"
+msgstr "⟦Jul ··⟧"
+
+msgctxt "rust"
+msgid "Aug"
+msgstr "⟦Aug ··⟧"
+
+msgctxt "rust"
+msgid "Sep"
+msgstr "⟦Sep ··⟧"
+
+msgctxt "rust"
+msgid "Oct"
+msgstr "⟦Oct ··⟧"
+
+msgctxt "rust"
+msgid "Nov"
+msgstr "⟦Nov ··⟧"
+
+msgctxt "rust"
+msgid "Dec"
+msgstr "⟦Dec ··⟧"
+
+msgctxt "rust"
+msgid "Additional folder listing in progress. Initial scan totals are unchanged."
+msgstr "⟦Additional folder listing in progress. Initial scan totals are unchanged. ······························⟧"
+
+msgctxt "rust"
+msgid "Initial folder total: {}. Additional direct-child listing starting at entry {}. Contents may have changed."
+msgstr "⟦Initial folder total: {}. Additional direct-child listing starting at entry {}. Contents may have changed. ···········································⟧"
+
+msgctxt "rust"
+msgid "Additional analysis in progress…"
+msgstr "⟦Additional analysis in progress… ·············⟧"
+
+msgctxt "rust"
+msgid "Additional analysis complete"
+msgstr "⟦Additional analysis complete ············⟧"
+
+msgctxt "rust"
+msgid "Additional analysis — partial results"
+msgstr "⟦Additional analysis — partial results ···············⟧"
+
+msgctxt "rust"
+msgid "Additional analysis cancelled — partial results retained"
+msgstr "⟦Additional analysis cancelled — partial results retained ·······················⟧"
+
+msgctxt "rust"
+msgid "Additional analysis failed."
+msgstr "⟦Additional analysis failed. ···········⟧"
+
+msgctxt "rust"
+msgid "Initial scan: {}"
+msgstr "⟦Initial scan: {} ·······⟧"
+
+msgctxt "rust"
+msgid "Automatic scan unavailable: select an accessible local source. Other paths require an explicit scan."
+msgstr "⟦Automatic scan unavailable: select an accessible local source. Other paths require an explicit scan. ········································⟧"
+
+msgctxt "rust"
+msgid "Capacity unavailable"
+msgstr "⟦Capacity unavailable ········⟧"
+
+msgctxt "rust"
+msgid "Total {} · Used {} · Free {} · Available {}"
+msgstr "⟦Total {} · Used {} · Free {} · Available {} ··················⟧"
+
+msgctxt "rust"
+msgid "Usage unavailable"
+msgstr "⟦Usage unavailable ·······⟧"
+
+msgctxt "rust"
+msgid "{} % used"
+msgstr "⟦{} % used ····⟧"
+
+msgctxt "rust"
+msgid "Storage source changed or became unavailable. Refresh sources and select it again."
+msgstr "⟦Storage source changed or became unavailable. Refresh sources and select it again. ·································⟧"
+
+msgctxt "rust"
+msgid "All matched files"
+msgstr "⟦All matched files ·······⟧"
+
+msgctxt "rust"
+msgid "Analysis worker stopped"
+msgstr "⟦Analysis worker stopped ··········⟧"
+
+msgctxt "rust"
+msgid "Incomplete coverage"
+msgstr "⟦Incomplete coverage ········⟧"
+
+msgctxt "rust"
+msgid "No extension"
+msgstr "⟦No extension ·····⟧"
+
+msgctxt "rust"
+msgid "Searching retained entries…"
+msgstr "⟦Searching retained entries… ···········⟧"
+
+msgctxt "rust"
+msgid "Some values are unavailable"
+msgstr "⟦Some values are unavailable ···········⟧"
+
+msgctxt "rust"
+msgid "Exact groups: {} · bytes read: {} · hardlink aliases: {} · errors: {}."
+msgstr "⟦Exact groups: {} · bytes read: {} · hardlink aliases: {} · errors: {}. ····························⟧"
+
+msgctxt "rust"
+msgid "1 KiB–<1 MiB"
+msgstr "⟦1 KiB–<1 MiB ·····⟧"
+
+msgctxt "rust"
+msgid "1 MiB–<1 GiB"
+msgstr "⟦1 MiB–<1 GiB ·····⟧"
+
+msgctxt "rust"
+msgid "1–1023 bytes"
+msgstr "⟦1–1023 bytes ·····⟧"
+
+msgctxt "rust"
+msgid "Access denied. Check operating-system permissions."
+msgstr "⟦Access denied. Check operating-system permissions. ····················⟧"
+
+msgctxt "rust"
+msgid "At least 1 GiB"
+msgstr "⟦At least 1 GiB ······⟧"
+
+msgctxt "rust"
+msgid "Cancellation requested. A system or network read may take time to return."
+msgstr "⟦Cancellation requested. A system or network read may take time to return. ······························⟧"
+
+msgctxt "rust"
+msgid "Cancelled. Only finished groups are shown."
+msgstr "⟦Cancelled. Only finished groups are shown. ·················⟧"
+
+msgctxt "rust"
+msgid "Cancelled. Only observed matches are shown."
+msgstr "⟦Cancelled. Only observed matches are shown. ··················⟧"
+
+msgctxt "rust"
+msgid "Counts · known logical sizes per path. Unknown file sizes: {}. Hardlinks count as paths."
+msgstr "⟦Counts · known logical sizes per path. Unknown file sizes: {}. Hardlinks count as paths. ····································⟧"
+
+msgctxt "rust"
+msgid "Empty files"
+msgstr "⟦Empty files ·····⟧"
+
+msgctxt "rust"
+msgid "Extensions: largest 32 · bars: known bytes"
+msgstr "⟦Extensions: largest 32 · bars: known bytes ·················⟧"
+
+msgctxt "rust"
+msgid "File identity is unavailable on this storage."
+msgstr "⟦File identity is unavailable on this storage. ··················⟧"
+
+msgctxt "rust"
+msgid "File no longer accessible. Check the path or network connection."
+msgstr "⟦File no longer accessible. Check the path or network connection. ··························⟧"
+
+msgctxt "rust"
+msgid "Group {} · copy {} ·"
+msgstr "⟦Group {} · copy {} · ········⟧"
+
+msgctxt "rust"
+msgid "Group {} · independent copies: {} · SHA-256: {} · byte-for-byte verified."
+msgstr "⟦Group {} · independent copies: {} · SHA-256: {} · byte-for-byte verified. ······························⟧"
+
+msgctxt "rust"
+msgid "Hardlink alias"
+msgstr "⟦Hardlink alias ······⟧"
+
+msgctxt "rust"
+msgid "Invalid filter: check the glob and the limit of 4096 bytes per field."
+msgstr "⟦Invalid filter: check the glob and the limit of 4096 bytes per field. ····························⟧"
+
+msgctxt "rust"
+msgid "Invalid filter: minimum size must not exceed maximum size."
+msgstr "⟦Invalid filter: minimum size must not exceed maximum size. ························⟧"
+
+msgctxt "rust"
+msgid "Invalid filter: sizes must be whole bytes from 0 to 18446744073709551615."
+msgstr "⟦Invalid filter: sizes must be whole bytes from 0 to 18446744073709551615. ······························⟧"
+
+msgctxt "rust"
+msgid "Matches: {} · retained results: {} · omitted inventory entries: {} · unknown dates: {}. Logical file sizes per path."
+msgstr "⟦Matches: {} · retained results: {} · omitted inventory entries: {} · unknown dates: {}. Logical file sizes per path. ···············································⟧"
+
+msgctxt "rust"
+msgid "Network read failed. Check the connection and retry."
+msgstr "⟦Network read failed. Check the connection and retry. ·····················⟧"
+
+msgctxt "rust"
+msgid "No exact duplicate group in the examined files."
+msgstr "⟦No exact duplicate group in the examined files. ···················⟧"
+
+msgctxt "rust"
+msgid "No matching retained entry."
+msgstr "⟦No matching retained entry. ···········⟧"
+
+msgctxt "rust"
+msgid "Non-Unicode extension"
+msgstr "⟦Non-Unicode extension ·········⟧"
+
+msgctxt "rust"
+msgid "Other extension groups: {} (included in totals)"
+msgstr "⟦Other extension groups: {} (included in totals) ···················⟧"
+
+msgctxt "rust"
+msgid "Read budget or file-size limit reached. Results are incomplete."
+msgstr "⟦Read budget or file-size limit reached. Results are incomplete. ··························⟧"
+
+msgctxt "rust"
+msgid "Read failed or file changed. Rescan before retrying."
+msgstr "⟦Read failed or file changed. Rescan before retrying. ·····················⟧"
+
+msgctxt "rust"
+msgid "Reading candidate files…"
+msgstr "⟦Reading candidate files… ··········⟧"
+
+msgctxt "rust"
+msgid "Reading contents: {} bytes · {} files hashed"
+msgstr "⟦Reading contents: {} bytes · {} files hashed ··················⟧"
+
+msgctxt "rust"
+msgid "Retained entries: {} · omitted: {}. Filters never rescan the source."
+msgstr "⟦Retained entries: {} · omitted: {}. Filters never rescan the source. ····························⟧"
+
+msgctxt "rust"
+msgid "Retained inventory"
+msgstr "⟦Retained inventory ········⟧"
+
+msgctxt "rust"
+msgid "Rows {}–{} of {}"
+msgstr "⟦Rows {}–{} of {} ·······⟧"
+
+msgctxt "rust"
+msgid "SHA-256 candidates are compared byte for byte. Hardlink aliases are the same file."
+msgstr "⟦SHA-256 candidates are compared byte for byte. Hardlink aliases are the same file. ·································⟧"
+
+msgctxt "rust"
+msgid "Size classes · bars: file counts"
+msgstr "⟦Size classes · bars: file counts ·············⟧"
+
+msgctxt "rust"
+msgid "Unknown size"
+msgstr "⟦Unknown size ·····⟧"
+
+msgctxt "rust"
+msgid "Waiting for the previous read to finish. Reopen Search / statistics afterwards."
+msgstr "⟦Waiting for the previous read to finish. Reopen Search / statistics afterwards. ································⟧"
+
+msgctxt "rust"
+msgid "Complete"
+msgstr "⟦Complete ····⟧"
+
+msgctxt "rust"
+msgid "Partial"
+msgstr "⟦Partial ···⟧"
+
+msgctxt "rust"
+msgid "Could not start scan."
+msgstr "⟦Could not start scan. ·········⟧"
+
+msgctxt "rust"
+msgid "Source is no longer available."
+msgstr "⟦Source is no longer available. ············⟧"
+
+msgctxt "rust"
+msgid "No file observed in this scope."
+msgstr "⟦No file observed in this scope. ·············⟧"
+
+msgctxt "rust"
+msgid "Logical size · current page"
+msgstr "⟦Logical size · current page ···········⟧"
+
+msgctxt "rust"
+msgid " · Complete"
+msgstr "⟦ · Complete ·····⟧"
+
+msgctxt "rust"
+msgid " · Partial"
+msgstr "⟦ · Partial ····⟧"
+
+msgctxt "rust"
+msgid " · No match in this inventory."
+msgstr "⟦ · No match in this inventory. ············⟧"
+
+msgctxt "rust"
+msgid " · No match observed; coverage is partial."
+msgstr "⟦ · No match observed; coverage is partial. ·················⟧"
+
+msgctxt "rust"
+msgid "Accounted memory:"
+msgstr "⟦Accounted memory: ·······⟧"
+
+msgctxt "rust"
+msgid "Cancelled"
+msgstr "⟦Cancelled ····⟧"
+
+msgctxt "rust"
+msgid "Choose a source and start an inventory first."
+msgstr "⟦Choose a source and start an inventory first. ··················⟧"
+
+msgctxt "rust"
+msgid "Effective entry ceiling:"
+msgstr "⟦Effective entry ceiling: ··········⟧"
+
+msgctxt "rust"
+msgid "Files"
+msgstr "⟦Files ··⟧"
+
+msgctxt "rust"
+msgid "Frozen inventory, generation"
+msgstr "⟦Frozen inventory, generation ············⟧"
+
+msgctxt "rust"
+msgid "Gaps (size/date/text/path/kind):"
+msgstr "⟦Gaps (size/date/text/path/kind): ·············⟧"
+
+msgctxt "rust"
+msgid "Invalid byte count."
+msgstr "⟦Invalid byte count. ········⟧"
+
+msgctxt "rust"
+msgid "Invalid search query."
+msgstr "⟦Invalid search query. ·········⟧"
+
+msgctxt "rust"
+msgid "Invalid size range."
+msgstr "⟦Invalid size range. ········⟧"
+
+msgctxt "rust"
+msgid "Known logical bytes"
+msgstr "⟦Known logical bytes ········⟧"
+
+msgctxt "rust"
+msgid "Not process RSS; byte limits always apply."
+msgstr "⟦Not process RSS; byte limits always apply. ·················⟧"
+
+msgctxt "rust"
+msgid "Other extensions"
+msgstr "⟦Other extensions ·······⟧"
+
+msgctxt "rust"
+msgid "Search cancelled; the scan continues."
+msgstr "⟦Search cancelled; the scan continues. ···············⟧"
+
+msgctxt "rust"
+msgid "Searching…"
+msgstr "⟦Searching… ····⟧"
+
+msgctxt "rust"
+msgid "Size classes (0 / <1 KiB / <1 MiB / <1 GiB / ≥1 GiB / unknown)"
+msgstr "⟦Size classes (0 / <1 KiB / <1 MiB / <1 GiB / ≥1 GiB / unknown) ·························⟧"
+
+msgctxt "rust"
+msgid "Unknown sizes"
+msgstr "⟦Unknown sizes ······⟧"
+
+msgctxt "rust"
+msgid "Unlimited count"
+msgstr "⟦Unlimited count ······⟧"
+
+msgctxt "rust"
+msgid "Waiting for the frozen inventory; cancelling search leaves the scan running."
+msgstr "⟦Waiting for the frozen inventory; cancelling search leaves the scan running. ·······························⟧"
+
+msgctxt "rust"
+msgid "Appeared"
+msgstr "⟦Appeared ····⟧"
+
+msgctxt "rust"
+msgid "Newly observed"
+msgstr "⟦Newly observed ······⟧"
+
+msgctxt "rust"
+msgid "Removed from path"
+msgstr "⟦Removed from path ·······⟧"
+
+msgctxt "rust"
+msgid "Replaced"
+msgstr "⟦Replaced ····⟧"
+
+msgctxt "rust"
+msgid "Fields changed"
+msgstr "⟦Fields changed ······⟧"
+
+msgctxt "rust"
+msgid "Fields unchanged"
+msgstr "⟦Fields unchanged ·······⟧"
+
+msgctxt "rust"
+msgid "Not verified"
+msgstr "⟦Not verified ·····⟧"
+
+msgctxt "rust"
+msgid "Probable move"
+msgstr "⟦Probable move ······⟧"
+
+msgctxt "rust"
+msgid "Interrupted acquisition"
+msgstr "⟦Interrupted acquisition ··········⟧"
+
+msgctxt "rust"
+msgid "Saved locally. Source not queried."
+msgstr "⟦Saved locally. Source not queried. ··············⟧"
+
+msgctxt "rust"
+msgid "Local cache catalogue."
+msgstr "⟦Local cache catalogue. ·········⟧"
+
+msgctxt "rust"
+msgid "Unavailable caches"
+msgstr "⟦Unavailable caches ········⟧"
+
+msgctxt "rust"
+msgid "No measured inventory selected."
+msgstr "⟦No measured inventory selected. ·············⟧"
+
+msgctxt "rust"
+msgid "This measure is sealed. Verify it explicitly."
+msgstr "⟦This measure is sealed. Verify it explicitly. ··················⟧"
+
+msgctxt "rust"
+msgid "Select another inventory before forgetting this cache."
+msgstr "⟦Select another inventory before forgetting this cache. ······················⟧"
+
+msgctxt "rust"
+msgid "Wait for a measured generation before comparing."
+msgstr "⟦Wait for a measured generation before comparing. ····················⟧"
+
+msgctxt "rust"
+msgid "Previous measure"
+msgstr "⟦Previous measure ·······⟧"
+
+msgctxt "rust"
+msgid "Current measure"
+msgstr "⟦Current measure ······⟧"
+
+msgctxt "rust"
+msgid "Comparable delta"
+msgstr "⟦Comparable delta ·······⟧"
+
+msgctxt "rust"
+msgid "Preparing saved measures…"
+msgstr "⟦Preparing saved measures… ··········⟧"
+
+msgctxt "rust"
+msgid "Local cache cleanup failed."
+msgstr "⟦Local cache cleanup failed. ···········⟧"
+
+msgctxt "rust"
+msgid "Retention disabled. Local purge waits for readers to close."
+msgstr "⟦Retention disabled. Local purge waits for readers to close. ························⟧"
+
+msgctxt "rust"
+msgid "Saved measure operation failed."
+msgstr "⟦Saved measure operation failed. ·············⟧"

@@ -1,14 +1,9 @@
-Bunny and Size @VERSION@ — free software, GPL-3.0-only
+Bunny and Size @VERSION@. Original code: Apache-2.0.
 
-You may modify and redistribute this software under GNU GPL version 3 only. NO WARRANTY, including merchantability or fitness for a particular purpose, to the extent permitted by law; see sections 15 and 16.
+You may use, modify and redistribute the original code, including commercially, under Apache License 2.0. NO WARRANTY; see sections 7 and 8. The “Read the full Apache 2.0 license” button and the packaged LICENSE provide the complete offline text. Keep LICENSE, NOTICE and the applicable third-party notices when redistributing.
 
-The “Read the full GPLv3” button displays a complete offline copy of the license. The LICENSE file in the archive contains the same text.
-
-Third-party copyright notices are preserved in THIRD_PARTY_NOTICES.txt and licences/ beside the executable. Excerpts from the original Slint and Fluent icon notices:
+Third-party components retain their own licenses. Slint 1.18.1 for Windows/Linux desktop: LicenseRef-Slint-Royalty-free-2.0, with the visible Slint attribution. This is not an Apache license for Slint. Plugins must not expose Slint APIs under that license.
 Copyright © SixtyFPS GmbH <info@slint.dev>
-Copyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>
-Slint 1.18.1: GPL-3.0-only option. Fluent icons: MIT.
+Fluent icons: MIT. Copyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>
 
-AUTHORS.txt lists Bunny and Size code contributors from Git; this list does not designate an exclusive copyright holder. No Bunny and Size copyright holder or year is inferred from these names.
-
-Corresponding source is the Bunny-and-Size-v@VERSION@-source archive for your platform, supplied with the binaries; its exact name and SHA-256 appear in BUILDINFO.json. When redistributing, give recipients effective access to corresponding source under GPLv3; an inaccessible private repository is insufficient.
+Rabbit artwork and its adaptations: CC BY-SA 4.0, Louis Lejuez / TazmenWorld; retain attribution and share adapted artwork under that license. Artwork is not Apache-2.0. See BRANDING.md and THIRD_PARTY_NOTICES.txt in the package. The complete original artwork and portrait are not distributed.

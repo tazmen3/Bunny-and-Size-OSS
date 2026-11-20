@@ -1,0 +1,11 @@
+Bunny and Size V0.5 - current licensing selection
+
+Original project code: Apache-2.0; see LICENSE. No warranty.
+Third-party code, images and other resources retain their own licenses.
+Bunny artwork, including embedded adaptations: Louis Lejuez / TazmenWorld, CC BY-SA 4.0; see BRANDING.md and distribution-legal/artwork/CC-BY-SA-4.0.txt.
+Slint 1.18.1 desktop components, including the local Winit backend patch: LicenseRef-Slint-Royalty-free-2.0; see distribution-legal/slint/LicenseRef-Slint-Royalty-free-2.0.md.
+Desktop distribution must satisfy Slint attribution and license restrictions; the application may not expose Slint APIs, including through plugins. Other platforms require a separate review.
+Fluent icons: Microsoft Corporation, MIT; existing individual notices remain applicable.
+The inherited notices are retained verbatim as historical evidence: their former product GPL and Slint GPL selections are superseded for this V0.5 package by this file. All third-party copyright statements and component-specific obligations remain.
+The eight reviewed V0.5 additions select MIT; SQLite public-domain notices are retained.
+Native enabled-feature reconciliation, binary qualification and publication approval remain separate; packaging does not certify them.

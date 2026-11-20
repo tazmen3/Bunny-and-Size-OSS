@@ -172,6 +172,8 @@ impl super::WinitCompatibleRenderer for WinitSoftwareRenderer {
             target_buffer
                 .present_with_damage(&damage)
                 .map_err(|e| format!("Error presenting softbuffer buffer: {e}"))?;
+            #[cfg(feature = "bunny-presentation-probe")]
+            crate::presentation_probe::presented();
         }
         Ok(DrawOutcome::Success)
     }

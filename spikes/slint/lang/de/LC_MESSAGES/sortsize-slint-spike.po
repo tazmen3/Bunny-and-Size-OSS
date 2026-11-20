@@ -174,8 +174,8 @@ msgid "Partial folder"
 msgstr "Unvollständiger Ordner"
 
 msgctxt "rust"
-msgid "Partial scan — some entries were not traversed"
-msgstr "Teilanalyse — einige Einträge wurden nicht durchlaufen"
+msgid "Partial scan: some entries were not traversed"
+msgstr "Teilanalyse: einige Einträge wurden nicht durchlaufen"
 
 msgctxt "rust"
 msgid "Paths not retained: no individual details available."
@@ -206,8 +206,8 @@ msgid "Scan cancelled before retaining an entry; no inventory available."
 msgstr "Analyse vor dem Speichern eines Eintrags abgebrochen; kein Inventar verfügbar."
 
 msgctxt "rust"
-msgid "Scan cancelled — partial results retained"
-msgstr "Analyse abgebrochen — Teilergebnisse gespeichert"
+msgid "Scan cancelled: partial results retained"
+msgstr "Analyse abgebrochen: Teilergebnisse gespeichert"
 
 msgctxt "rust"
 msgid "Scan complete"
@@ -256,10 +256,6 @@ msgstr "Unbekannter Typ"
 msgctxt "rust"
 msgid "Unsupported"
 msgstr "Nicht unterstützt"
-
-msgctxt "ui"
-msgid "\nAllocated sort: ≥ = known bound\nProvisional ranking"
-msgstr "\nSortierung nach Belegung: ≥ = bekannte Untergrenze\nVorläufige Rangliste"
 
 msgctxt "ui"
 msgid "1 folder at a time"
@@ -370,10 +366,6 @@ msgid "Columns and display"
 msgstr "Spalten und Anzeige"
 
 msgctxt "ui"
-msgid "Configure columns and units"
-msgstr "Spalten und Einheiten konfigurieren"
-
-msgctxt "ui"
 msgid "Could not read preferences; using defaults."
 msgstr "Einstellungen nicht lesbar; Standardwerte werden verwendet."
 
@@ -406,10 +398,6 @@ msgid "File retained in the inventory."
 msgstr "Datei im Inventar gespeichert."
 
 msgctxt "ui"
-msgid "Focus the Treemap"
-msgstr "Treemap fokussieren"
-
-msgctxt "ui"
 msgid "Folder share"
 msgstr "Ordneranteil"
 
@@ -422,8 +410,8 @@ msgid "Folders scanned concurrently"
 msgstr "Gleichzeitig analysierte Ordner"
 
 msgctxt "ui"
-msgid "Full GPLv3 text"
-msgstr "Vollständiger GPLv3-Text"
+msgid "Full Apache 2.0 license text"
+msgstr "Vollständiger Apache-2.0-Lizenztext"
 
 msgctxt "ui"
 msgid "Full entry path"
@@ -446,14 +434,6 @@ msgid "Invalid preferences or unsupported version; using defaults."
 msgstr "Ungültige Einstellungen oder nicht unterstützte Version; Standardwerte werden verwendet."
 
 msgctxt "ui"
-msgid "SOURCE"
-msgstr "QUELLE"
-
-msgctxt "ui"
-msgid "LOGICAL SIZE"
-msgstr "LOGISCHE GRÖSSE"
-
-msgctxt "ui"
 msgid "Last accessed"
 msgstr "Letzter Zugriff"
 
@@ -466,16 +446,8 @@ msgid "Last modified"
 msgstr "Zuletzt geändert"
 
 msgctxt "ui"
-msgid "Logical per path · links not followed\nAllocated: repeated hardlinks"
-msgstr "Logisch pro Pfad · Links nicht verfolgt\nBelegt: Hardlinks mehrfach gezählt"
-
-msgctxt "ui"
 msgid "Logical size"
 msgstr "Logische Größe"
-
-msgctxt "ui"
-msgid "Logical sizes per path\nAllocated: per path, repeated hardlinks\nLinks not followed"
-msgstr "Logische Größen pro Pfad\nBelegt: pro Pfad, Hardlinks mehrfach gezählt\nLinks nicht verfolgt"
 
 msgctxt "ui"
 msgid "Modified newest"
@@ -578,20 +550,12 @@ msgid "Query capacities of network or unknown sources; network access possible"
 msgstr "Kapazitäten von Netzwerkquellen oder unbekannten Quellen abfragen; Netzwerkzugriff möglich"
 
 msgctxt "ui"
-msgid "Query network / unknown type"
-msgstr "Netzwerk / Unbekannt abfragen"
-
-msgctxt "ui"
-msgid "READ ONLY"
-msgstr "NUR LESEN"
-
-msgctxt "ui"
 msgid "Rank"
 msgstr "Rang"
 
 msgctxt "ui"
-msgid "Read the full GPLv3"
-msgstr "Vollständige GPLv3 lesen"
+msgid "Read the full Apache 2.0 license"
+msgstr "Vollständige Apache-2.0-Lizenz lesen"
 
 msgctxt "ui"
 msgid "Recursive\nfiles"
@@ -674,8 +638,8 @@ msgid "Sort: "
 msgstr "Sortierung: "
 
 msgctxt "ui"
-msgid "Bunny and Size — About / Licenses"
-msgstr "Bunny and Size — Über / Lizenzen"
+msgid "About Bunny and Size"
+msgstr "Über Bunny and Size"
 
 msgctxt "ui"
 msgid "Start a scan to display the Top 100."
@@ -830,18 +794,6 @@ msgstr[0] " · {n} Einhängepunkt, gleicher Speicher"
 msgstr[1] " · {n} Einhängepunkte, gleicher Speicher"
 
 msgctxt "ui"
-msgid "Bunny and Size {} — About / Licenses"
-msgstr "Bunny and Size {} — Über / Lizenzen"
-
-msgctxt "ui"
-msgid "Bunny and Size {} — storage analysis"
-msgstr "Bunny and Size {} — Speicheranalyse"
-
-msgctxt "ui"
-msgid "Browse {}"
-msgstr "{} durchsuchen"
-
-msgctxt "ui"
 msgid "Open folder {}, {}"
 msgstr "Ordner {} öffnen, {}"
 
@@ -866,8 +818,8 @@ msgid "Show full path: {}"
 msgstr "Vollständigen Pfad anzeigen: {}"
 
 msgctxt "rust"
-msgid "Bunny and Size @VERSION@ — free software, GPL-3.0-only\n\nYou may modify and redistribute this software under GNU GPL version 3 only. NO WARRANTY, including merchantability or fitness for a particular purpose, to the extent permitted by law; see sections 15 and 16.\n\nThe “Read the full GPLv3” button displays a complete offline copy of the license. The LICENSE file in the archive contains the same text.\n\nThird-party copyright notices are preserved in THIRD_PARTY_NOTICES.txt and licences/ beside the executable. Excerpts from the original Slint and Fluent icon notices:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: GPL-3.0-only option. Fluent icons: MIT.\n\nAUTHORS.txt lists Bunny and Size code contributors from Git; this list does not designate an exclusive copyright holder. No Bunny and Size copyright holder or year is inferred from these names.\n\nCorresponding source is the Bunny-and-Size-v@VERSION@-source archive for your platform, supplied with the binaries; its exact name and SHA-256 appear in BUILDINFO.json. When redistributing, give recipients effective access to corresponding source under GPLv3; an inaccessible private repository is insufficient.\n"
-msgstr "Bunny and Size @VERSION@ — freie Software, GPL-3.0-only\n\nDiese Software darf ausschließlich unter der GNU GPL Version 3 geändert und weitergegeben werden. KEINE GEWÄHRLEISTUNG, einschließlich Marktgängigkeit oder Eignung für einen bestimmten Zweck, soweit gesetzlich zulässig; siehe Abschnitte 15 und 16.\n\nDie Schaltfläche „Vollständige GPLv3 lesen“ zeigt eine vollständige Offline-Kopie der Lizenz. Die Datei LICENSE im Archiv enthält denselben Text.\n\nUrheberrechtshinweise Dritter bleiben in THIRD_PARTY_NOTICES.txt und licences/ neben der ausführbaren Datei erhalten. Auszüge aus den Originalhinweisen von Slint und den Fluent-Symbolen:\nCopyright © SixtyFPS GmbH <info@slint.dev>\nCopyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\nSlint 1.18.1: GPL-3.0-only-Option. Fluent-Symbole: MIT.\n\nAUTHORS.txt führt die Bunny and Size-Codebeitragenden aus Git auf; diese Liste benennt keinen ausschließlichen Rechteinhaber. Aus diesen Namen werden weder Rechteinhaber noch Copyright-Jahr für Bunny and Size abgeleitet.\n\nDer entsprechende Quellcode befindet sich im mit den Binärdateien gelieferten Archiv Bunny-and-Size-v@VERSION@-source für die jeweilige Plattform; genauer Name und SHA-256 stehen in BUILDINFO.json. Bei Weitergabe muss den Empfängern wirksamer Zugang zum entsprechenden Quellcode gemäß GPLv3 gewährt werden; ein unzugängliches privates Repository reicht nicht aus.\n"
+msgid "Bunny and Size @VERSION@. Original code: Apache-2.0.\n\nYou may use, modify and redistribute the original code, including commercially, under Apache License 2.0. NO WARRANTY; see sections 7 and 8. The “Read the full Apache 2.0 license” button and the packaged LICENSE provide the complete offline text. Keep LICENSE, NOTICE and the applicable third-party notices when redistributing.\n\nThird-party components retain their own licenses. Slint 1.18.1 for Windows/Linux desktop: LicenseRef-Slint-Royalty-free-2.0, with the visible Slint attribution. This is not an Apache license for Slint. Plugins must not expose Slint APIs under that license.\nCopyright © SixtyFPS GmbH <info@slint.dev>\nFluent icons: MIT. Copyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\n\nRabbit artwork and its adaptations: CC BY-SA 4.0, Louis Lejuez / TazmenWorld; retain attribution and share adapted artwork under that license. Artwork is not Apache-2.0. See BRANDING.md and THIRD_PARTY_NOTICES.txt in the package. The complete original artwork and portrait are not distributed.\n"
+msgstr "Bunny and Size @VERSION@. Originalcode: Apache-2.0.\n\nDer Originalcode darf gemäß Apache License 2.0 genutzt, geändert und weitergegeben werden, auch kommerziell. KEINE GEWÄHRLEISTUNG; siehe Abschnitte 7 und 8. Die Schaltfläche „Vollständige Apache-2.0-Lizenz lesen“ und die Datei LICENSE im Paket enthalten den vollständigen Offline-Text. Bei Weitergabe LICENSE, NOTICE und geltende Hinweise Dritter beibehalten.\n\nDrittkomponenten behalten ihre eigenen Lizenzen. Slint 1.18.1 für Windows/Linux-Desktop: LicenseRef-Slint-Royalty-free-2.0 mit sichtbarer Slint-Attribution. Slint steht nicht unter Apache. Plugins dürfen unter dieser Lizenz keine Slint-APIs bereitstellen.\nCopyright © SixtyFPS GmbH <info@slint.dev>\nFluent-Symbole: MIT. Copyright © Microsoft Corporation <https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE>\n\nHasengrafik und Bearbeitungen: CC BY-SA 4.0, Louis Lejuez / TazmenWorld; Namensnennung beibehalten und bearbeitete Grafiken unter dieser Lizenz weitergeben. Die Grafiken stehen nicht unter Apache-2.0. Siehe BRANDING.md und THIRD_PARTY_NOTICES.txt im Paket. Vollständiges Original und Porträt werden nicht mitgeliefert.\n"
 
 msgctxt "rust"
 msgid "Choose a folder to scan."
@@ -1124,12 +1076,12 @@ msgid "Additional analysis complete"
 msgstr "Zusätzliche Analyse abgeschlossen"
 
 msgctxt "rust"
-msgid "Additional analysis — partial results"
-msgstr "Zusätzliche Analyse — Teilergebnisse"
+msgid "Additional analysis: partial results"
+msgstr "Zusätzliche Analyse: Teilergebnisse"
 
 msgctxt "rust"
-msgid "Additional analysis cancelled — partial results retained"
-msgstr "Zusätzliche Analyse abgebrochen — Teilergebnisse beibehalten"
+msgid "Additional analysis cancelled: partial results retained"
+msgstr "Zusätzliche Analyse abgebrochen: Teilergebnisse beibehalten"
 
 msgctxt "rust"
 msgid "Additional analysis failed."
@@ -1144,20 +1096,12 @@ msgid "Created, published and maintained by Louis Lejuez (@tazmen3)"
 msgstr "Erstellt, herausgegeben und gepflegt von Louis Lejuez (@tazmen3)"
 
 msgctxt "ui"
-msgid "Contributors: Louis Lejuez / tazmen3; assisted by Codex"
-msgstr "Mitwirkende: Louis Lejuez / tazmen3; unterstützt durch Codex"
-
-msgctxt "ui"
-msgid "Code: GPL-3.0-only. Artwork: CC BY-SA 4.0 — Louis Lejuez / TazmenWorld."
-msgstr "Code: GPL-3.0-only. Grafiken: CC BY-SA 4.0 — Louis Lejuez / TazmenWorld."
+msgid "Original code: Apache-2.0. Artwork: CC BY-SA 4.0, Louis Lejuez / TazmenWorld."
+msgstr "Originalcode: Apache-2.0. Grafiken: CC BY-SA 4.0, Louis Lejuez / TazmenWorld."
 
 msgctxt "rust"
 msgid "Automatic scan unavailable: select an accessible local source. Other paths require an explicit scan."
 msgstr "Automatische Analyse nicht verfügbar: Wählen Sie eine zugängliche lokale Quelle. Andere Pfade erfordern eine ausdrückliche Analyse."
-
-msgctxt "ui"
-msgid "Scan local source: {}"
-msgstr "Lokale Quelle analysieren: {}"
 
 msgctxt "ui"
 msgid "Resize folders and storage sources. Arrows adjust; Enter resets."
@@ -1438,3 +1382,2061 @@ msgstr "Größe: größte zuerst"
 msgctxt "ui"
 msgid "Size: smallest first"
 msgstr "Größe: kleinste zuerst"
+
+msgctxt "ui"
+msgid "Retained inventory: transitional view"
+msgstr "Vorgehaltenes Inventar: Übergangsansicht"
+
+msgctxt "ui"
+msgid "System"
+msgstr "System"
+
+msgctxt "ui"
+msgid "Light"
+msgstr "Hell"
+
+msgctxt "ui"
+msgid "Dark"
+msgstr "Dunkel"
+
+msgctxt "ui"
+msgid "Theme"
+msgstr "Design"
+
+msgctxt "ui"
+msgid "Compact"
+msgstr "Kompakt"
+
+msgctxt "ui"
+msgid "Live inventory"
+msgstr "Live-Inventar"
+
+msgctxt "ui"
+msgid "Retry"
+msgstr "Erneut versuchen"
+
+msgctxt "ui"
+msgid "Open"
+msgstr "Öffnen"
+
+msgctxt "rust"
+msgid "Complete"
+msgstr "Vollständig"
+
+msgctxt "rust"
+msgid "Partial"
+msgstr "Teilweise"
+
+msgctxt "rust"
+msgid "Could not start scan."
+msgstr "Die Analyse konnte nicht gestartet werden."
+
+msgctxt "rust"
+msgid "Source is no longer available."
+msgstr "Die Quelle ist nicht mehr verfügbar."
+
+msgctxt "rust"
+msgid "No file observed in this scope."
+msgstr "Keine Datei in diesem Bereich erfasst."
+
+msgctxt "ui"
+msgid "Logical sizes per path · links not followed"
+msgstr "Logische Größen je Pfad · Links nicht verfolgt"
+
+msgctxt "rust"
+msgid "Logical size · current page"
+msgstr "Logische Größe · aktuelle Seite"
+
+msgctxt "rust"
+msgid " · Complete"
+msgstr " · Vollständig"
+
+msgctxt "rust"
+msgid " · Partial"
+msgstr " · Teilweise"
+
+msgctxt "rust"
+msgid " · No match in this inventory."
+msgstr " · Kein Treffer in diesem Inventar."
+
+msgctxt "rust"
+msgid " · No match observed; coverage is partial."
+msgstr " · Kein Treffer beobachtet; Abdeckung teilweise."
+
+msgctxt "rust"
+msgid "Accounted memory:"
+msgstr "Erfasster Speicher:"
+
+msgctxt "rust"
+msgid "Cancelled"
+msgstr "Abgebrochen"
+
+msgctxt "rust"
+msgid "Choose a source and start an inventory first."
+msgstr "Zuerst eine Quelle wählen und ein Inventar starten."
+
+msgctxt "rust"
+msgid "Effective entry ceiling:"
+msgstr "Effektives Eintragslimit:"
+
+msgctxt "rust"
+msgid "Files"
+msgstr "Dateien"
+
+msgctxt "rust"
+msgid "Frozen inventory, generation"
+msgstr "Eingefrorenes Inventar, Generation"
+
+msgctxt "rust"
+msgid "Gaps (size/date/text/path/kind):"
+msgstr "Lücken (Größe/Datum/Text/Pfad/Typ):"
+
+msgctxt "rust"
+msgid "Invalid byte count."
+msgstr "Ungültige Byteanzahl."
+
+msgctxt "rust"
+msgid "Invalid search query."
+msgstr "Ungültige Suchabfrage."
+
+msgctxt "rust"
+msgid "Invalid size range."
+msgstr "Ungültiger Größenbereich."
+
+msgctxt "rust"
+msgid "Known logical bytes"
+msgstr "Bekannte logische Bytes"
+
+msgctxt "rust"
+msgid "Not process RSS; byte limits always apply."
+msgstr "Nicht der Prozess-RSS; Bytegrenzen gelten weiterhin."
+
+msgctxt "rust"
+msgid "Other extensions"
+msgstr "Andere Erweiterungen"
+
+msgctxt "rust"
+msgid "Search cancelled; the scan continues."
+msgstr "Suche abgebrochen; der Scan läuft weiter."
+
+msgctxt "rust"
+msgid "Size classes (0 / <1 KiB / <1 MiB / <1 GiB / ≥1 GiB / unknown)"
+msgstr "Größenklassen (0 / <1 KiB / <1 MiB / <1 GiB / ≥1 GiB / unbekannt)"
+
+msgctxt "rust"
+msgid "Unknown sizes"
+msgstr "Unbekannte Größen"
+
+msgctxt "ui"
+msgid "Unlimited count"
+msgstr "Unbegrenzte Anzahl"
+
+msgctxt "rust"
+msgid "Unlimited count"
+msgstr "Unbegrenzte Anzahl"
+
+msgctxt "rust"
+msgid "Waiting for the frozen inventory; cancelling search leaves the scan running."
+msgstr "Warten auf das eingefrorene Inventar; Suchabbruch lässt den Scan weiterlaufen."
+
+msgctxt "ui"
+msgid "Automatic"
+msgstr "Automatisch"
+
+msgctxt "ui"
+msgid "Requested memory:"
+msgstr "Gewünschter Speicher:"
+
+msgctxt "ui"
+msgid "Search results"
+msgstr "Suchergebnisse"
+
+msgctxt "ui"
+msgid "Saved measures"
+msgstr "Gespeicherte Messungen"
+
+msgctxt "ui"
+msgid "Open offline"
+msgstr "Offline öffnen"
+
+msgctxt "ui"
+msgid "Verify source"
+msgstr "Quelle prüfen"
+
+msgctxt "ui"
+msgid "Resume"
+msgstr "Fortsetzen"
+
+msgctxt "ui"
+msgid "Compare with current"
+msgstr "Mit aktueller vergleichen"
+
+msgctxt "ui"
+msgid "Retention: 30 days from measurement"
+msgstr "Aufbewahrung: 30 Tage ab Messung"
+
+msgctxt "ui"
+msgid "Previous path"
+msgstr "Vorheriger Pfad"
+
+msgctxt "ui"
+msgid "Current path"
+msgstr "Aktueller Pfad"
+
+msgctxt "ui"
+msgid "Metadata only. Probable moves are not content proof."
+msgstr "Nur Metadaten. Vermutete Verschiebungen beweisen keinen Inhalt."
+
+msgctxt "rust"
+msgid "Appeared"
+msgstr "Neu erschienen"
+
+msgctxt "rust"
+msgid "Newly observed"
+msgstr "Neu beobachtet"
+
+msgctxt "rust"
+msgid "Removed from path"
+msgstr "Vom Pfad entfernt"
+
+msgctxt "rust"
+msgid "Replaced"
+msgstr "Ersetzt"
+
+msgctxt "rust"
+msgid "Fields changed"
+msgstr "Felder geändert"
+
+msgctxt "rust"
+msgid "Fields unchanged"
+msgstr "Felder unverändert"
+
+msgctxt "rust"
+msgid "Not verified"
+msgstr "Nicht geprüft"
+
+msgctxt "rust"
+msgid "Probable move"
+msgstr "Vermutete Verschiebung"
+
+msgctxt "rust"
+msgid "Interrupted acquisition"
+msgstr "Unterbrochene Erfassung"
+
+msgctxt "rust"
+msgid "Saved locally. Source not queried."
+msgstr "Lokal gespeichert. Quelle nicht abgefragt."
+
+msgctxt "rust"
+msgid "Local cache catalogue."
+msgstr "Lokaler Cache-Katalog."
+
+msgctxt "rust"
+msgid "Unavailable caches"
+msgstr "Nicht verfügbare Caches"
+
+msgctxt "rust"
+msgid "No measured inventory selected."
+msgstr "Kein gemessenes Inventar gewählt."
+
+msgctxt "rust"
+msgid "This measure is sealed. Verify it explicitly."
+msgstr "Diese Messung ist versiegelt. Explizit prüfen."
+
+msgctxt "rust"
+msgid "Select another inventory before forgetting this cache."
+msgstr "Vor dem Vergessen ein anderes Inventar wählen."
+
+msgctxt "rust"
+msgid "Wait for a measured generation before comparing."
+msgstr "Vor dem Vergleich auf eine gemessene Generation warten."
+
+msgctxt "rust"
+msgid "Previous measure"
+msgstr "Vorherige Messung"
+
+msgctxt "rust"
+msgid "Current measure"
+msgstr "Aktuelle Messung"
+
+msgctxt "rust"
+msgid "Comparable delta"
+msgstr "Vergleichbare Differenz"
+
+msgctxt "rust"
+msgid "Preparing saved measures…"
+msgstr "Gespeicherte Messungen vorbereiten…"
+
+msgctxt "rust"
+msgid "Local cache cleanup failed."
+msgstr "Lokaler Cache konnte nicht bereinigt werden."
+
+msgctxt "ui"
+msgid "Stop retaining"
+msgstr "Aufbewahrung beenden"
+
+msgctxt "rust"
+msgid "Retention disabled. Local purge waits for readers to close."
+msgstr "Aufbewahrung deaktiviert. Lokale Bereinigung nach Schließen der Leser."
+
+msgctxt "ui"
+msgid "Analysis"
+msgstr "Analyse"
+
+msgctxt "ui"
+msgid "Display"
+msgstr "Anzeige"
+
+msgctxt "ui"
+msgid "Extensions"
+msgstr "Erweiterungen"
+
+msgctxt "ui"
+msgid "Help"
+msgstr "Hilfe"
+
+msgctxt "ui"
+msgid "Folders"
+msgstr "Ordner"
+
+msgctxt "ui"
+msgid "Mosaic"
+msgstr "Mosaik"
+
+msgctxt "ui"
+msgid "Bands"
+msgstr "Streifen"
+
+msgctxt "ui"
+msgid "Folder contents view"
+msgstr "Ansicht des Ordnerinhalts"
+
+msgctxt "ui"
+msgid "Change the view without scanning again"
+msgstr "Ansicht ohne erneute Analyse wechseln"
+
+msgctxt "ui"
+msgid "Collapse or reopen the folders and sources panel"
+msgstr "Ordner- und Quellenbereich ein- oder ausblenden"
+
+msgctxt "ui"
+msgid "Resize the folders and sources panel. Left and right arrows adjust; Enter resets."
+msgstr "Größe des Ordner- und Quellenbereichs ändern. Links und rechts passen an; Eingabe setzt zurück."
+
+msgctxt "ui"
+msgid "Official repository"
+msgstr "Offizielles Repository"
+
+msgctxt "ui"
+msgid "Documentation is not published yet."
+msgstr "Die Dokumentation ist noch nicht veröffentlicht."
+
+msgctxt "rust"
+msgid "Saved measure operation failed."
+msgstr "Der Vorgang für die gespeicherte Messung ist fehlgeschlagen."
+
+msgctxt "ui"
+msgid "Opening recorded inventory. Integrity not verified."
+msgstr "Gespeichertes Inventar wird geöffnet. Integrität nicht geprüft."
+
+msgctxt "ui"
+msgid "Dated preview. Integrity not verified. Checking…"
+msgstr "Datierte Vorschau. Integrität nicht geprüft. Prüfung läuft…"
+
+msgctxt "ui"
+msgid "Integrity verified for this recorded view. Source not checked."
+msgstr "Integrität dieser gespeicherten Ansicht geprüft. Quelle nicht geprüft."
+
+msgctxt "ui"
+msgid "Verification failed. Preview invalidated."
+msgstr "Prüfung fehlgeschlagen. Vorschau ungültig."
+
+msgctxt "ui"
+msgid "Verification cancelled. Preview discarded."
+msgstr "Prüfung abgebrochen. Vorschau verworfen."
+
+msgctxt "ui"
+msgid "Recorded prefix only. No completeness or current-source claim."
+msgstr "Nur gespeicherter Ausschnitt. Keine Aussage über Vollständigkeit oder aktuellen Quellenzustand."
+
+msgctxt "ui"
+msgid "Listing an inventory does not certify integrity."
+msgstr "Die Kataloganzeige bestätigt keine Integrität."
+
+msgctxt "rust"
+msgid "Preparing the new inventory…"
+msgstr "Neues Inventar wird vorbereitet…"
+
+msgctxt "rust"
+msgid "Checking the new inventory…"
+msgstr "Neues Inventar wird geprüft…"
+
+msgctxt "rust"
+msgid "Reopening and checking the saved inventory…"
+msgstr "Gespeichertes Inventar wird erneut geöffnet und geprüft…"
+
+msgctxt "rust"
+msgid "Ready: verified inventory"
+msgstr "Bereit: geprüftes Inventar"
+
+msgctxt "rust"
+msgid "Preparing the search results…"
+msgstr "Suchergebnisse werden vorbereitet…"
+
+msgctxt "rust"
+msgid "Searching the entire inventory…"
+msgstr "Das gesamte Inventar wird durchsucht…"
+
+msgctxt "rust"
+msgid "A new inventory is being prepared."
+msgstr "Ein neues Inventar wird vorbereitet."
+
+msgctxt "rust"
+msgid "Wait for the current acquisition to finish before verifying or resuming."
+msgstr "Warten Sie, bis die aktuelle Erfassung abgeschlossen ist, bevor Sie prüfen oder fortsetzen."
+
+msgctxt "rust"
+msgid "The working folder is unavailable. Set BUNNY_AND_SIZE_STORE_DIR to an existing local folder and restart Bunny and Size."
+msgstr "Der Arbeitsordner ist nicht verfügbar. Setzen Sie BUNNY_AND_SIZE_STORE_DIR auf einen vorhandenen lokalen Ordner und starten Sie Bunny and Size neu."
+
+msgctxt "ui"
+msgid "Provisional"
+msgstr "Vorläufig"
+
+msgctxt "rust"
+msgid "Loading…"
+msgstr "Wird geladen…"
+
+msgctxt "rust"
+msgid "Unresolved SID"
+msgstr "SID nicht aufgelöst"
+
+msgctxt "rust"
+msgid "Load more folders"
+msgstr "Weitere Ordner laden"
+
+msgctxt "rust"
+msgid "Previous folders"
+msgstr "Vorherige Ordner"
+
+msgctxt "rust"
+msgid "Folder tree display limit reached. Collapse a branch to show more folders."
+msgstr "Anzeigelimit des Ordnerbaums erreicht. Klappen Sie einen Zweig ein, um weitere Ordner anzuzeigen."
+
+msgctxt "rust"
+msgid "This folder could not be expanded within the tree budget."
+msgstr "Dieser Ordner konnte innerhalb des Ressourcenlimits des Ordnerbaums nicht aufgeklappt werden."
+
+msgctxt "ui"
+msgid "Navigation"
+msgstr "Navigation"
+
+msgctxt "ui"
+msgid "Extensions are not available yet. Local disks remain in Navigation."
+msgstr "Erweiterungen sind noch nicht verfügbar. Lokale Datenträger bleiben unter Navigation."
+
+msgctxt "ui"
+msgid "KiB"
+msgstr "KiB"
+
+msgctxt "ui"
+msgid "MiB"
+msgstr "MiB"
+
+msgctxt "ui"
+msgid "GiB"
+msgstr "GiB"
+
+msgctxt "ui"
+msgid "TiB"
+msgstr "TiB"
+
+msgctxt "ui"
+msgid "kB"
+msgstr "kB"
+
+msgctxt "ui"
+msgid "MB"
+msgstr "MB"
+
+msgctxt "ui"
+msgid "GB"
+msgstr "GB"
+
+msgctxt "ui"
+msgid "TB"
+msgstr "TB"
+
+msgctxt "ui"
+msgid "Resolve local account names"
+msgstr "Lokale Kontonamen auflösen"
+
+msgctxt "ui"
+msgid "Resolve account names from local files only; no network lookup"
+msgstr "Kontonamen nur aus lokalen Dateien auflösen; keine Netzwerkabfrage"
+
+msgctxt "ui"
+msgid "Add a source"
+msgstr "Quelle hinzufügen"
+
+msgctxt "ui"
+msgid "+ Add a source"
+msgstr "+ Quelle hinzufügen"
+
+msgctxt "ui"
+msgid "SMB share"
+msgstr "SMB-Freigabe"
+
+msgctxt "ui"
+msgid "Existing NFS mount"
+msgstr "Bestehende NFS-Einhängung"
+
+msgctxt "ui"
+msgid "Local folder"
+msgstr "Lokaler Ordner"
+
+msgctxt "ui"
+msgid "Source type"
+msgstr "Quellentyp"
+
+msgctxt "ui"
+msgid "Native path"
+msgstr "Nativer Pfad"
+
+msgctxt "ui"
+msgid "Checking access…"
+msgstr "Zugriff wird geprüft…"
+
+msgctxt "ui"
+msgid "Accessible. No scan has been started."
+msgstr "Erreichbar. Es wurde keine Analyse gestartet."
+
+msgctxt "ui"
+msgid "Unavailable. You can still add this source."
+msgstr "Nicht verfügbar. Sie können diese Quelle trotzdem hinzufügen."
+
+msgctxt "ui"
+msgid "Access denied. Check permissions in your operating system."
+msgstr "Zugriff verweigert. Prüfen Sie die Berechtigungen im Betriebssystem."
+
+msgctxt "ui"
+msgid "Invalid path. Use a UNC share or an existing native mount or folder."
+msgstr "Ungültiger Pfad. Verwenden Sie eine UNC-Freigabe oder eine bestehende Einhängung bzw. einen Ordner."
+
+msgctxt "ui"
+msgid "Source added. Select it and start its scan explicitly."
+msgstr "Quelle hinzugefügt. Wählen Sie sie aus und starten Sie die Analyse ausdrücklich."
+
+msgctxt "ui"
+msgid "Source added for this session; saving failed."
+msgstr "Quelle für diese Sitzung hinzugefügt; Speichern fehlgeschlagen."
+
+msgctxt "ui"
+msgid "Access has not been checked."
+msgstr "Der Zugriff wurde noch nicht geprüft."
+
+msgctxt "ui"
+msgid "Choose an existing local folder."
+msgstr "Wählen Sie einen vorhandenen lokalen Ordner."
+
+msgctxt "ui"
+msgid "Choose an existing system mount. The application does not mount network shares."
+msgstr "Wählen Sie eine bestehende System-Einhängung. Die Anwendung hängt keine Netzwerkfreigaben ein."
+
+msgctxt "ui"
+msgid "Display name (optional)"
+msgstr "Anzeigename (optional)"
+
+msgctxt "ui"
+msgid "Adding a source never starts a scan. No password is requested or stored."
+msgstr "Das Hinzufügen einer Quelle startet keine Analyse. Es wird kein Passwort abgefragt oder gespeichert."
+
+msgctxt "ui"
+msgid "Check access"
+msgstr "Zugriff prüfen"
+
+msgctxt "ui"
+msgid "Add source"
+msgstr "Quelle hinzufügen"
+
+msgctxt "ui"
+msgid "Query capacities"
+msgstr "Kapazitäten abfragen"
+
+msgctxt "ui"
+msgid "Select source: {}"
+msgstr "Quelle auswählen: {}"
+
+msgctxt "ui"
+msgid "Looking for shares on this server…"
+msgstr "Freigaben auf diesem Server werden gesucht…"
+
+msgctxt "ui"
+msgid "Waiting for the Windows connection…"
+msgstr "Windows-Verbindung wird hergestellt…"
+
+msgctxt "ui"
+msgid "Server address accepted. Search for shares or enter a full UNC share path before adding it."
+msgstr "Serveradresse akzeptiert. Suchen Sie Freigaben oder geben Sie vor dem Hinzufügen einen vollständigen UNC-Freigabepfad ein."
+
+msgctxt "ui"
+msgid "Server unavailable. Check its address and network connection, then try again."
+msgstr "Server nicht erreichbar. Prüfen Sie Adresse und Netzwerkverbindung und versuchen Sie es erneut."
+
+msgctxt "ui"
+msgid "Server reachable, but no file shares could be listed. Enter the full UNC path manually."
+msgstr "Server erreichbar, aber keine Dateifreigaben auflistbar. Geben Sie den vollständigen UNC-Pfad manuell ein."
+
+msgctxt "ui"
+msgid "Authentication required. Use Connect with Windows, or establish this connection in Windows Explorer, then retry."
+msgstr "Anmeldung erforderlich. Nutzen Sie Mit Windows verbinden oder stellen Sie die Verbindung im Windows-Explorer her und versuchen Sie es erneut."
+
+msgctxt "ui"
+msgid "Credentials rejected by Windows or the server. Check your account and try again."
+msgstr "Anmeldedaten von Windows oder dem Server abgelehnt. Prüfen Sie Ihr Konto und versuchen Sie es erneut."
+
+msgctxt "ui"
+msgid "Share not found. Check its name or search the server's shares again."
+msgstr "Freigabe nicht gefunden. Prüfen Sie den Namen oder suchen Sie erneut die Freigaben des Servers."
+
+msgctxt "ui"
+msgid "Windows connection established. No scan has been started."
+msgstr "Windows-Verbindung hergestellt. Es wurde keine Analyse gestartet."
+
+msgctxt "ui"
+msgid "Operation cancelled. No scan has been started."
+msgstr "Vorgang abgebrochen. Es wurde keine Analyse gestartet."
+
+msgctxt "ui"
+msgid "Windows session conflict (1219). A connection using another account already exists. Existing connections have been kept."
+msgstr "Windows-Sitzungskonflikt (1219). Es besteht bereits eine Verbindung mit einem anderen Konto. Bestehende Verbindungen wurden beibehalten."
+
+msgctxt "ui"
+msgid "Shares could not be listed. Enter a full UNC share path manually; connect to it in Windows Explorer if necessary, then retry."
+msgstr "Freigaben konnten nicht aufgelistet werden. Geben Sie einen vollständigen UNC-Pfad ein; verbinden Sie sich bei Bedarf im Windows-Explorer und versuchen Sie es erneut."
+
+msgctxt "ui"
+msgid "Native SMB discovery and sign-in are available on Windows. Use an existing system mount on this platform."
+msgstr "Native SMB-Suche und -Anmeldung sind unter Windows verfügbar. Nutzen Sie auf dieser Plattform eine bestehende System-Einhängung."
+
+msgctxt "ui"
+msgid "Server or share"
+msgstr "Server oder Freigabe"
+
+msgctxt "ui"
+msgid "Server name, IP address or full UNC share"
+msgstr "Servername, IP-Adresse oder vollständige UNC-Freigabe"
+
+msgctxt "ui"
+msgid "Enter a server name or IP, then search its shares; or enter a full UNC share path."
+msgstr "Geben Sie einen Servernamen oder eine IP ein und suchen Sie dessen Freigaben; oder geben Sie einen vollständigen UNC-Pfad ein."
+
+msgctxt "ui"
+msgid "Find shares"
+msgstr "Freigaben suchen"
+
+msgctxt "ui"
+msgid "Connect with Windows"
+msgstr "Mit Windows verbinden"
+
+msgctxt "ui"
+msgid "Shares on this server"
+msgstr "Freigaben auf diesem Server"
+
+msgctxt "ui"
+msgid "Adding or connecting a source never starts a scan. Windows handles credentials; Bunny and Size does not store passwords."
+msgstr "Das Hinzufügen oder Verbinden einer Quelle startet keine Analyse. Windows verwaltet die Anmeldedaten; Bunny and Size speichert keine Passwörter."
+
+msgctxt "ui"
+msgid "The share list is limited. You can also enter a full UNC share path manually."
+msgstr "Die Freigabenliste ist begrenzt. Sie können auch einen vollständigen UNC-Pfad manuell eingeben."
+
+msgctxt "ui"
+msgid "Select a share from the list, then add it. No scan has been started."
+msgstr "Wählen Sie eine Freigabe aus der Liste und fügen Sie sie hinzu. Es wurde keine Analyse gestartet."
+
+msgctxt "ui"
+msgid "Share listing denied. Use Connect with Windows, then retry, or enter a full UNC share path manually."
+msgstr "Auflisten der Freigaben verweigert. Nutzen Sie Mit Windows verbinden und versuchen Sie es erneut oder geben Sie einen vollständigen UNC-Pfad manuell ein."
+
+msgctxt "ui"
+msgid "Complete SMB NAS server"
+msgstr "Vollständiger SMB-NAS-Server"
+
+msgctxt "ui"
+msgid "Enter a server name, IP address or UNC server root, without a share."
+msgstr "Servernamen, IP-Adresse oder UNC-Serverwurzel ohne Freigabe eingeben."
+
+msgctxt "ui"
+msgid "Server source ready to add, including offline. Scan its selected shares later with Scan."
+msgstr "Serverquelle kann auch offline hinzugefügt werden. Ausgewählte Freigaben später mit Analysieren erfassen."
+
+msgctxt "ui"
+msgid "Add the server as a logical source. No share discovery or scan is required to save it."
+msgstr "Server als logische Quelle hinzufügen. Zum Speichern sind weder Freigabesuche noch Analyse erforderlich."
+
+msgctxt "ui"
+msgid "Confirm server scan"
+msgstr "Serveranalyse bestätigen"
+
+msgctxt "ui"
+msgid "Choose the shares for this operation. New shares will not be added during the scan."
+msgstr "Freigaben für diesen Vorgang auswählen. Während der Analyse werden keine neuen Freigaben hinzugefügt."
+
+msgctxt "ui"
+msgid "A server scan may process large amounts of data. You can cancel it."
+msgstr "Eine Serveranalyse kann große Datenmengen verarbeiten. Sie können sie abbrechen."
+
+msgctxt "ui"
+msgid "Totals are observed logical sizes, not physical NAS usage. Shares can overlap and count the same data more than once."
+msgstr "Summen sind beobachtete logische Größen, nicht die physische NAS-Belegung. Freigaben können sich überschneiden und dieselben Daten mehrfach zählen."
+
+msgctxt "ui"
+msgid "Share discovery is limited or uncertain. The server coverage will remain partial or unknown."
+msgstr "Die Freigabesuche ist begrenzt oder unsicher. Die Serverabdeckung bleibt teilweise oder unbekannt."
+
+msgctxt "ui"
+msgid "Select all"
+msgstr "Alle auswählen"
+
+msgctxt "ui"
+msgid "Deselect all"
+msgstr "Alle abwählen"
+
+msgctxt "ui"
+msgid "Selected shares: {}"
+msgstr "Ausgewählte Freigaben: {}"
+
+msgctxt "ui"
+msgid "Confirm scan"
+msgstr "Analyse bestätigen"
+
+msgctxt "ui"
+msgid "Back to the NAS server"
+msgstr "Zurück zum NAS-Server"
+
+msgctxt "ui"
+msgid "Observed logical totals may include overlapping shares; they do not measure physical NAS usage."
+msgstr "Beobachtete logische Summen können überlappende Freigaben enthalten; sie messen nicht die physische NAS-Belegung."
+
+msgctxt "ui"
+msgid "No shares discovered yet. Find shares or choose Scan to prepare an operation."
+msgstr "Noch keine Freigaben gefunden. Freigaben suchen oder Analysieren wählen, um einen Vorgang vorzubereiten."
+
+msgctxt "rust"
+msgid "Shares completed: {} / {}"
+msgstr "Abgeschlossene Freigaben: {} / {}"
+
+msgctxt "rust"
+msgid "Waiting"
+msgstr "Wartend"
+
+msgctxt "rust"
+msgid "Scanning"
+msgstr "Analyse läuft"
+
+msgctxt "rust"
+msgid "Failed"
+msgstr "Fehlgeschlagen"
+
+msgctxt "rust"
+msgid "Share discovery failed. Connect with Windows, then try again."
+msgstr "Freigabesuche fehlgeschlagen. Mit Windows verbinden und erneut versuchen."
+
+msgctxt "rust"
+msgid "Discover shares explicitly before browsing this server."
+msgstr "Vor dem Durchsuchen dieses Servers ausdrücklich nach Freigaben suchen."
+
+msgctxt "rust"
+msgid "Share not inventoried. Click Scan to analyze this share."
+msgstr "Freigabe noch nicht erfasst. Auf Analysieren klicken, um sie zu erfassen."
+
+msgctxt "ui"
+msgid "Confirm disconnection"
+msgstr "Trennung bestätigen"
+
+msgctxt "ui"
+msgid "Do you really want to disconnect the source {}?"
+msgstr "Möchten Sie die Quelle {} wirklich trennen?"
+
+msgctxt "ui"
+msgid "Known shares affected: {}. Newly discovered shares will also remain disconnected."
+msgstr "Betroffene bekannte Freigaben: {}. Später entdeckte Freigaben bleiben ebenfalls getrennt."
+
+msgctxt "ui"
+msgid "The current scan will be stopped and pending operations cancelled."
+msgstr "Die laufende Analyse wird gestoppt und ausstehende Vorgänge werden abgebrochen."
+
+msgctxt "ui"
+msgid "This source will be excluded from future scans until you explicitly reconnect it. Saved inventories will be kept."
+msgstr "Diese Quelle wird von weiteren Analysen ausgeschlossen, bis Sie sie ausdrücklich erneut verbinden. Gespeicherte Inventare bleiben erhalten."
+
+msgctxt "ui"
+msgid "Also disconnect the network connection in Windows"
+msgstr "Auch die Netzwerkverbindung in Windows trennen"
+
+msgctxt "ui"
+msgid "Windows disconnection is unavailable for this source: its effects on other connections cannot be safely limited."
+msgstr "Die Windows-Trennung ist für diese Quelle nicht verfügbar: Auswirkungen auf andere Verbindungen lassen sich nicht sicher begrenzen."
+
+msgctxt "ui"
+msgid "Reconnect"
+msgstr "Erneut verbinden"
+
+msgctxt "ui"
+msgid "Disconnect"
+msgstr "Trennen"
+
+msgctxt "rust"
+msgid "Disconnected"
+msgstr "Getrennt"
+
+msgctxt "rust"
+msgid "This source is disconnected. Open + Add a source > Disconnected sources and click Reconnect before scanning."
+msgstr "Diese Quelle ist getrennt. Öffnen Sie + Quelle hinzufügen > Getrennte Quellen und klicken Sie vor dem Scannen auf Erneut verbinden."
+
+msgctxt "rust"
+msgid "Source reconnected. Click Scan to start a new analysis."
+msgstr "Quelle erneut verbunden. Klicken Sie auf Analysieren, um eine neue Analyse zu starten."
+
+msgctxt "rust"
+msgid "Source disconnected. Saving this state…"
+msgstr "Quelle getrennt. Dieser Zustand wird gespeichert…"
+
+msgctxt "rust"
+msgid "Source disconnected and saved. Cancellation is requested; a pending system call may finish later."
+msgstr "Quelle getrennt und gespeichert. Abbruch angefordert; ein ausstehender Systemaufruf kann später enden."
+
+msgctxt "rust"
+msgid "Source disconnected for this session, but saving failed. Reconnect and retry before closing the application."
+msgstr "Quelle für diese Sitzung getrennt, aber Speichern fehlgeschlagen. Verbinden Sie sie erneut und versuchen Sie es vor dem Beenden noch einmal."
+
+msgctxt "rust"
+msgid "Source disconnected in Bunny and Size. The Windows connection is still active."
+msgstr "Quelle in Bunny and Size getrennt. Die Windows-Verbindung ist weiterhin aktiv."
+
+msgctxt "rust"
+msgid "Source disconnected in Bunny and Size and Windows."
+msgstr "Quelle in Bunny and Size und Windows getrennt."
+
+msgctxt "ui"
+msgid "Disconnected"
+msgstr "Getrennt"
+
+msgctxt "rust"
+msgid "Disconnection failed. The source has not been changed."
+msgstr "Trennung fehlgeschlagen. Die Quelle wurde nicht geändert."
+
+msgctxt "rust"
+msgid "The source state could not be saved. It may differ after restart."
+msgstr "Der Zustand der Quelle konnte nicht gespeichert werden. Er kann nach einem Neustart abweichen."
+
+msgctxt "rust"
+msgid "Authentication required"
+msgstr "Authentifizierung erforderlich"
+
+msgctxt "rust"
+msgid "Connection cancelled"
+msgstr "Verbindung abgebrochen"
+
+msgctxt "rust"
+msgid "Windows session conflict"
+msgstr "Windows-Sitzungskonflikt"
+
+msgctxt "rust"
+msgid "Connection failed"
+msgstr "Verbindung fehlgeschlagen"
+
+msgctxt "rust"
+msgid "A Windows source operation is already running. Wait for it to finish, then retry."
+msgstr "Ein Windows-Vorgang für eine Quelle läuft bereits. Warte, bis er abgeschlossen ist, und versuche es erneut."
+
+msgctxt "rust"
+msgid "Open this source in Windows File Explorer, sign in there, then click Reconnect again. Existing Windows sessions are preserved."
+msgstr "Öffne diese Quelle im Windows-Datei-Explorer, melde dich dort an und klicke erneut auf Verbinden. Bestehende Windows-Sitzungen bleiben erhalten."
+
+msgctxt "rust"
+msgid "Checking access…"
+msgstr "Zugriff wird geprüft…"
+
+msgctxt "rust"
+msgid "Disconnected deliberately"
+msgstr "Absichtlich getrennt"
+
+msgctxt "ui"
+msgid "Waiting for the Ubuntu connection…"
+msgstr "Warten auf die Ubuntu-Verbindung…"
+
+msgctxt "ui"
+msgid "Enter a server name, IP address or smb://server/, without a share."
+msgstr "Servername, IP-Adresse oder smb://server/ ohne Freigabe eingeben."
+
+msgctxt "ui"
+msgid "Invalid path. Use smb://server/share, a UNC share, or an existing native mount or folder."
+msgstr "Ungültiger Pfad. smb://server/freigabe, eine UNC-Freigabe oder einen vorhandenen Einhängepunkt bzw. Ordner verwenden."
+
+msgctxt "ui"
+msgid "Server address accepted. Search for shares or enter smb://server/share before adding it."
+msgstr "Serveradresse akzeptiert. Vor dem Hinzufügen Freigaben suchen oder smb://server/freigabe eingeben."
+
+msgctxt "ui"
+msgid "Server reachable, but no file shares could be listed. Enter smb://server/share manually."
+msgstr "Server erreichbar, aber keine Freigaben auflistbar. smb://server/freigabe manuell eingeben."
+
+msgctxt "ui"
+msgid "Authentication required. Use Connect with Ubuntu, sign in through the Files application, then retry."
+msgstr "Anmeldung erforderlich. Mit Ubuntu verbinden wählen, in Dateien anmelden und erneut versuchen."
+
+msgctxt "ui"
+msgid "Credentials rejected by Ubuntu or the server. Check your account and try again."
+msgstr "Zugangsdaten von Ubuntu oder Server abgelehnt. Konto prüfen und erneut versuchen."
+
+msgctxt "ui"
+msgid "Ubuntu mount available for scanning. No scan has been started."
+msgstr "Ubuntu-Einhängepunkt zur Analyse verfügbar. Keine Analyse gestartet."
+
+msgctxt "ui"
+msgid "Shares could not be listed. Enter smb://server/share or an existing mount; connect in Files if needed."
+msgstr "Freigaben konnten nicht aufgelistet werden. smb://server/freigabe oder einen vorhandenen Einhängepunkt eingeben; bei Bedarf in Dateien verbinden."
+
+msgctxt "ui"
+msgid "Ubuntu SMB tools are unavailable. Connect to smb://server/share in Files, then choose its mounted folder."
+msgstr "Ubuntu-SMB-Werkzeuge fehlen. In Dateien mit smb://server/freigabe verbinden und den eingehängten Ordner wählen."
+
+msgctxt "ui"
+msgid "Share listing denied. Connect with Ubuntu, then retry, or enter smb://server/share manually."
+msgstr "Freigabeliste verweigert. Mit Ubuntu verbinden und erneut versuchen oder smb://server/freigabe manuell eingeben."
+
+msgctxt "ui"
+msgid "Ubuntu connection requested. Finish signing in through Files, then retry. Scanning requires an accessible mounted folder."
+msgstr "Ubuntu-Verbindung angefordert. Anmeldung in Dateien abschließen und erneut versuchen. Die Analyse benötigt einen zugänglichen eingehängten Ordner."
+
+msgctxt "ui"
+msgid "Server name, IP address or smb://server/share"
+msgstr "Servername, IP-Adresse oder smb://server/freigabe"
+
+msgctxt "ui"
+msgid "Enter a server name, IP or smb://server/share. An existing SMB mount can also be used."
+msgstr "Servername, IP oder smb://server/freigabe eingeben. Ein vorhandener SMB-Einhängepunkt ist ebenfalls möglich."
+
+msgctxt "ui"
+msgid "Connect with Ubuntu"
+msgstr "Mit Ubuntu verbinden"
+
+msgctxt "ui"
+msgid "The share list is limited. You can also enter smb://server/share manually."
+msgstr "Die Freigabeliste ist begrenzt. smb://server/freigabe kann auch manuell eingegeben werden."
+
+msgctxt "ui"
+msgid "Adding or connecting a source never starts a scan. Ubuntu handles credentials; Bunny and Size does not store passwords."
+msgstr "Hinzufügen oder Verbinden startet keine Analyse. Ubuntu verwaltet Zugangsdaten; Bunny and Size speichert keine Passwörter."
+
+msgctxt "ui"
+msgid "Also disconnect the mount in Ubuntu"
+msgstr "Auch den Einhängepunkt in Ubuntu trennen"
+
+msgctxt "ui"
+msgid "The system mount stays connected. Only an exact user mount can be safely disconnected here; other applications may use this mount."
+msgstr "Der System-Einhängepunkt bleibt verbunden. Nur ein eindeutig identifizierter Benutzereintritt kann hier sicher getrennt werden; andere Anwendungen könnten ihn verwenden."
+
+msgctxt "rust"
+msgid "Share discovery failed. Open the server in Files, then try again or enter a known share."
+msgstr "Freigabesuche fehlgeschlagen. Server in Dateien öffnen und erneut versuchen oder eine bekannte Freigabe eingeben."
+
+msgctxt "rust"
+msgid "A desktop source operation is already running. Wait for it to finish, then retry."
+msgstr "Ein Desktop-Quellvorgang läuft bereits. Nach dessen Abschluss erneut versuchen."
+
+msgctxt "rust"
+msgid "Open this source in Files, connect it there, then click Reconnect again. A usable native mount is required for scanning."
+msgstr "Diese Quelle in Dateien öffnen und verbinden, dann erneut Verbinden wählen. Die Analyse benötigt einen nutzbaren nativen Einhängepunkt."
+
+msgctxt "rust"
+msgid "Source disconnected in Bunny and Size and Ubuntu."
+msgstr "Quelle in Bunny and Size und Ubuntu getrennt."
+
+msgctxt "rust"
+msgid "Source disconnected in Bunny and Size. The Ubuntu mount is still active."
+msgstr "Quelle in Bunny and Size getrennt. Der Ubuntu-Einhängepunkt bleibt aktiv."
+
+msgctxt "rust"
+msgid "No accessible Ubuntu mount was found for this SMB share. Open it in Files, then click Reconnect. A successful connection does not start scanning."
+msgstr "Für diese SMB-Freigabe wurde kein zugänglicher Ubuntu-Mount gefunden. Öffnen Sie sie in Dateien und klicken Sie dann auf Neu verbinden. Eine erfolgreiche Verbindung startet keinen Scan."
+
+msgctxt "ui"
+msgid "Source reconnected. No scan has been started."
+msgstr "Quelle wieder verbunden. Es wurde kein Scan gestartet."
+
+msgctxt "ui"
+msgid "Disconnected sources"
+msgstr "Getrennte Quellen"
+
+msgctxt "ui"
+msgid "Reconnect a source to restore it to the active lists. No scan will be started."
+msgstr "Verbinden Sie eine Quelle wieder, um sie in den aktiven Listen anzuzeigen. Es wird kein Scan gestartet."
+
+msgctxt "ui"
+msgid "No disconnected sources."
+msgstr "Keine getrennten Quellen."
+
+msgctxt "ui"
+msgid "This source was disconnected. Click Reconnect to restore it. No scan will be started."
+msgstr "Diese Quelle wurde getrennt. Klicken Sie auf Erneut verbinden, um sie wieder zu aktivieren. Es wird kein Scan gestartet."
+
+msgctxt "ui"
+msgid "This share is unavailable because its NAS server is disconnected. Reconnect the server first; individually disconnected shares will stay disconnected."
+msgstr "Diese Freigabe ist nicht verfügbar, weil ihr NAS-Server getrennt ist. Verbinden Sie zuerst den Server erneut; einzeln getrennte Freigaben bleiben getrennt."
+
+msgctxt "rust"
+msgid "This share is unavailable because its NAS server is disconnected. Reconnect the server first; individually disconnected shares will stay disconnected."
+msgstr "Diese Freigabe ist nicht verfügbar, weil ihr NAS-Server getrennt ist. Verbinden Sie zuerst den Server erneut; einzeln getrennte Freigaben bleiben getrennt."
+
+msgctxt "ui"
+msgid "In one folder or drive"
+msgstr "In einem Ordner oder Laufwerk"
+
+msgctxt "ui"
+msgid "Between A and B"
+msgstr "Zwischen A und B"
+
+msgctxt "ui"
+msgid "Duplicate search scope"
+msgstr "Suchbereich für Duplikate"
+
+msgctxt "ui"
+msgid "Analyze A"
+msgstr "Analysieren A"
+
+msgctxt "ui"
+msgid "Analyze B"
+msgstr "Analysieren B"
+
+msgctxt "ui"
+msgid "Find duplicates (reads files)"
+msgstr "Duplikate suchen (liest Dateien)"
+
+msgctxt "rust"
+msgid "At most 16 session inventories are retained for comparison. Save further inventories to use them."
+msgstr "Für den Vergleich werden höchstens 16 Sitzungsinventare aufbewahrt. Weitere Inventare müssen zur Verwendung gespeichert werden."
+
+msgctxt "rust"
+msgid "Could not start search."
+msgstr "Die Suche konnte nicht gestartet werden."
+
+msgctxt "rust"
+msgid "Disconnected by user"
+msgstr "Vom Benutzer getrennt"
+
+msgctxt "rust"
+msgid "Effective duplicate budgets: {} bytes read; {} bytes per file; {} errors; {} bytes temporary state total; {} roots maximum."
+msgstr "Effektive Duplikatbudgets: {} gelesene Bytes; {} Bytes pro Datei; {} Fehler; {} Bytes temporärer Zustand insgesamt; höchstens {} Wurzeln."
+
+msgctxt "rust"
+msgid "Possible source aliases remain unverified. Results are incomplete."
+msgstr "Mögliche Quellenaliase sind noch nicht überprüft. Die Ergebnisse sind unvollständig."
+
+msgctxt "rust"
+msgid "Verified exact"
+msgstr "Exakte Gleichheit überprüft"
+
+msgctxt "rust"
+msgid "Another duplicate task is still closing. Retry shortly."
+msgstr "Eine andere Duplikatsuche wird noch beendet. Bitte in Kürze erneut versuchen."
+
+msgctxt "rust"
+msgid "Maximum pending duplicate tasks, including cancelled tasks awaiting the system: {}."
+msgstr "Maximal ausstehende Duplikataufgaben, einschließlich abgebrochener Aufgaben, die auf das System warten: {}."
+
+msgctxt "rust"
+msgid "Source continuity is unverified. Current file contents can be compared, but inventory coverage and independent copies are not proven."
+msgstr "Die Kontinuität der Quelle ist nicht überprüft. Die aktuellen Dateiinhalte können verglichen werden, aber die Inventarabdeckung und unabhängige Kopien sind nicht nachgewiesen."
+
+msgctxt "rust"
+msgid "Group {} · location {} ·"
+msgstr "Gruppe {} · Speicherort {} ·"
+
+msgctxt "rust"
+msgid "Unverified sources: {}."
+msgstr "Nicht überprüfte Quellen: {}."
+
+msgctxt "rust"
+msgid "This source differs from its recorded inventory. Analyze it separately before comparing."
+msgstr "Diese Quelle unterscheidet sich von ihrem gespeicherten Inventar. Vor dem Vergleich separat analysieren."
+
+msgctxt "ui"
+msgid "Folder or allowed root A"
+msgstr "Ordner oder erlaubtes Stammverzeichnis A"
+
+msgctxt "ui"
+msgid "Folder or allowed root B"
+msgstr "Ordner oder erlaubtes Stammverzeichnis B"
+
+msgctxt "ui"
+msgid "Cancellation requested. A system call already in progress may delay the stop."
+msgstr "Abbruch angefordert. Ein bereits laufender Systemaufruf kann das Anhalten verzögern."
+
+msgctxt "rust"
+msgid "Cancelling…"
+msgstr "Wird abgebrochen…"
+
+msgctxt "rust"
+msgid "Inventory absent"
+msgstr "Inventar fehlt"
+
+msgctxt "rust"
+msgid "Inventory available"
+msgstr "Inventar verfügbar"
+
+msgctxt "rust"
+msgid "Exact groups: {} · errors: {}."
+msgstr "Exakte Gruppen: {} · Fehler: {}."
+
+msgctxt "rust"
+msgid "Verifying files…"
+msgstr "Dateien werden überprüft…"
+
+msgctxt "ui"
+msgid "Folders to compare"
+msgstr "Zu vergleichende Ordner"
+
+msgctxt "ui"
+msgid "Edit folders"
+msgstr "Ordner ändern"
+
+msgctxt "ui"
+msgid "Details"
+msgstr "Details"
+
+msgctxt "ui"
+msgid "Group"
+msgstr "Gruppe"
+
+msgctxt "ui"
+msgid "Side"
+msgstr "Seite"
+
+msgctxt "ui"
+msgid "File name"
+msgstr "Dateiname"
+
+msgctxt "ui"
+msgid "Location"
+msgstr "Speicherort"
+
+msgctxt "ui"
+msgid "Verification"
+msgstr "Überprüfung"
+
+msgctxt "ui"
+msgid "Expanded"
+msgstr "Ausgeklappt"
+
+msgctxt "ui"
+msgid "Collapsed"
+msgstr "Eingeklappt"
+
+msgctxt "ui"
+msgid "Find duplicates"
+msgstr "Duplikate suchen"
+
+msgctxt "ui"
+msgid "Identical folders"
+msgstr "Identische Ordner"
+
+msgctxt "ui"
+msgid "Identical files"
+msgstr "Identische Dateien"
+
+msgctxt "ui"
+msgid "Expand folder"
+msgstr "Ordner aufklappen"
+
+msgctxt "ui"
+msgid "Collapse folder"
+msgstr "Ordner zuklappen"
+
+msgctxt "rust"
+msgid "Identical folders"
+msgstr "Identische Ordner"
+
+msgctxt "rust"
+msgid "{} folder groups · {} file groups."
+msgstr "{} Ordnergruppen · {} Dateigruppen."
+
+msgctxt "rust"
+msgid "Some folders lack complete, fresh verification. Only verified file duplicates are retained for them."
+msgstr "Einigen Ordnern fehlt eine vollständige, aktuelle Prüfung. Für sie bleiben nur verifizierte Dateiduplikate erhalten."
+
+msgctxt "rust"
+msgid "Matches folder group {}"
+msgstr "Auch Ordnergruppe {}"
+
+msgctxt "rust"
+msgid "Open folder group {}"
+msgstr "Ordnergruppe {} öffnen"
+
+msgctxt "ui"
+msgid "Choose protected reference"
+msgstr "Geschützte Referenz wählen"
+
+msgctxt "ui"
+msgid "A protected"
+msgstr "A geschützt"
+
+msgctxt "ui"
+msgid "B protected"
+msgstr "B geschützt"
+
+msgctxt "ui"
+msgid "Protected reference"
+msgstr "Geschützte Referenz"
+
+msgctxt "ui"
+msgid "Select B copies…"
+msgstr "Kopien auf B wählen…"
+
+msgctxt "ui"
+msgid "Select A copies…"
+msgstr "Kopien auf A wählen…"
+
+msgctxt "ui"
+msgid "Select copies…"
+msgstr "Kopien wählen…"
+
+msgctxt "ui"
+msgid "Clear selection"
+msgstr "Auswahl leeren"
+
+msgctxt "ui"
+msgid "Choose A or B to protect it. No copies are selected automatically."
+msgstr "A oder B zum Schützen wählen. Es werden keine Kopien automatisch ausgewählt."
+
+msgctxt "ui"
+msgid "Selection preview: all eligible results, including other pages"
+msgstr "Auswahlvorschau: alle geeigneten Ergebnisse, auch auf anderen Seiten"
+
+msgctxt "ui"
+msgid "Apply selection for review"
+msgstr "Auswahl zur Prüfung übernehmen"
+
+msgctxt "ui"
+msgid "Review"
+msgstr "Prüfen"
+
+msgctxt "ui"
+msgid "Partly selected"
+msgstr "Teilweise ausgewählt"
+
+msgctxt "rust"
+msgid "Selected for review: {} files · {} folders · {} logical."
+msgstr "Zur Prüfung ausgewählt: {} Dateien · {} Ordner · {} logisch."
+
+msgctxt "rust"
+msgid "Preview: {} files · {} folders · {} logical."
+msgstr "Vorschau: {} Dateien · {} Ordner · {} logisch."
+
+msgctxt "rust"
+msgid "All eligible results in this comparison, including pages not displayed. Logical size is not recoverable space."
+msgstr "Alle geeigneten Ergebnisse dieses Vergleichs, einschließlich nicht angezeigter Seiten. Die logische Größe ist kein freigebbarer Speicherplatz."
+
+msgctxt "rust"
+msgid "Choose a protected reference before selecting copies."
+msgstr "Vor der Auswahl von Kopien eine geschützte Referenz wählen."
+
+msgctxt "rust"
+msgid "Protected reference: this location cannot be selected."
+msgstr "Geschützte Referenz: Dieser Speicherort kann nicht ausgewählt werden."
+
+msgctxt "rust"
+msgid "Incomplete or insufficient verification. Compare explicitly again before selecting copies."
+msgstr "Unvollständige oder unzureichende Prüfung. Vor der Auswahl von Kopien den Vergleich ausdrücklich erneut starten."
+
+msgctxt "rust"
+msgid "Hardlink or source alias: this is not an independent copy."
+msgstr "Hardlink oder Quellalias: Dies ist keine unabhängige Kopie."
+
+msgctxt "rust"
+msgid "This result lacks sufficient verified evidence for selection."
+msgstr "Für dieses Ergebnis fehlen ausreichende geprüfte Nachweise zur Auswahl."
+
+msgctxt "rust"
+msgid "Selection cleared after the protected reference changed."
+msgstr "Auswahl nach Änderung der geschützten Referenz geleert."
+
+msgctxt "rust"
+msgid "Selection cleared."
+msgstr "Auswahl geleert."
+
+msgctxt "rust"
+msgid "Copies selected for review. No files were changed."
+msgstr "Kopien zur Prüfung ausgewählt. Keine Dateien wurden geändert."
+
+msgctxt "rust"
+msgid "For review on side {}: {}"
+msgstr "Zur Prüfung auf Seite {}: {}"
+
+msgctxt "rust"
+msgid "Selection uses the recorded comparison evidence; compare explicitly again to refresh it."
+msgstr "Die Auswahl nutzt die gespeicherten Vergleichsnachweise; zum Aktualisieren den Vergleich ausdrücklich erneut starten."
+
+msgctxt "rust"
+msgid "Selection cleared because the comparison context changed."
+msgstr "Auswahl geleert, da sich der Vergleichskontext geändert hat."
+
+msgctxt "rust"
+msgid "Comparison was cancelled or a source was disconnected. Compare explicitly again before selecting copies."
+msgstr "Der Vergleich wurde abgebrochen oder eine Quelle getrennt. Vor der Auswahl von Kopien den Vergleich ausdrücklich erneut starten."
+
+msgctxt "ui"
+msgid "Clear"
+msgstr "Leeren"
+
+msgctxt "ui"
+msgid "Between A, B and C"
+msgstr "Zwischen A, B und C"
+
+msgctxt "ui"
+msgid "Folder or allowed root C"
+msgstr "Ordner oder erlaubtes Stammverzeichnis C"
+
+msgctxt "ui"
+msgid "Analyze C"
+msgstr "C analysieren"
+
+msgctxt "ui"
+msgid "C protected"
+msgstr "C geschützt"
+
+msgctxt "ui"
+msgid "Select copies outside reference…"
+msgstr "Kopien außerhalb der Referenz auswählen…"
+
+msgctxt "ui"
+msgid "Choose A, B or C to protect it. No copies are selected automatically."
+msgstr "Wählen Sie A, B oder C zum Schutz. Keine Kopie wird automatisch ausgewählt."
+
+msgctxt "rust"
+msgid "No verified matching copy in the protected reference. This group cannot be selected with assistance."
+msgstr "Keine geprüfte passende Kopie in der geschützten Referenz. Diese Gruppe ist von der unterstützten Auswahl ausgeschlossen."
+
+msgctxt "rust"
+msgid "{} files · {} locations"
+msgstr "{} Dateien · {} Speicherorte"
+
+msgctxt "rust"
+msgid "Cancelled: partial inventory, not published"
+msgstr "Abgebrochen: Teilinventar, nicht veröffentlicht"
+
+msgctxt "rust"
+msgid "Restart this cancelled scan with the same allocation and owner options."
+msgstr "Starten Sie diese abgebrochene Analyse mit denselben Optionen für belegten Speicher und Eigentümer neu."
+
+msgctxt "rust"
+msgid "Choose an absolute folder."
+msgstr "Wählen Sie einen absoluten Ordner."
+
+msgctxt "rust"
+msgid "An analysis is active. Wait for completion or cancel it."
+msgstr "Eine Analyse läuft. Warten Sie oder brechen Sie sie ab."
+
+msgctxt "rust"
+msgid "Folder missing or invalid: choose an absolute folder on an available source."
+msgstr "Ordner fehlt oder ist ungültig: Wählen Sie einen absoluten Ordner auf einer verfügbaren Quelle."
+
+msgctxt "rust"
+msgid "Folders are identical or nested. Choose separate, disjoint folders."
+msgstr "Ordner sind identisch oder verschachtelt. Wählen Sie getrennte, nicht überlappende Ordner."
+
+msgctxt "rust"
+msgid "Choose two disjoint folders, on the same or different drives. Content reads start with Find duplicates."
+msgstr "Wählen Sie zwei getrennte Ordner auf gleichen oder verschiedenen Laufwerken. Inhalte werden mit Duplikate suchen gelesen."
+
+msgctxt "rust"
+msgid "Choose three disjoint folders, on the same or different drives. Content reads start with Find duplicates."
+msgstr "Wählen Sie drei getrennte Ordner auf gleichen oder verschiedenen Laufwerken. Inhalte werden mit Duplikate suchen gelesen."
+
+msgctxt "ui"
+msgid "Search in progress…"
+msgstr "Suche läuft…"
+
+msgctxt "ui"
+msgid "Folder A"
+msgstr "Ordner A"
+
+msgctxt "ui"
+msgid "Folder B"
+msgstr "Ordner B"
+
+msgctxt "ui"
+msgid "Folder C"
+msgstr "Ordner C"
+
+msgctxt "rust"
+msgid "Copy"
+msgstr "Kopie"
+
+msgctxt "rust"
+msgid "Protected reference"
+msgstr "Geschützte Referenz"
+
+msgctxt "rust"
+msgid "Protected reference: {} · {}"
+msgstr "Geschützte Referenz: {} · {}"
+
+msgctxt "rust"
+msgid "No matching location in reference folder {}"
+msgstr "Kein Exemplar im Referenzordner {}"
+
+msgctxt "rust"
+msgid "The shared disk quota refused the working folder {}. Set BUNNY_AND_SIZE_STORE_DIR to another local folder and restart Bunny and Size."
+msgstr "Das gemeinsame Speicherlimit hat den Arbeitsordner {} abgelehnt. Wählen Sie mit BUNNY_AND_SIZE_STORE_DIR einen anderen lokalen Ordner und starten Sie Bunny and Size neu."
+
+msgctxt "rust"
+msgid "This inventory is stored at {}. Set BUNNY_AND_SIZE_STORE_DIR to choose an existing parent of that repository and restart, or use Analyze to start a new inventory in the selected working folder."
+msgstr "Dieses Inventar liegt in {}. Wählen Sie einen vorhandenen übergeordneten Ordner dieses Inventars mit BUNNY_AND_SIZE_STORE_DIR und starten Sie neu oder wählen Sie Analysieren, um im ausgewählten Arbeitsordner ein neues Inventar anzulegen."
+
+msgctxt "rust"
+msgid "The candidate has a different or uncertain scan scope. Use Analyze to start a new inventory."
+msgstr "Der Analyseumfang des Kandidaten ist anders oder ungewiss. Wählen Sie Analysieren, um ein neues Inventar zu erstellen."
+
+msgctxt "rust"
+msgid "Scope excludes Bunny and Size's verified working folder: {}"
+msgstr "Geprüfter Arbeitsordner von Bunny and Size vom Analyseumfang ausgeschlossen: {}"
+
+msgctxt "ui"
+msgid "Duplicates"
+msgstr "Duplikate"
+
+msgctxt "ui"
+msgid "Folder or drive"
+msgstr "Ordner oder Laufwerk"
+
+msgctxt "ui"
+msgid "Subfolders included"
+msgstr "Unterordner eingeschlossen"
+
+msgctxt "ui"
+msgid "Folders without files are excluded from the results."
+msgstr "Ordner ohne Dateien werden von den Ergebnissen ausgeschlossen."
+
+msgctxt "rust"
+msgid "Discovering and checking files…"
+msgstr "Dateien werden gesucht und geprüft…"
+
+msgctxt "ui"
+msgid "Save the inventory"
+msgstr "Inventar speichern"
+
+msgctxt "rust"
+msgid "Scanning folders…"
+msgstr "Ordner werden gescannt…"
+
+msgctxt "rust"
+msgid "Preparing the view…"
+msgstr "Ansicht wird vorbereitet…"
+
+msgctxt "rust"
+msgid "{n} entry processed"
+msgid_plural "{n} entries processed"
+msgstr[0] "{n} Eintrag verarbeitet"
+msgstr[1] "{n} Einträge verarbeitet"
+
+msgctxt "rust"
+msgid "Wait until the quick analysis is available before saving."
+msgstr "Warten Sie vor dem Speichern, bis die Schnellanalyse verfügbar ist."
+
+msgctxt "rust"
+msgid "Observation order"
+msgstr "Beobachtungsreihenfolge"
+
+msgctxt "rust"
+msgid "Archived directory sizes may be outdated. Some duplicates may be missed. Verify the saved inventories before searching again."
+msgstr "Archivierte Größen können veraltet sein. Einige Duplikate werden möglicherweise nicht gefunden. Überprüfen Sie die gespeicherten Inventare, bevor Sie erneut suchen."
+
+msgctxt "ui"
+msgid "Windows could not open the menu or run the selected command for this item."
+msgstr "Windows konnte das Menü für dieses Element nicht öffnen oder den ausgewählten Befehl nicht ausführen."
+
+msgctxt "ui"
+msgid "Move this file to the Recycle Bin?"
+msgstr "Diese Datei in den Papierkorb verschieben?"
+
+msgctxt "ui"
+msgid "Move this folder and its contents to the Recycle Bin?"
+msgstr "Diesen Ordner und seinen Inhalt in den Papierkorb verschieben?"
+
+msgctxt "ui"
+msgid "Disk contents changed. Analyze again to update the table."
+msgstr "Der Datenträgerinhalt hat sich geändert. Erneut analysieren, um die Tabelle zu aktualisieren."
+
+msgctxt "ui"
+msgid "The item was recycled, but the journal could not be updated. Analyze again to update the table."
+msgstr "Das Element wurde in den Papierkorb verschoben, aber das Protokoll konnte nicht aktualisiert werden. Erneut analysieren, um die Tabelle zu aktualisieren."
+
+msgctxt "ui"
+msgid "Rename"
+msgstr "Umbenennen"
+
+msgctxt "ui"
+msgid "New name"
+msgstr "Neuer Name"
+
+msgctxt "ui"
+msgid "Could not rename this item. Check the name, whether it is already in use, and whether the original item still exists."
+msgstr "Das Element konnte nicht umbenannt werden. Prüfen Sie den Namen, ob er bereits verwendet wird und ob das ursprüngliche Element noch vorhanden ist."
+
+msgctxt "rust"
+msgid "Analysis finished"
+msgstr "Analyse abgeschlossen"
+
+msgctxt "rust"
+msgid "Saving inventory…"
+msgstr "Inventar wird gespeichert…"
+
+msgctxt "rust"
+msgid "Inventory saved"
+msgstr "Inventar gespeichert"
+
+msgctxt "rust"
+msgid "Preparing the folder order…"
+msgstr "Ordnerreihenfolge wird vorbereitet…"
+
+msgctxt "rust"
+msgid "Enter at least 128 MiB, or leave empty for automatic."
+msgstr "Mindestens 128 MiB eingeben oder für Automatik leer lassen."
+
+msgctxt "ui"
+msgid "Memory limit (MiB, empty = automatic)"
+msgstr "Speicherlimit (MiB, leer = automatisch)"
+
+msgctxt "ui"
+msgid "Apply memory limit"
+msgstr "Speicherlimit anwenden"
+
+msgctxt "ui"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "rust"
+msgid "Other observed data outside this page"
+msgstr "Weitere beobachtete Daten außerhalb dieser Seite"
+
+msgctxt "rust"
+msgid "Comparing file contents…"
+msgstr "Dateiinhalte werden verglichen…"
+
+msgctxt "rust"
+msgid "Checking coverage…"
+msgstr "Abdeckung wird geprüft…"
+
+msgctxt "rust"
+msgid "Could not search this folder."
+msgstr "Dieser Ordner konnte nicht durchsucht werden."
+
+msgctxt "rust"
+msgid "Observed entries: {} · selected files: {} · discovery errors: {}."
+msgstr "Erfasste Einträge: {} · ausgewählte Dateien: {} · Fehler bei der Suche: {}."
+
+msgctxt "rust"
+msgid "Coverage describes the folders examined and the checks made during this search. Files can change during the search."
+msgstr "Die Abdeckung beschreibt die untersuchten Ordner und die Prüfungen dieses Suchlaufs. Dateien können sich während der Suche ändern."
+
+msgctxt "rust"
+msgid "Complete coverage"
+msgstr "Vollständige Abdeckung"
+
+msgctxt "rust"
+msgid "Exact file groups: {}."
+msgstr "Gruppen identischer Dateien: {}."
+
+msgctxt "ui"
+msgid "Content limits"
+msgstr "Inhaltsgrenzen"
+
+msgctxt "ui"
+msgid "These limits apply to local Windows searches for this session, including from the Folders pane. Leave a field empty for no limit."
+msgstr "Diese Grenzen gelten in dieser Sitzung für lokale Suchen unter Windows, auch über den Ordnerbereich. Lassen Sie ein Feld leer, um keine Grenze festzulegen."
+
+msgctxt "ui"
+msgid "Total content read (bytes)"
+msgstr "Insgesamt gelesene Inhalte (Byte)"
+
+msgctxt "ui"
+msgid "Maximum file size (bytes)"
+msgstr "Maximale Dateigröße (Byte)"
+
+msgctxt "rust"
+msgid "Enter whole numbers from 0 to {} in bytes, or leave a field empty."
+msgstr "Geben Sie ganze Bytewerte von 0 bis {} ein oder lassen Sie ein Feld leer."
+
+msgctxt "rust"
+msgid "Content limits are available for local folders."
+msgstr "Inhaltsgrenzen sind für lokale Ordner verfügbar."
+
+msgctxt "rust"
+msgid "Hashing file contents…"
+msgstr "Hashwerte der Dateiinhalte werden berechnet…"
+
+msgctxt "rust"
+msgid "Logical size of selected files with known sizes: {} bytes."
+msgstr "Logische Größe ausgewählter Dateien mit bekannter Größe: {} Byte."
+
+msgctxt "rust"
+msgid "Content bytes read (hashing and comparison): {}."
+msgstr "Gelesene Inhaltsbytes (Hashing und Vergleich): {}."
+
+msgctxt "rust"
+msgid "Insufficient temporary storage. Search quota: {} bytes."
+msgstr "Nicht genügend temporärer Speicherplatz. Suchkontingent: {} Byte."
+
+msgctxt "rust"
+msgid "Temporary storage quota unavailable: {} bytes requested, {} bytes quota."
+msgstr "Kontingent für temporären Speicher nicht verfügbar: {} Byte angefordert, {} Byte Kontingent."
+
+msgctxt "rust"
+msgid "Memory budget unavailable: {} bytes required, {} bytes available, {} bytes category limit."
+msgstr "Speicherbudget nicht verfügbar: {} Byte erforderlich, {} Byte verfügbar, {} Byte Kategorielimit."
+
+msgctxt "rust"
+msgid "Total content read limit reached: {} bytes."
+msgstr "Grenze für insgesamt gelesene Inhalte erreicht: {} Byte."
+
+msgctxt "rust"
+msgid "Files exceeded the size limit of {} bytes."
+msgstr "Dateien überschritten die Größenbeschränkung von {} Byte."
+
+msgctxt "rust"
+msgid "Error limit reached: {}."
+msgstr "Fehlergrenze erreicht: {}."
+
+msgctxt "rust"
+msgid "Errors during search: {}."
+msgstr "Fehler bei der Suche: {}."
+
+msgctxt "rust"
+msgid "Candidate files not fully verified: {}."
+msgstr "Nicht vollständig geprüfte Dateikandidaten: {}."
+
+msgctxt "rust"
+msgid "No limit"
+msgstr "Unbegrenzt"
+
+msgctxt "rust"
+msgid "{} bytes"
+msgstr "{} Byte"
+
+msgctxt "rust"
+msgid "Automatic"
+msgstr "Automatisch"
+
+msgctxt "rust"
+msgid "Choose a local temporary folder"
+msgstr "Lokalen temporären Ordner auswählen"
+
+msgctxt "rust"
+msgid "Content read limit: {} · file size limit: {} · error limit: {}."
+msgstr "Leselimit: {} · maximale Dateigröße: {} · Fehlerlimit: {}."
+
+msgctxt "rust"
+msgid "Could not access the local temporary folder."
+msgstr "Auf den lokalen temporären Ordner konnte nicht zugegriffen werden."
+
+msgctxt "rust"
+msgid "Could not access the scanned folder."
+msgstr "Auf den zu prüfenden Ordner konnte nicht zugegriffen werden."
+
+msgctxt "rust"
+msgid "Could not confirm access to the scanned folder."
+msgstr "Der Zugriff auf den zu prüfenden Ordner konnte nicht bestätigt werden."
+
+msgctxt "rust"
+msgid "Free on temporary volume: {} · space kept free: {}."
+msgstr "Frei auf dem temporären Laufwerk: {} · freigehaltener Speicherplatz: {}."
+
+msgctxt "rust"
+msgid "Not enough free space on the temporary volume."
+msgstr "Nicht genug freier Speicherplatz auf dem temporären Laufwerk."
+
+msgctxt "rust"
+msgid "SQLite cache: {} · discovery workers: {} · result pages reserved: {}."
+msgstr "SQLite-Cache: {} · Suchthreads: {} · für Ergebnisse reservierter Speicher: {}."
+
+msgctxt "rust"
+msgid "Search RAM budget unavailable."
+msgstr "Das RAM-Budget für die Suche ist nicht verfügbar."
+
+msgctxt "rust"
+msgid "Search RAM limit: {} · reserved peak: {} · shared RAM available at admission: {}."
+msgstr "RAM-Limit für die Suche: {} · höchste Reservierung: {} · verfügbarer gemeinsamer RAM beim Start: {}."
+
+msgctxt "rust"
+msgid "Temporary folder: {}."
+msgstr "Temporärer Ordner: {}."
+
+msgctxt "rust"
+msgid "Temporary quota reached."
+msgstr "Temporäres Speicherlimit erreicht."
+
+msgctxt "rust"
+msgid "Temporary storage charged: {} · peak: {} · effective quota: {} · requested quota: {}."
+msgstr "Angerechneter temporärer Speicher: {} · Spitze: {} · wirksames Limit: {} · angefordertes Limit: {}."
+
+msgctxt "rust"
+msgid "This temporary folder path is not supported. Choose another local folder."
+msgstr "Dieser temporäre Ordnerpfad wird nicht unterstützt. Wählen Sie einen anderen lokalen Ordner."
+
+msgctxt "ui"
+msgid "Apply limits"
+msgstr "Limits übernehmen"
+
+msgctxt "ui"
+msgid "Could not choose the temporary folder."
+msgstr "Der temporäre Ordner konnte nicht ausgewählt werden."
+
+msgctxt "ui"
+msgid "Enter positive whole numbers in MiB within range, or leave a limit blank."
+msgstr "Geben Sie positive ganze Zahlen in MiB innerhalb des zulässigen Bereichs ein oder lassen Sie ein Feld leer."
+
+msgctxt "ui"
+msgid "Leave a limit blank for Automatic. Changes apply to new searches."
+msgstr "Ein leeres Feld steht für „Automatisch“. Änderungen gelten für neue Suchen."
+
+msgctxt "ui"
+msgid "Local temporary folder"
+msgstr "Lokaler temporärer Ordner"
+
+msgctxt "ui"
+msgid "Search RAM (MiB)"
+msgstr "RAM für die Suche (MiB)"
+
+msgctxt "ui"
+msgid "Search again from scratch"
+msgstr "Suche von vorn starten"
+
+msgctxt "ui"
+msgid "Search resources"
+msgstr "Suchressourcen"
+
+msgctxt "ui"
+msgid "Temporary quota (MiB)"
+msgstr "Temporäres Speicherlimit (MiB)"
+
+msgctxt "ui"
+msgid "Use system folder"
+msgstr "Systemordner verwenden"
+
+msgctxt "rust"
+msgid "Search RAM budget unavailable. Set at least 8 MiB or use Automatic."
+msgstr "Das RAM-Budget für die Suche ist nicht verfügbar. Stellen Sie mindestens 8 MiB ein oder wählen Sie „Automatisch“."
+
+msgctxt "ui"
+msgid "Apply filter"
+msgstr "Anwenden"
+
+msgctxt "ui"
+msgid "Breakdown by parent folder"
+msgstr "Verteilung nach übergeordnetem Ordner"
+
+msgctxt "ui"
+msgid "Duplicate search profile"
+msgstr "Suchprofil für Duplikate"
+
+msgctxt "ui"
+msgid "Exact folder comparison includes small and empty files."
+msgstr "Der exakte Ordnervergleich berücksichtigt auch kleine und leere Dateien."
+
+msgctxt "ui"
+msgid "Exhaustive search"
+msgstr "Vollständige Suche"
+
+msgctxt "rust"
+msgid "Exhaustive search"
+msgstr "Vollständige Suche"
+
+msgctxt "ui"
+msgid "Filter by path"
+msgstr "Nach Pfad filtern"
+
+msgctxt "ui"
+msgid "Find empty files"
+msgstr "Leere Dateien suchen"
+
+msgctxt "ui"
+msgid "Find empty folders"
+msgstr "Leere Ordner suchen"
+
+msgctxt "ui"
+msgid "Folders with no direct entries. A subfolder counts as an entry."
+msgstr "Ordner ohne direkte Einträge. Ein Unterordner zählt als Eintrag."
+
+msgctxt "ui"
+msgid "General search (256 KiB)"
+msgstr "Allgemeine Suche (256 KiB)"
+
+msgctxt "rust"
+msgid "General search (256 KiB)"
+msgstr "Allgemeine Suche (256 KiB)"
+
+msgctxt "ui"
+msgid "Include all small files — exhaustive search"
+msgstr "Alle kleinen Dateien einbeziehen – vollständige Suche"
+
+msgctxt "ui"
+msgid "Includes all small regular files from one byte."
+msgstr "Berücksichtigt alle kleinen regulären Dateien ab einem Byte."
+
+msgctxt "ui"
+msgid "Large files only (10 MiB)"
+msgstr "Nur große Dateien (10 MiB)"
+
+msgctxt "rust"
+msgid "Large files only (10 MiB)"
+msgstr "Nur große Dateien (10 MiB)"
+
+msgctxt "ui"
+msgid "Only files at or above the selected minimum are included."
+msgstr "Nur Dateien ab der gewählten Mindestgröße werden berücksichtigt."
+
+msgctxt "ui"
+msgid "Optimized search (1 MiB)"
+msgstr "Optimierte Suche (1 MiB)"
+
+msgctxt "rust"
+msgid "Optimized search (1 MiB)"
+msgstr "Optimierte Suche (1 MiB)"
+
+msgctxt "ui"
+msgid "Parent folder"
+msgstr "Übergeordneter Ordner"
+
+msgctxt "ui"
+msgid "Path ↑"
+msgstr "Pfad ↑"
+
+msgctxt "ui"
+msgid "Path ↓"
+msgstr "Pfad ↓"
+
+msgctxt "ui"
+msgid "Regular files with a logical size of zero bytes."
+msgstr "Reguläre Dateien mit einer logischen Größe von null Byte."
+
+msgctxt "ui"
+msgid "Sort"
+msgstr "Sortieren"
+
+msgctxt "rust"
+msgid "Matches: {} · Folders examined: {} · Entries observed: {} · Errors: {}."
+msgstr "Treffer: {} · Geprüfte Ordner: {} · Erfasste Einträge: {} · Fehler: {}."
+
+msgctxt "rust"
+msgid "No match on this page."
+msgstr "Keine Treffer auf dieser Seite."
+
+msgctxt "rust"
+msgid "Search in progress…"
+msgstr "Suche läuft…"
+
+msgctxt "rust"
+msgid "Temporary storage limit reached."
+msgstr "Limit für temporären Speicher erreicht."
+
+msgctxt "rust"
+msgid "The path filter is too long."
+msgstr "Der Pfadfilter ist zu lang."
+
+msgctxt "rust"
+msgid "{} · Files examined: {} · Below threshold: {} · Empty files excluded: {}."
+msgstr "{} · Geprüfte Dateien: {} · Unter der Mindestgröße: {} · Ausgeschlossene leere Dateien: {}."
+
+msgctxt "ui"
+msgid "Empty items…"
+msgstr "Leere Elemente…"
+
+msgctxt "ui"
+msgid "Find empty items"
+msgstr "Leere Elemente suchen"
+
+msgctxt "ui"
+msgid "Top 100 files"
+msgstr "Top 100 der Dateien"
+
+msgctxt "ui"
+msgid "Open in File Explorer"
+msgstr "Im Datei-Explorer öffnen"
+
+msgctxt "ui"
+msgid "Show in File Explorer"
+msgstr "Im Datei-Explorer anzeigen"
+
+msgctxt "rust"
+msgid "The clicked folder can no longer be verified. Open its menu again."
+msgstr "Der angeklickte Ordner kann nicht mehr überprüft werden. Öffne sein Menü erneut."
+
+msgctxt "ui"
+msgid "Search {} queued"
+msgstr "Suche {} in der Warteschlange"
+
+msgctxt "ui"
+msgid "Search {} in progress"
+msgstr "Suche {} läuft"
+
+msgctxt "ui"
+msgid "Search {} finished"
+msgstr "Suche {} beendet"
+
+msgctxt "ui"
+msgid "Resize the treemap and file list. Use Up and Down arrows or Enter to reset."
+msgstr "Größe von Treemap und Dateiliste ändern. Pfeil nach oben oder unten zum Anpassen, Eingabetaste zum Zurücksetzen."
+
+msgctxt "rust"
+msgid "Choose another retained date…"
+msgstr "Anderes gespeichertes Datum wählen…"
+
+msgctxt "rust"
+msgid "Choose two different retained dates."
+msgstr "Wählen Sie zwei verschiedene gespeicherte Daten."
+
+msgctxt "rust"
+msgid "Date retained locally"
+msgstr "Datum lokal gespeichert"
+
+msgctxt "rust"
+msgid "Direct files and immediate folders, including their descendants."
+msgstr "Dateien im Stammordner und direkte Unterordner samt Inhalt."
+
+msgctxt "rust"
+msgid "Folder changes · logical size"
+msgstr "Ordneränderungen · logische Größe"
+
+msgctxt "rust"
+msgid "Incomparable scope"
+msgstr "Nicht vergleichbarer Umfang"
+
+msgctxt "rust"
+msgid "Keep complete measures of this scope at two different times to see a trend."
+msgstr "Speichern Sie vollständige Messungen dieses Bereichs zu zwei verschiedenen Zeiten, um einen Verlauf zu sehen."
+
+msgctxt "rust"
+msgid "Largest entries · observed logical size"
+msgstr "Größte Einträge · beobachtete logische Größe"
+
+msgctxt "rust"
+msgid "Last automatic scan"
+msgstr "Letzter automatischer Scan"
+
+msgctxt "rust"
+msgid "Later measure"
+msgstr "Neuere Messung"
+
+msgctxt "rust"
+msgid "Logical size over time"
+msgstr "Verlauf der logischen Größe"
+
+msgctxt "rust"
+msgid "No entries with a known logical size."
+msgstr "Keine Einträge mit bekannter logischer Größe."
+
+msgctxt "rust"
+msgid "No logical size changes in immediate folders."
+msgstr "Keine Änderung der logischen Größe in den direkten Unterordnern."
+
+msgctxt "rust"
+msgid "Retained date"
+msgstr "Gespeichertes Datum"
+
+msgctxt "rust"
+msgid "The comparison needs two complete measures with known logical totals."
+msgstr "Der Vergleich erfordert zwei vollständige Messungen mit bekannten logischen Gesamtgrößen."
+
+msgctxt "rust"
+msgid "The two scopes could not be matched."
+msgstr "Die beiden Bereiche konnten nicht einander zugeordnet werden."
+
+msgctxt "rust"
+msgid "Up to five increases and five decreases among immediate folders. Direct files also affect the total."
+msgstr "Bis zu fünf Zunahmen und fünf Abnahmen bei direkten Unterordnern. Dateien im Stammordner fließen ebenfalls in die Summe ein."
+
+msgctxt "ui"
+msgid "Compare retained dates"
+msgstr "Gespeicherte Daten vergleichen"
+
+msgctxt "ui"
+msgid "Dots show complete measurements. Axis marks show gaps. Dates and recorded values are listed below."
+msgstr "Punkte zeigen vollständige Messungen. Achsenmarken zeigen Lücken. Unten stehen Daten und Messwerte."
+
+msgctxt "ui"
+msgid "Keep another scan to compare two dates."
+msgstr "Speichern Sie einen weiteren Scan, um zwei Daten zu vergleichen."
+
+msgctxt "ui"
+msgid "Keep current scan as a dated measure"
+msgstr "Aktuellen Scan als datierte Messung speichern"
+
+msgctxt "ui"
+msgid "Keep each scan you want in the history. A new scan replaces the automatic entry for the same location."
+msgstr "Speichern Sie jeden Scan, den Sie im Verlauf behalten möchten. Ein neuer Scan ersetzt den automatischen Eintrag für denselben Ort."
+
+msgctxt "ui"
+msgid "Largest entries"
+msgstr "Größte Einträge"
+
+msgctxt "ui"
+msgid "Manage measures"
+msgstr "Messungen verwalten"
+
+msgctxt "ui"
+msgid "No retained dates yet."
+msgstr "Noch keine gespeicherten Daten."
+
+msgctxt "ui"
+msgid "Other retained date for comparison"
+msgstr "Anderes gespeichertes Vergleichsdatum"
+
+msgctxt "ui"
+msgid "Show trend"
+msgstr "Verlauf anzeigen"
+
+msgctxt "rust"
+msgid "Saved measure deleted."
+msgstr "Gespeicherte Messung gelöscht."
+
+msgctxt "rust"
+msgid "Saved measure deleted. Journal update failed."
+msgstr "Messung gelöscht. Das Protokoll konnte nicht aktualisiert werden."
+
+msgctxt "rust"
+msgid "This measure shares storage with other records and cannot be deleted separately."
+msgstr "Diese Messung teilt den Speicher mit anderen Datensätzen. Einzelnes Löschen ist nicht möglich."
+
+msgctxt "ui"
+msgid "Delete measure"
+msgstr "Messung löschen"
+
+msgctxt "ui"
+msgid "Delete selected measure…"
+msgstr "Ausgewählte Messung löschen…"
+
+msgctxt "ui"
+msgid "Permanently delete this saved measure?"
+msgstr "Diese gespeicherte Messung endgültig löschen?"
+
+msgctxt "ui"
+msgid "Scanned files are kept."
+msgstr "Die gescannten Dateien bleiben erhalten."
+
+msgctxt "ui"
+msgid "Could not show the item in the file manager."
+msgstr "Das Element konnte nicht in der Dateiverwaltung angezeigt werden."
+
+msgctxt "ui"
+msgid "Open in File Manager"
+msgstr "In der Dateiverwaltung öffnen"
+
+msgctxt "ui"
+msgid "Show in File Manager"
+msgstr "In der Dateiverwaltung anzeigen"
+
+msgctxt "ui"
+msgid "Logical size of scanned files · {}"
+msgstr "Logische Größe der gescannten Dateien · {}"

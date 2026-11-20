@@ -1,9 +1,10 @@
 [package]
 name = "sortsize-slint-spike"
-version = "0.4.0-rc.1"
+version = "0.5.0-rc.2"
 edition = "2024"
 rust-version = "1.99"
 publish = false
+license = "Apache-2.0"
 default-run = "bunny-and-size"
 
 [workspace]
@@ -21,6 +22,7 @@ name = "bunny-and-size"
 path = "src/main.rs"
 
 [dependencies]
+serde_json = { version="1.0", optional=true }
 # Already locked transitively by Slint; MIT OR Apache-2.0, offline OS locale.
 sys-locale = "=0.3.2"
 sortsize-core = { path = "../../crates/sortsize-core" }
@@ -34,6 +36,9 @@ slint-build = "=1.18.1"
 tempfile = "3.20"
 serde_json = "1.0"
 
+[target.'cfg(any(target_os = "linux", target_os = "windows"))'.dev-dependencies]
+sortsize-store = { path = "../../crates/sortsize-store", features = ["test-support"] }
+
 [target.'cfg(not(target_os = "android"))'.dependencies]
 # Keep the native accessibility bridge: labels alone are invisible to UIA/AT-SPI
 # when Slint defaults are disabled. Android keeps its separate backend below.
@@ -42,12 +47,24 @@ i-slint-backend-winit = { version = "=1.18.1", optional = true, default-features
 
 # Dialogue desktop uniquement ; pas de GTK, runtime async ou intégration Android.
 [target.'cfg(any(target_os = "linux", target_os = "windows"))'.dependencies]
+sortsize-store = { path = "../../crates/sortsize-store" }
 tempfile = "3.20"
 rfd = { version = "=0.17.2", default-features = false, features = ["xdg-portal"] }
 
 [target.'cfg(windows)'.dependencies]
 # Already locked transitively by Slint/Winit; native HWND access only.
 raw-window-handle = "=0.6.2"
+windows = { version = "=0.62.2", features = [
+    "Win32_Globalization",
+    "Win32_Graphics_Gdi",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Com",
+    "Win32_System_Ole",
+    "Win32_System_Registry",
+    "Win32_System_SystemServices",
+    "Win32_UI_Shell_Common",
+    "Win32_UI_WindowsAndMessaging",
+] }
 
 [target.'cfg(target_os = "android")'.dependencies]
 slint = { version = "=1.18.1", default-features = false, features = ["backend-android-activity-06"] }
@@ -65,9 +82,16 @@ target_sdk_version = 35
 [features]
 # Controlled test fixture only. Never used by the application window.
 i18n-pilot = []
-benchmarks = ["dep:i-slint-backend-winit"]
+# Explicit experimental ADR 0045 UI; does not alter the frozen L17 criteria.
+experimental-preview = []
+benchmarks = ["dep:serde_json", "dep:i-slint-backend-winit", "i-slint-backend-winit/bunny-presentation-probe"]
 allocation-profiling = ["benchmarks"]
 owner-profiling = ["benchmarks", "sortsize-core/owner-profiling"]
+
+[[bin]]
+name="l16-qualify"
+path="src/bin/l16-qualify.rs"
+required-features=["benchmarks"]
 
 [[bin]]
 name = "sortsize-measure"
@@ -82,4 +106,34 @@ required-features = ["i18n-pilot"]
 [[bin]]
 name = "sortsize-i18n-harness"
 path = "src/bin/i18n-harness.rs"
+required-features = ["benchmarks"]
+
+[[bin]]
+name = "workshop-preview"
+path = "src/bin/workshop-preview.rs"
+required-features = ["benchmarks"]
+
+[[bin]]
+name = "workshop-qualify"
+path = "src/bin/workshop-qualify.rs"
+required-features = ["benchmarks"]
+
+[[bin]]
+name = "search-qualify"
+path = "src/bin/search-qualify.rs"
+required-features = ["benchmarks"]
+
+[[bin]]
+name = "cache-qualify"
+path = "src/bin/cache-qualify.rs"
+required-features = ["benchmarks"]
+
+[[bin]]
+name="preview-qualify"
+path="src/bin/preview-qualify.rs"
+required-features=["benchmarks","experimental-preview"]
+
+[[bin]]
+name = "cached-a-qualify"
+path = "src/bin/cached-a-qualify.rs"
 required-features = ["benchmarks"]

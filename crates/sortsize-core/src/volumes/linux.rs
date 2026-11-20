@@ -98,7 +98,8 @@ fn unescape(input: &[u8]) -> io::Result<OsString> {
 fn classify(fs: &[u8]) -> SourceKind {
     match fs {
         b"nfs" | b"nfs4" | b"cifs" | b"smb3" | b"smbfs" | b"9p" | b"ceph" | b"afs"
-        | b"fuse.sshfs" | b"fuse.rclone" | b"fuse.glusterfs" | b"fuse.davfs" => SourceKind::Remote,
+        | b"fuse.gvfsd-fuse" | b"fuse.sshfs" | b"fuse.rclone" | b"fuse.glusterfs"
+        | b"fuse.davfs" => SourceKind::Remote,
         b"ext2" | b"ext3" | b"ext4" | b"xfs" | b"btrfs" | b"f2fs" | b"vfat" | b"exfat"
         | b"ntfs" | b"ntfs3" | b"fuseblk" | b"zfs" | b"jfs" | b"reiserfs" => SourceKind::Local,
         b"iso9660" | b"udf" => SourceKind::Optical,

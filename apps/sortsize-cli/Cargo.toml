@@ -4,6 +4,7 @@ version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 publish.workspace = true
+license.workspace = true
 description = "Interface console Bunny and Size"
 default-run = "bunny-and-size-cli"
 
@@ -15,7 +16,12 @@ path = "src/main.rs"
 name = "sortsize"
 path = "src/bin/sortsize.rs"
 
+[features]
+default = []
+inventory-report = ["dep:sortsize-store"]
+
 [dependencies]
+sortsize-store = { path = "../../crates/sortsize-store", optional = true }
 sortsize-core = { path = "../../crates/sortsize-core" }
 clap.workspace = true
 ctrlc.workspace = true

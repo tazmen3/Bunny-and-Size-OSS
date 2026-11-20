@@ -1,4 +1,3 @@
-# Bunny and Size v0.4.0-rc.1
+# Bunny and Size 0.5.0-rc.2
 
-Notes courantes en français : [RELEASE_NOTES.md](docs/releases/v0.4.0-rc.1/RELEASE_NOTES.md).
-Les notes bilingues v0.3 restent dans leur dossier historique.
+[Notes de version en français](docs/releases/v0.5.0-rc.2/RELEASE_NOTES.md)

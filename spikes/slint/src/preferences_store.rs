@@ -6,7 +6,9 @@ use std::{
     path::{Path, PathBuf},
     sync::{Arc, Condvar, Mutex},
 };
-const MAX_CONFIG_BYTES: u64 = 16 * 1024;
+// The Windows temporary folder can be a native long path (four hex digits per
+// UTF-16 code unit), in addition to the historic display preferences.
+const MAX_CONFIG_BYTES: u64 = 16 * 1024 + if cfg!(windows) { 4 * 32767 } else { 0 };
 
 pub(crate) fn config_path() -> Option<PathBuf> {
     resolve_path(|name| std::env::var_os(name))
@@ -148,6 +150,26 @@ impl Drop for Store {
 mod tests {
     use super::*;
     #[test]
+    fn detail_sort_explicit_choices_are_persisted_and_loading_never_rewrites() {
+        let dir = tempfile::tempdir().unwrap();
+        let path = dir.path().join("display-v1.conf");
+        let legacy = b"version=2\nunits=decimal\nhidden_columns=owner\nlanguage=fr\n";
+        fs::write(&path, legacy).unwrap();
+        let (mut preferences, status) = load(&path);
+        assert_eq!(status, 0);
+        assert_eq!(preferences.detail_sort, 0);
+        assert_eq!(fs::read(&path).unwrap(), legacy);
+        for index in 0..12 {
+            preferences.detail_sort = index;
+            let mut store = Store::start(path.clone()).unwrap();
+            store.submit(preferences.clone());
+            drop(store);
+            let before = fs::read(&path).unwrap();
+            assert_eq!(load(&path), (preferences.clone(), 0));
+            assert_eq!(fs::read(&path).unwrap(), before);
+        }
+    }
+    #[test]
     fn injected_path_load_atomic_replace_corruption_and_interruption() {
         let dir = tempfile::tempdir().unwrap();
         let path = dir.path().join("settings/display-v1.conf");
@@ -204,6 +226,17 @@ mod tests {
         let mut store = Store::start(path.clone()).unwrap();
         let mut p = Preferences::default();
         for i in 0..300 {
+            p.memory = sortsize_core::inventory_contract::MemoryMode::from_key(
+                [
+                    "auto",
+                    "50000",
+                    "250000",
+                    "1000000",
+                    "5000000",
+                    "unlimited-count",
+                ][i % 6],
+            )
+            .unwrap();
             p.set_column(3, i % 2 == 0);
             store.submit(p.clone());
         }
@@ -246,6 +279,50 @@ mod windows_tests {
             std::path::PathBuf::from(r"C:\fixture\Roaming\sortsize\display-v1.conf")
         );
         assert!(super::resolve_path(|_| Some("relative".into())).is_none());
+    }
+
+    #[test]
+    fn duplicate_settings_survive_reopen_with_the_exact_native_temporary_path() {
+        use super::*;
+        use crate::display_preferences::{DuplicateResources, MIB};
+        use std::os::windows::ffi::{OsStrExt, OsStringExt};
+
+        let directory = tempfile::tempdir().unwrap();
+        let config = directory.path().join("display-v1.conf");
+        let legacy = include_str!("../tests/fixtures/preferences/display-v1.conf");
+        fs::write(&config, legacy).unwrap();
+        let (mut preferences, status) = load(&config);
+        assert_eq!(status, 0);
+        assert_eq!(
+            preferences.duplicate_resources,
+            DuplicateResources::default()
+        );
+        assert_eq!(fs::read_to_string(&config).unwrap(), legacy);
+
+        let wide: Vec<_> = r"C:\temp\"
+            .encode_utf16()
+            .chain([0xd800, 0x3d, 0x4e2d])
+            .collect();
+        let parent = PathBuf::from(std::ffi::OsString::from_wide(&wide));
+        preferences.duplicate_resources = DuplicateResources {
+            memory_limit: Some(64 * MIB),
+            temporary_limit: Some(4096 * MIB),
+            temporary_parent: Some(parent),
+        };
+        let mut store = Store::start(config.clone()).unwrap();
+        store.submit(preferences.clone());
+        drop(store);
+        let (restored, status) = load(&config);
+        assert_eq!(status, 0);
+        assert_eq!(restored, preferences);
+        let observed: Vec<_> = restored
+            .duplicate_resources
+            .temporary_parent
+            .unwrap()
+            .as_os_str()
+            .encode_wide()
+            .collect();
+        assert_eq!(observed, wide);
     }
 }
 
@@ -299,12 +376,23 @@ mod migration_tests {
         let path = directory.path().join("display-v1.conf");
         let old = Preferences::default();
         let new = Preferences {
+            sidebar_width: 300,
+            sidebar_collapsed: false,
+            treemap_mode: 0,
+            treemap_height: 280,
+            detail_sort: 0,
             units: crate::units::Units::Decimal,
             sidebar_ratio: 375,
             language: LanguagePreference::Explicit(Language::French),
             visible: [
                 true, false, false, false, false, false, false, false, false, false, false,
             ],
+            theme: 0,
+            dense: false,
+            memory: sortsize_core::inventory_contract::MemoryMode::Entries50k,
+            memory_bytes: Some(512 * 1024 * 1024),
+            duplicate_profile: Default::default(),
+            duplicate_resources: Default::default(),
         };
         save(&path, &old).unwrap();
         let reader_path = path.clone();

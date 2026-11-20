@@ -1,5 +1,8 @@
 //! Streaming native acquisition: one listing and a bounded stack of directories.
 //! No buffered file siblings or temporary on-disk inventory.
+#[cfg(all(test, windows))]
+#[path = "local_windows_tests.rs"]
+mod windows_tests;
 #[cfg(not(windows))]
 use crate::EntryOwner;
 use crate::{
@@ -46,6 +49,8 @@ pub(crate) struct PendingDirectory {
 
 pub(crate) struct LocalSource {
     root: PathBuf,
+    #[cfg(any(target_os = "linux", windows))]
+    boundary: crate::acquisition::Guard,
     exclusions: GlobSet,
     effective_exclusions: Vec<String>,
     max_depth: Option<usize>,
@@ -84,7 +89,7 @@ impl LocalSource {
             path: root.to_owned(),
             error,
         })?;
-        if !metadata.is_dir() || metadata.file_type().is_symlink() {
+        if !metadata.is_dir() || is_link_or_reparse(&metadata) {
             return Err(ScanFailure::InvalidRoot(root.to_owned()));
         }
         let root = std::fs::canonicalize(root).map_err(|error| ScanFailure::RootIo {
@@ -100,8 +105,22 @@ impl LocalSource {
         let exclusions = builder
             .build()
             .map_err(|e| ScanFailure::InvalidOptions(e.to_string()))?;
+        #[cfg(any(target_os = "linux", windows))]
+        let boundary = crate::acquisition::Guard::open(
+            &root,
+            crate::acquisition::Policy {
+                same_volume: false,
+                explicit_root: true,
+            },
+        )
+        .map_err(|error| ScanFailure::RootIo {
+            path: root.clone(),
+            error,
+        })?;
         Ok(Self {
             root,
+            #[cfg(any(target_os = "linux", windows))]
+            boundary,
             exclusions,
             effective_exclusions,
             max_depth: options.max_depth,
@@ -114,9 +133,31 @@ impl LocalSource {
     pub(crate) fn effective_exclusions(&self) -> &[String] {
         &self.effective_exclusions
     }
+    pub(crate) fn check_boundary(&self, path: &Path) -> std::io::Result<()> {
+        #[cfg(any(target_os = "linux", windows))]
+        return self.boundary.authorize_path(path);
+        #[cfg(not(any(target_os = "linux", windows)))]
+        {
+            let _ = path;
+            Ok(())
+        }
+    }
+    pub(crate) fn entry_kind(&self, entry: &std::fs::DirEntry) -> std::io::Result<FileType> {
+        // DirEntry::file_type may itself stat on a filesystem without d_type.
+        self.check_boundary(&entry.path())?;
+        entry.file_type()
+    }
+    pub(crate) fn open_directory(&self, path: &Path) -> Result<ReadDir, ScanIssue> {
+        self.check_boundary(path)
+            .map_err(|error| ScanIssue::io(path, "boundary", &error))?;
+        open_directory(path)
+    }
     pub(crate) fn root_observation(&self) -> Observation {
+        if let Err(error) = self.check_boundary(&self.root) {
+            return Observation::Error(ScanIssue::io(&self.root, "boundary", &error));
+        }
         match std::fs::symlink_metadata(&self.root) {
-            Ok(metadata) if metadata.is_dir() && !metadata.file_type().is_symlink() => {
+            Ok(metadata) if metadata.is_dir() && !is_link_or_reparse(&metadata) => {
                 self.observe(&self.root, 0, metadata.file_type())
             }
             Ok(_) => changed(&self.root),
@@ -139,10 +180,46 @@ impl LocalSource {
         false
     }
     pub(crate) fn observe(&self, path: &Path, depth: usize, expected: FileType) -> Observation {
+        self.observe_with(path, depth, expected, || std::fs::symlink_metadata(path))
+    }
+
+    pub(crate) fn observe_entry(
+        &self,
+        path: &Path,
+        depth: usize,
+        entry: &std::fs::DirEntry,
+    ) -> Observation {
+        let expected = match self.entry_kind(entry) {
+            Ok(kind) => kind,
+            Err(error) => return Observation::Error(ScanIssue::io(path, "metadata", &error)),
+        };
+        self.observe_with(path, depth, expected, || {
+            // Windows returns enumeration metadata without another path query.
+            // It may already be stale (including NTFS hardlink index metadata).
+            // The type comparison below is NOT an independent freshness check.
+            // Optional fields still refresh from one handle; deferred directories
+            // are checked again before descent. No DirEntry is retained in queues.
+            #[cfg(windows)]
+            return entry.metadata();
+            #[cfg(not(windows))]
+            std::fs::symlink_metadata(path)
+        })
+    }
+
+    fn observe_with(
+        &self,
+        path: &Path,
+        depth: usize,
+        expected: FileType,
+        metadata: impl FnOnce() -> std::io::Result<std::fs::Metadata>,
+    ) -> Observation {
         if depth > 0 && self.excluded(path, expected.is_dir()) {
             return Observation::Excluded;
         }
-        let metadata = match std::fs::symlink_metadata(path) {
+        if let Err(error) = self.check_boundary(path) {
+            return Observation::Error(ScanIssue::io(path, "boundary", &error));
+        }
+        let metadata = match metadata() {
             Ok(metadata) => metadata,
             Err(error) => return Observation::Error(ScanIssue::io(path, "metadata", &error)),
         };
@@ -152,6 +229,10 @@ impl LocalSource {
         }
         if kind.is_symlink() {
             Observation::Symlink
+        } else if is_link_or_reparse(&metadata) {
+            // Unknown reparse tags are not necessarily Rust symlinks. Never
+            // descend or open them for optional fields through this walker.
+            Observation::Special
         } else if kind.is_dir() {
             let depth_limited = self.max_depth == Some(depth);
             #[cfg(windows)]
@@ -270,8 +351,8 @@ impl LocalWalker {
         true
     }
 
-    fn observe(&mut self, path: &Path, depth: usize, expected: FileType) -> Observation {
-        let mut observation = self.source.observe(path, depth, expected);
+    fn observe(&mut self, path: &Path, depth: usize, entry: &std::fs::DirEntry) -> Observation {
+        let mut observation = self.source.observe_entry(path, depth, entry);
         if let Observation::Directory {
             depth_limited: false,
             resource_limited,
@@ -286,12 +367,24 @@ impl LocalWalker {
 
 pub(crate) fn open_directory(path: &Path) -> Result<ReadDir, ScanIssue> {
     match std::fs::symlink_metadata(path) {
-        Ok(metadata) if metadata.is_dir() && !metadata.file_type().is_symlink() => {
+        Ok(metadata) if metadata.is_dir() && !is_link_or_reparse(&metadata) => {
             std::fs::read_dir(path).map_err(|error| ScanIssue::io(path, "list", &error))
         }
         Ok(_) => Err(changed_issue(path)),
         Err(error) => Err(ScanIssue::io(path, "list", &error)),
     }
+}
+
+fn is_link_or_reparse(metadata: &std::fs::Metadata) -> bool {
+    #[cfg(windows)]
+    {
+        use std::os::windows::fs::MetadataExt;
+        metadata.file_attributes()
+            & windows_sys::Win32::Storage::FileSystem::FILE_ATTRIBUTE_REPARSE_POINT
+            != 0
+    }
+    #[cfg(not(windows))]
+    metadata.file_type().is_symlink()
 }
 
 fn changed(path: &Path) -> Observation {
@@ -344,12 +437,7 @@ impl Iterator for LocalWalker {
                 match item {
                     Some(Ok(entry)) => {
                         let path = entry.path();
-                        let observation = match entry.file_type() {
-                            Ok(expected) => self.observe(&path, depth, expected),
-                            Err(error) => {
-                                Observation::Error(ScanIssue::io(&path, "metadata", &error))
-                            }
-                        };
+                        let observation = self.observe(&path, depth, &entry);
                         return Some((path, observation));
                     }
                     Some(Err(error)) => {
@@ -366,7 +454,7 @@ impl Iterator for LocalWalker {
             self.pending_bytes -= directory.path.as_os_str().as_encoded_bytes().len();
             // Re-check deferred directories before opening: an already-replaced
             // symlink must not be followed. This is not an atomic filesystem snapshot.
-            let listing = open_directory(&directory.path);
+            let listing = self.source.open_directory(&directory.path);
             match listing {
                 Ok(listing) => {
                     self.current = Some((directory, listing));

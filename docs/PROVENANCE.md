@@ -1,4 +1,5 @@
-# Bunny and Size v0.4.0-rc.1
+# Sources de Bunny and Size 0.5.0-rc.2
 
-Documentation courante : [consulter](../docs/releases/v0.4.0-rc.1/PUBLICATION.json).
-Les documents datés antérieurs restent historiques.
+L’archive source correspondante conserve les dépendances Cargo verrouillées
+et les notices. [Correspondance des fichiers](../SOURCE_FILES.json) ·
+[Provenance](../PROVENANCE.json)

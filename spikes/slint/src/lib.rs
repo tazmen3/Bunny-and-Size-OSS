@@ -8,12 +8,16 @@ pub mod measure;
 
 mod allocation_label;
 mod analysis_controller;
+#[cfg(any(target_os = "linux", windows))]
+mod auto_analysis;
+mod current_folder_summary;
 mod date_label;
 mod directory_controller;
 mod directory_worker;
 mod display_preferences;
 #[cfg(any(target_os = "linux", target_os = "windows"))]
 mod folder_picker;
+mod hover;
 mod language_controller;
 pub mod locale;
 mod number_format;
@@ -22,6 +26,10 @@ mod owner_view;
 mod path_input;
 #[cfg(any(target_os = "linux", windows))]
 mod preferences_store;
+#[cfg(any(target_os = "linux", windows))]
+mod source_dialog;
+#[cfg(any(target_os = "linux", windows))]
+mod source_registry;
 mod tree;
 mod treemap;
 mod units;
@@ -29,7 +37,11 @@ mod units;
 mod volume_view;
 #[cfg(windows)]
 mod window_placement;
+#[cfg(windows)]
+mod windows_context_menu;
 mod worker;
+#[cfg(any(target_os = "linux", windows))]
+mod workshop;
 
 use path_input::PathInput;
 use slint::{ComponentHandle, Model, ModelRc, Timer, TimerMode, VecModel};
@@ -60,12 +72,46 @@ struct Controller {
     #[cfg(any(target_os = "linux", windows))]
     sources: volume_view::Sources,
     #[cfg(any(target_os = "linux", windows))]
+    registry: source_registry::Registry,
+    #[cfg(any(target_os = "linux", windows))]
+    source_dialog: Option<AddSourceWindow>,
+    #[cfg(any(target_os = "linux", windows))]
+    source_reconnect: Option<Rc<dyn Fn(source_registry::Source)>>,
+    #[cfg(any(target_os = "linux", windows))]
+    source_operations: source_dialog::Operations,
+    #[cfg(any(target_os = "linux", windows))]
+    source_save_result: Option<bool>,
+    #[cfg(any(target_os = "linux", windows))]
+    source_shares: Vec<std::path::PathBuf>,
+    #[cfg(any(target_os = "linux", windows))]
+    source_picker_serial: u64,
+    #[cfg(any(target_os = "linux", windows))]
+    source_picker: Option<folder_picker::FolderPicker>,
+    #[cfg(any(target_os = "linux", windows))]
+    source_path_input: PathInput,
+    #[cfg(any(target_os = "linux", windows))]
+    auto_analysis: auto_analysis::AutoAnalysis,
+    #[cfg(any(target_os = "linux", windows))]
+    last_auto_selection: Option<auto_analysis::LastSelection>,
+    #[cfg(any(target_os = "linux", windows))]
+    restored_selection: Option<auto_analysis::LastSelection>,
+    #[cfg(any(target_os = "linux", windows))]
+    selection_store: Option<auto_analysis::SelectionStore>,
+    #[cfg(any(target_os = "linux", windows))]
+    pending_remember: Option<std::path::PathBuf>,
+    #[cfg(any(target_os = "linux", windows))]
+    pending_auto: Option<(std::path::PathBuf, Option<directory_worker::Preflight>)>,
+    #[cfg(any(target_os = "linux", windows))]
+    source_publication: std::cell::Cell<i32>,
+    #[cfg(any(target_os = "linux", windows))]
     scan_volume: Option<(
         sortsize_core::volumes::VolumeIdentity,
         sortsize_core::volumes::VolumeMount,
     )>,
     #[cfg(any(target_os = "linux", target_os = "windows"))]
     folder_picker: Option<folder_picker::FolderPicker>,
+    #[cfg(any(target_os = "linux", windows))]
+    duplicate_temporary_picker: Option<folder_picker::FolderPicker<Result<std::path::PathBuf, ()>>>,
     task: Option<Task>,
     scan_worker: Option<directory_worker::DirectoryWorker>,
     scan_root: Option<std::path::PathBuf>,
@@ -103,6 +149,24 @@ impl Controller {
     }
 
     fn show_preferences(&self, window: &SortSizeWindow) {
+        window.set_memory_choice(
+            [
+                "auto",
+                "50000",
+                "250000",
+                "1000000",
+                "5000000",
+                "unlimited-count",
+            ]
+            .iter()
+            .position(|key| *key == self.preferences.memory.key())
+            .unwrap_or(0) as i32,
+        );
+        window.set_theme_choice(i32::from(self.preferences.theme));
+        window.set_dense(self.preferences.dense);
+        window.set_duplicate_profile_choice(display_preferences::profile_index(
+            self.preferences.duplicate_profile,
+        ));
         let _presentation = self.presentation.enter();
         let labels = window.get_column_labels();
         let columns = (0..11)
@@ -124,8 +188,13 @@ impl Controller {
             window.set_column_settings(Rc::new(VecModel::from(columns)).into());
         }
         window.set_table_pixels(f32::from(self.preferences.width()));
-        window.set_decimal_units(self.preferences.units == units::Units::Decimal);
+        window.set_decimal_units(self.preferences.units.is_decimal());
+        window.set_size_unit_choice(i32::from(self.preferences.units.size_unit()));
         window.set_sidebar_ratio(i32::from(self.preferences.sidebar_ratio));
+        window.set_sidebar_width(f32::from(self.preferences.sidebar_width));
+        window.set_sidebar_collapsed(self.preferences.sidebar_collapsed);
+        window.set_treemap_mode(i32::from(self.preferences.treemap_mode));
+        window.set_treemap_height_choice(i32::from(self.preferences.treemap_height));
     }
     fn display_changed(&mut self, window: &SortSizeWindow, previous: units::Units) {
         let _presentation = self.presentation.enter();
@@ -133,11 +202,16 @@ impl Controller {
         if previous != self.preferences.units {
             self.update_units(window);
         }
+        self.save_preferences(window);
+    }
+    fn save_preferences(&mut self, window: &SortSizeWindow) {
         #[cfg(any(target_os = "linux", windows))]
         if let Some(store) = &mut self.preference_store {
             store.submit(self.preferences.clone());
             window.set_preference_state(1);
         }
+        #[cfg(not(any(target_os = "linux", windows)))]
+        let _ = window;
     }
     fn update_units(&mut self, window: &SortSizeWindow) {
         let _presentation = self.presentation.enter();
@@ -177,6 +251,7 @@ impl Controller {
                 .into(),
             );
             window.set_selection_summary(tree.selection_summary().into());
+            window.set_current_folder_summary(tree.current_folder_summary().into());
             self.show_treemap(window);
         }
         if let Some(labels) = &self.scan_labels {
@@ -216,12 +291,30 @@ impl Controller {
     #[cfg(any(target_os = "linux", windows))]
     fn show_sources(&self, window: &SortSizeWindow) {
         let _presentation = self.presentation.enter();
+        self.show_disconnected_sources();
         window.set_storage_loading(self.sources.loading());
         window.set_storage_status(self.sources.status().into());
         if let Some(prepared) = &self.sources.current {
-            window.set_volumes(
-                Rc::new(VecModel::from(prepared.rows_for(self.preferences.units))).into(),
-            );
+            let Some(token) = self.source_publication.get().checked_add(1) else {
+                return;
+            };
+            self.source_publication.set(token);
+            window.set_storage_token(token);
+            let mut rows = prepared.rows_for(self.preferences.units);
+            for (row, volume) in rows.iter_mut().zip(&prepared.discovery.volumes) {
+                if let Some(mount) = volume.mounts.first() {
+                    row.network |= self
+                        .registry
+                        .find(&mount.path)
+                        .is_some_and(|s| s.kind != source_registry::Kind::Local);
+                    row.disconnected = row.network && self.registry.is_disconnected(&mount.path);
+                    if row.disconnected {
+                        row.state = tr!("Disconnected deliberately").into();
+                    }
+                    self.sources.apply_connection_state(&mount.path, row);
+                }
+            }
+            window.set_volumes(Rc::new(VecModel::from(rows)).into());
             let path = self.path_input.resolve(window.get_scan_path().as_str());
             let selected = prepared
                 .discovery
@@ -240,6 +333,461 @@ impl Controller {
         }
     }
     #[cfg(any(target_os = "linux", windows))]
+    fn source_from_dialog(
+        &self,
+        dialog: &AddSourceWindow,
+    ) -> std::io::Result<source_registry::Source> {
+        if dialog.get_source_kind() == 3 {
+            // A server is a logical source, not a relative filesystem path.
+            return source_registry::Source::new(
+                3,
+                std::path::PathBuf::from(dialog.get_source_path().as_str()),
+                dialog.get_display_name().as_str(),
+                None,
+            );
+        }
+        #[cfg(target_os = "linux")]
+        if dialog.get_source_kind() == 0 {
+            let input = dialog.get_source_path();
+            let input = input.as_str();
+            if input.starts_with("smb://") || input.starts_with(r"\\") || !input.starts_with('/') {
+                let target = self
+                    .smb_target_from_dialog(dialog)
+                    .map_err(|_| std::io::ErrorKind::InvalidInput)?;
+                return source_registry::Source::new(
+                    0,
+                    target.share.ok_or(std::io::ErrorKind::WouldBlock)?,
+                    dialog.get_display_name().as_str(),
+                    self.sources.current.as_ref().map(|p| &p.discovery),
+                );
+            }
+        }
+        let path = self
+            .source_path_input
+            .resolve(dialog.get_source_path().as_str());
+        #[cfg(windows)]
+        let path = if dialog.get_source_kind() == 0
+            && !matches!(path.components().next(), Some(std::path::Component::Prefix(p)) if matches!(p.kind(), std::path::Prefix::Disk(_) | std::path::Prefix::VerbatimDisk(_)))
+            && path.to_str().is_some()
+        {
+            let target = self
+                .smb_target_from_dialog(dialog)
+                .map_err(|_| std::io::ErrorKind::InvalidInput)?;
+            let normalized = target.share.ok_or(std::io::ErrorKind::WouldBlock)?;
+            if path.is_absolute() && sortsize_core::volumes::unc_source(&path).is_ok() {
+                path
+            } else {
+                normalized
+            }
+        } else {
+            path
+        };
+        source_registry::Source::new(
+            dialog.get_source_kind(),
+            path,
+            dialog.get_display_name().as_str(),
+            self.sources.current.as_ref().map(|p| &p.discovery),
+        )
+    }
+    #[cfg(any(target_os = "linux", windows))]
+    fn smb_target_from_dialog(
+        &self,
+        dialog: &AddSourceWindow,
+    ) -> Result<sortsize_core::volumes::smb::Target, sortsize_core::volumes::smb::SmbError> {
+        #[allow(unused_mut)]
+        let mut target =
+            sortsize_core::volumes::smb::parse_target(dialog.get_source_path().as_str())?;
+        #[cfg(windows)]
+        let native = self
+            .source_path_input
+            .resolve(dialog.get_source_path().as_str());
+        #[cfg(windows)]
+        if target.share.is_some()
+            && native.is_absolute()
+            && sortsize_core::volumes::unc_source(&native).is_ok()
+        {
+            target.share = Some(native);
+        }
+        Ok(target)
+    }
+    #[cfg(any(target_os = "linux", windows))]
+    fn add_source(&mut self, window: &SortSizeWindow, dialog: &AddSourceWindow) {
+        if self.source_operations.busy() || self.source_picker.is_some() {
+            return;
+        }
+        let source = match self.source_from_dialog(dialog) {
+            Ok(source) => source,
+            Err(error) => {
+                dialog.set_result_state(if error.kind() == std::io::ErrorKind::WouldBlock {
+                    7
+                } else {
+                    4
+                });
+                return;
+            }
+        };
+        match self.registry.add(source) {
+            Ok(source_registry::AddOutcome::Added) => {}
+            Ok(source_registry::AddOutcome::ReconnectRequired(source)) => {
+                self.propose_source_reconnect(dialog, &source, 21);
+                return;
+            }
+            Ok(source_registry::AddOutcome::ParentDisconnected(parent)) => {
+                self.propose_source_reconnect(dialog, &parent, 22);
+                return;
+            }
+            Err(_) => {
+                dialog.set_result_state(4);
+                return;
+            }
+        }
+        self.sources.set_registered(&self.registry.entries);
+        self.show_sources(window);
+        dialog.set_result_state(if self.registry.saving_available() {
+            5
+        } else {
+            6
+        });
+        // Deliberately preserve scan-path, active acquisition, pending local
+        // intention, and selected inventory. Selecting and Analyze are separate.
+    }
+    #[cfg(any(target_os = "linux", windows))]
+    fn propose_source_reconnect(
+        &self,
+        dialog: &AddSourceWindow,
+        source: &source_registry::Source,
+        state: i32,
+    ) {
+        self.show_disconnected_sources();
+        let index = self
+            .registry
+            .disconnected_sources()
+            .iter()
+            .position(|entry| entry.path == source.path);
+        dialog.set_selected_disconnected(index.map(|i| i as i32).unwrap_or(-1));
+        dialog.set_reconnect_status("".into());
+        dialog.set_result_state(state);
+        dialog.set_disconnected_view(true);
+        // The existing Reconnect button is the explicit user decision. Merely
+        // adding a disabled source never checks access or changes exclusions.
+    }
+    #[cfg(any(target_os = "linux", windows))]
+    fn check_source(&mut self, dialog: &AddSourceWindow) {
+        if self.source_operations.busy() || self.source_picker.is_some() {
+            return;
+        }
+        let source = match self.source_from_dialog(dialog) {
+            Ok(source) => source,
+            Err(error) => {
+                dialog.set_result_state(if error.kind() == std::io::ErrorKind::WouldBlock {
+                    7
+                } else {
+                    4
+                });
+                return;
+            }
+        };
+        let started = self.source_operations.start(move || {
+            let state = match source_registry::preflight(&source) {
+                Ok(()) => 1,
+                Err(error) => source_dialog::access_state(&error),
+            };
+            source_dialog::Outcome::state(state)
+        });
+        match started {
+            Ok(true) => {
+                dialog.set_busy(true);
+                dialog.set_operation(1);
+                dialog.set_result_state(0);
+            }
+            Ok(false) => {}
+            Err(_) => dialog.set_result_state(2),
+        }
+    }
+    #[cfg(any(target_os = "linux", windows))]
+    fn source_input_changed(&mut self, dialog: &AddSourceWindow, edited: bool) {
+        if edited {
+            self.source_path_input.edited();
+        }
+        self.source_operations.invalidate();
+        self.source_shares.clear();
+        dialog.set_shares(ModelRc::default());
+        dialog.set_selected_share(-1);
+        dialog.set_shares_limited(false);
+        dialog.set_result_state(0);
+        dialog.set_smb_server_only(false);
+        #[cfg(any(target_os = "linux", windows))]
+        if matches!(dialog.get_source_kind(), 0 | 3)
+            && let Ok(target) =
+                sortsize_core::volumes::smb::parse_target(dialog.get_source_path().as_str())
+        {
+            dialog.set_smb_server_only(target.share.is_none());
+            if target.share.is_none() {
+                dialog.set_result_state(7);
+            }
+        }
+    }
+    #[cfg(any(target_os = "linux", windows))]
+    fn smb_source_operation(&mut self, dialog: &AddSourceWindow, connect: bool) {
+        if !matches!(dialog.get_source_kind(), 0 | 3)
+            || self.source_operations.busy()
+            || self.source_picker.is_some()
+        {
+            return;
+        }
+        let target = match self.smb_target_from_dialog(dialog) {
+            Ok(target) => target,
+            Err(error) => {
+                dialog.set_result_state(source_dialog::native_state(error.status));
+                return;
+            }
+        };
+        #[cfg(windows)]
+        let owner = source_dialog::owner_handle(dialog.window());
+        #[cfg(target_os = "linux")]
+        let owner = 0;
+        self.source_shares.clear();
+        dialog.set_shares(ModelRc::default());
+        dialog.set_selected_share(-1);
+        dialog.set_shares_limited(false);
+        let started = self.source_operations.start(move || {
+            if connect {
+                return source_dialog::Outcome::state(
+                    match sortsize_core::volumes::smb::connect_target(&target, owner) {
+                        Ok(()) => 13,
+                        Err(error) => source_dialog::native_state(error.status),
+                    },
+                );
+            }
+            match sortsize_core::volumes::smb::enumerate_shares(&target) {
+                Ok(list) => {
+                    let limited = list.limited || list.shares.len() > 256;
+                    let shares: Vec<_> =
+                        list.shares.into_iter().take(256).map(|s| s.path).collect();
+                    source_dialog::Outcome {
+                        state: if shares.is_empty() { 9 } else { 18 },
+                        shares: Some(shares),
+                        limited,
+                    }
+                }
+                Err(error) => {
+                    source_dialog::Outcome::state(source_dialog::enumeration_state(error.status))
+                }
+            }
+        });
+        match started {
+            Ok(true) => {
+                dialog.set_busy(true);
+                dialog.set_operation(if connect { 3 } else { 2 });
+                dialog.set_result_state(0);
+            }
+            Ok(false) => {}
+            Err(_) => dialog.set_result_state(16),
+        }
+    }
+    #[cfg(any(target_os = "linux", windows))]
+    fn select_source_share(&mut self, dialog: &AddSourceWindow, index: i32) {
+        if dialog.get_source_kind() == 3 {
+            return;
+        }
+        if self.source_operations.busy() || self.source_picker.is_some() {
+            return;
+        }
+        let Some(path) = source_dialog::share_index(index)
+            .and_then(|i| self.source_shares.get(i))
+            .cloned()
+        else {
+            return;
+        };
+        self.source_operations.invalidate();
+        dialog.set_source_path(self.source_path_input.select(path).into());
+        dialog.set_smb_server_only(false);
+        dialog.set_selected_share(index);
+        dialog.set_result_state(0);
+    }
+    #[cfg(any(target_os = "linux", windows))]
+    fn poll_source_dialog(&mut self) {
+        if let Some(result) = self.source_operations.poll()
+            && let Some(dialog) = &self.source_dialog
+        {
+            dialog.set_busy(false);
+            dialog.set_operation(0);
+            if let Some(outcome) = result {
+                dialog.set_result_state(outcome.state);
+                if let Some(shares) = outcome.shares {
+                    let labels = std::iter::once(dialog.get_share_placeholder())
+                        .chain(
+                            shares
+                                .iter()
+                                .map(|p| p.to_string_lossy().into_owned().into()),
+                        )
+                        .collect::<Vec<slint::SharedString>>();
+                    self.source_shares = shares;
+                    dialog.set_shares(Rc::new(VecModel::from(labels)).into());
+                    dialog.set_selected_share(0);
+                    dialog.set_shares_limited(outcome.limited);
+                }
+            }
+        }
+        if let Some(result) = self.source_picker.as_ref().and_then(|p| p.poll()) {
+            self.source_picker = None;
+            if let Some(dialog) = &self.source_dialog {
+                dialog.set_busy(false);
+                if self.source_picker_serial == self.source_operations.revision()
+                    && let Ok(Some(path)) = result
+                {
+                    dialog.set_source_path(self.source_path_input.select(path).into());
+                    dialog.set_result_state(0);
+                }
+            }
+        }
+        if let Some(saved) = self.registry.poll_saved() {
+            self.source_save_result = Some(saved);
+            if !saved
+                && let Some(dialog) = &self.source_dialog
+                && matches!(dialog.get_result_state(), 5 | 6)
+                && self
+                    .source_from_dialog(dialog)
+                    .is_ok_and(|source| !self.registry.is_disconnected(&source.path))
+            {
+                dialog.set_result_state(6);
+            }
+        }
+    }
+    #[cfg(any(target_os = "linux", windows))]
+    fn show_disconnected_sources(&self) {
+        let Some(dialog) = &self.source_dialog else {
+            return;
+        };
+        // This window survives closing. A later disconnection from the main
+        // window invalidates its old registration success, even while hidden.
+        if matches!(dialog.get_result_state(), 5 | 6)
+            && self
+                .source_from_dialog(dialog)
+                .is_ok_and(|source| self.registry.is_disconnected(&source.path))
+        {
+            dialog.set_result_state(0);
+            dialog.set_reconnect_status("".into());
+        }
+        let labels = self
+            .registry
+            .disconnected_sources()
+            .iter()
+            .map(|source| {
+                let path = source.path.to_string_lossy();
+                if source.label.is_empty() {
+                    path.into_owned()
+                } else {
+                    format!("{} · {path}", source.label)
+                }
+                .into()
+            })
+            .collect::<Vec<slint::SharedString>>();
+        let current = dialog.get_disconnected_sources();
+        if current.row_count() != labels.len()
+            || labels
+                .iter()
+                .enumerate()
+                .any(|(i, label)| current.row_data(i).as_ref() != Some(label))
+        {
+            dialog.set_disconnected_sources(Rc::new(VecModel::from(labels)).into());
+            dialog.set_selected_disconnected(-1);
+        }
+    }
+    #[cfg(any(target_os = "linux", windows))]
+    fn remember_selection(&mut self, root: &std::path::Path) {
+        if self.sources.current.is_none() {
+            // An explicit choice may precede discovery. Keep that intention,
+            // and classify it once without ever scheduling another scan.
+            self.pending_remember = Some(root.to_owned());
+            if let Some(store) = &mut self.selection_store {
+                store.clear();
+            }
+            return;
+        }
+        self.pending_remember = None;
+        let selection = self.sources.current.as_ref().and_then(|prepared| {
+            (!self
+                .registry
+                .find(root)
+                .is_some_and(|s| s.kind != source_registry::Kind::Local))
+            .then(|| auto_analysis::LastSelection::local(root.to_owned(), &prepared.discovery))
+            .flatten()
+        });
+        self.last_auto_selection = selection.clone();
+        if let Some(store) = &mut self.selection_store {
+            match selection {
+                Some(selection) => store.submit(selection),
+                None => store.clear(),
+            }
+        }
+    }
+
+    #[cfg(any(target_os = "linux", windows))]
+    fn queue_automatic(
+        &mut self,
+        window: &SortSizeWindow,
+        root: std::path::PathBuf,
+        preflight: Option<directory_worker::Preflight>,
+        restored: bool,
+    ) {
+        self.restored_selection = None;
+        if self.registry.is_disconnected(&root) {
+            self.pending_auto = None;
+            return;
+        }
+        let selection = self.sources.current.as_ref().and_then(|prepared| {
+            auto_analysis::LastSelection::local(root.clone(), &prepared.discovery)
+        });
+        // A replacement mounted at the same pathname is a different source.
+        if self.last_auto_selection != selection {
+            self.auto_analysis.different_source();
+        }
+        self.last_auto_selection = selection;
+        let accepted = if restored {
+            self.auto_analysis.restored(&root)
+        } else {
+            self.auto_analysis.select(&root)
+        };
+        if !restored {
+            self.remember_selection(&root);
+        }
+        // A repeated selection still restores its native path in the editor;
+        // only the acquisition request is deduplicated.
+        window.set_scan_path(self.path_input.select(root.clone()).into());
+        if accepted {
+            self.pending_auto = Some((root, preflight));
+        }
+    }
+
+    #[cfg(any(target_os = "linux", windows))]
+    fn restore_selection(&mut self, window: &SortSizeWindow) {
+        if self.sources.loading() {
+            return;
+        }
+        let Some(prepared) = &self.sources.current else {
+            return;
+        };
+        let Some(selection) = self.restored_selection.take() else {
+            return;
+        };
+        if self
+            .registry
+            .find(&selection.root)
+            .is_some_and(|s| s.kind != source_registry::Kind::Local)
+        {
+            return;
+        }
+        if !selection.matches_local(&prepared.discovery) {
+            self.diagnostic(window, presentation::Diagnostic::VolumeBlocked);
+            return;
+        }
+        // The saved path was displayed at startup. Discovery must not rewrite
+        // a later user choice or an offline inventory opened in the meantime.
+        self.show_sources(window);
+    }
+
+    #[cfg(any(target_os = "linux", windows))]
     fn select_volume(&mut self, window: &SortSizeWindow, index: i32) {
         let _presentation = self.presentation.enter();
         if window.get_choosing_folder() || !window.get_scan_enabled() {
@@ -251,7 +799,17 @@ impl Controller {
         else {
             return;
         };
-        if !volume_view::can_auto_scan(volume) {
+        if !volume_view::can_auto_scan(volume)
+            || volume.mounts.first().is_some_and(|m| {
+                self.registry
+                    .find(&m.path)
+                    .is_some_and(|s| s.kind != source_registry::Kind::Local)
+            })
+        {
+            if let Some(mount) = volume.mounts.first() {
+                window.set_scan_path(self.path_input.select(mount.path.clone()).into());
+                window.set_selected_volume(index);
+            }
             self.diagnostic(window, presentation::Diagnostic::VolumeBlocked);
             return;
         }
@@ -352,6 +910,7 @@ impl Controller {
         self.scan_root = Some(path.clone());
         window.set_scan_source(tree::native_label(&path).into());
         window.set_current_path("".into());
+        window.set_current_folder_summary("".into());
         #[cfg(any(target_os = "linux", windows))]
         self.show_sources(window);
         window.set_entry_path("".into());
@@ -459,10 +1018,15 @@ impl Controller {
         window.set_choosing_folder(false);
         match result {
             Ok(Some(path)) => {
+                self.restored_selection = None;
                 window.set_scan_path(self.path_input.select(path).into());
                 window.set_selected_volume(-1);
-                window.set_resolve_owner(false);
-                self.resolution_changed(window);
+                let root = self.path_input.resolve(window.get_scan_path().as_str());
+                self.remember_selection(&root);
+                if !window.get_local_owner_resolution() {
+                    window.set_resolve_owner(false);
+                    self.resolution_changed(window);
+                }
             }
             // rfd also returns None when the desktop service is unavailable.
             // Preserve the previous source and inventory in either case.
@@ -487,6 +1051,8 @@ impl Controller {
         self.analysis.poll(self.presentation);
         let _presentation = self.presentation.enter();
         #[cfg(any(target_os = "linux", windows))]
+        self.poll_source_dialog();
+        #[cfg(any(target_os = "linux", windows))]
         if let Some(success) = self
             .preference_store
             .as_ref()
@@ -497,6 +1063,15 @@ impl Controller {
         #[cfg(any(target_os = "linux", windows))]
         if self.sources.poll() {
             self.show_sources(window);
+        }
+        #[cfg(any(target_os = "linux", windows))]
+        {
+            if self.sources.current.is_some()
+                && let Some(root) = self.pending_remember.take()
+            {
+                self.remember_selection(&root);
+            }
+            self.restore_selection(window);
         }
         self.poll_owners(window);
         #[cfg(any(target_os = "linux", target_os = "windows"))]
@@ -655,6 +1230,7 @@ impl Controller {
             window.set_map_cursor(0);
             self.show_treemap(window);
             window.set_selection_summary(tree.selection_summary().into());
+            window.set_current_folder_summary(tree.current_folder_summary().into());
             window.set_has_parent(tree.has_parent());
             window.set_empty_message(tree.empty_message().into());
             window.set_sort_order(tree.sort() as i32);
@@ -695,6 +1271,163 @@ impl Controller {
     }
 }
 
+#[cfg(any(target_os = "linux", windows))]
+fn show_add_source(window: &SortSizeWindow, controller: &Rc<RefCell<Controller>>) {
+    controller.borrow().show_disconnected_sources();
+    if let Some(dialog) = &controller.borrow().source_dialog {
+        dialog
+            .global::<WorkshopTheme>()
+            .set_mode(i32::from(controller.borrow().preferences.theme));
+        let _ = dialog.show();
+        return;
+    }
+    let Ok(dialog) = AddSourceWindow::new() else {
+        return;
+    };
+    dialog.set_windows_platform(cfg!(windows));
+    dialog.set_linux_platform(cfg!(target_os = "linux"));
+    dialog
+        .global::<WorkshopTheme>()
+        .set_mode(i32::from(controller.borrow().preferences.theme));
+    let weak = dialog.as_weak();
+    let state = Rc::downgrade(controller);
+    dialog.on_cancel(move || {
+        if let Some(dialog) = weak.upgrade() {
+            if let Some(state) = state.upgrade() {
+                let mut state = state.borrow_mut();
+                state.source_operations.invalidate();
+                if state.source_operations.busy() {
+                    dialog.set_result_state(14);
+                }
+            }
+            let _ = dialog.hide();
+        }
+    });
+    let state = Rc::downgrade(controller);
+    let weak = dialog.as_weak();
+    dialog.on_input_changed(move || {
+        if let (Some(state), Some(dialog)) = (state.upgrade(), weak.upgrade()) {
+            state.borrow_mut().source_input_changed(&dialog, true);
+        }
+    });
+    let state = Rc::downgrade(controller);
+    let weak = dialog.as_weak();
+    dialog.on_type_changed(move || {
+        if let (Some(state), Some(dialog)) = (state.upgrade(), weak.upgrade()) {
+            state.borrow_mut().source_input_changed(&dialog, false);
+        }
+    });
+    let state = Rc::downgrade(controller);
+    let weak = dialog.as_weak();
+    let main = window.as_weak();
+    dialog.on_add_source(move || {
+        if let (Some(state), Some(dialog), Some(main)) =
+            (state.upgrade(), weak.upgrade(), main.upgrade())
+        {
+            state.borrow_mut().add_source(&main, &dialog);
+        }
+    });
+    let state = Rc::downgrade(controller);
+    let weak = dialog.as_weak();
+    dialog.on_check_access(move || {
+        if let (Some(state), Some(dialog)) = (state.upgrade(), weak.upgrade()) {
+            state.borrow_mut().check_source(&dialog);
+        }
+    });
+    let state = Rc::downgrade(controller);
+    let weak = dialog.as_weak();
+    dialog.on_find_shares(move || {
+        if let (Some(state), Some(dialog)) = (state.upgrade(), weak.upgrade()) {
+            #[cfg(any(target_os = "linux", windows))]
+            state.borrow_mut().smb_source_operation(&dialog, false);
+            #[cfg(not(any(target_os = "linux", windows)))]
+            {
+                let _ = state;
+                dialog.set_result_state(17);
+            }
+        }
+    });
+    let state = Rc::downgrade(controller);
+    let weak = dialog.as_weak();
+    dialog.on_connect_share(move || {
+        if let (Some(state), Some(dialog)) = (state.upgrade(), weak.upgrade()) {
+            #[cfg(any(target_os = "linux", windows))]
+            state.borrow_mut().smb_source_operation(&dialog, true);
+            #[cfg(not(any(target_os = "linux", windows)))]
+            {
+                let _ = state;
+                dialog.set_result_state(17);
+            }
+        }
+    });
+    let state = Rc::downgrade(controller);
+    let weak = dialog.as_weak();
+    dialog.on_select_share(move |index| {
+        if let (Some(state), Some(dialog)) = (state.upgrade(), weak.upgrade()) {
+            state.borrow_mut().select_source_share(&dialog, index);
+        }
+    });
+    let state = Rc::downgrade(controller);
+    let weak = dialog.as_weak();
+    dialog.on_browse_source(move || {
+        if let (Some(state), Some(dialog)) = (state.upgrade(), weak.upgrade()) {
+            let mut state = state.borrow_mut();
+            if state.source_picker.is_some() || state.source_operations.busy() {
+                return;
+            }
+            // Native picker has its own mailbox and never routes through the
+            // existing browse-and-auto-analyze callback.
+            let picker = rfd::FileDialog::new().set_parent(&dialog.window().window_handle());
+            match folder_picker::FolderPicker::start(move || picker.pick_folder()) {
+                Ok(picker) => {
+                    state.source_picker = Some(picker);
+                    state.source_operations.invalidate();
+                    state.source_picker_serial = state.source_operations.revision();
+                    dialog.set_busy(true);
+                }
+                Err(_) => dialog.set_result_state(2),
+            }
+        }
+    });
+    let state = Rc::downgrade(controller);
+    let weak = dialog.as_weak();
+    let main = window.as_weak();
+    dialog.on_reconnect_source(move |index| {
+        if let (Some(state), Some(dialog)) = (state.upgrade(), weak.upgrade()) {
+            let request = {
+                let state = state.borrow();
+                if state.source_operations.busy() {
+                    return;
+                }
+                usize::try_from(index)
+                    .ok()
+                    .and_then(|i| state.registry.disconnected_sources().get(i).cloned())
+                    .zip(state.source_reconnect.clone())
+            };
+            if let Some((source, reconnect)) = request {
+                dialog.set_result_state(0);
+                dialog.set_reconnect_status("".into());
+                reconnect(source);
+                if !state.borrow().source_operations.busy()
+                    && let Some(main) = main.upgrade()
+                {
+                    dialog.set_reconnect_status(main.get_errors());
+                }
+            }
+        }
+    });
+    let state = Rc::downgrade(controller);
+    dialog.window().on_close_requested(move || {
+        if let Some(state) = state.upgrade() {
+            state.borrow_mut().source_operations.invalidate();
+        }
+        slint::CloseRequestResponse::HideWindow
+    });
+    let _ = dialog.show();
+    controller.borrow_mut().source_dialog = Some(dialog);
+    controller.borrow().show_disconnected_sources();
+}
+
 fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
     let controller = Rc::new(RefCell::new(Controller {
         presentation: presentation::Context::current(),
@@ -702,6 +1435,69 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
         ..Controller::default()
     }));
     analysis_controller::connect(window, &controller);
+    let state = controller.clone();
+    let weak = window.as_weak();
+    window.on_set_theme(move |theme| {
+        if let Some(window) = weak.upgrade() {
+            let mut s = state.borrow_mut();
+            s.preferences.theme = theme.clamp(0, 2) as u8;
+            let units = s.preferences.units;
+            s.display_changed(&window, units);
+        }
+    });
+    let state = controller.clone();
+    let weak = window.as_weak();
+    window.on_set_density(move |dense| {
+        if let Some(window) = weak.upgrade() {
+            let mut s = state.borrow_mut();
+            s.preferences.dense = dense;
+            let units = s.preferences.units;
+            s.display_changed(&window, units);
+        }
+    });
+    let state = controller.clone();
+    let weak = window.as_weak();
+    window.on_set_sidebar_width(move |width| {
+        if let Some(w) = weak.upgrade() {
+            let mut s = state.borrow_mut();
+            s.preferences.sidebar_width = width.clamp(220., 600.) as u16;
+            let units = s.preferences.units;
+            s.display_changed(&w, units);
+        }
+    });
+    let state = controller.clone();
+    let weak = window.as_weak();
+    window.on_set_sidebar_collapsed(move |collapsed| {
+        if let Some(w) = weak.upgrade() {
+            let mut s = state.borrow_mut();
+            s.preferences.sidebar_collapsed = collapsed;
+            let units = s.preferences.units;
+            s.display_changed(&w, units);
+        }
+    });
+    let state = controller.clone();
+    let weak = window.as_weak();
+    window.on_set_treemap_mode(move |mode| {
+        if let Some(w) = weak.upgrade() {
+            let mut s = state.borrow_mut();
+            s.preferences.treemap_mode = u8::from(mode == 1);
+            let units = s.preferences.units;
+            s.display_changed(&w, units);
+        }
+    });
+    window.on_open_project(|| {
+        #[cfg(target_os = "linux")]
+        let _ = std::process::Command::new("xdg-open")
+            .arg("https://github.com/tazmen3/Bunny-and-Size-OSS")
+            .spawn();
+        #[cfg(windows)]
+        let _ = std::process::Command::new("rundll32.exe")
+            .args([
+                "url.dll,FileProtocolHandler",
+                "https://github.com/tazmen3/Bunny-and-Size-OSS",
+            ])
+            .spawn();
+    });
     controller.borrow().show_preferences(window);
     controller.borrow().show_language(window);
     language_controller::register(window, &controller);
@@ -723,22 +1519,42 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
         if let Some(window) = weak.upgrade() {
             let mut state = state.borrow_mut();
             let previous = state.preferences.units;
-            state.preferences.units = if decimal {
-                units::Units::Decimal
-            } else {
-                units::Units::Binary
-            };
+            state.preferences.units = previous.with_decimal(decimal);
             state.display_changed(&window, previous);
         }
     });
     let state = controller.clone();
     let weak = window.as_weak();
+    window.on_set_size_unit(move |choice| {
+        if let Some(window) = weak.upgrade()
+            && let Ok(choice @ 0..=4) = u8::try_from(choice)
+        {
+            let mut state = state.borrow_mut();
+            let previous = state.preferences.units;
+            state.preferences.units = previous.with_size_unit(choice);
+            state.display_changed(&window, previous);
+        }
+    });
+    let state = controller.clone();
+    let weak = window.as_weak();
+    window.on_duplicate_profile_changed({
+        let state = state.clone();
+        let weak = weak.clone();
+        move |index| {
+            if let Some(window) = weak.upgrade() {
+                state.borrow_mut().change_duplicate_profile(&window, index);
+            }
+        }
+    });
     window.on_reset_display(move || {
         if let Some(window) = weak.upgrade() {
             let mut state = state.borrow_mut();
             let previous = state.preferences.units;
             state.preferences = display_preferences::Preferences {
                 language: state.preferences.language,
+                duplicate_profile: state.preferences.duplicate_profile,
+                #[cfg(any(target_os = "linux", windows))]
+                duplicate_resources: state.preferences.duplicate_resources.clone(),
                 ..Default::default()
             };
             state.display_changed(&window, previous);
@@ -772,6 +1588,13 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
     #[cfg(any(target_os = "linux", windows))]
     {
         window.set_storage_enabled(true);
+        let weak = window.as_weak();
+        let state = Rc::downgrade(&controller);
+        window.on_show_add_source(move || {
+            if let (Some(window), Some(state)) = (weak.upgrade(), state.upgrade()) {
+                show_add_source(&window, &state);
+            }
+        });
         let weak = window.as_weak();
         let state = controller.clone();
         window.on_refresh_volumes(move |remote| {
@@ -813,10 +1636,17 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
     window.on_path_edited(move || {
         let mut state = state.borrow_mut();
         state.path_input.edited();
+        #[cfg(any(target_os = "linux", windows))]
+        {
+            state.restored_selection = None;
+            state.pending_auto = None;
+        }
         if let Some(window) = weak.upgrade() {
             window.set_selected_volume(-1);
         }
-        if let Some(window) = weak.upgrade() {
+        if let Some(window) = weak.upgrade()
+            && !window.get_local_owner_resolution()
+        {
             window.set_resolve_owner(false);
             state.resolution_changed(&window);
         }
@@ -955,9 +1785,52 @@ fn connect(window: &SortSizeWindow) -> Rc<RefCell<Controller>> {
     });
     let weak = window.as_weak();
     let state = controller.clone();
+    window.on_set_treemap_height({
+        let state = state.clone();
+        let weak = weak.clone();
+        move |height| {
+            if let Some(window) = weak.upgrade() {
+                let height = if height == 0 {
+                    0
+                } else {
+                    height.clamp(80, i32::from(u16::MAX)) as u16
+                };
+                {
+                    let mut state = state.borrow_mut();
+                    if state.preferences.treemap_height == height {
+                        return;
+                    }
+                    state.preferences.treemap_height = height;
+                    state.save_preferences(&window);
+                }
+                window.set_treemap_height_choice(i32::from(height));
+            }
+        }
+    });
     window.on_resize_treemap(move |_, _| {
         if let Some(window) = weak.upgrade() {
             state.borrow().show_treemap(&window);
+        }
+    });
+    let weak = window.as_weak();
+    window.on_map_hover(move |x, y, inside| {
+        if let Some(window) = weak.upgrade() {
+            let index = inside
+                .then(|| {
+                    hover::hit_test(
+                        &window.get_tiles(),
+                        (window.get_map_width(), window.get_map_height()),
+                        (x, y),
+                        window.get_treemap_mode() == 1,
+                    )
+                })
+                .flatten()
+                .map_or(-1, |index| index as i32);
+            // Pointer motion reads the existing geometry only. It never changes
+            // the keyboard cursor, inspected entry or inventory presentation.
+            if window.get_map_hover_index() != index {
+                window.set_map_hover_index(index);
+            }
         }
     });
     let weak = window.as_weak();
@@ -1012,6 +1885,7 @@ fn new_session(
     system_locale: Option<String>,
 ) -> Result<(SortSizeWindow, Rc<RefCell<Controller>>), slint::PlatformError> {
     let window = SortSizeWindow::new()?;
+    window.set_accessibility_description_values(cfg!(target_os = "linux"));
     let activation =
         locale::activate_bundled(preferences.language.resolve(system_locale.as_deref())).map_err(
             |error| slint::PlatformError::Other(format!("Translation activation failed: {error}")),
@@ -1026,6 +1900,12 @@ fn new_session(
         let mut state = controller.borrow_mut();
         state.system_locale = system_locale;
         state.preferences = preferences;
+        // Restore presentation choices directly at the startup boundary. They
+        // must not depend on a language change to reach the first rendered frame.
+        // This only publishes settings; it never schedules a preference write.
+        state.show_preferences(&window);
+        #[cfg(any(target_os = "linux", windows))]
+        state.show_duplicate_resource_preferences(&window);
     }
     language_controller::publish_effective_language(activation);
     Ok((window, controller))
@@ -1044,6 +1924,9 @@ pub fn run() -> Result<(), slint::PlatformError> {
     #[cfg(not(any(target_os = "linux", windows)))]
     let preferences = display_preferences::Preferences::default();
     let (window, controller) = new_session(preferences, sys_locale::get_locale())?;
+    #[cfg(any(target_os = "linux", windows))]
+    let workshop = workshop::connect(&window, &controller)
+        .map_err(|e| slint::PlatformError::Other(e.to_string()))?;
     let _presentation = controller.borrow().presentation.enter();
     let legal = LegalWindow::new()?;
     window.set_product_version(env!("CARGO_PKG_VERSION").into());
@@ -1059,7 +1942,7 @@ pub fn run() -> Result<(), slint::PlatformError> {
         if let Some(legal) = weak_legal.upgrade()
             && let Err(error) = legal.show()
         {
-            eprintln!("Bunny and Size — Licences : {error}");
+            eprintln!("Bunny and Size: Licences : {error}");
         }
     });
     let weak_legal = legal.as_weak();
@@ -1067,6 +1950,10 @@ pub fn run() -> Result<(), slint::PlatformError> {
     window.window().on_close_requested(move || {
         if let Some(controller) = weak_controller.upgrade() {
             controller.borrow_mut().analysis.invalidate();
+            #[cfg(any(target_os = "linux", windows))]
+            if let Some(dialog) = &controller.borrow().source_dialog {
+                let _ = dialog.hide();
+            }
         }
         if let Some(legal) = weak_legal.upgrade() {
             let _ = legal.hide();
@@ -1094,9 +1981,24 @@ pub fn run() -> Result<(), slint::PlatformError> {
             }
         }
     }
-    #[cfg(not(target_os = "android"))]
-    if let Ok(path) = std::env::current_dir() {
-        window.set_scan_path(controller.borrow_mut().path_input.select(path).into());
+    #[cfg(any(target_os = "linux", windows))]
+    if let Some(path) = auto_analysis::config_path() {
+        let selection = auto_analysis::load(&path);
+        let mut state = controller.borrow_mut();
+        if let Some(selection) = selection {
+            window.set_scan_path(state.path_input.select(selection.root.clone()).into());
+            state.restored_selection = Some(selection);
+        }
+        state.selection_store = auto_analysis::SelectionStore::start(path).ok();
+    }
+    #[cfg(any(target_os = "linux", windows))]
+    if let Some(path) = source_registry::config_path() {
+        let mut state = controller.borrow_mut();
+        state.registry = source_registry::Registry::open(path);
+        let entries = state.registry.entries.clone();
+        if !entries.is_empty() {
+            state.sources.set_registered(&entries);
+        }
     }
     #[cfg(any(target_os = "linux", windows))]
     controller.borrow_mut().refresh_sources(&window, false);
@@ -1105,7 +2007,7 @@ pub fn run() -> Result<(), slint::PlatformError> {
     let timer = Timer::default();
     #[cfg(windows)]
     let mut placement_attempts = 0;
-    timer.start(TimerMode::Repeated, Duration::from_millis(150), move || {
+    timer.start(TimerMode::Repeated, Duration::from_millis(50), move || {
         if let Some(window) = weak.upgrade() {
             // Native handles can arrive after the first event-loop iteration.
             // Reuse the existing poll and stop after success or ten attempts.
@@ -1117,10 +2019,24 @@ pub fn run() -> Result<(), slint::PlatformError> {
                 }
             }
             state.borrow_mut().poll(&window);
+            #[cfg(any(target_os = "linux", windows))]
+            state.borrow_mut().poll_duplicate_temporary_picker(&window);
+            #[cfg(any(target_os = "linux", windows))]
+            {
+                let mut controller = state.borrow_mut();
+                let mut host = workshop.borrow_mut();
+                host.poll_disconnect(&window, &mut controller);
+                host.poll_selection(&window, &mut controller);
+                host.poll(&window, &controller);
+            }
         }
     });
     let result = window.run();
     timer.stop();
+    #[cfg(any(target_os = "linux", windows))]
+    if let Some(dialog) = &controller.borrow().source_dialog {
+        let _ = dialog.hide();
+    }
     controller.borrow_mut().analysis.invalidate();
     controller.borrow_mut().task = None;
     controller.borrow_mut().scan_worker = None;
@@ -1148,17 +2064,45 @@ pub fn android_main(app: slint::android::AndroidApp) {
     }
 }
 
+#[cfg(all(feature = "benchmarks", any(target_os = "linux", windows)))]
+pub use workshop::qualify_finish;
+#[cfg(all(feature = "benchmarks", any(target_os = "linux", windows)))]
+pub use workshop::{qualify as qualify_workshop, qualify_cache, qualify_search};
+
+#[cfg(all(
+    feature = "benchmarks",
+    feature = "experimental-preview",
+    any(target_os = "linux", target_os = "windows")
+))]
+pub use workshop::qualify_preview;
+
+#[cfg(all(feature = "benchmarks", any(target_os = "linux", windows)))]
+pub use workshop::{prepare_cached_a_smoke, qualify_cached_a};
+
 #[cfg(test)]
 mod tests {
     mod analysis_gui_tests;
     mod branding_gui_tests;
     mod display_gui_tests;
+    mod gauge_gui_tests;
+    mod hover_callback_tests;
+    mod hover_gui_tests;
     mod i18n_gui_tests;
     mod language_gui_tests;
     mod ondemand_gui_tests;
     mod owner_gui_tests;
     mod progressive_gui_tests;
+    #[cfg(any(target_os = "linux", windows))]
+    mod size_units_gui_tests;
+    #[cfg(windows)]
+    mod smb_server_gui_tests;
+    #[cfg(any(target_os = "linux", windows))]
+    mod source_gui_tests;
     mod temporal_gui_tests;
+    mod toolbar_gui_tests;
+    mod ux_final_gui_tests;
+    #[cfg(any(target_os = "linux", windows))]
+    mod view_preferences_gui_tests;
     #[cfg(windows)]
     mod windows_redraw_product;
     use super::*;
@@ -1178,6 +2122,42 @@ mod tests {
         fn create_window_adapter(&self) -> Result<Rc<dyn WindowAdapter>, slint::PlatformError> {
             Ok(self.0.clone())
         }
+    }
+
+    #[cfg(target_os = "linux")]
+    #[test]
+    fn linux_smb_dialog_registers_logical_targets_without_acquisition_or_mount() {
+        let adapter = MinimalSoftwareWindow::new(RepaintBufferType::NewBuffer);
+        slint::platform::set_platform(Box::new(TestPlatform(adapter))).unwrap();
+        let window = new_window().unwrap();
+        let controller = connect(&window);
+        let dialog = AddSourceWindow::new().unwrap();
+        dialog.set_linux_platform(true);
+        dialog.set_display_name("Offline NAS".into());
+        dialog.set_source_kind(3);
+        for input in ["192.0.2.204", "smb://192.0.2.204/", r"\\192.0.2.204\"] {
+            dialog.set_source_path(input.into());
+            let source = controller.borrow().source_from_dialog(&dialog).unwrap();
+            assert!(source.is_server());
+            assert_eq!(source.path, std::path::PathBuf::from("smb://192.0.2.204/"));
+        }
+        dialog.set_source_kind(0);
+        for input in ["smb://192.0.2.204/Photos", r"\\192.0.2.204\Photos"] {
+            dialog.set_source_path(input.into());
+            controller.borrow_mut().add_source(&window, &dialog);
+        }
+        assert_eq!(controller.borrow().registry.entries.len(), 1);
+        assert_eq!(
+            controller.borrow().registry.entries[0].path,
+            std::path::PathBuf::from("smb://192.0.2.204/Photos")
+        );
+        assert!(!window.get_busy());
+        assert!(controller.borrow().task.is_none());
+        assert!(controller.borrow().pending_auto.is_none());
+        assert!(!controller.borrow().source_operations.busy());
+        assert!(window.get_scan_path().is_empty());
+        dialog.set_source_path("smb://user:secret@192.0.2.204/Photos".into());
+        assert!(controller.borrow().source_from_dialog(&dialog).is_err());
     }
 
     #[test]

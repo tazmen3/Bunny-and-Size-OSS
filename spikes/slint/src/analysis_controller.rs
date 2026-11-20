@@ -69,7 +69,15 @@ fn read_error(kind: std::io::ErrorKind) -> &'static str {
 struct Outcome {
     search: SearchResult,
     duplicates: Option<DuplicateReport>,
+    profile: Option<ProfileCoverage>,
 }
+struct ProfileCoverage {
+    profile: sortsize_store::inventory::queries::duplicates::DuplicateFileProfile,
+    examined: u128,
+    below: u128,
+    zero: u128,
+}
+
 #[derive(Default)]
 pub(crate) struct Panel {
     window: Option<AnalysisWindow>,
@@ -190,6 +198,10 @@ impl Panel {
         self.files_hashed.store(0, Ordering::Relaxed);
         let files_hashed = self.files_hashed.clone();
         let progress = self.progress.clone();
+        let profile = crate::display_preferences::effective_profile(
+            w.get_duplicate_profile_choice(),
+            w.get_duplicate_exhaustive(),
+        );
         self.reading = read;
         self.notice = Some(if read {
             Notice::Reading
@@ -202,23 +214,59 @@ impl Panel {
         w.set_status(self.notice.unwrap().label().into());
         std::thread::spawn(move || {
             let result = (|| {
-                let search =
+                let mut search =
                     analysis::search(&snapshot, &query, analysis::MAX_ANALYSIS_ENTRIES, &cancel)?;
+                let mut coverage = None;
                 let duplicates = if read {
-                    Some(duplicates::find(
-                        &snapshot,
-                        &search,
-                        Default::default(),
-                        &cancel,
-                        |p| {
-                            progress.store(p.bytes_read, Ordering::Relaxed);
+                    let mut counts = ProfileCoverage {
+                        profile,
+                        examined: 0,
+                        below: 0,
+                        zero: 0,
+                    };
+                    search.indices.retain(|&i| {
+                        let entry = &snapshot.entries[i];
+                        if entry.kind != sortsize_core::InventoryKind::File {
+                            return false;
+                        }
+                        counts.examined += 1;
+                        match entry.logical_bytes {
+                            Some(0) => {
+                                counts.zero += 1;
+                                false
+                            }
+                            Some(bytes) if bytes < profile.minimum_bytes() => {
+                                counts.below += 1;
+                                false
+                            }
+                            _ => true,
+                        }
+                    });
+                    coverage = Some(counts);
+                    let mut report =
+                        duplicates::find(&snapshot, &search, Default::default(), &cancel, |p| {
+                            // The legacy action retains its u64 content read budget.
+                            progress.store(
+                                u64::try_from(p.bytes_read).unwrap_or(u64::MAX),
+                                Ordering::Relaxed,
+                            );
                             files_hashed.store(p.files_hashed, Ordering::Relaxed);
-                        },
-                    )?)
+                        })?;
+                    report.groups.sort_by_key(|group| {
+                        std::cmp::Reverse(
+                            u128::from(group.logical_bytes_per_file)
+                                * (group.members.len().saturating_sub(1) as u128),
+                        )
+                    });
+                    Some(report)
                 } else {
                     None
                 };
-                Ok(Outcome { search, duplicates })
+                Ok(Outcome {
+                    search,
+                    duplicates,
+                    profile: coverage,
+                })
             })();
             let _ = tx.send(result);
         });
@@ -434,7 +482,7 @@ impl Panel {
                 tr_format!(
                     "Exact groups: {} · bytes read: {} · hardlink aliases: {} · errors: {}.",
                     integer(d.groups.len()),
-                    crate::number_format::integer(d.bytes_read as u128),
+                    crate::number_format::integer(d.bytes_read),
                     crate::number_format::integer(d.hardlink_aliases as u128),
                     crate::number_format::integer(d.errors_count as u128)
                 )
@@ -442,6 +490,15 @@ impl Panel {
             );
             if !d.complete {
                 w.set_status(format!("{} {}", tr!("Incomplete coverage"), w.get_status()).into());
+            }
+            if let Some(coverage) = &outcome.profile {
+                let counts = crate::display_preferences::profile_counts(
+                    coverage.profile,
+                    coverage.examined,
+                    coverage.below,
+                    coverage.zero,
+                );
+                w.set_status(format!("{} · {counts}", w.get_status()).into());
             }
         } else if !result.scope.exhaustive || result.cancelled {
             w.set_status(format!("{} {}", tr!("Incomplete coverage"), w.get_status()).into());
@@ -706,6 +763,19 @@ pub(crate) fn connect(window: &SortSizeWindow, state: &Rc<RefCell<Controller>>) 
                 return;
             };
             let weak_owner = Rc::downgrade(&owner);
+            let main = window.as_weak();
+            panel.on_duplicate_profile_changed(move |index| {
+                if let (Some(owner), Some(main)) = (weak_owner.upgrade(), main.upgrade()) {
+                    owner.borrow_mut().change_duplicate_profile(&main, index);
+                }
+            });
+            let main = window.as_weak();
+            panel.on_duplicate_exhaustive_changed(move |exhaustive| {
+                if let Some(main) = main.upgrade() {
+                    main.set_duplicate_exhaustive(exhaustive);
+                }
+            });
+            let weak_owner = Rc::downgrade(&owner);
             panel.on_search(move || {
                 if let Some(owner) = weak_owner.upgrade() {
                     let mut s = owner.borrow_mut();
@@ -821,6 +891,8 @@ pub(crate) fn connect(window: &SortSizeWindow, state: &Rc<RefCell<Controller>>) 
             let _ = crate::locale::activate_bundled(state.presentation.language);
         }
         if let Some(panel) = &state.analysis.window {
+            panel.set_duplicate_profile_choice(window.get_duplicate_profile_choice());
+            panel.set_duplicate_exhaustive(window.get_duplicate_exhaustive());
             panel.set_source_path(
                 snapshot
                     .entries
@@ -891,6 +963,7 @@ mod tests {
             result: Some(Outcome {
                 search,
                 duplicates: None,
+                profile: None,
             }),
             units: crate::units::Units::Decimal,
             ..Default::default()
@@ -975,6 +1048,7 @@ mod lifecycle_tests {
             .send(Ok(Outcome {
                 search,
                 duplicates: None,
+                profile: None,
             }))
             .unwrap();
         panel.poll(Default::default());

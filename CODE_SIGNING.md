@@ -1,10 +1,9 @@
-# Signature de code — v0.4.0-rc.1
+# Distribution Windows
 
-SignPath Foundation a refusé la candidature. La release Windows v0.4.0-rc.1 est publiée
-**sans signature Authenticode, éditeur non vérifié**, selon la décision propriétaire du 27 octobre 2026.
-Aucune approbation SignPath n’est revendiquée. SmartScreen peut avertir ou bloquer et les postes administrés peuvent refuser l’exécution.
-Les SHA-256 ne remplacent pas une signature. Les protections Windows doivent rester actives.
-Le parcours physique Mark of the Web / SmartScreen reste **NOT_RUN** ; #89 demeure ouverte.
+Le paquet Windows de Bunny and Size 0.5.0-rc.2 utilise des exécutables
+sans signature Authenticode. SmartScreen peut avertir ou bloquer le lancement.
+Les politiques des postes administrés peuvent aussi empêcher l’exécution.
+Conservez les protections Windows actives.
 
-Voir [SECURITY.md](SECURITY.md), [les notes](docs/releases/v0.4.0-rc.1/RELEASE_NOTES.md)
-et [le contrat technique](docs/release/v0.4/DISTRIBUTION_GATE.md).
+Les empreintes SHA-256 permettent de vérifier l’intégrité du téléchargement.
+[Notes de version](docs/releases/v0.5.0-rc.2/RELEASE_NOTES.md)

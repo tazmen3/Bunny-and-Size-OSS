@@ -1,6 +1,6 @@
 //! Directory-level parallel acquisition. Only the calling thread aggregates.
 //! Never hold the scheduler lock during filesystem calls or user callbacks.
-use crate::local::{CollectFields, LocalSource, Observation, PendingDirectory, open_directory};
+use crate::local::{CollectFields, LocalSource, Observation, PendingDirectory};
 use crate::{CancellationToken, ScanFailure, ScanIssue, ScanOptions, TraversalStats};
 use std::collections::VecDeque;
 use std::path::{Path, PathBuf};
@@ -139,7 +139,7 @@ impl Shared {
     }
     fn run(&self) {
         while let Some(directory) = self.job() {
-            match open_directory(&directory.path) {
+            match self.source.open_directory(&directory.path) {
                 Ok(listing) => {
                     {
                         let mut state = self.lock();
@@ -175,10 +175,9 @@ impl Shared {
             let (path, observation) = match entry {
                 Ok(entry) => {
                     let path = entry.path();
-                    let observation = match entry.file_type() {
-                        Ok(kind) => self.source.observe(&path, directory.depth + 1, kind),
-                        Err(error) => Observation::Error(ScanIssue::io(&path, "metadata", &error)),
-                    };
+                    let observation = self
+                        .source
+                        .observe_entry(&path, directory.depth + 1, &entry);
                     (path, observation)
                 }
                 Err(error) => (

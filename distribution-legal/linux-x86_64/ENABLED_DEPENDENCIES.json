@@ -1,0 +1,2895 @@
+{
+  "scope": "Cargo production and build feature graphs",
+  "packages": {
+    "sortsize-cli-0.5.0-rc.2": {
+      "declared": "Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "Apache-2.0",
+      "notices": "LICENSE and NOTICE"
+    },
+    "clap-4.6.7": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "clap_builder-4.6.7": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "anstream-1.0.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "anstyle-1.0.14": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "anstyle-parse-1.0.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "utf8parse-0.2.2": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "anstyle-query-1.1.5": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "colorchoice-1.0.5": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "is_terminal_polyfill-1.70.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "clap_lex-1.1.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "strsim-0.11.1": {
+      "declared": "MIT",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "clap_derive-4.6.7": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "heck-0.5.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "proc-macro2-1.0.107": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "unicode-ident-1.0.27": {
+      "declared": "(MIT OR Apache-2.0) AND Unicode-3.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT AND Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "quote-1.0.47": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "syn-3.0.9": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "ctrlc-3.5.2": {
+      "declared": "MIT/Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "nix-0.31.3": {
+      "declared": "MIT",
+      "targets": [
+        "cli-default",
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "bitflags-2.13.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "cfg-if-1.0.5": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "libc-0.2.190": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "cfg_aliases-0.2.2": {
+      "declared": "MIT",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "serde_json-1.0.154": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "itoa-1.0.18": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "memchr-2.8.3": {
+      "declared": "Unlicense OR MIT",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "serde_core-1.0.229": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zmij-1.0.23": {
+      "declared": "MIT",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "sortsize-core-0.5.0-rc.2": {
+      "declared": "Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "Apache-2.0",
+      "notices": "LICENSE and NOTICE"
+    },
+    "globset-0.4.20": {
+      "declared": "Unlicense OR MIT",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "aho-corasick-1.1.5": {
+      "declared": "Unlicense OR MIT",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "bstr-1.13.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "log-0.4.34": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "regex-automata-0.4.18": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "regex-syntax-0.8.11": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "serde-1.0.229": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "serde_derive-1.0.229": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "sha2-0.10.9": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/linux-x86_64/additional-notices/sha2-0.10.9/"
+    },
+    "cpufeatures-0.2.17": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/linux-x86_64/additional-notices/cpufeatures-0.2.17/"
+    },
+    "digest-0.10.7": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/linux-x86_64/additional-notices/digest-0.10.7/"
+    },
+    "block-buffer-0.10.4": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/linux-x86_64/additional-notices/block-buffer-0.10.4/"
+    },
+    "generic-array-0.14.7": {
+      "declared": "MIT",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/linux-x86_64/additional-notices/generic-array-0.14.7/"
+    },
+    "typenum-1.20.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/linux-x86_64/additional-notices/typenum-1.20.1/"
+    },
+    "version_check-0.9.5": {
+      "declared": "MIT/Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "crypto-common-0.1.7": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/linux-x86_64/additional-notices/crypto-common-0.1.7/"
+    },
+    "tempfile-3.27.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "fastrand-2.5.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "getrandom-0.4.3": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "once_cell-1.21.4": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "rustix-1.1.5": {
+      "declared": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "linux-raw-sys-0.12.1": {
+      "declared": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "targets": [
+        "cli-default",
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "sortsize-store-0.5.0-rc.2": {
+      "declared": "Apache-2.0",
+      "targets": [
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "Apache-2.0",
+      "notices": "LICENSE and NOTICE"
+    },
+    "libsqlite3-sys-0.39.1": {
+      "declared": "MIT",
+      "targets": [
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/v05-extra/libsqlite3-sys-0.39.1/"
+    },
+    "cc-1.10.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/v05-extra/cc-1.10.0/"
+    },
+    "find-msvc-tools-0.1.15": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/v05-extra/find-msvc-tools-0.1.15/"
+    },
+    "shlex-2.0.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/linux-x86_64/additional-notices/shlex-2.0.1/"
+    },
+    "pkg-config-0.3.34": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "vcpkg-0.2.15": {
+      "declared": "MIT/Apache-2.0",
+      "targets": [
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/v05-extra/vcpkg-0.2.15/"
+    },
+    "rusqlite-0.41.0": {
+      "declared": "MIT",
+      "targets": [
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/v05-extra/rusqlite-0.41.0/"
+    },
+    "fallible-iterator-0.3.0": {
+      "declared": "MIT/Apache-2.0",
+      "targets": [
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/v05-extra/fallible-iterator-0.3.0/"
+    },
+    "fallible-streaming-iterator-0.1.9": {
+      "declared": "MIT/Apache-2.0",
+      "targets": [
+        "cli-inventory",
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/v05-extra/fallible-streaming-iterator-0.1.9/"
+    },
+    "smallvec-1.16.4": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "cli-inventory"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/v05-extra/smallvec-1.16.4/"
+    },
+    "sortsize-slint-spike-0.5.0-rc.2": {
+      "declared": "Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Apache-2.0",
+      "notices": "LICENSE and NOTICE"
+    },
+    "rfd-0.17.2": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "percent-encoding-2.3.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "pollster-0.4.0": {
+      "declared": "Apache-2.0/MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "raw-window-handle-0.6.2": {
+      "declared": "MIT OR Apache-2.0 OR Zlib",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "slint-1.18.1": {
+      "declared": "GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "LicenseRef-Slint-Royalty-free-2.0",
+      "notices": "distribution-legal/slint/ and inherited third-party notices"
+    },
+    "const-field-offset-0.2.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "const-field-offset-macro-0.2.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "field-offset-0.3.6": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "memoffset-0.9.1": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "autocfg-1.5.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "rustc_version-0.4.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "semver-1.0.28": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "i-slint-backend-selector-1.18.1": {
+      "declared": "GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "LicenseRef-Slint-Royalty-free-2.0",
+      "notices": "distribution-legal/slint/ and inherited third-party notices"
+    },
+    "i-slint-backend-winit-1.18.1": {
+      "declared": "GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "LicenseRef-Slint-Royalty-free-2.0",
+      "notices": "distribution-legal/slint/ and inherited third-party notices"
+    },
+    "accesskit-0.24.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "uuid-1.28.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "accesskit_winit-0.33.2": {
+      "declared": "Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Apache-2.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "accesskit_unix-0.22.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "accesskit_atspi_common-0.19.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "accesskit_consumer-0.38.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "hashbrown-0.16.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "allocator-api2-0.2.21": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "equivalent-1.0.2": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "foldhash-0.2.0": {
+      "declared": "Zlib",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Zlib",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "atspi-common-0.13.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "enumflags2-0.7.12": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "enumflags2_derive-0.7.12": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "syn-2.0.119": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "static_assertions-1.1.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zbus-5.19.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "async-broadcast-0.7.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "event-listener-5.4.2": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "parking-2.2.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "pin-project-lite-0.2.17": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "event-listener-strategy-0.5.4": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "futures-core-0.3.34": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "async-executor-1.14.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "async-task-4.7.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "concurrent-queue-2.5.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "crossbeam-utils-0.8.23": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "futures-lite-2.6.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "futures-io-0.3.34": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "slab-0.4.12": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "async-io-2.6.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "polling-3.11.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "async-lock-3.4.2": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "async-process-2.5.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "async-channel-2.5.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "async-signal-0.2.14": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "signal-hook-registry-1.4.8": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "errno-0.3.14": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "async-recursion-1.2.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "async-trait-0.1.92": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "blocking-1.7.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "piper-0.2.5": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "atomic-waker-1.1.2": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "hex-0.4.3": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "ordered-stream-0.2.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "serde_repr-0.1.21": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "tracing-0.1.44": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "tracing-attributes-0.1.31": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "tracing-core-0.1.36": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "critical-section-1.2.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "portable-atomic-1.15.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "winnow-1.0.4": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zbus_macros-5.19.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "proc-macro-crate-3.5.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "toml_edit-0.25.17+spec-1.1.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "indexmap-2.14.2": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "hashbrown-0.17.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "toml_datetime-1.1.2+spec-1.1.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "toml_parser-1.1.5+spec-1.1.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "toml_writer-1.1.3+spec-1.1.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zbus_names-4.3.4": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zvariant-5.15.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "endi-1.1.1": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zcheapstr-1.1.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zvariant_derive-5.15.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zvariant_utils-4.2.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zbus-lockstep-0.5.2": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zbus_xml-5.2.1": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zbus-lockstep-macros-0.5.2": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "phf-0.13.1": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "phf_macros-0.13.1": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "phf_generator-0.13.1": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "phf_shared-0.13.1": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "siphasher-1.0.4": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "atspi-0.29.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "atspi-proxies-0.13.0": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "futures-util-0.3.34": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "futures-channel-0.3.34": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "futures-sink-0.3.34": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "futures-macro-0.3.34": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "futures-task-0.3.34": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "winit-0.30.13": {
+      "declared": "Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Apache-2.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "bytemuck-1.25.2": {
+      "declared": "Zlib OR Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "bytemuck_derive-1.12.1": {
+      "declared": "Zlib OR Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "calloop-0.13.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "rustix-0.38.44": {
+      "declared": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "linux-raw-sys-0.4.15": {
+      "declared": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "thiserror-1.0.69": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "thiserror-impl-1.0.69": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "cursor-icon-1.2.0": {
+      "declared": "MIT OR Apache-2.0 OR Zlib",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "dpi-0.1.2": {
+      "declared": "Apache-2.0 AND MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Apache-2.0 AND MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "smol_str-0.2.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "x11-dl-2.21.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "x11rb-0.13.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "as-raw-xcb-connection-1.0.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "gethostname-1.1.0": {
+      "declared": "Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Apache-2.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "libloading-0.8.9": {
+      "declared": "ISC",
+      "targets": [
+        "gui"
+      ],
+      "selected": "ISC",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "x11rb-protocol-0.13.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "xkbcommon-dl-0.4.2": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "dlib-0.5.3": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "xkeysym-0.2.1": {
+      "declared": "MIT OR Apache-2.0 OR Zlib",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "arboard-3.6.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "parking_lot-0.12.5": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "lock_api-0.4.14": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "scopeguard-1.2.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "parking_lot_core-0.9.12": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "smallvec-1.16.3": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "futures-0.3.34": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "futures-executor-0.3.34": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "i-slint-common-1.18.1": {
+      "declared": "GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "LicenseRef-Slint-Royalty-free-2.0",
+      "notices": "distribution-legal/slint/ and inherited third-party notices"
+    },
+    "derive_more-2.1.1": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "derive_more-impl-2.1.1": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "convert_case-0.10.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "unicode-segmentation-1.13.3": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "unicode-xid-0.2.6": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "fontique-0.11.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "linebender_resource_handle-0.1.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "memmap2-0.9.11": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "parlance-0.1.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "read-fonts-0.41.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "font-types-0.12.6": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "yeslogic-fontconfig-sys-6.0.1": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "htmlparser-0.2.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "icu_decimal-2.3.0": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "displaydoc-0.2.7": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "fixed_decimal-0.7.2": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "writeable-0.6.4": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "icu_decimal_data-2.3.0": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "icu_locale_core-2.3.0": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "litemap-0.8.3": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "tinystr-0.8.4": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zerovec-0.11.8": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "yoke-0.8.3": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "stable_deref_trait-1.2.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "yoke-derive-0.8.4": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "synstructure-0.14.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zerofrom-0.1.8": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zerofrom-derive-0.1.8": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zerovec-derive-0.11.6": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "icu_locale_fallback-2.3.0": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "icu_locale_fallback_data-2.3.0": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "icu_provider-2.3.1": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zerotrie-0.2.5": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "potential_utf-0.1.6": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "pulldown-cmark-0.13.4": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "unicase-2.10.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "resvg-0.48.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "gif-0.14.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "color_quant-1.1.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "weezl-0.1.12": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "image-webp-0.2.4": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "byteorder-lite-0.1.0": {
+      "declared": "Unlicense OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "quick-error-2.0.1": {
+      "declared": "MIT/Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "pico-args-0.5.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "rgb-0.8.53": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "svgtypes-0.16.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "kurbo-0.13.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "arrayvec-0.7.8": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "polycool-0.4.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "tiny-skia-0.12.0": {
+      "declared": "BSD-3-Clause",
+      "targets": [
+        "gui"
+      ],
+      "selected": "BSD-3-Clause",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "arrayref-0.3.9": {
+      "declared": "BSD-2-Clause",
+      "targets": [
+        "gui"
+      ],
+      "selected": "BSD-2-Clause",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "png-0.18.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "crc32fast-1.5.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "fdeflate-0.3.7": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "simd-adler32-0.3.10": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "flate2-1.1.10": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "miniz_oxide-0.9.1": {
+      "declared": "MIT OR Zlib OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "adler2-2.0.1": {
+      "declared": "0BSD OR MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "miniz_oxide-0.8.9": {
+      "declared": "MIT OR Zlib OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "tiny-skia-path-0.12.0": {
+      "declared": "BSD-3-Clause",
+      "targets": [
+        "gui"
+      ],
+      "selected": "BSD-3-Clause",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "strict-num-0.1.1": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "float-cmp-0.9.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "usvg-0.48.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "base64-0.23.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "data-url-0.3.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "fontdb-0.24.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "slotmap-1.1.1": {
+      "declared": "Zlib",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Zlib",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "tinyvec-1.13.3": {
+      "declared": "Zlib OR Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "harfrust-0.12.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "imagesize-0.15.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "roxmltree-0.21.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "simplecss-0.2.2": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "skrifa-0.44.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "unicode-bidi-0.3.18": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "unicode-script-0.5.8": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "unicode-vo-0.1.0": {
+      "declared": "MIT/Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "xmlwriter-0.1.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zune-jpeg-0.5.15": {
+      "declared": "MIT OR Apache-2.0 OR Zlib",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zune-core-0.5.3": {
+      "declared": "MIT OR Apache-2.0 OR Zlib",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "i-slint-core-1.18.1": {
+      "declared": "GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "LicenseRef-Slint-Royalty-free-2.0",
+      "notices": "distribution-legal/slint/ and inherited third-party notices"
+    },
+    "chrono-0.4.45": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "iana-time-zone-0.1.65": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "num-traits-0.2.19": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "libm-0.2.16": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "clru-0.6.3": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "euclid-0.22.14": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "i-slint-core-macros-1.18.1": {
+      "declared": "GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "LicenseRef-Slint-Royalty-free-2.0",
+      "notices": "distribution-legal/slint/ and inherited third-party notices"
+    },
+    "icu_normalizer-2.3.0": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "icu_collections-2.3.0": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "utf8_iter-1.0.4": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "icu_normalizer_data-2.3.0": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "image-0.25.10": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "moxcms-0.8.1": {
+      "declared": "BSD-3-Clause OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "BSD-3-Clause",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "pxfm-0.1.30": {
+      "declared": "BSD-3-Clause OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "BSD-3-Clause",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "lyon_algorithms-1.0.21": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "lyon_path-1.0.19": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "lyon_geom-1.0.19": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "lyon_extra-1.1.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "thiserror-2.0.21": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "thiserror-impl-2.0.21": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "parley-0.11.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "icu_properties-2.3.0": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "icu_properties_data-2.3.0": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "icu_segmenter-2.3.0": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "icu_segmenter_data-2.3.0": {
+      "declared": "Unicode-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Unicode-3.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "parley_data-0.11.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "pin-project-1.1.13": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "pin-project-internal-1.1.13": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "pin-weak-1.1.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "strum-0.28.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "strum_macros-0.28.0": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "swash-0.2.10": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "yazi-0.2.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "zeno-0.3.3": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "sys-locale-0.3.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "taffy-0.10.1": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "unicode-linebreak-0.1.5": {
+      "declared": "Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Apache-2.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "vtable-0.5.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "vtable-macro-0.5.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "i-slint-renderer-software-1.18.1": {
+      "declared": "GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "LicenseRef-Slint-Royalty-free-2.0",
+      "notices": "distribution-legal/slint/ and inherited third-party notices"
+    },
+    "imgref-1.12.3": {
+      "declared": "CC0-1.0 OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Apache-2.0",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "scoped-tls-hkt-0.1.5": {
+      "declared": "MIT/Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "softbuffer-0.4.8": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "tiny-xlib-0.2.5": {
+      "declared": "MIT OR Apache-2.0 OR Zlib",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "ctor-0.10.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "webbrowser-1.2.4": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "url-2.5.8": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "form_urlencoded-1.2.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "idna-1.1.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "idna_adapter-1.2.2": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "slint-macros-1.18.1": {
+      "declared": "GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "LicenseRef-Slint-Royalty-free-2.0",
+      "notices": "distribution-legal/slint/ and inherited third-party notices"
+    },
+    "i-slint-compiler-1.18.1": {
+      "declared": "GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "LicenseRef-Slint-Royalty-free-2.0",
+      "notices": "distribution-legal/slint/ and inherited third-party notices"
+    },
+    "annotate-snippets-0.12.16": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "unicode-width-0.2.2": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "by_address-1.2.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "itertools-0.15.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "either-1.19.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "num_enum-0.7.6": {
+      "declared": "BSD-3-Clause OR MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "num_enum_derive-0.7.6": {
+      "declared": "BSD-3-Clause OR MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "rustversion-1.0.23": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "rayon-1.12.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "rayon-core-1.13.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "crossbeam-deque-0.8.8": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "crossbeam-epoch-0.9.21": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "rowan-0.17.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "countme-3.0.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "hashbrown-0.14.5": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "rustc-hash-1.1.0": {
+      "declared": "Apache-2.0/MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "text-size-1.1.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "rspolib-0.1.2": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "lazy_static-1.5.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "natord-1.0.9": {
+      "declared": "MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "snafu-0.8.9": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "snafu-derive-0.8.9": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "smol_str-0.3.6": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "typed-index-collections-3.5.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "spin_on-0.1.1": {
+      "declared": "Apache-2.0 OR MIT",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "pin-utils-0.1.1": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/inherited-v04/linux-x86_64/"
+    },
+    "sortsize-owner-resolution-0.5.0-rc.2": {
+      "declared": "Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "Apache-2.0",
+      "notices": "LICENSE and NOTICE"
+    },
+    "cc-1.8.0": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/linux-x86_64/additional-notices/cc-1.8.0/"
+    },
+    "find-msvc-tools-0.1.14": {
+      "declared": "MIT OR Apache-2.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "MIT",
+      "notices": "distribution-legal/linux-x86_64/additional-notices/find-msvc-tools-0.1.14/"
+    },
+    "slint-build-1.18.1": {
+      "declared": "GPL-3.0-only OR LicenseRef-Slint-Royalty-free-2.0 OR LicenseRef-Slint-Software-3.0",
+      "targets": [
+        "gui"
+      ],
+      "selected": "LicenseRef-Slint-Royalty-free-2.0",
+      "notices": "distribution-legal/slint/ and inherited third-party notices"
+    }
+  }
+}

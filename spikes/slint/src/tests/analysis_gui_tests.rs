@@ -136,7 +136,7 @@ fn native_v04_analysis_seven_languages() {
         if phase==0 {window.invoke_show_analysis();phase=1;return;}
         let panel=state.borrow().analysis.test_window().unwrap();
         if phase==1 {panel.set_extension_filter("txt".into());panel.invoke_search();phase=2;return;}
-        if phase==2 {assert_eq!(panel.get_results().row_count(),2);panel.invoke_duplicates();phase=3;return;}
+        if phase==2 {assert_eq!(panel.get_results().row_count(),2);panel.set_duplicate_exhaustive(true);panel.invoke_duplicates();phase=3;return;}
         if phase==3 {assert_eq!(panel.get_results().row_count(),2);assert!(panel.get_status().contains("Exact groups: 1"));phase=4;return;}
         if case==crate::locale::Language::ALL.len()*6 {fs::write(output.join("records.json"),format!("[{}]\n",records.join(",\n"))).unwrap();panel.hide().unwrap();window.hide().unwrap();slint::quit_event_loop().unwrap();return;}
         let language=crate::locale::Language::ALL[case/6];let(width,height)=if case%6<2{(1000,650)}else if case%6<4{(780,520)}else{(1600,950)};
@@ -234,6 +234,7 @@ fn analysis_duplicate_pages_explain_copies_aliases_and_final_verification() {
     let panel = controller.borrow().analysis.test_window().unwrap();
     poll_analysis(&window, &controller);
     panel.set_extension_filter("txt".into());
+    panel.set_duplicate_exhaustive(true);
     panel.invoke_duplicates();
     poll_analysis(&window, &controller);
     assert!(panel.get_duplicates_visible());

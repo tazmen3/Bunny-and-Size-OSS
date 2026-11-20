@@ -1,4 +1,5 @@
 //! Explicit content analysis; no deletion, link replacement or persistent cache.
+pub mod stream;
 use crate::{
     CancellationToken, InventoryKind, NativePath,
     analysis::{AnalysisScope, AnalysisSnapshot, SearchResult},
@@ -13,17 +14,58 @@ use std::{
 };
 #[derive(Debug, Clone, Copy)]
 pub struct DuplicateOptions {
-    pub max_bytes_read: u64,
-    pub max_file_bytes: u64,
+    /// Shared by hashing and final comparison, including both comparison inputs.
+    pub max_bytes_read: Option<u64>,
+    pub max_file_bytes: Option<u64>,
     pub max_errors: usize,
 }
 impl Default for DuplicateOptions {
     fn default() -> Self {
         Self {
-            max_bytes_read: 1024 * 1024 * 1024,
-            max_file_bytes: 512 * 1024 * 1024,
+            max_bytes_read: Some(1024 * 1024 * 1024),
+            max_file_bytes: Some(512 * 1024 * 1024),
+            ..Self::without_content_limits()
+        }
+    }
+}
+impl DuplicateOptions {
+    pub const fn without_content_limits() -> Self {
+        Self {
+            max_bytes_read: None,
+            max_file_bytes: None,
             max_errors: 100,
         }
+    }
+
+    pub fn file_size_limit(self, length: u64) -> Option<u64> {
+        self.max_file_bytes.filter(|limit| length > *limit)
+    }
+}
+
+/// An application content limit, distinct from a filesystem quota error.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ContentLimit {
+    TotalRead(u64),
+    FileSize(u64),
+}
+impl std::fmt::Display for ContentLimit {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::TotalRead(limit) => write!(f, "Content read budget exhausted ({limit} bytes)"),
+            Self::FileSize(limit) => {
+                write!(f, "File exceeds the content size limit ({limit} bytes)")
+            }
+        }
+    }
+}
+impl std::error::Error for ContentLimit {}
+impl ContentLimit {
+    fn io(self) -> io::Error {
+        io::Error::new(io::ErrorKind::QuotaExceeded, self)
+    }
+
+    pub fn from_io(error: &io::Error) -> Option<Self> {
+        error.get_ref()?.downcast_ref::<Self>().copied()
     }
 }
 #[derive(Debug, Serialize)]
@@ -51,19 +93,23 @@ pub struct DuplicateReport {
     pub selected_entries: usize,
     pub selected_entries_omitted: usize,
     pub groups: Vec<DuplicateGroup>,
-    pub bytes_read: u64,
+    pub bytes_read: u128,
     pub files_hashed: u64,
     pub hardlink_aliases: u64,
     pub errors_count: u64,
     pub errors: Vec<DuplicateIssue>,
     pub cancelled: bool,
     pub budget_limited: bool,
+    #[serde(skip)]
+    pub total_read_limit: Option<u64>,
+    #[serde(skip)]
+    pub file_size_limit: Option<u64>,
     pub complete: bool,
     pub potentially_reclaimable_bytes: Option<u64>,
 }
 #[derive(Debug, Clone, Copy, Default)]
 pub struct DuplicateProgress {
-    pub bytes_read: u64,
+    pub bytes_read: u128,
     pub files_hashed: u64,
 }
 struct Candidate {
@@ -71,36 +117,58 @@ struct Candidate {
     stamp: Stamp,
     aliases: Vec<usize>,
 }
-struct Reader<'a, F> {
+struct Reader<'a> {
     cancel: &'a CancellationToken,
     options: DuplicateOptions,
     progress: DuplicateProgress,
-    notify: F,
 }
-impl<F: FnMut(DuplicateProgress)> Reader<'_, F> {
-    fn read(&mut self, file: &mut File, buffer: &mut [u8]) -> io::Result<usize> {
+impl Reader<'_> {
+    fn read(
+        &mut self,
+        file: &mut impl Read,
+        buffer: &mut [u8],
+        notify: &mut impl FnMut(DuplicateProgress),
+    ) -> io::Result<usize> {
         if self.cancel.is_cancelled() {
             return Err(io::ErrorKind::Interrupted.into());
         }
-        let remaining = self
-            .options
-            .max_bytes_read
-            .saturating_sub(self.progress.bytes_read);
-        if remaining == 0 {
-            return Err(io::Error::new(
-                io::ErrorKind::QuotaExceeded,
-                "Content read budget exhausted",
-            ));
+        let mut length = buffer.len();
+        if let Some(limit) = self.options.max_bytes_read {
+            let remaining = u128::from(limit).saturating_sub(self.progress.bytes_read);
+            if remaining == 0 {
+                return Err(ContentLimit::TotalRead(limit).io());
+            }
+            length = (length as u128).min(remaining) as usize;
         }
-        let length = buffer
-            .len()
-            .min(usize::try_from(remaining).unwrap_or(usize::MAX));
-        let read = file.read(&mut buffer[..length])?;
-        self.progress.bytes_read += read as u64;
-        (self.notify)(self.progress);
+        let remaining = u128::MAX - self.progress.bytes_read;
+        if remaining == 0 {
+            return Err(io::Error::other("Content read counter overflow"));
+        }
+        length = (length as u128).min(remaining) as usize;
+        let read = loop {
+            match file.read(&mut buffer[..length]) {
+                Err(error)
+                    if error.kind() == io::ErrorKind::Interrupted
+                        && !self.cancel.is_cancelled() => {}
+                result => break result?,
+            }
+        };
+        self.progress.bytes_read = self
+            .progress
+            .bytes_read
+            .checked_add(read as u128)
+            .ok_or_else(|| io::Error::other("Content read counter overflow"))?;
+        if read != 0 {
+            notify(self.progress);
+        }
         Ok(read)
     }
-    fn hash(&mut self, file: &mut File, length: u64) -> io::Result<[u8; 32]> {
+    fn hash(
+        &mut self,
+        file: &mut File,
+        length: u64,
+        notify: &mut impl FnMut(DuplicateProgress),
+    ) -> io::Result<[u8; 32]> {
         let mut hash = Sha256::new();
         let mut remaining = length;
         let mut buffer = [0u8; 65536];
@@ -108,7 +176,7 @@ impl<F: FnMut(DuplicateProgress)> Reader<'_, F> {
             let amount = buffer
                 .len()
                 .min(usize::try_from(remaining).unwrap_or(usize::MAX));
-            let n = self.read(file, &mut buffer[..amount])?;
+            let n = self.read(file, &mut buffer[..amount], notify)?;
             if n == 0 {
                 return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "File changed"));
             }
@@ -117,12 +185,20 @@ impl<F: FnMut(DuplicateProgress)> Reader<'_, F> {
         }
         Ok(hash.finalize().into())
     }
-    fn equal(&mut self, a: &mut File, b: &mut File, length: u64) -> io::Result<bool> {
+    fn equal(
+        &mut self,
+        a: &mut File,
+        b: &mut File,
+        length: u64,
+        expected_hash: Option<&[u8; 32]>,
+        notify: &mut impl FnMut(DuplicateProgress),
+    ) -> io::Result<bool> {
         // Empty candidates still need a cancellation point: no read() occurs
         // for them, and a large group must not revalidate every path on cancel.
         if self.cancel.is_cancelled() {
             return Err(io::ErrorKind::Interrupted.into());
         }
+        let mut hash = expected_hash.map(|_| Sha256::new());
         let (mut aa, mut bb) = ([0u8; 65536], [0u8; 65536]);
         let mut remaining = length;
         while remaining > 0 {
@@ -133,7 +209,7 @@ impl<F: FnMut(DuplicateProgress)> Reader<'_, F> {
             for (file, buffer) in [(&mut *a, &mut aa[..amount]), (&mut *b, &mut bb[..amount])] {
                 let mut filled = 0;
                 while filled < amount {
-                    let n = self.read(file, &mut buffer[filled..])?;
+                    let n = self.read(file, &mut buffer[filled..], notify)?;
                     if n == 0 {
                         return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "File changed"));
                     }
@@ -143,7 +219,16 @@ impl<F: FnMut(DuplicateProgress)> Reader<'_, F> {
             if aa[..amount] != bb[..amount] {
                 return Ok(false);
             }
+            if let Some(hash) = &mut hash {
+                hash.update(&aa[..amount]);
+            }
             remaining -= amount as u64;
+        }
+        if let Some((hash, expected)) = hash.zip(expected_hash) {
+            let actual: [u8; 32] = hash.finalize().into();
+            if &actual != expected {
+                return Err(io::Error::other("Content changed since hashing"));
+            }
         }
         Ok(true)
     }
@@ -183,6 +268,7 @@ fn stable(snapshot: &AnalysisSnapshot, index: usize, file: &File, stamp: Stamp) 
     }
     Ok(())
 }
+
 /// Every SHA match is byte-compared under fresh, verified handles. Hardlink
 /// aliases are one member. Linux opens every component relative to a descriptor;
 /// Windows rejects reparses and validates ancestry but has a documented path race.
@@ -192,11 +278,10 @@ pub fn find(
     selection: &SearchResult,
     options: DuplicateOptions,
     cancel: &CancellationToken,
-    notify: impl FnMut(DuplicateProgress),
+    mut notify: impl FnMut(DuplicateProgress),
 ) -> Result<DuplicateReport, String> {
     if snapshot.entries.len() > crate::analysis::MAX_ANALYSIS_ENTRIES
         || options.max_errors > 1000
-        || options.max_bytes_read == 0
         || selection
             .indices
             .iter()
@@ -220,6 +305,8 @@ pub fn find(
         errors: vec![],
         cancelled: false,
         budget_limited: false,
+        total_read_limit: None,
+        file_size_limit: None,
         complete: false,
         potentially_reclaimable_bytes: None,
     };
@@ -227,7 +314,6 @@ pub fn find(
         cancel,
         options,
         progress: DuplicateProgress::default(),
-        notify,
     };
     let mut sizes = BTreeMap::<u64, Vec<usize>>::new();
     for &i in &selection.indices {
@@ -243,8 +329,9 @@ pub fn find(
             report.cancelled = true;
             return;
         }
-        if error.kind() == io::ErrorKind::QuotaExceeded {
+        if let Some(ContentLimit::TotalRead(limit)) = ContentLimit::from_io(&error) {
             report.budget_limited = true;
+            report.total_read_limit = Some(limit);
             return;
         }
         report.errors_count += 1;
@@ -261,8 +348,9 @@ pub fn find(
             continue;
         }
         indices.sort_by(|&a, &b| snapshot.entries[a].path.cmp(&snapshot.entries[b].path));
-        if size > options.max_file_bytes {
+        if let Some(limit) = options.file_size_limit(size) {
             report.budget_limited = true;
+            report.file_size_limit = Some(limit);
             continue;
         }
         let mut hashes = BTreeMap::<[u8; 32], Vec<Candidate>>::new();
@@ -283,10 +371,10 @@ pub fn find(
                     report.hardlink_aliases += 1;
                     return Ok(());
                 }
-                let hash = reader.hash(&mut file, size)?;
+                let hash = reader.hash(&mut file, size, &mut notify)?;
                 stable(snapshot, index, &file, stamp)?;
                 reader.progress.files_hashed += 1;
-                (reader.notify)(reader.progress);
+                notify(reader.progress);
                 let group = hashes.entry(hash).or_default();
                 identities.insert(stamp.identity, (hash, group.len()));
                 group.push(Candidate {
@@ -298,7 +386,7 @@ pub fn find(
             })();
             if let Err(error) = attempt {
                 issue(index, error, &mut report);
-                if report.cancelled || report.budget_limited {
+                if report.cancelled || report.total_read_limit.is_some() {
                     break 'sizes;
                 }
             }
@@ -314,7 +402,7 @@ pub fn find(
                 let attempt = (|| -> io::Result<bool> {
                     let (mut a, sa) = open(snapshot, first.index, Some(first.stamp))?;
                     let (mut b, sb) = open(snapshot, candidate.index, Some(candidate.stamp))?;
-                    let equal = reader.equal(&mut a, &mut b, size)?;
+                    let equal = reader.equal(&mut a, &mut b, size, Some(&hash), &mut notify)?;
                     stable(snapshot, first.index, &a, sa)?;
                     stable(snapshot, candidate.index, &b, sb)?;
                     Ok(equal)
@@ -374,7 +462,7 @@ pub fn find(
                     });
                 }
             }
-            if report.cancelled || report.budget_limited {
+            if report.cancelled || report.total_read_limit.is_some() {
                 break 'sizes;
             }
         }
@@ -393,4 +481,77 @@ pub fn find(
         && !report.budget_limited
         && report.errors_count == 0;
     Ok(report)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn unbounded_counter_remains_exact_past_u64_and_configured_max_remains_finite() {
+        let cancel = CancellationToken::default();
+        let mut reader = Reader {
+            cancel: &cancel,
+            options: DuplicateOptions {
+                max_bytes_read: Some(u64::MAX),
+                ..DuplicateOptions::without_content_limits()
+            },
+            progress: DuplicateProgress {
+                bytes_read: u128::from(u64::MAX) - 1,
+                files_hashed: 0,
+            },
+        };
+        let mut input: &[u8] = &[1, 2];
+        let mut buffer = [0; 2];
+        let mut observed = Vec::new();
+        let mut notify = |progress: DuplicateProgress| observed.push(progress.bytes_read);
+        assert_eq!(
+            reader.read(&mut input, &mut buffer, &mut notify).unwrap(),
+            1
+        );
+        let error = reader
+            .read(&mut input, &mut buffer, &mut notify)
+            .unwrap_err();
+        assert_eq!(
+            ContentLimit::from_io(&error),
+            Some(ContentLimit::TotalRead(u64::MAX))
+        );
+        assert_eq!(input, &[2]);
+        reader.options.max_bytes_read = None;
+        assert_eq!(
+            reader.read(&mut input, &mut buffer, &mut notify).unwrap(),
+            1
+        );
+        assert_eq!(observed, [u128::from(u64::MAX), u128::from(u64::MAX) + 1]);
+    }
+
+    #[test]
+    fn theoretical_counter_overflow_does_not_consume_unaccounted_bytes() {
+        let cancel = CancellationToken::default();
+        let mut reader = Reader {
+            cancel: &cancel,
+            options: DuplicateOptions::without_content_limits(),
+            progress: DuplicateProgress {
+                bytes_read: u128::MAX - 1,
+                files_hashed: 0,
+            },
+        };
+        let mut input: &[u8] = &[1, 2];
+        let mut buffer = [0; 2];
+        assert_eq!(
+            reader
+                .read(&mut input, &mut buffer, &mut |p| {
+                    assert_eq!(p.bytes_read, u128::MAX);
+                })
+                .unwrap(),
+            1
+        );
+        let error = reader
+            .read(&mut input, &mut buffer, &mut |_| {})
+            .unwrap_err();
+        assert_eq!(error.kind(), io::ErrorKind::Other);
+        assert_eq!(ContentLimit::from_io(&error), None);
+        assert_eq!(reader.progress.bytes_read, u128::MAX);
+        assert_eq!(input, &[2]);
+    }
 }

@@ -577,3 +577,78 @@ pub fn run_b2(
     timer.stop();
     Ok(())
 }
+
+/// Native renderer preview only; no preference writes and no source acquisition.
+pub fn workshop_preview(
+    output: PathBuf,
+    theme: i32,
+    dense: bool,
+    width: u32,
+    height: u32,
+) -> Result<(), Box<dyn std::error::Error>> {
+    std::fs::create_dir_all(&output)?;
+    let language = std::env::var("BUNNY_PREVIEW_LANGUAGE")
+        .ok()
+        .and_then(|value| crate::locale::normalize(&value))
+        .unwrap_or(Language::English);
+    let _scope = Context {
+        language,
+        generation: 1,
+    }
+    .enter();
+    let window = crate::new_window()?;
+    let controller = connect(&window);
+    controller.borrow().show_preferences(&window);
+    fixture_volumes(&controller, &window);
+    window.set_rows(
+        Rc::new(slint::VecModel::from(vec![crate::TreeRow {
+            node_id: 1,
+            name: "Synthetic fixture".into(),
+            size: "12 MiB".into(),
+            expandable: true,
+            expanded: true,
+            selected: true,
+            has_weight: true,
+            fraction: 1.0,
+            proportion: "100 %".into(),
+            ..Default::default()
+        }]))
+        .into(),
+    );
+    window.set_details(
+        Rc::new(slint::VecModel::from(vec![crate::DetailRow {
+            node_id: 2,
+            name: "example.bin".into(),
+            path: "synthetic/example.bin".into(),
+            size: "12 MiB".into(),
+            proportion: "100 %".into(),
+            fraction: 1.0,
+            ..Default::default()
+        }]))
+        .into(),
+    );
+    window.set_selection_summary("Synthetic fixture · 1 entry".into());
+    window.set_empty_message("".into());
+    window.set_theme_choice(theme);
+    window.set_dense(dense);
+    window.set_navigation_open(std::env::var_os("BUNNY_PREVIEW_NAVIGATION").is_some());
+    window.set_top_visible(std::env::var_os("BUNNY_PREVIEW_TOP").is_some());
+    window.set_preferences_open(std::env::var_os("BUNNY_PREVIEW_PREFERENCES").is_some());
+    window.set_product_version("V0.5 preview".into());
+    window.set_scan_path("Recorded source / no acquisition".into());
+    window
+        .window()
+        .set_size(slint::PhysicalSize::new(width, height));
+    let weak = window.as_weak();
+    let timer = Timer::default();
+    timer.start(TimerMode::SingleShot,Duration::from_millis(500),move||{
+        let w=weak.upgrade().unwrap();capture(&w,&output,"workshop");
+        let size=w.window().size();
+        let tokens = w.global::<crate::WorkshopTheme>();
+        let rgb = |brush: slint::Brush| { let c = brush.color(); format!("#{:02x}{:02x}{:02x}", c.red(), c.green(), c.blue()) };
+        std::fs::write(output.join("preview.json"),format!("{{\"requested_width\":{width},\"requested_height\":{height},\"actual_width\":{},\"actual_height\":{},\"theme\":{theme},\"compact\":{dense},\"source_io\":0,\"language\":\"{}\",\"ink\":\"{}\",\"surface\":\"{}\",\"alternate\":\"{}\",\"focus\":\"{}\"}}",size.width,size.height,language.as_str(),rgb(tokens.get_ink()),rgb(tokens.get_surface()),rgb(tokens.get_alternate()),rgb(tokens.get_focus()))).unwrap();
+        slint::quit_event_loop().unwrap();
+    });
+    window.run()?;
+    Ok(())
+}
