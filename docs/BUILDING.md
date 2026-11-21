@@ -1,4 +1,4 @@
-# Build Bunny and Size 0.5.0-rc.3
+# Build Bunny and Size 0.5.0
 
 Use Rust 1.99.0. The source archive includes Cargo lockfiles and a local dependency mirror for offline builds. On Windows, install Visual Studio Build Tools with C++ and the Windows SDK, then use an x64 Developer Shell. On Ubuntu, install a C/C++ toolchain, pkg-config, and development libraries for fontconfig, X11, and Wayland.
 

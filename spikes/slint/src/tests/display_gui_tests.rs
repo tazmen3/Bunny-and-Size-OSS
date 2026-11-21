@@ -503,6 +503,7 @@ fn native_l16_modal_keyboard_pointer_and_focus_restore() {
     let timer = Timer::default();
     let mut stage = 0;
     let mut gesture = 0;
+    let mut reached_cache_ribbon = false;
     let started = Instant::now();
     let key = |window: &SortSizeWindow, key: Key| {
         window
@@ -529,7 +530,8 @@ fn native_l16_modal_keyboard_pointer_and_focus_restore() {
                 if stage == 1 {
                     assert!(!window.get_display_trigger_focused(), "preferences focus escaped");
                 } else {
-                    assert!(!window.get_cache_trigger_focused(), "cache focus escaped");
+                    assert!(window.get_cache_visible(), "Tab closed the saved measures panel");
+                    reached_cache_ribbon |= window.get_cache_trigger_focused();
                 }
                 gesture += 1;
                 if gesture == 120 {
@@ -546,14 +548,14 @@ fn native_l16_modal_keyboard_pointer_and_focus_restore() {
                         window.window().dispatch_event(WindowEvent::PointerPressed { position, button: PointerEventButton::Left });
                         window.window().dispatch_event(WindowEvent::PointerReleased { position, button: PointerEventButton::Left });
                         assert!(window.get_preferences_open());
-                    }
-                    key(&window, Key::Escape);
-                    if stage == 1 {
+                        key(&window, Key::Escape);
                         assert!(!window.get_preferences_open());
                         assert!(window.get_display_trigger_focused());
                     } else {
-                        assert!(!window.get_cache_visible());
-                        assert!(window.get_cache_trigger_focused());
+                        assert!(reached_cache_ribbon, "Tab could not reach the saved measures ribbon command");
+                        // Reopen the nonmodal panel and exercise Escape with
+                        // focus back inside it, after the next rendered frame.
+                        window.set_cache_visible(false);
                     }
                     gesture = 0;
                     stage += 1;
@@ -565,8 +567,19 @@ fn native_l16_modal_keyboard_pointer_and_focus_restore() {
                 window.set_cache_visible(true);
                 stage = 3;
             }
+            4 => {
+                window.set_cache_visible(true);
+                stage = 5;
+            }
+            5 => {
+                assert!(!window.get_cache_trigger_focused());
+                key(&window, Key::Escape);
+                assert!(!window.get_cache_visible());
+                assert!(window.get_cache_trigger_focused());
+                stage = 6;
+            }
             _ => {
-                fs::write(output.join("result.json"), format!("{{\"status\":\"PASS\",\"input\":\"WindowEvent key/pointer\",\"native_winit_software\":true,\"tab_gestures\":240,\"shift_tab_gestures\":120,\"escape_closures\":2,\"focus_restored\":true,\"background_pointer_blocked\":true,\"os_dpi_certified\":false,\"physical_keyboard\":false,\"screen_reader\":false,\"seconds\":{}}}\n", started.elapsed().as_secs_f64())).unwrap();
+                fs::write(output.join("result.json"), format!("{{\"status\":\"PASS\",\"input\":\"WindowEvent key/pointer\",\"native_winit_software\":true,\"tab_gestures\":240,\"shift_tab_gestures\":120,\"escape_closures\":2,\"focus_restored\":true,\"background_pointer_blocked\":true,\"ribbon_reachable_while_cache_open\":true,\"os_dpi_certified\":false,\"physical_keyboard\":false,\"screen_reader\":false,\"seconds\":{}}}\n", started.elapsed().as_secs_f64())).unwrap();
                 window.hide().unwrap();
                 slint::quit_event_loop().unwrap();
             }

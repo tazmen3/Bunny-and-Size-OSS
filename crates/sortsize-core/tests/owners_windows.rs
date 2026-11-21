@@ -392,6 +392,29 @@ impl Drop for RestoreAcl {
 
 #[test]
 fn real_read_control_denial_keeps_allocation_dates_and_complete_coverage() {
+    #[cfg(feature = "owner-profiling")]
+    {
+        const ISOLATED: &str = "SORTSIZE_TEST_ISOLATED_OWNER_ACL";
+        if std::env::var_os(ISOLATED).is_none() {
+            // The profiling counters include every scan in this process.
+            let result = std::process::Command::new(std::env::current_exe().unwrap())
+                .args([
+                    "--exact",
+                    "real_read_control_denial_keeps_allocation_dates_and_complete_coverage",
+                    "--nocapture",
+                ])
+                .env(ISOLATED, "1")
+                .output()
+                .unwrap();
+            assert!(
+                result.status.success(),
+                "{}\n{}",
+                String::from_utf8_lossy(&result.stdout),
+                String::from_utf8_lossy(&result.stderr)
+            );
+            return;
+        }
+    }
     let temp = tempfile::TempDir::new().unwrap();
     let file = temp.path().join("denied-owner");
     fs::write(&file, b"1234567").unwrap();

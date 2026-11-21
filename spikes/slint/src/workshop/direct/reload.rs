@@ -1,7 +1,7 @@
 //! An offline snapshot has no source Guard and cannot grant live operations.
 use super::*;
 use sortsize_store::{direct_snapshot, scheduler::Control};
-use std::sync::{RwLock, atomic::AtomicU64};
+use std::sync::{Mutex, RwLock, atomic::AtomicU64};
 
 pub(super) enum ViewScan {
     Live(DirectScan),
@@ -10,6 +10,7 @@ pub(super) enum ViewScan {
         scratch: Arc<tempfile::TempDir>,
         control: Control,
         progress: Arc<AtomicU64>,
+        preparation: CancellationToken,
     },
 }
 
@@ -56,8 +57,17 @@ impl ViewScan {
         }
     }
     pub(super) fn cancel(&self) {
-        if let Self::Live(s) = self {
-            s.cancel();
+        match self {
+            Self::Live(s) => s.cancel(),
+            Self::Loaded { preparation, .. } => preparation.cancel(),
+        }
+    }
+}
+
+impl Drop for ViewScan {
+    fn drop(&mut self) {
+        if let Self::Loaded { preparation, .. } = self {
+            preparation.cancel();
         }
     }
 }
@@ -83,14 +93,44 @@ impl DirectActive {
                 "saved snapshot changed; refresh the catalogue",
             ));
         }
+        if cancel.is_cancelled() {
+            return Err(std::io::Error::from(std::io::ErrorKind::Interrupted).into());
+        }
         let progress = Arc::new(AtomicU64::new(meta.summary.observations));
         let excluded = direct_snapshot::excluded_state_path(&meta)?.unwrap_or_default();
+        let started = cache::system_time(meta.started)?;
+        let measured = cache::system_time(meta.measured)?;
+        let preparation = CancellationToken::default();
+        let scratch = Arc::new(scratch);
+        let prepare =
+            loaded.tree.len() >= 100_000 && meta.summary.coverage == ScopeCoverage::Complete;
+        let tree = Arc::new(RwLock::new(loaded.tree));
+        if prepare {
+            // The restored tree can already answer bounded queries. Keep
+            // optional preparation off the service turn and reserve just one
+            // active offline preparation even when views are replaced rapidly.
+            static SLOT: Mutex<()> = Mutex::new(());
+            let tree = Arc::clone(&tree);
+            let scratch = Arc::clone(&scratch);
+            let cancel = preparation.clone();
+            let _ = std::thread::Builder::new()
+                .name("bunny-offline-query-indexes".into())
+                .spawn(move || {
+                    let _scratch = scratch;
+                    if let Ok(_slot) = SLOT.try_lock()
+                        && let Ok(tree) = tree.read()
+                    {
+                        tree.prepare_query_indexes(&cancel);
+                    }
+                });
+        }
         Ok(Self {
             scan: ViewScan::Loaded {
-                tree: Arc::new(RwLock::new(loaded.tree)),
-                scratch: Arc::new(scratch),
+                tree,
+                scratch,
                 control: Control::default(),
                 progress,
+                preparation,
             },
             context: meta.context,
             source_epoch,
@@ -98,8 +138,8 @@ impl DirectActive {
             root: meta.root,
             workspace: excluded,
             options: meta.options,
-            started: cache::system_time(meta.started)?,
-            measured: Some(cache::system_time(meta.measured)?),
+            started,
+            measured: Some(measured),
             terminal_reported: false,
             saved: true,
             saved_path: Some(saved.directory.clone()),

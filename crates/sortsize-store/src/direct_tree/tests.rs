@@ -149,6 +149,69 @@ fn progressive_tree_and_replay_preserve_occurrences() {
 }
 
 #[test]
+fn global_query_orders_native_children_across_parents_and_pages() {
+    let scratch = tempfile::tempdir().unwrap();
+    let root = scratch.path().join("source");
+    let mut tree = DirectTree::new(root.clone(), scratch.path(), 1024 * 1024).unwrap();
+    tree.accept(batch(
+        0,
+        0,
+        Some(ListingEnd::Exhausted),
+        &[dir("zeta"), dir("alpha")],
+        &[None, None],
+        &[NodeProperties::default(), NodeProperties::default()],
+    ))
+    .unwrap();
+    #[cfg(windows)]
+    let invalid_text = NativeName::Windows(vec![0xd800, b'.'.into(), b't'.into()]);
+    #[cfg(not(windows))]
+    let invalid_text = NativeName::Posix(vec![0xff, b'.', b't']);
+    tree.accept(batch(
+        1,
+        0,
+        Some(ListingEnd::Exhausted),
+        &[file(native("échantillon.txt"), 12), file(invalid_text, 7)],
+        &[None, None],
+        &[NodeProperties::default(), NodeProperties::default()],
+    ))
+    .unwrap();
+    tree.accept(batch(
+        2,
+        0,
+        Some(ListingEnd::Exhausted),
+        &[file(native("échantillon.txt"), 20)],
+        &[None],
+        &[NodeProperties::default()],
+    ))
+    .unwrap();
+    tree.finish().unwrap();
+
+    let criteria = sortsize_core::analysis::SearchQuery {
+        kind: Some(sortsize_core::InventoryKind::File),
+        name: Some("ÉCHANTILLON".into()),
+        glob: Some("**/*.txt".into()),
+        ..Default::default()
+    };
+    let cancel = sortsize_core::CancellationToken::default();
+    for (sort, expected) in [(2, ["alpha", "zeta"]), (3, ["zeta", "alpha"])] {
+        let mut cursor = None;
+        for directory in expected {
+            let mut query =
+                query::PageQuery::new(&tree, None, Some(&criteria), sort, cursor, 1).unwrap();
+            while !query.advance(&tree, &cancel).unwrap() {}
+            let rows = query.rows(&tree).unwrap();
+            assert_eq!(query.files, 2);
+            assert_eq!(query.logical, 32);
+            assert_eq!(query.gaps, 1);
+            assert_eq!(rows.len(), 1);
+            assert_eq!(rows[0].path, root.join(directory).join("échantillon.txt"));
+            cursor = query.next();
+        }
+        assert!(cursor.is_none());
+    }
+}
+
+#[test]
 fn duplicated_names_and_detach_remain_partial_in_replay() {
     let scratch = tempfile::tempdir().unwrap();
     let mut tree = DirectTree::new(scratch.path().to_owned(), scratch.path(), 1024 * 1024).unwrap();

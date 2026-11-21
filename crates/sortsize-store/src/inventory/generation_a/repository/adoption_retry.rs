@@ -279,7 +279,7 @@ fn definitions() -> Result<BTreeMap<String, Definition>> {
     }
     Ok(definitions)
 }
-fn known_schema(db: &Connection, source_version: i64) -> Result<()> {
+pub(super) fn known_schema(db: &Connection, source_version: i64) -> Result<()> {
     let version: i64 = db.pragma_query_value(None, "user_version", |r| r.get(0))?;
     if !(1..=6).contains(&source_version) || !(1..=source_version.max(2)).contains(&version) {
         return Err(Error::Contract(

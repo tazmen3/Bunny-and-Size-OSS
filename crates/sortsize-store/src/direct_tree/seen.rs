@@ -8,6 +8,9 @@ use super::*;
 const INITIAL_BUCKETS: u64 = 1024;
 const LOAD: u64 = 4;
 const RECORD_BYTES: u64 = 20;
+// A fresh head table and at most one record and bucket split per observation.
+pub(super) const MAX_BATCH_DISK_BYTES: usize =
+    (INITIAL_BUCKETS * 8 + 512 * (RECORD_BYTES + 8)) as usize;
 
 pub(super) struct SeenDisk {
     heads: Mutex<File>,

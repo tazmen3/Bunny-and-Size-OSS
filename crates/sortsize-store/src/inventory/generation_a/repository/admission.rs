@@ -45,7 +45,7 @@ impl Repository {
     /// Retire only certified, unleased observations already superseded by the
     /// current and last-complete references. A recoverable unpublished candidate
     /// is never silently discarded to start another acquisition.
-    pub(super) fn admit_allocation(&mut self) -> Result<()> {
+    pub(super) fn admit_allocation(&mut self, fresh_acquisition: bool) -> Result<()> {
         self.require_writer()?;
         // A crash may leave the closed acquisition copy after a committed
         // publication. Reclaim it only after full certification and exact
@@ -60,7 +60,15 @@ impl Repository {
                 }
             }
         }
-        let ids = self.observation_ids()?;
+        let mut ids = self.observation_ids()?;
+        if fresh_acquisition
+            && let Some(latest) = self.current.latest
+            && let Some(id) = ids.last().copied().filter(|id| *id > latest)
+            && self.published(GenerationId(id))?.is_none()
+            && self.quarantine_empty_candidate(GenerationId(id), &CancellationToken::default())?
+        {
+            ids.remove(&id);
+        }
         if self.has_unpublished(&ids)? {
             // Reserving a new ID does not materialize another observation.
             // The separate creation guard still permits only one candidate.
@@ -110,7 +118,7 @@ impl Repository {
 
     pub(super) fn admit_publication(&mut self, g: GenerationId) -> Result<()> {
         if !self.observation_ids()?.contains(&g.0) {
-            self.admit_allocation()?;
+            self.admit_allocation(false)?;
         }
         Ok(())
     }
@@ -229,6 +237,137 @@ mod tests {
         assert!(repo.purge(complete, &Default::default()).is_err());
         assert!(repo.purge(partial, &Default::default()).is_err());
         assert!(repo.next_context(c).is_err());
+    }
+
+    #[test]
+    #[ignore = "spawned and terminated by the empty candidate recovery test"]
+    fn empty_candidate_crash_child() {
+        let marker = PathBuf::from(std::env::var_os("BUNNY_EMPTY_CANDIDATE_MARKER").unwrap());
+        let path = PathBuf::from(std::env::var_os("BUNNY_EMPTY_CANDIDATE_REPO").unwrap());
+        let mut repo = Repository::open_existing(&path).unwrap();
+        let previous = repo.latest_context().unwrap().unwrap().context;
+        let abandoned = repo.next_context(previous).unwrap();
+        let mut plan = Pipeline::plan().unwrap();
+        let mut candidate = repo.create_candidate_store(abandoned, &mut plan).unwrap();
+        // Session initialization has upgraded the schema. No generation
+        // or observation exists when the parent terminates this process.
+        candidate.enable_properties().unwrap();
+        std::fs::write(marker, abandoned.generation.0.to_string()).unwrap();
+        std::thread::sleep(std::time::Duration::from_secs(30));
+        drop(candidate);
+        drop(repo);
+    }
+
+    #[test]
+    fn killed_empty_candidate_releases_one_slot_and_keeps_both_references() {
+        let _serial = SERIAL.lock().unwrap();
+        let tmp = tempfile::tempdir().unwrap();
+        let path = tmp.path().join("repo");
+        let root = tmp.path().join("offline");
+        let c = context_id(0);
+        let mut repo = Repository::open(&path, c.inventory, c.source).unwrap();
+        let complete = measured(&mut repo, &root, false);
+        let partial = measured(&mut repo, &root, true);
+        let images = [complete, partial].map(|g| repo.generation_path(g).join("inventory.db"));
+        let before = images.each_ref().map(|p| std::fs::read(p).unwrap());
+        let pointer = std::fs::read(path.join("CURRENT.json")).unwrap();
+        drop(repo);
+
+        let marker = tmp.path().join("empty-ready");
+        let mut child = std::process::Command::new(std::env::current_exe().unwrap())
+            .args([
+                "--ignored",
+                "--exact",
+                "inventory::generation_a::repository::admission::tests::empty_candidate_crash_child",
+            ])
+            .env("BUNNY_EMPTY_CANDIDATE_MARKER", &marker)
+            .env("BUNNY_EMPTY_CANDIDATE_REPO", &path)
+            .stdout(std::process::Stdio::null())
+            .spawn()
+            .unwrap();
+        let deadline = std::time::Instant::now() + std::time::Duration::from_secs(15);
+        while !marker.exists() {
+            if let Some(status) = child.try_wait().unwrap() {
+                panic!("empty candidate child exited before the marker: {status}");
+            }
+            if std::time::Instant::now() >= deadline {
+                child.kill().unwrap();
+                child.wait().unwrap();
+                panic!("empty candidate child did not create its marker");
+            }
+            std::thread::sleep(std::time::Duration::from_millis(10));
+        }
+        assert!(Repository::open_existing(&path).is_err());
+        child.kill().unwrap();
+        assert!(!child.wait().unwrap().success());
+
+        let mut repo = Repository::open_existing(&path).unwrap();
+        let abandoned = GenerationId(partial.0 + 1);
+        let candidate_path = repo.candidate_path(abandoned);
+        let candidate = std::fs::read(candidate_path.join("inventory.db")).unwrap();
+        let wal = std::fs::read(candidate_path.join("inventory.db-wal")).unwrap();
+        let next = repo.next_context(c).unwrap();
+        assert_eq!(next.generation.0, abandoned.0 + 1);
+        assert!(!candidate_path.exists());
+        assert!(repo.require_allocation(abandoned).is_ok());
+        let prefix = format!(".quarantine-a-{:032x}-{:016x}-", c.inventory.0, abandoned.0);
+        let quarantine = std::fs::read_dir(&path)
+            .unwrap()
+            .map(|entry| entry.unwrap())
+            .find(|entry| entry.file_name().to_string_lossy().starts_with(&prefix))
+            .unwrap()
+            .path();
+        assert_eq!(
+            std::fs::read(quarantine.join("inventory.db")).unwrap(),
+            candidate
+        );
+        assert_eq!(
+            std::fs::read(quarantine.join("inventory.db-wal")).unwrap(),
+            wal
+        );
+        assert_eq!(std::fs::read(path.join("CURRENT.json")).unwrap(), pointer);
+        assert_eq!(images.each_ref().map(|p| std::fs::read(p).unwrap()), before);
+        drop(repo);
+
+        let repo = Repository::open_existing(&path).unwrap();
+        let mut plan = Pipeline::plan().unwrap();
+        let retry = repo.create_candidate(next, &mut plan).unwrap();
+        assert_eq!(retry.acquisition_context(next.generation).unwrap(), next);
+        assert!(repo.open_generation(complete, &Default::default()).is_ok());
+        assert!(repo.open_generation(partial, &Default::default()).is_ok());
+    }
+
+    #[test]
+    fn fresh_allocation_preserves_live_old_and_nonempty_candidates() {
+        let _serial = SERIAL.lock().unwrap();
+        let tmp = tempfile::tempdir().unwrap();
+        let c = context_id(0);
+        let mut repo = Repository::open(&tmp.path().join("repo"), c.inventory, c.source).unwrap();
+        let root = tmp.path().join("offline");
+        measured(&mut repo, &root, false);
+        measured(&mut repo, &root, true);
+        let third = repo.next_context(c).unwrap();
+        let mut plan = Pipeline::plan().unwrap();
+        let candidate = repo.create_candidate_store(third, &mut plan).unwrap();
+        let path = repo.candidate_path(third.generation);
+        assert!(repo.next_context(c).is_err(), "live candidate lease");
+        drop(candidate);
+        let before = std::fs::read(path.join("inventory.db")).unwrap();
+        assert!(repo.next_context(c).is_err(), "supported older schema");
+        assert_eq!(std::fs::read(path.join("inventory.db")).unwrap(), before);
+        drop(plan);
+
+        let mut candidate = Store::reopen(&path, Durability::Retained).unwrap();
+        candidate.enable_properties().unwrap();
+        candidate.create_generation(third).unwrap();
+        drop(candidate);
+        let before = std::fs::read(path.join("inventory.db")).unwrap();
+        assert!(
+            repo.next_context(c).is_err(),
+            "installed generation without a scan"
+        );
+        assert_eq!(std::fs::read(path.join("inventory.db")).unwrap(), before);
+        assert!(repo.published(third.generation).unwrap().is_none());
     }
 
     #[test]

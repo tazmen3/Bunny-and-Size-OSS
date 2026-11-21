@@ -313,6 +313,38 @@ impl PreparedQuery {
     pub fn evaluate(&self, e: &AnalysisEntry, root: Option<&std::path::Path>) -> Evaluation {
         self.evaluate_path(&e.path, e.kind, e.logical_bytes, e.modified, root)
     }
+    /// Necessary folded text for the simple name predicate. The exact
+    /// predicate still applies to every candidate, including case-sensitive
+    /// ASCII matches. The returned flag restricts the gap count to files.
+    /// A case-sensitive Unicode substring can't use this
+    /// filter because folding can depend on surrounding characters.
+    pub fn folded_name_prefilter(&self) -> Option<(std::borrow::Cow<'_, str>, bool)> {
+        let SearchQuery {
+            name: Some(_),
+            path: None,
+            extension: None,
+            glob: None,
+            kind: kind @ (Some(InventoryKind::File) | None),
+            min_bytes: None,
+            max_bytes: None,
+            modified_after: None,
+            modified_before: None,
+            case_sensitive,
+        } = &self.query
+        else {
+            return None;
+        };
+        let needle = self.name.as_deref()?;
+        let folded = if *case_sensitive {
+            if !needle.is_ascii() {
+                return None;
+            }
+            std::borrow::Cow::Owned(needle.to_ascii_lowercase())
+        } else {
+            std::borrow::Cow::Borrowed(needle)
+        };
+        Some((folded, kind.is_some()))
+    }
     /// Evaluate a borrowed recorded path with the same predicate as retained
     /// entries. Disk-backed scans can reuse their bounded path buffer.
     pub fn evaluate_path(

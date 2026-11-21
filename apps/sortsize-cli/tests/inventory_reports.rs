@@ -9,6 +9,7 @@ use sortsize_store::{
     scheduler::{Session, State},
 };
 use std::{
+    path::Path,
     process::Command,
     time::{Duration, Instant},
 };
@@ -45,12 +46,12 @@ fn explicit_duplicate_cli_streams_members_and_marks_transport_quota() {
     }
     while s.finalize_step().unwrap().is_none() {}
     drop(s);
-    let command = || {
+    let command = |source: &Path| {
         let mut cmd = Command::new(env!("CARGO_BIN_EXE_bunny-and-size-cli"));
         cmd.arg("inventory")
             .arg(&db)
             .arg("--root")
-            .arg(&root)
+            .arg(source)
             .arg("--temporary-directory")
             .arg(t.path())
             .args([
@@ -63,7 +64,7 @@ fn explicit_duplicate_cli_streams_members_and_marks_transport_quota() {
             ]);
         cmd
     };
-    let out = command().output().unwrap();
+    let out = command(&root).output().unwrap();
     assert!(
         out.status.success(),
         "{}",
@@ -77,7 +78,7 @@ fn explicit_duplicate_cli_streams_members_and_marks_transport_quota() {
     assert_eq!(lines.len(), 43);
     assert_eq!(lines.first().unwrap()["content_requested"], true);
     assert_eq!(lines.last().unwrap()["complete"], true);
-    let filtered = command().args(["--max-bytes", "0"]).output().unwrap();
+    let filtered = command(&root).args(["--max-bytes", "0"]).output().unwrap();
     assert!(
         filtered.status.success(),
         "{}",
@@ -87,7 +88,31 @@ fn explicit_duplicate_cli_streams_members_and_marks_transport_quota() {
             .unwrap_or_default()
     );
     assert_eq!(filtered.stdout, out.stdout);
-    let out = command().args(["--output-bytes", "4096"]).output().unwrap();
+    #[cfg(windows)]
+    {
+        let slashes = root.to_str().unwrap().replace('\\', "/");
+        let slashes = Path::new(&slashes);
+        let alternate = command(slashes).output().unwrap();
+        assert!(
+            alternate.status.success(),
+            "{}\n{}",
+            String::from_utf8_lossy(&alternate.stdout),
+            String::from_utf8_lossy(&alternate.stderr)
+        );
+        let trailer: serde_json::Value = serde_json::from_str(
+            std::str::from_utf8(&alternate.stdout)
+                .unwrap()
+                .lines()
+                .last()
+                .unwrap(),
+        )
+        .unwrap();
+        assert_eq!(trailer["verification"]["independent_members"], 40);
+    }
+    let out = command(&root)
+        .args(["--output-bytes", "4096"])
+        .output()
+        .unwrap();
     assert_eq!(out.status.code(), Some(2));
     assert!(out.stdout.len() <= 4096);
     let trailer: serde_json::Value = serde_json::from_str(
@@ -100,6 +125,19 @@ fn explicit_duplicate_cli_streams_members_and_marks_transport_quota() {
     .unwrap();
     assert_eq!(trailer["complete"], false);
     assert_eq!(trailer["transport_complete"], false);
+    #[cfg(windows)]
+    {
+        std::fs::rename(&root, t.path().join("moved")).unwrap();
+        std::fs::create_dir(&root).unwrap();
+        let slashes = root.to_str().unwrap().replace('\\', "/");
+        let changed = command(Path::new(&slashes)).output().unwrap();
+        assert_eq!(changed.status.code(), Some(2));
+        let response = String::from_utf8_lossy(&changed.stdout);
+        let trailer: serde_json::Value =
+            serde_json::from_str(response.lines().last().unwrap()).unwrap();
+        assert_eq!(trailer["complete"], false);
+        assert_eq!(trailer["verification"]["bytes_read"], 0);
+    }
 }
 #[test]
 fn frozen_report_cli_is_source_free_machine_stable_across_seven_locales_and_never_overwrites() {

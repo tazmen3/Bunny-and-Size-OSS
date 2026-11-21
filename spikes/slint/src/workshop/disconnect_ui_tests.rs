@@ -878,7 +878,10 @@ fn nas_disconnected_rows_reconnect_only_the_displayed_share_without_scanning() {
     assert!(fixture.host.borrow().disconnect.native.is_none());
     reconnect(first_token, 1);
     fixture.wait_native();
-    assert_eq!(*calls.lock().unwrap(), [tv_alias.path.clone()]);
+    assert_eq!(
+        calls.lock().unwrap().as_slice(),
+        std::slice::from_ref(&tv_alias.path)
+    );
     assert!(fixture.window.get_errors().contains("Access denied"));
     assert_eq!(visible(), 4);
     assert_eq!(disconnected(), ["homes", "TV"]);

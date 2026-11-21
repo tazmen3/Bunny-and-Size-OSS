@@ -26,6 +26,9 @@ fn layout_pixels(
     // Complete the first layout before installing the controlled tile model;
     // initialization callbacks must not invalidate this rendering fixture.
     render(window, adapter);
+    // Keep the fill comparison independent of the automatic panel height,
+    // which can change when a fresh window attaches to the test adapter.
+    window.set_treemap_height_choice(130);
     let tiles = (0..3)
         .map(|index| MapTile {
             node_id: index,

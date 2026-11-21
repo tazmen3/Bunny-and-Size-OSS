@@ -2638,14 +2638,23 @@ mod tests {
     }
     #[track_caller]
     fn terminal(handle: &Handle) -> Presentation {
-        let deadline = Instant::now() + Duration::from_secs(30);
+        terminal_within(handle, Duration::from_secs(30))
+    }
+
+    fn terminal_within(handle: &Handle, timeout: Duration) -> Presentation {
+        let deadline = Instant::now() + timeout;
+        let mut last_status = None;
         loop {
-            if let Some(p) = handle.take()
-                && !p.busy
-            {
-                return p;
+            if let Some(p) = handle.take() {
+                if !p.busy {
+                    return p;
+                }
+                last_status = Some(p.status);
             }
-            assert!(Instant::now() < deadline, "duplicate worker did not settle");
+            assert!(
+                Instant::now() < deadline,
+                "duplicate worker did not settle: {last_status:?}"
+            );
             std::thread::sleep(Duration::from_millis(5));
         }
     }
@@ -3404,7 +3413,9 @@ mod tests {
             crate::presentation::Context::current(),
         )
         .unwrap();
-        let summary = terminal(&handle);
+        // This fixture verifies more than two thousand native files. The
+        // deadline bounds the test harness, independent of the page oracle.
+        let summary = terminal_within(&handle, Duration::from_secs(120));
         assert!(summary.complete, "{} {}", summary.status, summary.warning);
         assert_eq!(summary.folder_count, 1);
         assert_eq!(summary.file_count, 0);

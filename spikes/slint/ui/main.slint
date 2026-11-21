@@ -1285,7 +1285,12 @@ export component SortSizeWindow inherits Window {
     in property <bool> scan-fast-can-save: false;
     in property <string> scan-progress;
     in-out property <bool> cache-visible:false;
-    changed cache-visible=>{root.cache-confirm = false; if root.cache-visible {cache-choice-control.focus();}}
+    private property <bool> cache-opened-from-header: false;
+    changed cache-visible => {
+        root.cache-confirm = false;
+        if root.cache-visible { cache-choice-control.focus(); }
+        else { root.cache-opened-from-header = false; }
+    }
     in-out property <bool> cache-confirm:false;
     in-out property <int> cache-choice:0;
     changed cache-choice => { root.cache-confirm = false; }
@@ -1475,10 +1480,20 @@ export component SortSizeWindow inherits Window {
     out property <float> treemap-divider-y: treemap-divider.absolute-position.y / 1px;
     callback open-project();
     callback close-cache-panel();
-    close-cache-panel => { root.cache-action(7,root.cache-choice,root.cache-token); root.cache-visible=false; root.ribbon-tab=1; saved-measures-button.focus(); }
-    function toggle-cache-panel() {
+    close-cache-panel => {
+        let opened-from-header = root.cache-opened-from-header;
+        root.cache-action(7, root.cache-choice, root.cache-token);
+        root.cache-visible = false;
+        if opened-from-header { saved-measures-header-button.focus(); }
+        else { root.ribbon-tab = 1; saved-measures-button.focus(); }
+    }
+    function toggle-cache-panel(from-header: bool) {
         if root.cache-visible { root.close-cache-panel(); }
-        else { root.cache-visible = true; root.cache-action(0, root.cache-choice, root.cache-token); }
+        else {
+            root.cache-opened-from-header = from-header;
+            root.cache-visible = true;
+            root.cache-action(0, root.cache-choice, root.cache-token);
+        }
     }
     out property<bool> display-trigger-focused:display-button.has-focus;
     out property<bool> detail-table-focused:details-focus.has-focus;
@@ -1755,12 +1770,12 @@ export component SortSizeWindow inherits Window {
                 accessible-label: @tr("ui" => "Help"); accessible-expanded: root.ribbon-tab == 4;
                 clicked => { root.activate-ribbon(4); }
             }
-            Button {
+            saved-measures-header-button := Button {
                 visible: root.workshop-live;
                 enabled: !root.smb-server-visible;
                 text: @tr("ui" => "Saved measures");
                 checkable: false; checked: root.cache-visible; horizontal-stretch: 0;
-                clicked => { root.toggle-cache-panel(); }
+                clicked => { root.toggle-cache-panel(true); }
             }
             Rectangle { horizontal-stretch: 1; }
             top-cancel := Button {
@@ -1810,7 +1825,7 @@ export component SortSizeWindow inherits Window {
                         }
                     }
                 }
-                saved-measures-button := Button { visible: root.workshop-live; enabled: !root.smb-server-visible; text: @tr("ui" => "Saved measures"); clicked => { root.toggle-cache-panel(); } }
+                saved-measures-button := Button { visible: root.workshop-live; enabled: !root.smb-server-visible; text: @tr("ui" => "Saved measures"); clicked => { root.toggle-cache-panel(false); } }
                 Text { text: root.workshop-live ? @tr("ui" => "Live inventory") : @tr("ui" => "Retained inventory: transitional view"); color: WorkshopTheme.ink; min-width: 0px; horizontal-stretch: 1; overflow: elide; }
             }
         }

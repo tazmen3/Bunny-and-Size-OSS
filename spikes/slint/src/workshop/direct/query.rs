@@ -26,6 +26,13 @@ impl SearchWork {
     }
 }
 impl DirectActive {
+    pub(in super::super) fn pending_search_progress(&self) -> Option<(u64, u64)> {
+        self.search
+            .as_ref()
+            .filter(|work| !work.job.done())
+            .map(|work| (work.request_id(), work.job.evaluated))
+    }
+
     pub(super) fn query_turn(
         &mut self,
         lane: &Mutex<Lane>,
@@ -150,9 +157,8 @@ impl DirectActive {
             notify(lane);
             return Ok(());
         }
-        let mut reset = work.job.done()
-            && self.scan.status() == DirectStatus::Finished
-            && work.job.revision != tree.revision();
+        let mut reset =
+            self.scan.status() == DirectStatus::Finished && work.job.revision != tree.revision();
         if reset {
             work.anchor = None;
             work.previous.clear();

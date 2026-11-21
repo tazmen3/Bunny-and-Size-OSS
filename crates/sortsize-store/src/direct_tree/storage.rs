@@ -42,6 +42,10 @@ impl DiskBudget {
     pub(crate) fn used(&self) -> u64 {
         self.state.lock().unwrap().0
     }
+    pub(super) fn remaining(&self) -> u64 {
+        let state = self.state.lock().unwrap();
+        state.1.saturating_sub(state.0)
+    }
     #[cfg(test)]
     pub(super) fn cap_remaining_for_test(&self, extra: u64) {
         let mut state = self.state.lock().unwrap();
@@ -128,6 +132,24 @@ enum Chunk {
     Memory { start: u64, data: Arc<MemoryChunk> },
     Disk { start: u64, offset: u64 },
 }
+#[derive(Default)]
+pub(super) struct RecordBuffer {
+    chunk: Option<(u64, u64)>,
+    bytes: Vec<u8>,
+}
+
+fn record_in_chunk<T>(
+    bytes: &[u8],
+    relative: u64,
+    read: impl FnOnce(&[u8]) -> Result<T>,
+) -> Result<T> {
+    let offset = usize::try_from(relative).map_err(|_| spool::invalid())?;
+    let remaining = bytes.get(offset..).ok_or_else(spool::invalid)?;
+    let prefix = remaining.get(..2).ok_or_else(spool::invalid)?;
+    let length = usize::from(u16::from_le_bytes(prefix.try_into().unwrap()));
+    read(remaining.get(2..2 + length).ok_or_else(spool::invalid)?)
+}
+
 impl Chunk {
     fn start(&self) -> u64 {
         match self {
@@ -221,6 +243,10 @@ impl Spool {
         self.length = length;
         Ok(())
     }
+    pub(super) fn uses_disk(&self) -> bool {
+        self.disk_length != 0
+    }
+
     pub(super) fn with_record<T>(
         &self,
         position: u64,
@@ -234,19 +260,7 @@ impl Spool {
         let chunk = &self.chunks[index];
         let relative = position - chunk.start();
         match chunk {
-            Chunk::Memory { data, .. } => {
-                let offset = usize::try_from(relative).map_err(|_| spool::invalid())?;
-                let prefix = data
-                    .bytes
-                    .get(offset..offset + 2)
-                    .ok_or_else(spool::invalid)?;
-                let length = usize::from(u16::from_le_bytes(prefix.try_into().unwrap()));
-                read(
-                    data.bytes
-                        .get(offset + 2..offset + 2 + length)
-                        .ok_or_else(spool::invalid)?,
-                )
-            }
+            Chunk::Memory { data, .. } => record_in_chunk(&data.bytes, relative, read),
             Chunk::Disk { offset, .. } => {
                 let mut file = self.file.lock().unwrap();
                 file.seek(SeekFrom::Start(offset + relative))?;
@@ -256,6 +270,54 @@ impl Spool {
             }
         }
     }
+
+    /// Ordered/background projections can amortize spill reads over a batch.
+    /// The caller reserves one MAX_BATCH + 4 scratch buffer before using this.
+    pub(super) fn with_record_buffered<T>(
+        &self,
+        position: u64,
+        buffer: &mut RecordBuffer,
+        read: impl FnOnce(&[u8]) -> Result<T>,
+    ) -> Result<T> {
+        if let Some((start, end)) = buffer.chunk
+            && (start..end).contains(&position)
+        {
+            return record_in_chunk(&buffer.bytes, position - start, read);
+        }
+        let index = self
+            .chunks
+            .partition_point(|chunk| chunk.start() <= position)
+            .checked_sub(1)
+            .ok_or_else(spool::invalid)?;
+        let chunk = &self.chunks[index];
+        let start = chunk.start();
+        match chunk {
+            Chunk::Memory { data, .. } => record_in_chunk(&data.bytes, position - start, read),
+            Chunk::Disk { offset, .. } => {
+                let end = self.chunks.get(index + 1).map_or(self.length, Chunk::start);
+                let length = usize::try_from(end - start).map_err(|_| spool::invalid())?;
+                if length > spool::MAX_BATCH + 4 {
+                    return Err(spool::invalid());
+                }
+                buffer.chunk = None;
+                if buffer.bytes.capacity() == 0 {
+                    buffer
+                        .bytes
+                        .try_reserve_exact(spool::MAX_BATCH + 4)
+                        .map_err(|_| index_limit())?;
+                }
+                buffer.bytes.resize(length, 0);
+                {
+                    let mut file = self.file.lock().unwrap();
+                    file.seek(SeekFrom::Start(*offset))?;
+                    file.read_exact(&mut buffer.bytes)?;
+                }
+                buffer.chunk = Some((start, end));
+                record_in_chunk(&buffer.bytes, position - start, read)
+            }
+        }
+    }
+
     pub(super) fn replay(&self) -> Result<Replay> {
         let charge = self
             .governor

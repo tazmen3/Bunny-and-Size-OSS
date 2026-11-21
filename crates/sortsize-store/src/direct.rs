@@ -4,12 +4,12 @@ use crate::{
     inventory::Result,
     scheduler::{CollectionOptions, Control, direct},
 };
-use sortsize_core::acquisition::Guard;
+use sortsize_core::{CancellationToken, acquisition::Guard};
 use std::{
     io,
     sync::{
         Arc, Mutex, RwLock,
-        atomic::{AtomicBool, AtomicU64, Ordering},
+        atomic::{AtomicU64, Ordering},
     },
     time::Instant,
 };
@@ -65,7 +65,7 @@ pub struct DirectScan {
     guard: Arc<Guard>,
     status: Arc<Mutex<DirectStatus>>,
     control: Control,
-    cancelled: Arc<AtomicBool>,
+    cancelled: CancellationToken,
     progress: Arc<AtomicU64>,
     worker: std::thread::JoinHandle<()>,
 }
@@ -120,7 +120,7 @@ impl DirectScan {
         let guard = Arc::new(guard);
         let status = Arc::new(Mutex::new(DirectStatus::Running));
         let control = Control::default();
-        let cancelled = Arc::new(AtomicBool::new(false));
+        let cancelled = CancellationToken::default();
         let progress = Arc::new(AtomicU64::new(0));
 
         let worker_scratch = Arc::clone(&scratch);
@@ -128,7 +128,7 @@ impl DirectScan {
         let worker_guard = Arc::clone(&guard);
         let worker_status = Arc::clone(&status);
         let worker_control = control.clone();
-        let worker_cancelled = Arc::clone(&cancelled);
+        let worker_cancelled = cancelled.clone();
         let worker_progress = Arc::clone(&progress);
         let worker = std::thread::Builder::new()
             .name("bunny-direct-scan".into())
@@ -194,7 +194,7 @@ impl DirectScan {
                     result
                 });
                 let next = match outcome {
-                    _ if worker_cancelled.load(Ordering::Acquire) => DirectStatus::Cancelled,
+                    _ if worker_cancelled.is_cancelled() => DirectStatus::Cancelled,
                     Ok(()) => DirectStatus::Finished,
                     Err(crate::inventory::Error::Io(ref e))
                         if e.kind() == io::ErrorKind::Interrupted =>
@@ -245,7 +245,14 @@ impl DirectScan {
                         metrics.report(outcome);
                     }
                 }
+                let finished = next == DirectStatus::Finished;
                 *worker_status.lock().unwrap() = next;
+                if finished && !worker_cancelled.is_cancelled() {
+                    // Coherent navigation and autosave may read the finished
+                    // tree while the same worker prepares optional indexes.
+                    let tree = tree.read().unwrap();
+                    tree.prepare_query_indexes(&worker_cancelled);
+                }
             })?;
         Ok(Self {
             tree,
@@ -288,7 +295,7 @@ impl DirectScan {
     }
 
     pub fn cancel(&self) {
-        self.cancelled.store(true, Ordering::Release);
+        self.cancelled.cancel();
         self.control.cancel();
     }
 }

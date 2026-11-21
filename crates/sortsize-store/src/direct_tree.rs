@@ -2,7 +2,9 @@
 //! for navigation and certified export. The index contains compact links and
 //! directory totals. No query or database is involved in accepting a batch.
 mod arena;
+mod file_order;
 mod metrics;
+mod name_index;
 mod seen;
 pub(crate) mod spool;
 use seen::SeenDisk;
@@ -28,8 +30,10 @@ use sortsize_core::{
     inventory_contract::{EntryId, ListingEnd, ScopeCoverage},
 };
 use std::{
+    borrow::Cow,
     cmp::Reverse,
     collections::{BinaryHeap, HashMap, hash_map::RandomState},
+    ffi::OsStr,
     fs::File,
     hash::BuildHasher,
     io::{Read, Seek, SeekFrom, Write},
@@ -219,6 +223,7 @@ struct Pending {
 pub struct DirectTree {
     root: PathBuf,
     spool: Spool,
+    file_order: file_order::FileOrders,
     nodes: Index<Node>,
     directories: Index<Directory>,
     hashes: RandomState,
@@ -231,6 +236,7 @@ pub struct DirectTree {
     top: TopHeap,
     rollback_top: Option<TopHeap>,
     revision: u64,
+    name_index: name_index::Slot,
     observations: u64,
     errors: u64,
     denied: u64,
@@ -270,9 +276,11 @@ impl DirectTree {
         let mut directories = Index::new(scratch, disk.clone(), governor.clone())?;
         directories.reserve(1)?;
         directories.push(Directory::new(NONE))?;
+        let name_index = name_index::Slot::new(&governor);
         Ok(Self {
             root,
             spool: Spool::new(scratch, disk.clone(), governor.clone())?,
+            file_order: file_order::FileOrders::default(),
             governor,
             disk,
             _working: working,
@@ -285,6 +293,7 @@ impl DirectTree {
             top: BinaryHeap::with_capacity(TOP_FILES),
             rollback_top: None,
             revision: 0,
+            name_index,
             observations: 0,
             errors: 0,
             denied: 0,
@@ -301,6 +310,15 @@ impl DirectTree {
         if self.failed {
             return Err(Error::Contract("direct analysis already failed"));
         }
+        // A batch can spill one arena block per index, its encoded observations,
+        // and the bounded lookup records for one in-progress directory.
+        let disk_headroom = (INDEX_BLOCK
+            * (<Node as arena::Fixed>::SIZE + <Directory as arena::Fixed>::SIZE)
+            + spool::MAX_BATCH
+            + 4
+            + seen::MAX_BATCH_DISK_BYTES) as u64;
+        self.name_index
+            .yield_disk_to_observations(&self.governor, &self.disk, disk_headroom);
         // Keep diagnostics outside the mutable tree borrow; restore on errors too.
         // Disabled instrumentation allocates nothing and reads no clock.
         let mut metrics = self.metrics.take();
@@ -311,7 +329,9 @@ impl DirectTree {
             if let Some(top) = self.rollback_top.take() {
                 self.top = top;
             }
+            self.name_index.discard();
             self.failed = true;
+            self.file_order.finish(false, 0);
             self.errors = self.errors.saturating_add(1);
             self.revision = self.revision.saturating_add(1);
         } else {
@@ -547,7 +567,7 @@ impl DirectTree {
                 dir.first_folder = child.id.0 as u32;
             }
         })?;
-        for record in pending {
+        for record in &pending {
             let observation = &batch.observations[record.row];
             let directory = if observation.kind == Kind::Directory {
                 let child_directory = self.directories.len as u32;
@@ -578,6 +598,7 @@ impl DirectTree {
                 same_hash: record.same_hash,
             })?;
             last = record.id;
+            self.file_order.observe(observation, &self.governor);
             if end.is_none() {
                 let seen = self.seen.get_mut(&directory_id).unwrap();
                 if let Some(disk) = &mut seen.disk {
@@ -633,6 +654,14 @@ impl DirectTree {
         self.duplicates += duplicates;
         self.revision = revision;
         propagate.finish(ancestor_visits);
+        // Use the accepted occurrence order only. Optional output cannot
+        // consume disk required to commit the current batch.
+        self.name_index.observe(
+            pending.iter().map(|record| &batch.observations[record.row]),
+            &self.scratch,
+            &self.governor,
+            &self.disk,
+        );
         Ok(children)
     }
 
@@ -645,8 +674,18 @@ impl DirectTree {
                 "direct analysis has unfinished directories",
             ));
         }
+        let summary = self.summary();
         let flush = metrics::Metrics::start(self.metrics.as_deref_mut(), metrics::Phase::Flush);
+        self.name_index.finish(
+            summary,
+            self.revision,
+            &self.scratch,
+            &self.governor,
+            &self.disk,
+        );
         flush.finish(0);
+        let complete = self.coverage(EntryId(0))? == ScopeCoverage::Complete;
+        self.file_order.finish(complete, self.len() - 1);
         self.finished = true;
         Ok(())
     }
@@ -676,6 +715,33 @@ impl DirectTree {
 
     pub fn revision(&self) -> u64 {
         self.revision
+    }
+
+    /// Prepare optional search data for a finished tree. The authoritative
+    /// observations and the exhaustive query remain available on refusal.
+    pub fn prepare_query_indexes(&self, cancel: &sortsize_core::CancellationToken) -> (bool, bool) {
+        // The small-inventory search finishes within the interactive target
+        // without reserving any additional files or delaying restoration.
+        if self.len() < 100_000 || cancel.is_cancelled() {
+            return (false, false);
+        }
+        let started = crate::scan_metrics::enabled().then(std::time::Instant::now);
+        let name = self.prepare_name_search(cancel).unwrap_or(false);
+        // The bounded name order can read just the relevant folders. Avoid
+        // competing for its spilled records with a whole-tree background sort.
+        let file_order =
+            !self.spool.uses_disk() && self.prepare_file_order(cancel).unwrap_or(false);
+        if let Some(started) = started {
+            let _ = writeln!(
+                std::io::stderr().lock(),
+                "direct_search_indexes entries={} name={} file_order={} preparation_us={}",
+                self.len() - 1,
+                name,
+                file_order,
+                started.elapsed().as_micros(),
+            );
+        }
+        (name, file_order)
     }
 
     pub fn summary(&self) -> DirectSummary {
@@ -744,11 +810,11 @@ impl DirectTree {
         let mut names = Vec::new();
         let mut node = self.node(id)?;
         while node.parent != NONE {
-            names.push(native_component(&self.record_name(&node)?)?);
+            names.push(self.record_name(&node)?);
             node = self.nodes.get(node.parent)?.ok_or_else(invalid_entry)?;
         }
         for name in names.into_iter().rev() {
-            path.push(name);
+            path.push(native_component(&name)?);
         }
         Ok(path)
     }
@@ -920,6 +986,16 @@ impl DirectTree {
 
     fn read_row(&self, id: EntryId, parent: &Path) -> Result<DirectRow> {
         let node = self.node(id)?;
+        self.read_row_into(id, node, parent, PathBuf::new())
+    }
+
+    fn read_row_into(
+        &self,
+        id: EntryId,
+        node: Node,
+        parent: &Path,
+        mut path: PathBuf,
+    ) -> Result<DirectRow> {
         let row = self.spool.with_record(node.record, spool::record)?;
         if row.id != id {
             return Err(spool::invalid());
@@ -931,10 +1007,13 @@ impl DirectTree {
         } else {
             (observation.logical, observation.allocated)
         };
+        path.clear();
+        path.as_mut_os_string().push(parent.as_os_str());
+        path.push(native_component(&observation.name)?);
         Ok(DirectRow {
             id,
             parent: entry_id(node.parent),
-            path: parent.join(native_component(&observation.name)?),
+            path,
             kind: observation.kind,
             logical,
             allocated,
@@ -973,12 +1052,21 @@ fn remember_top(heap: &mut TopHeap, id: u32, logical: u64) {
     }
 }
 
-pub(crate) fn native_component(name: &NativeName) -> Result<std::ffi::OsString> {
+pub(crate) fn native_component(name: &NativeName) -> Result<Cow<'_, OsStr>> {
     use std::path::Component;
 
-    let name = native_name(name)?;
+    #[cfg(unix)]
+    let name = match name {
+        NativeName::Posix(bytes) => {
+            use std::os::unix::ffi::OsStrExt;
+            Cow::Borrowed(OsStr::from_bytes(bytes))
+        }
+        _ => Cow::Owned(native_name(name)?),
+    };
+    #[cfg(not(unix))]
+    let name: Cow<'_, OsStr> = Cow::Owned(native_name(name)?);
     let mut components = Path::new(&name).components();
-    if !matches!(components.next(), Some(Component::Normal(component)) if component == name)
+    if !matches!(components.next(), Some(Component::Normal(component)) if component == &*name)
         || components.next().is_some()
         || name.as_encoded_bytes().contains(&0)
     {

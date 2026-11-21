@@ -70,6 +70,10 @@ struct Fixture {
 }
 impl Fixture {
     fn new() -> Self {
+        // The application shares one bounded writer. A previous fixture can
+        // finish painting while its snapshot still occupies that queue.
+        #[cfg(any(windows, target_os = "linux"))]
+        service::drain_snapshot_writer_for_test();
         slint::platform::set_platform(Box::new(TestPlatform(MinimalSoftwareWindow::new(
             RepaintBufferType::NewBuffer,
         ))))
@@ -2671,7 +2675,7 @@ fn empty_analysis_has_independent_views_pages_filter_breakdown_and_cancellation(
     w.invoke_empty_page(false);
     f.until(|_| w.get_empty_can_query() && !w.get_empty_previous());
     assert_eq!(w.get_empty_rows().row_data(0).unwrap().path, first.path);
-    w.set_empty_filter("112".into());
+    w.set_empty_filter("été-112.txt".into());
     w.invoke_empty_query();
     f.until(|_| w.get_empty_can_query());
     assert_eq!(w.get_empty_rows().row_count(), 1);

@@ -5033,6 +5033,7 @@ fn worker(
                 }
             }
             view.spawn_explicit_duplicates(&lane, &search_output, &resources);
+            let search_progress = view.pending_search_progress();
             match view.turn(
                 &lane,
                 &output,
@@ -5111,7 +5112,14 @@ fn worker(
                     std::thread::sleep(Duration::from_millis(100));
                 }
             }
-            std::thread::sleep(Duration::from_millis(2));
+            let pending = view.pending_search_progress();
+            if pending.is_some() && pending != search_progress {
+                // A productive bounded search turn can continue after yielding.
+                // The next loop still handles navigation, cancellation and save.
+                std::thread::yield_now();
+            } else {
+                std::thread::sleep(Duration::from_millis(2));
+            }
             continue;
         }
         lane.lock().unwrap().writer_owns_session =
@@ -6086,6 +6094,25 @@ fn worker(
     l.writer_owns_session = false;
     drop(l);
     drop(search_output);
+}
+
+#[cfg(all(test, any(windows, target_os = "linux")))]
+pub(super) fn drain_snapshot_writer_for_test() {
+    let deadline = Instant::now() + Duration::from_secs(30);
+    loop {
+        if let Ok((ready, release)) = direct::pause_snapshot_writer_for_test() {
+            ready
+                .recv_timeout(deadline.saturating_duration_since(Instant::now()))
+                .expect("snapshot writer did not finish the preceding test's work");
+            drop(release);
+            return;
+        }
+        assert!(
+            Instant::now() < deadline,
+            "snapshot writer queue stayed full"
+        );
+        std::thread::sleep(Duration::from_millis(3));
+    }
 }
 
 #[cfg(test)]

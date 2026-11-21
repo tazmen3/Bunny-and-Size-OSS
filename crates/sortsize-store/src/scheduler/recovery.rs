@@ -11,9 +11,21 @@ impl Session {
     ) -> Result<sortsize_core::acquisition::Attachment> {
         let stored = reference.recorded_recovery_guard(generation)?;
         let stamp = guard.evidence().1;
+        #[cfg(windows)]
+        let boundary = stored
+            .as_deref()
+            .and_then(recorded_proof)
+            .and_then(|saved| crate::inventory::queries::decode_recorded_path(saved.root).ok())
+            .filter(|root| equivalent_drive_separators(root, guard.root()))
+            .map_or_else(
+                || proof_boundary(guard),
+                |root| proof_boundary_at(guard, &root),
+            );
+        #[cfg(not(windows))]
+        let boundary = proof_boundary(guard);
         Ok(classify_attachment(
             stored.as_deref(),
-            proof_boundary(guard),
+            boundary,
             stamp.identity,
             stamp.created,
         ))
@@ -211,6 +223,36 @@ pub(crate) fn recorded_scope_path(bytes: &[u8]) -> Result<Option<PathBuf>> {
 fn proof_boundary(guard: &Guard) -> Option<Vec<u8>> {
     proof_boundary_at(guard, guard.root())
 }
+
+#[cfg(windows)]
+fn equivalent_drive_separators(a: &std::path::Path, b: &std::path::Path) -> bool {
+    use std::{
+        os::windows::ffi::OsStrExt,
+        path::{Component, Prefix},
+    };
+
+    // Win32 treats the two separators alike for ordinary drive paths. Do
+    // not apply that rule to verbatim paths or other Windows namespaces.
+    let is_drive = |path: &std::path::Path| {
+        path.is_absolute()
+            && matches!(path.components().next(), Some(Component::Prefix(prefix))
+                if matches!(prefix.kind(), Prefix::Disk(_)))
+    };
+    let separator = |unit| {
+        if unit == u16::from(b'/') {
+            u16::from(b'\\')
+        } else {
+            unit
+        }
+    };
+    is_drive(a)
+        && is_drive(b)
+        && a.as_os_str()
+            .encode_wide()
+            .map(separator)
+            .eq(b.as_os_str().encode_wide().map(separator))
+}
+
 fn proof_boundary_at(guard: &Guard, recorded_root: &std::path::Path) -> Option<Vec<u8>> {
     let (boundary, stamp) = guard.evidence();
     let mut b = vec![1, u8::from(guard.policy().same_volume)];
@@ -235,6 +277,8 @@ fn proof_boundary_at(guard: &Guard, recorded_root: &std::path::Path) -> Option<V
 }
 
 struct RecordedProof<'a> {
+    #[cfg(windows)]
+    root: &'a [u8],
     boundary: &'a [u8],
     prefix: &'a [u8],
     source: &'a [u8],
@@ -256,12 +300,18 @@ fn proof_prefix(bytes: &[u8]) -> Option<RecordedProof<'_>> {
         return None;
     }
     let mut offset = 2usize;
-    for _ in 0..4 {
+    #[cfg(windows)]
+    let mut root = &[][..];
+    for _field in 0..4 {
         let end = offset.checked_add(8)?;
         let length =
             usize::try_from(u64::from_be_bytes(bytes.get(offset..end)?.try_into().ok()?)).ok()?;
         offset = end.checked_add(length)?;
-        bytes.get(..offset)?;
+        let _value = bytes.get(end..offset)?;
+        #[cfg(windows)]
+        if _field == 0 {
+            root = _value;
+        }
     }
     if *bytes.get(offset)? > 2 {
         return None;
@@ -285,6 +335,8 @@ fn proof_prefix(bytes: &[u8]) -> Option<RecordedProof<'_>> {
         return None;
     }
     Some(RecordedProof {
+        #[cfg(windows)]
+        root,
         boundary,
         prefix: bytes.get(..prefix_end)?,
         source: bytes.get(..end)?,

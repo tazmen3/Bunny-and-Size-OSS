@@ -1,6 +1,7 @@
 //! Cooperative, bounded global ordering over the recorded in-memory tree.
-//! Each page examines its entire scope; no SQL or source filesystem is used.
-use super::{DirectRow, DirectTree};
+//! Unprepared scopes are evaluated from the recorded observations.
+use super::name_index::NameSearch;
+use super::{DirectRow, DirectTree, file_order};
 use crate::inventory::{Error, Kind, Result};
 use sortsize_core::{
     CancellationToken, InventoryKind, MetadataValue,
@@ -9,16 +10,18 @@ use sortsize_core::{
     resources::{Category, Governor, Reservation},
 };
 use std::{
+    borrow::Cow,
     cmp::Ordering,
     collections::{BTreeMap, BinaryHeap},
-    path::PathBuf,
+    ffi::OsStr,
+    path::{Path, PathBuf},
     sync::Arc,
     time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
 
 #[derive(Clone)]
 pub struct Cursor {
-    key: Arc<Key>,
+    key: Arc<Key<'static>>,
     _memory: Arc<Reservation>,
 }
 impl Eq for Cursor {}
@@ -28,37 +31,65 @@ impl PartialEq for Cursor {
     }
 }
 #[derive(Eq, PartialEq)]
-struct Key {
+struct Key<'a> {
     kind_rank: u8,
     value: Value,
     missing: bool,
     descending: bool,
-    path: PathBuf,
+    path: Cow<'a, Path>,
     id: u64,
 }
 #[derive(Clone, Eq, PartialEq, Ord, PartialOrd)]
 enum Value {
     Number(u64),
     Time(i128),
-    Text(PathBuf),
+    Name,
     Owner(Vec<u8>),
 }
 impl Ord for Cursor {
     fn cmp(&self, other: &Self) -> Ordering {
-        self.key
-            .kind_rank
-            .cmp(&other.key.kind_rank)
-            .then_with(|| self.key.missing.cmp(&other.key.missing))
+        self.key.compare(&other.key)
+    }
+}
+impl Key<'_> {
+    fn compare(&self, other: &Key<'_>) -> Ordering {
+        self.kind_rank
+            .cmp(&other.kind_rank)
+            .then_with(|| self.missing.cmp(&other.missing))
             .then_with(|| {
-                let value = self.key.value.cmp(&other.key.value);
-                if self.key.descending {
+                let value = match (&self.value, &other.value) {
+                    (Value::Name, Value::Name) => self.path.cmp(&other.path),
+                    (a, b) => a.cmp(b),
+                };
+                if self.descending {
                     value.reverse()
                 } else {
                     value
                 }
             })
-            .then_with(|| self.key.path.cmp(&other.key.path))
-            .then(self.key.id.cmp(&other.key.id))
+            .then_with(|| self.path.cmp(&other.path))
+            .then(self.id.cmp(&other.id))
+    }
+
+    fn retain(self) -> Result<Cursor> {
+        let memory = Governor::global()
+            .reserve(
+                Category::Queries,
+                (self.path.as_os_str().len() * 4 + 512) as u64,
+                None,
+            )
+            .ok_or(Error::Contract("direct query path budget"))?;
+        Ok(Cursor {
+            key: Arc::new(Key {
+                path: Cow::Owned(self.path.into_owned()),
+                kind_rank: self.kind_rank,
+                value: self.value,
+                missing: self.missing,
+                descending: self.descending,
+                id: self.id,
+            }),
+            _memory: Arc::new(memory),
+        })
     }
 }
 impl PartialOrd for Cursor {
@@ -91,19 +122,54 @@ fn time(value: SystemTime) -> i128 {
         Err(e) => -(e.duration().as_nanos() as i128),
     }
 }
-fn cursor(
-    row: &DirectRow,
+pub(super) fn size_class(logical: Option<u64>) -> usize {
+    match logical {
+        Some(0) => 0,
+        Some(1..=1023) => 1,
+        Some(1024..=1_048_575) => 2,
+        Some(1_048_576..=1_073_741_823) => 3,
+        Some(_) => 4,
+        None => 5,
+    }
+}
+
+pub(super) fn extension_bytes(extension: &OsStr) -> u64 {
+    (extension.len() * 4 + 256) as u64
+}
+
+fn unfiltered_name_order(
+    parent: Option<EntryId>,
+    criteria: Option<&SearchQuery>,
+    sort: i32,
+) -> Option<file_order::Scope> {
+    if parent.is_some() || !matches!(sort, 2 | 3) {
+        return None;
+    }
+    let criteria = criteria?;
+    if criteria.name.is_some()
+        || criteria.path.is_some()
+        || criteria.extension.is_some()
+        || criteria.glob.is_some()
+        || criteria.min_bytes.is_some()
+        || criteria.max_bytes.is_some()
+        || criteria.modified_after.is_some()
+        || criteria.modified_before.is_some()
+    {
+        return None;
+    }
+    match criteria.kind {
+        Some(InventoryKind::File) => Some(file_order::Scope::Files),
+        None => Some(file_order::Scope::All),
+        _ => None,
+    }
+}
+
+fn key<'a>(
+    row: &'a DirectRow,
     sort: i32,
     labels: &[crate::inventory::ordered::OwnerLabel],
     group_directories: bool,
-) -> Result<Cursor> {
-    let memory = Governor::global()
-        .reserve(
-            Category::Queries,
-            (row.path.capacity() * 4 + 512) as u64,
-            None,
-        )
-        .ok_or(Error::Contract("direct query path budget"))?;
+) -> Key<'a> {
     let numeric = |n: Option<u64>| (Value::Number(n.unwrap_or(0)), n.is_none());
     let date = |n: Option<i128>| (Value::Time(n.unwrap_or(0)), n.is_none());
     let (value, missing) = match sort {
@@ -142,19 +208,16 @@ fn cursor(
             MetadataValue::Known { value, .. } => Some(time(value)),
             _ => None,
         }),
-        _ => (Value::Text(row.path.clone()), false),
+        _ => (Value::Name, false),
     };
-    Ok(Cursor {
-        key: Arc::new(Key {
-            kind_rank: u8::from(group_directories && row.kind != Kind::Directory),
-            value,
-            missing,
-            descending: matches!(sort, 0 | 3 | 4 | 7 | 8 | 10),
-            path: row.path.clone(),
-            id: row.id.0,
-        }),
-        _memory: Arc::new(memory),
-    })
+    Key {
+        kind_rank: u8::from(group_directories && row.kind != Kind::Directory),
+        value,
+        missing,
+        descending: matches!(sort, 0 | 3 | 4 | 7 | 8 | 10),
+        path: Cow::Borrowed(&row.path),
+        id: row.id.0,
+    }
 }
 /// A page and exact counts are published only after all rows of its scope were examined.
 /// While a scan runs, this is a dated partial observation and may be refreshed.
@@ -164,7 +227,9 @@ pub struct PageQuery {
     next_id: u64,
     end: u64,
     query: Option<PreparedQuery>,
+    name_search: Option<NameSearch>,
     sort: i32,
+    file_order_scope: Option<file_order::Scope>,
     anchor: Option<Cursor>,
     inclusive_anchor: bool,
     folders_only: bool,
@@ -202,17 +267,27 @@ impl PageQuery {
         let memory = Governor::global()
             .reserve(Category::Queries, 64 * 1024, None)
             .ok_or(Error::Contract("direct query memory budget"))?;
+        let file_order_scope = unfiltered_name_order(parent, query, sort);
         let query = query
             .map(PreparedQuery::new)
             .transpose()
             .map_err(|_| Error::Contract("invalid direct search"))?;
+        let name_search = if parent.is_none() {
+            query
+                .as_ref()
+                .and_then(|query| NameSearch::new(tree, query))
+        } else {
+            None
+        };
         Ok(Self {
             parent,
             after: None,
             next_id: 1,
             end: tree.summary().entries.saturating_add(1),
             query,
+            name_search,
             sort,
+            file_order_scope,
             anchor,
             inclusive_anchor: false,
             folders_only: false,
@@ -239,16 +314,20 @@ impl PageQuery {
     /// Restrict a sibling order to directories without materializing the scope.
     pub fn folders_only(mut self) -> Self {
         self.folders_only = true;
+        self.name_search = None;
         self
     }
     /// Reveal a directory at the start of its ordered window, inclusively.
     pub fn start_at(mut self, tree: &DirectTree, entry: EntryId) -> Result<Self> {
-        self.anchor = Some(cursor(
-            &tree.row(entry)?,
-            self.sort,
-            &self.owner_labels,
-            self.parent.is_some() && self.sort >= 2,
-        )?);
+        self.anchor = Some(
+            key(
+                &tree.row(entry)?,
+                self.sort,
+                &self.owner_labels,
+                self.parent.is_some() && self.sort >= 2,
+            )
+            .retain()?,
+        );
         self.inclusive_anchor = true;
         Ok(self)
     }
@@ -271,11 +350,34 @@ impl PageQuery {
         if self.done {
             return Ok(true);
         }
+        if self
+            .name_search
+            .as_ref()
+            .is_some_and(|search| !search.is_current(tree))
+        {
+            return Err(Error::Contract("direct name query revision changed"));
+        }
+        if self.evaluated == 0
+            && !self.folders_only
+            && self.anchor.as_ref().is_none_or(|anchor| {
+                anchor.key.kind_rank == 0
+                    && !anchor.key.missing
+                    && matches!(anchor.key.value, Value::Name)
+            })
+            && let Some(scope) = self.file_order_scope
+            // A damaged, slow or unaffordable order leaves the exhaustive search
+            // available. That search also preserves cancellation semantics.
+            && self.apply_file_order(tree, scope, cancel).is_ok()
+        {
+            return Ok(true);
+        }
         let started = Instant::now();
         // The tree cannot change during this turn. Adjacent observations often
         // share a parent, so rebuild its native path only when it changes.
         let mut last_parent = None;
-        for _ in 0..256 {
+        let mut row_path = PathBuf::new();
+        let mut remaining = 256;
+        while remaining != 0 {
             if cancel.is_cancelled() {
                 return Err(Error::Contract("direct query cancelled"));
             }
@@ -298,121 +400,196 @@ impl PageQuery {
                     self.done = true;
                     break;
                 }
+                if let Some(search) = &mut self.name_search {
+                    match search.skip(tree, self.next_id) {
+                        Ok(Some((next, gaps))) => {
+                            self.evaluated += next - self.next_id;
+                            self.gaps += gaps;
+                            self.next_id = next;
+                            continue;
+                        }
+                        Ok(None) => {}
+                        Err(_) => {
+                            // Earlier groups passed authentication. Fall back
+                            // from the first ID of this still-unexamined block.
+                            self.name_search = None;
+                        }
+                    }
+                }
                 let id = EntryId(self.next_id);
-                let parent = tree.parent(id)?.ok_or_else(super::invalid_entry)?;
+                let node = tree.node(id)?;
+                let parent = super::entry_id(node.parent).ok_or_else(super::invalid_entry)?;
                 let path = match &mut last_parent {
                     Some((previous, path)) if *previous == parent => path,
                     slot => &slot.insert((parent, tree.path(parent)?)).1,
                 };
-                let row = tree.read_row(id, path)?;
+                let row = tree.read_row_into(id, node, path, std::mem::take(&mut row_path))?;
                 self.next_id += 1;
                 row
             };
-            self.evaluated += 1;
-            if self.folders_only && row.kind != Kind::Directory {
-                if self.done {
-                    break;
-                }
-                continue;
-            }
-            let matched = if let Some(query) = &self.query {
-                let kind = match row.kind {
-                    Kind::File => InventoryKind::File,
-                    Kind::Directory => InventoryKind::Directory,
-                    Kind::Symlink => InventoryKind::Symlink,
-                    Kind::Special => InventoryKind::Special,
-                    Kind::Unknown => {
-                        self.gaps += 1;
-                        continue;
-                    }
-                };
-                let modified = row.modified.and_then(|(s, n)| {
-                    if s >= 0 {
-                        UNIX_EPOCH.checked_add(Duration::new(s as u64, n))
-                    } else {
-                        UNIX_EPOCH
-                            .checked_sub(Duration::from_secs(s.unsigned_abs()))
-                            .and_then(|t| t.checked_add(Duration::from_nanos(u64::from(n))))
-                    }
-                });
-                match query.evaluate_path(&row.path, kind, row.logical, modified, Some(&self.root))
-                {
-                    Evaluation::Match => true,
-                    Evaluation::NoMatch => false,
-                    _ => {
-                        self.gaps += 1;
-                        false
-                    }
-                }
-            } else {
-                true
-            };
-            if matched {
-                self.matches += 1;
-                if row.kind == Kind::File {
-                    self.files += 1;
-                    match row.logical {
-                        Some(n) => self.logical += u128::from(n),
-                        None => self.unknown_sizes += 1,
-                    }
-                    self.classes[match row.logical {
-                        Some(0) => 0,
-                        Some(1..=1023) => 1,
-                        Some(1024..=1_048_575) => 2,
-                        Some(1_048_576..=1_073_741_823) => 3,
-                        Some(_) => 4,
-                        None => 5,
-                    }] += 1;
-                    let extension = row.path.extension().unwrap_or_default();
-                    if let Some(count) = self.extensions.get_mut(extension) {
-                        count.0 += 1;
-                        count.1 += u128::from(row.logical.unwrap_or(0));
-                    } else if self.extensions.len() < 100 {
-                        if let Some(memory) = Governor::global().reserve(
-                            Category::Queries,
-                            (extension.len() * 4 + 256) as u64,
-                            None,
-                        ) {
-                            self.extension_memory.push(memory);
-                            self.extensions.insert(
-                                extension.to_owned(),
-                                (1, u128::from(row.logical.unwrap_or(0))),
-                            );
-                        } else {
-                            self.other_extensions.0 += 1;
-                            self.other_extensions.1 += u128::from(row.logical.unwrap_or(0));
-                        }
-                    } else {
-                        self.other_extensions.0 += 1;
-                        self.other_extensions.1 += u128::from(row.logical.unwrap_or(0));
-                    }
-                }
-                let key = cursor(
-                    &row,
-                    self.sort,
-                    &self.owner_labels,
-                    self.parent.is_some() && self.sort >= 2,
-                )?;
-                if self
-                    .anchor
-                    .as_ref()
-                    .is_none_or(|anchor| key > *anchor || (self.inclusive_anchor && key == *anchor))
-                {
-                    let keep = self.kept.len() < self.limit + 1
-                        || self.kept.peek().is_some_and(|last| key < last.cursor);
-                    if keep {
-                        self.kept.push(Kept { cursor: key });
-                        if self.kept.len() > self.limit + 1 {
-                            self.kept.pop();
-                        }
-                    }
-                }
-            }
+            self.observe(&row)?;
+            remaining -= 1;
+            row_path = row.path;
             if self.done {
                 break;
             }
         }
         Ok(self.done)
+    }
+    fn apply_file_order(
+        &mut self,
+        tree: &DirectTree,
+        scope: file_order::Scope,
+        cancel: &CancellationToken,
+    ) -> Result<()> {
+        let anchor = self
+            .anchor
+            .as_ref()
+            .map(|cursor| (cursor.key.path.as_ref(), EntryId(cursor.key.id)));
+        let (totals, ids) = tree.unfiltered_window(
+            self.revision,
+            file_order::Window {
+                scope,
+                descending: self.sort == 3,
+                anchor,
+                inclusive: self.inclusive_anchor,
+                limit: self.limit + 1,
+            },
+            cancel,
+        )?;
+        let mut kept = BinaryHeap::with_capacity(ids.len());
+        for id in ids {
+            if cancel.is_cancelled() {
+                return Err(Error::Contract("direct query cancelled"));
+            }
+            let row = tree.row(id)?;
+            kept.push(Kept {
+                cursor: key(&row, self.sort, &[], false).retain()?,
+            });
+        }
+        let mut extension_memory = Vec::with_capacity(totals.extensions.len());
+        for extension in totals.extensions.keys() {
+            extension_memory.push(
+                Governor::global()
+                    .reserve(Category::Queries, extension_bytes(extension), None)
+                    .ok_or(Error::Contract("direct query extension budget"))?,
+            );
+        }
+        if cancel.is_cancelled() {
+            return Err(Error::Contract("direct query cancelled"));
+        }
+        self.kept = kept;
+        self.evaluated = totals.evaluated;
+        self.matches = match scope {
+            file_order::Scope::Files => totals.files,
+            file_order::Scope::All => totals.all_matches(),
+        };
+        self.gaps = totals.gaps;
+        self.files = totals.files;
+        self.logical = totals.logical;
+        self.unknown_sizes = totals.unknown_sizes;
+        self.classes = totals.classes;
+        self.extensions = totals.extensions.clone();
+        self.other_extensions = totals.other_extensions;
+        self.extension_memory = extension_memory;
+        self.done = true;
+        Ok(())
+    }
+    fn observe(&mut self, row: &DirectRow) -> Result<()> {
+        self.evaluated += 1;
+        if self.folders_only && row.kind != Kind::Directory {
+            return Ok(());
+        }
+        let matched = if let Some(query) = &self.query {
+            let kind = match row.kind {
+                Kind::File => InventoryKind::File,
+                Kind::Directory => InventoryKind::Directory,
+                Kind::Symlink => InventoryKind::Symlink,
+                Kind::Special => InventoryKind::Special,
+                Kind::Unknown => {
+                    self.gaps += 1;
+                    return Ok(());
+                }
+            };
+            let modified = row.modified.and_then(|(s, n)| {
+                if s >= 0 {
+                    UNIX_EPOCH.checked_add(Duration::new(s as u64, n))
+                } else {
+                    UNIX_EPOCH
+                        .checked_sub(Duration::from_secs(s.unsigned_abs()))
+                        .and_then(|t| t.checked_add(Duration::from_nanos(u64::from(n))))
+                }
+            });
+            match query.evaluate_path(&row.path, kind, row.logical, modified, Some(&self.root)) {
+                Evaluation::Match => true,
+                Evaluation::NoMatch => false,
+                _ => {
+                    self.gaps += 1;
+                    false
+                }
+            }
+        } else {
+            true
+        };
+        if matched {
+            self.matches += 1;
+            if row.kind == Kind::File {
+                self.files += 1;
+                match row.logical {
+                    Some(n) => self.logical += u128::from(n),
+                    None => self.unknown_sizes += 1,
+                }
+                self.classes[size_class(row.logical)] += 1;
+                let extension = row.path.extension().unwrap_or_default();
+                if let Some(count) = self.extensions.get_mut(extension) {
+                    count.0 += 1;
+                    count.1 += u128::from(row.logical.unwrap_or(0));
+                } else if self.extensions.len() < 100 {
+                    if let Some(memory) = Governor::global().reserve(
+                        Category::Queries,
+                        extension_bytes(extension),
+                        None,
+                    ) {
+                        self.extension_memory.push(memory);
+                        self.extensions.insert(
+                            extension.to_owned(),
+                            (1, u128::from(row.logical.unwrap_or(0))),
+                        );
+                    } else {
+                        self.other_extensions.0 += 1;
+                        self.other_extensions.1 += u128::from(row.logical.unwrap_or(0));
+                    }
+                } else {
+                    self.other_extensions.0 += 1;
+                    self.other_extensions.1 += u128::from(row.logical.unwrap_or(0));
+                }
+            }
+            let key = key(
+                row,
+                self.sort,
+                &self.owner_labels,
+                self.parent.is_some() && self.sort >= 2,
+            );
+            if self.anchor.as_ref().is_none_or(|anchor| {
+                let order = key.compare(&anchor.key);
+                order.is_gt() || (self.inclusive_anchor && order.is_eq())
+            }) {
+                let keep = self.kept.len() < self.limit + 1
+                    || self
+                        .kept
+                        .peek()
+                        .is_some_and(|last| key.compare(&last.cursor.key).is_lt());
+                if keep {
+                    self.kept.push(Kept {
+                        cursor: key.retain()?,
+                    });
+                    if self.kept.len() > self.limit + 1 {
+                        self.kept.pop();
+                    }
+                }
+            }
+        }
+        Ok(())
     }
     pub fn rows(&self, tree: &DirectTree) -> Result<Vec<DirectRow>> {
         let mut keys = self.kept.iter().map(|k| &k.cursor).collect::<Vec<_>>();

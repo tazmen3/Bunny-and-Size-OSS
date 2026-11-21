@@ -1093,7 +1093,8 @@ fn verify_automatic_snapshot_preserves_it_and_remeasures_the_source() {
             && host.cache_current.as_ref().is_some_and(|cache| {
                 cache.id == host.cache_id
                     && cache.catalogue.len() == 1
-                    && cache.catalogue[0].directory == snapshot
+                    && std::fs::canonicalize(&cache.catalogue[0].directory)
+                        .is_ok_and(|path| path == snapshot)
             })
     });
     std::fs::write(&file, [0; 32]).unwrap();

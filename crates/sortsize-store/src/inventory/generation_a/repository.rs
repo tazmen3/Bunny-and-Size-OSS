@@ -306,7 +306,7 @@ impl Repository {
             return Err(Error::Contract("repository generation identity exhausted"));
         }
         let next = state.next_generation.saturating_add(1);
-        self.admit_allocation()?;
+        self.admit_allocation(true)?;
         // High-water is durable before an ID is returned. Gaps after a crash
         // are permitted; reuse is not. Receipts survive generation retirement.
         write_json(

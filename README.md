@@ -2,24 +2,24 @@
 
 Bunny and Size analyzes local storage on Ubuntu and Windows. Explore folder sizes, find large or duplicate files, and reopen saved scans offline.
 
-## Download v0.5.0-rc.3
+## Download v0.5.0
 
-This is an evaluation prerelease.
+Stable release for Ubuntu 24.04 and Windows 11.
 
 | Platform | Download |
 | --- | --- |
-| Windows 11 (x64) | [Windows archive (.zip)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/Bunny-and-Size-v0.5.0-rc.3-windows-x86_64.zip) |
-| Ubuntu 24.04 (x86_64) | [Ubuntu archive (.tar.gz)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/Bunny-and-Size-v0.5.0-rc.3-ubuntu-x86_64.tar.gz) |
-| Source code | [Source archive (.tar.gz)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/Bunny-and-Size-v0.5.0-rc.3-source.tar.gz) |
+| Windows 11 (x64) | [Windows archive (.zip)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0/Bunny-and-Size-v0.5.0-windows-x86_64.zip) |
+| Ubuntu 24.04 (x86_64) | [Ubuntu archive (.tar.gz)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0/Bunny-and-Size-v0.5.0-ubuntu-x86_64.tar.gz) |
+| Source code | [Source archive (.tar.gz)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0/Bunny-and-Size-v0.5.0-source.tar.gz) |
 
-[Release notes](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.5.0-rc.3) · [SHA-256 checksums](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/SHA256SUMS) · [Build provenance](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/PROVENANCE.json)
+[Release notes](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/tag/v0.5.0) · [SHA-256 checksums](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0/SHA256SUMS) · [Build provenance](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0/PROVENANCE.json)
 
 ## Run the app
 
 Extract the entire archive before launching the app.
 
 - **Ubuntu**. Run `./bunny-and-size` from the extracted folder in an X11 or XWayland session.
-- **Windows**. Open `bunny-and-size.exe` from the extracted folder. The app requires the x64 Visual C++ runtime. [Microsoft Visual C++ Redistributable](https://aka.ms/vc14/vc_redist.x64.exe)
+- **Windows**. Open `bunny-and-size.exe` from the extracted folder. The app requires the x64 Visual C++ runtime. The Windows executables are unsigned. [Microsoft Visual C++ Redistributable](https://aka.ms/vc14/vc_redist.x64.exe)
 
 The standard CLI is `bunny-and-size-cli`, also available as `sortsize`. Use `bunny-and-size-inventory-cli` for inventory commands.
 

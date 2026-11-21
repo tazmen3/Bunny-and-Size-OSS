@@ -1,29 +1,30 @@
-# Bunny and Size 0.5.0-rc.3
+# Bunny and Size 0.5.0
 
-Evaluation prerelease for Windows 11 x64 and Ubuntu 24.04 x86_64.
+Stable release for Ubuntu 24.04 x86_64 and Windows 11 x64.
 
-## What's new
+## What's new in 0.5
 
-- The NAS view keeps discovered SMB shares visible and lists shares disconnected in Bunny with a Reconnect action for each one.
-- Click a share to start its first scan. If a measurement is already available, the click opens it. Use **Scan** to refresh that measurement. Scanning the whole server still asks you to confirm the selected shares.
-- The footer updates immediately after a language change. Screen readers distinguish the two unit controls, and shorter windows leave more room for the folder table.
-- Global search avoids repeated parent-path lookups. The minimum-size filter in duplicate-file searches now applies to files and reports complete coverage when verification succeeds.
+- Save and reopen storage inventories, including when the original drive or share is offline. Compare saved inventories and search for duplicates across sources.
+- Open an existing SMB measurement from the NAS view with one click. Use **Scan** to refresh it, or **Reconnect** to recover a disconnected share.
+- Closing **Saved measures** with Escape returns keyboard focus to the button that opened it. The Windows inventory CLI accepts equivalent path separators on local drives when checking duplicate searches.
+- Large saved inventories use on-disk indexes for exact name searches and sorted results under constrained memory.
 
 ## Download and run
 
-Extract the full archive and verify its checksum with [SHA256SUMS](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/SHA256SUMS).
+Extract the full archive and verify it against [SHA256SUMS](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0/SHA256SUMS).
 
 | Platform | Download |
 | --- | --- |
-| Windows 11 x64 | [Windows (.zip)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/Bunny-and-Size-v0.5.0-rc.3-windows-x86_64.zip) |
-| Ubuntu 24.04 x86_64 | [Ubuntu (.tar.gz)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/Bunny-and-Size-v0.5.0-rc.3-ubuntu-x86_64.tar.gz) |
-| Source code | [Source archive (.tar.gz)](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0-rc.3/Bunny-and-Size-v0.5.0-rc.3-source.tar.gz) |
+| Ubuntu 24.04 x86_64 | [Ubuntu archive](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0/Bunny-and-Size-v0.5.0-ubuntu-x86_64.tar.gz) |
+| Windows 11 x64 | [Windows archive](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0/Bunny-and-Size-v0.5.0-windows-x86_64.zip) |
+| Source code | [Offline build archive](https://github.com/tazmen3/Bunny-and-Size-OSS/releases/download/v0.5.0/Bunny-and-Size-v0.5.0-source.tar.gz) |
 
-- **Windows**. Open `bunny-and-size.exe` in the extracted folder. The app requires the [x64 Microsoft Visual C++ runtime](https://aka.ms/vc14/vc_redist.x64.exe).
-- **Ubuntu**. Run `./bunny-and-size` from the extracted folder in an X11 or XWayland session.
+- **Ubuntu**. Run `./bunny-and-size` from the extracted directory in an X11 or XWayland session.
+- **Windows**. Launch `bunny-and-size.exe` in the extracted directory. The app requires the [x64 Microsoft Visual C++ runtime](https://aka.ms/vc14/vc_redist.x64.exe). The executables are unsigned. SmartScreen and managed-device policies may affect launch.
 
-## Validation
+## Known limits
 
-The SMB view and single-click workflow were checked on a physical NAS from Windows. Targeted SMB and interface tests also passed on Ubuntu in a virtual machine. Earlier RC.3 load runs verified local inventories up to 10 million files in Auto mode. The full qualification matrix is still in progress. NAS scan performance work is deferred.
+- The first exact page waits for integrity verification when opening a saved inventory. In qualification on Ubuntu, opening and producing the first page at 10 million files with a 128 MiB memory limit took 110.88 seconds, including 107.95 seconds for integrity verification. The 100 ms opening target and the full load qualification matrix remain open.
+- Physical multi-monitor qualification is planned for 0.6. NAS scan performance qualification remains open.
 
-The original code uses Apache-2.0. The archives contain third-party licenses, artwork attribution, and build provenance.
+The original code uses Apache-2.0. The downloads include third-party notices, artwork attribution, and build provenance. The source archive includes the Rust dependencies for offline builds.

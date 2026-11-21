@@ -2,6 +2,123 @@
 use super::*;
 
 impl Repository {
+    /// A refresh can allocate a new ID after a crash before any generation was
+    /// installed. Keep the abandoned files and their quota charge intact.
+    pub(super) fn quarantine_empty_candidate(
+        &mut self,
+        g: GenerationId,
+        cancel: &CancellationToken,
+    ) -> Result<bool> {
+        let path = self.candidate_path(g);
+        match std::fs::symlink_metadata(&path) {
+            Err(error) if error.kind() == std::io::ErrorKind::NotFound => return Ok(false),
+            Err(error) => return Err(error.into()),
+            Ok(_) => (),
+        }
+        for path in [
+            self.generation_path(g),
+            self.directory
+                .join(format!(".stage-a-{:032x}-{:016x}", self.inventory.0, g.0)),
+            self.directory.join(format!(".pending-adopt-{:016x}", g.0)),
+        ] {
+            match std::fs::symlink_metadata(path) {
+                Err(error) if error.kind() == std::io::ErrorKind::NotFound => (),
+                Err(error) => return Err(error.into()),
+                Ok(_) => return Ok(false),
+            }
+        }
+        self.require_allocation(g)?;
+        let Some(store) = self.inspect_empty_candidate(&path, cancel)? else {
+            return Ok(false);
+        };
+        #[cfg(any(windows, test))]
+        let store = {
+            crate::inventory::owner::install(&path, &store._owner)?;
+            drop(release_store(store)?);
+            let Some(store) = self.inspect_empty_candidate(&path, cancel)? else {
+                return Ok(false);
+            };
+            crate::inventory::owner::verify_installed(&path, &store._owner)?;
+            store
+        };
+        self.quarantine_group(&path, g, store, cancel, false)?;
+        Ok(true)
+    }
+
+    fn inspect_empty_candidate(
+        &self,
+        path: &Path,
+        cancel: &CancellationToken,
+    ) -> Result<Option<Store>> {
+        lifecycle::check_directory(path)?;
+        // A fresh schema and its initialization WAL fit in this envelope.
+        // Additional artifacts or unusual sizes are outside this retry case.
+        if lifecycle::artifact_bytes(path)? > 1024 * 1024 {
+            return Ok(None);
+        }
+        for item in std::fs::read_dir(path)? {
+            let name = item?.file_name();
+            if ![
+                "owner.lock",
+                "inventory.db",
+                "inventory.db-wal",
+                "inventory.db-shm",
+            ]
+            .iter()
+            .any(|expected| name == *expected)
+            {
+                return Ok(None);
+            }
+        }
+        let memory = Governor::global()
+            .reserve(Category::Sqlite, FRAME, None)
+            .ok_or(Error::Contract("empty candidate verification budget"))?;
+        let store = match Store::inspect_admitted(path, cancel, memory) {
+            Err(Error::Contract("inventory already owned or native lock unavailable")) => {
+                return Ok(None);
+            }
+            result => result?,
+        };
+        if store.inventory != self.inventory || store.source != self.source {
+            return Err(Error::Contract("foreign repository candidate preserved"));
+        }
+        let version: i64 = store
+            .db
+            .pragma_query_value(None, "user_version", |row| row.get(0))?;
+        if version != 6
+            || store
+                .db
+                .prepare("SELECT 1 FROM generations LIMIT 1")?
+                .exists([])?
+        {
+            return Ok(None);
+        }
+        adoption_retry::known_schema(&store.db, version)?;
+        check_full(&store.db)?;
+        // The atomic generation initialization would populate several of these
+        // tables. Every observation table must still be empty after migration.
+        let empty: bool = store.db.query_row(
+            "SELECT (SELECT count(*) FROM identity)=1
+                AND NOT EXISTS(SELECT 1 FROM identity WHERE latest IS NOT NULL OR latest_complete IS NOT NULL)
+                AND (SELECT count(*) FROM retention)=1
+                AND EXISTS(SELECT 1 FROM retention WHERE singleton=1 AND semantic=1 AND enabled=0 AND days=30 AND pending_purge=0)
+                AND NOT EXISTS(SELECT 1 FROM generations)
+                AND NOT EXISTS(SELECT 1 FROM entries)
+                AND NOT EXISTS(SELECT 1 FROM tasks)
+                AND NOT EXISTS(SELECT 1 FROM contributions)
+                AND NOT EXISTS(SELECT 1 FROM recovery_guard)
+                AND NOT EXISTS(SELECT 1 FROM measurements)
+                AND NOT EXISTS(SELECT 1 FROM entry_evidence)
+                AND NOT EXISTS(SELECT 1 FROM acquisition_records)
+                AND NOT EXISTS(SELECT 1 FROM history_receipt)
+                AND NOT EXISTS(SELECT 1 FROM entry_properties)
+                AND NOT EXISTS(SELECT 1 FROM collection_options)",
+            [],
+            |row| row.get(0),
+        )?;
+        Ok(empty.then_some(store))
+    }
+
     /// Reconcile a possible publication, then preserve a known interrupted
     /// stage in quarantine. This performs no source acquisition and grants no
     /// READY capability to a partial model. Unknown/corrupt/live stages refuse.
@@ -40,6 +157,17 @@ impl Repository {
             crate::inventory::owner::verify_installed(&stage, &store._owner)?;
             store
         };
+        self.quarantine_group(&stage, g, store, cancel, true)
+    }
+
+    fn quarantine_group(
+        &mut self,
+        stage: &Path,
+        g: GenerationId,
+        store: Store,
+        cancel: &CancellationToken,
+        recover_catalogue: bool,
+    ) -> Result<()> {
         let Store {
             db,
             _canonical,
@@ -53,16 +181,18 @@ impl Repository {
         cancelled(cancel)?;
         // Preflight the stage before explicit catalogue writes, so a future,
         // foreign or corrupt stage cannot trigger even pointer reconstruction.
-        self.recover_catalogue(cancel)?;
-        let bytes = lifecycle::artifact_bytes(&stage)?;
+        if recover_catalogue {
+            self.recover_catalogue(cancel)?;
+        }
+        let bytes = lifecycle::artifact_bytes(stage)?;
         let governor = Governor::global();
-        let free = sortsize_core::resources::native_free_disk(&stage)
+        let free = sortsize_core::resources::native_free_disk(stage)
             .ok_or(Error::Contract("retry stage capacity unavailable"))?;
         // A live or sticky VFS ledger cannot be moved. Reacquiring a guard
         // succeeds only after all earlier ledger handles finished. Our own
         // exclusive native lease prevents a new cooperating opener in between.
         let closed = governor
-            .guard_artifact_group(&stage, free, bytes)
+            .guard_artifact_group(stage, free, bytes)
             .ok_or(Error::Contract(
                 "interrupted stage still owns native handles or quota",
             ))?;
@@ -84,12 +214,12 @@ impl Repository {
                 "quarantine destination occupied; preserved",
             ));
         }
-        let moved = publish_directory(&stage, &quarantine);
+        let moved = publish_directory(stage, &quarantine);
         // A parent synchronization error after rename is not a rollback.
         // Relocate charges for the observed move even when synchronization fails.
         if !stage.exists()
             && quarantine.is_dir()
-            && !governor.relocate_artifact_group(&stage, &quarantine)
+            && !governor.relocate_artifact_group(stage, &quarantine)
         {
             return Err(Error::Contract(
                 "quarantine moved; accounting reconciliation required",
